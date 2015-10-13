@@ -9,21 +9,55 @@
 import Foundation
 
 public class Observable<T> : NSObject {
+    
     public typealias Observer = (T) -> Void
     
-    public var willChange = [Observer]()
-    public var didChange = [Observer]()
-    
     public var value: T {
-        willSet (newValue) {
-            willChange.forEach { observer in observer(newValue) }
+        set(newValue) {
+            storage = newValue
+            observers.forEach { reference in
+                reference.observer(storage)
+            }
         }
-        didSet {
-            didChange.forEach { observer in observer(value) }
+        get {
+            return storage
         }
     }
+    
+    private var storage: T
+    private var observers = [ObserverReference<T>]()
     
     public init(_ initial: T) {
-        value = initial
+        storage = initial
     }
 }
+
+public extension Observable {
+    public func addObserver(observer: Observer) -> Disposable {
+        let reference = ObserverReference(observer: observer, observable: self)
+        observers.append(reference)
+        return reference
+    }
+}
+
+
+class ObserverReference<T> : NSObject, Disposable {
+    private let observer: Observable<T>.Observer
+    private weak var observable: Observable<T>?
+    
+    private init(observer: Observable<T>.Observer, observable: Observable<T>) {
+        self.observer = observer
+        self.observable = observable
+    }
+    
+    internal func dispose() {
+        guard let observable = observable else {
+            return
+        }
+        
+        observable.observers = observable.observers.filter { o in
+            o !== self
+        }
+    }
+}
+
