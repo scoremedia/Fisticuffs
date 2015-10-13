@@ -40,5 +40,29 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UITextField") {
+            it("should support 2 way binding on its text value") {
+                
+                let value = Observable("Hello")
+                let textField = UITextField()
+                textField.b_text = value
+                
+                expect(textField.text) == "Hello"
+                
+                // pretend the user types " world"
+                textField.text = (textField.text ?? "") + " world"
+                textField.sendActionsForControlEvents(.EditingChanged)
+                
+                expect(textField.text) == "Hello world"
+                expect(value.value) == "Hello world"
+                
+                // modify it programmatically
+                value.value = "Bye"
+                
+                expect(textField.text) == "Bye"
+                expect(value.value) == "Bye"
+            }
+        }
+        
     }
 }

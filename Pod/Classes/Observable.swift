@@ -36,6 +36,7 @@ public extension Observable {
     public func addObserver(observer: Observer) -> Disposable {
         let reference = ObserverReference(observer: observer, observable: self)
         observers.append(reference)
+        observer(value)
         return reference
     }
 }

@@ -14,7 +14,7 @@ class Action: NSObject, Disposable {
     private weak var control: UIControl?
     let events: UIControlEvents
     let action: Void -> Void
-    private init(actionsState: ActionsState, control: UIControl, events: UIControlEvents, action: Void -> Void) {
+    internal init(actionsState: ActionsState, control: UIControl, events: UIControlEvents, action: Void -> Void) {
         self.actionsState = actionsState
         self.control = control
         self.events = events
@@ -44,13 +44,13 @@ class Action: NSObject, Disposable {
 
 private var actionsStateKey = 0
 
-private class ActionsState {
+internal class ActionsState {
     var registeredActions = [Action]()
 }
 
 extension UIControl {
     
-    private var actionsState: ActionsState {
+    internal var actionsState: ActionsState {
         if let existing = objc_getAssociatedObject(self, &actionsStateKey) as? ActionsState {
             return existing
         }
