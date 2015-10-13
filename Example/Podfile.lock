@@ -1,0 +1,14 @@
+PODS:
+  - Bindings (0.1.0)
+
+DEPENDENCIES:
+  - Bindings (from `../`)
+
+EXTERNAL SOURCES:
+  Bindings:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Bindings: ee6a18cff853e4c52ea3f18f20087b1a65afb63d
+
+COCOAPODS: 0.38.2
