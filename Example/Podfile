@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'Bindings_Example', :exclusive => true do
+  pod "Bindings", :path => "../"
+end
+
+target 'Bindings_Tests', :exclusive => true do
+  pod "Bindings", :path => "../"
+
+  
+end
