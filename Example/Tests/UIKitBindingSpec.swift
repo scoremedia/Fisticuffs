@@ -27,5 +27,18 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UIButton") {
+            it("should support binding an action for when the user taps") {
+                var receivedTap = false
+                
+                let button = UIButton()
+                button.b_onTap { receivedTap = true }
+                
+                button.sendActionsForControlEvents(.TouchUpInside)
+                
+                expect(receivedTap) == true
+            }
+        }
+        
     }
 }
