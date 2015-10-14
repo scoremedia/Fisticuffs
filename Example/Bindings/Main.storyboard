@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="whP-gf-Uak">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="whP-gf-Uak">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="wQg-tq-qST">
             <objects>
-                <viewController id="whP-gf-Uak" customClass="BNDViewController" sceneMemberID="viewController">
+                <viewController id="whP-gf-Uak" customClass="ViewController" customModule="Bindings_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
                         <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
@@ -16,12 +17,45 @@
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your tweet here...." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="27R-F5-gB3">
+                                <rect key="frame" x="20" y="20" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgF-aa-WvI">
+                                <rect key="frame" x="20" y="58" width="560" height="30"/>
+                                <state key="normal" title="Post"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmK-Ux-rCC">
+                                <rect key="frame" x="20" y="96" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jmK-Ux-rCC" firstAttribute="top" secondItem="OgF-aa-WvI" secondAttribute="bottom" constant="8" id="3rI-0R-fhi"/>
+                            <constraint firstItem="27R-F5-gB3" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" id="HCm-hC-H94"/>
+                            <constraint firstItem="jmK-Ux-rCC" firstAttribute="trailing" secondItem="TpU-gO-2f1" secondAttribute="trailingMargin" id="LWr-ib-tpj"/>
+                            <constraint firstItem="jmK-Ux-rCC" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" id="QMZ-II-bOQ"/>
+                            <constraint firstItem="OgF-aa-WvI" firstAttribute="trailing" secondItem="TpU-gO-2f1" secondAttribute="trailingMargin" id="gqp-dy-IoN"/>
+                            <constraint firstItem="27R-F5-gB3" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" id="q8v-0x-kDx"/>
+                            <constraint firstItem="OgF-aa-WvI" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" id="r7x-1p-csZ"/>
+                            <constraint firstItem="27R-F5-gB3" firstAttribute="trailing" secondItem="TpU-gO-2f1" secondAttribute="trailingMargin" id="wNN-z4-wZS"/>
+                            <constraint firstItem="OgF-aa-WvI" firstAttribute="top" secondItem="27R-F5-gB3" secondAttribute="bottom" constant="8" id="ybt-OH-nfV"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="postButton" destination="OgF-aa-WvI" id="QL3-Bo-FXU"/>
+                        <outlet property="statusLabel" destination="jmK-Ux-rCC" id="gEC-io-g2l"/>
+                        <outlet property="tweetBody" destination="27R-F5-gB3" id="ObA-iA-aTf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="433"/>
+            <point key="canvasLocation" x="546" y="417"/>
         </scene>
     </scenes>
 </document>

@@ -48,7 +48,7 @@ internal class ActionsState {
     var registeredActions = [Action]()
 }
 
-extension UIControl {
+public extension UIControl {
     
     internal var actionsState: ActionsState {
         if let existing = objc_getAssociatedObject(self, &actionsStateKey) as? ActionsState {
@@ -61,6 +61,17 @@ extension UIControl {
         }
     }
     
+    var b_enabled: Observable<Bool>? {
+        get {
+            return getObservableFor("enabled")
+        }
+        set (value) {
+            setObservableFor("enabled", observable: value) {
+                [weak self] enabled in
+                self?.enabled = enabled
+            }
+        }
+    }
     
     func b_onTap(actionBlock: Void -> Void) -> Disposable {
         let action = Action(actionsState: actionsState, control: self, events: .TouchUpInside, action: actionBlock)

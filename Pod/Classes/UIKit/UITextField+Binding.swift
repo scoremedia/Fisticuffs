@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension UITextField {
+public extension UITextField {
     
     var b_text: Observable<String>? {
         get {

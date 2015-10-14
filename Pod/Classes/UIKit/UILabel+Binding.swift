@@ -11,7 +11,7 @@ import UIKit
 
 private var textKey = "text"
 
-extension UILabel {
+public extension UILabel {
     
     var b_text: Observable<String>? {
         get {
