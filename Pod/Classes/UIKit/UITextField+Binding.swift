@@ -15,22 +15,26 @@ public extension UITextField {
             return getObservableFor("text")
         }
         set (value) {
-            let textModified = Action(actionsState: actionsState, control: self, events: .EditingChanged) { [weak self] in
-                guard let text = self?.text else {
-                    return
-                }
-                
-                value?.value = text
-            }
-            actionsState.registeredActions.append(textModified)
-            
             setObservableFor("text", observable: value) {
                 [weak self] str in
                 if self?.text != str {
                     self?.text = str
                 }
             }
+            
+            if let value = value {
+                let editingChanged = ActionWrapper(control: self, events: .EditingChanged) { [weak self, weak value] in
+                    guard let text = self?.text else {
+                        return
+                    }
+                    
+                    value?.value = text
+                }
+                set("editingChanged", value: editingChanged)
+            }
+            else {
+                set("editingChanged", value: Optional<ActionWrapper>.None)
+            }
         }
     }
-    
 }

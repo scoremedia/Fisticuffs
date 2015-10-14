@@ -29,6 +29,17 @@ extension NSObject {
         return objc_getAssociatedObject(self, key) as? T
     }
     
+    func get<T: AnyObject>(name: String, orSet block: (Void) -> T) -> T {
+        if let existing: T = get(name) {
+            return existing
+        }
+        else {
+            let new = block()
+            set(name, value: new)
+            return new
+        }
+    }
+    
     func set<T: AnyObject>(name: String, value: T?) {
         let key = findKey(name, type: T.self)
         objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN)

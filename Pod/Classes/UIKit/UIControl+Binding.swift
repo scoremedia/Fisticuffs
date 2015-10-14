@@ -8,63 +8,42 @@
 
 import Foundation
 
-
-class Action: NSObject, Disposable {
-    private weak var actionsState: ActionsState?
+class ActionWrapper: NSObject, Disposable {
+    
     private weak var control: UIControl?
-    let events: UIControlEvents
-    let action: Void -> Void
-    internal init(actionsState: ActionsState, control: UIControl, events: UIControlEvents, action: Void -> Void) {
-        self.actionsState = actionsState
+    private let events: UIControlEvents
+    private let action: Void -> Void
+    
+    init(control: UIControl, events: UIControlEvents, action: Void -> Void) {
         self.control = control
         self.events = events
         self.action = action
         
         super.init()
         
-        control.addTarget(self, action: "receiveEvent:", forControlEvents: events)
+        control.addTarget(self, action: "receivedEvent:", forControlEvents: events)
+    }
+    
+    @objc func receivedEvent(sender: AnyObject) {
+        action()
     }
     
     internal func dispose() {
-        if let actionsState = actionsState {
-            actionsState.registeredActions = actionsState.registeredActions.filter { action in
-                action !== self
-            }
-        }
-        
-        if let control = control {
-            control.removeTarget(self, action: "receiveEvent:", forControlEvents: events)
-        }
+        // NOTE: no need to remove from ActionWrapperBag
+        control?.removeTarget(self, action: "receivedEvent:", forControlEvents: events)
     }
-    
-    @objc func receiveEvent(sender: AnyObject!) {
-        action()
-    }
-}
-
-private var actionsStateKey = 0
-
-internal class ActionsState {
-    var registeredActions = [Action]()
     
     deinit {
-        for action in registeredActions {
-            action.dispose()
-        }
+        dispose()
     }
+    
 }
+
 
 public extension UIControl {
     
-    internal var actionsState: ActionsState {
-        if let existing = objc_getAssociatedObject(self, &actionsStateKey) as? ActionsState {
-            return existing
-        }
-        else {
-            let value = ActionsState()
-            objc_setAssociatedObject(self, &actionsStateKey, value, .OBJC_ASSOCIATION_RETAIN)
-            return value
-        }
+    internal var actionsBag: DisposableBag {
+        return get("actionsBag", orSet: { DisposableBag() })
     }
     
     var b_enabled: Observable<Bool>? {
@@ -80,8 +59,8 @@ public extension UIControl {
     }
     
     func b_onTap(actionBlock: Void -> Void) -> Disposable {
-        let action = Action(actionsState: actionsState, control: self, events: .TouchUpInside, action: actionBlock)
-        actionsState.registeredActions.append(action)
+        let action = ActionWrapper(control: self, events: .TouchUpInside, action: actionBlock)
+        actionsBag.add(action)
         return action
     }
     
