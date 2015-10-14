@@ -15,6 +15,6 @@ it changes (ie. for Computed)
 */
 protocol AnyObservable : NSObjectProtocol {
     
-    func subscribe(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable
+    func subscribeAny(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable
     
 }

@@ -62,7 +62,7 @@ extension Observable {
 }
 
 extension Observable : AnyObservable {
-    func subscribe(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable {
+    func subscribeAny(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable {
         return subscribe(options) { (_: T) -> Void in
             callback()
         }

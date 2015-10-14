@@ -66,7 +66,7 @@ class ObservableSpec: QuickSpec {
                 var dontNotifyOnSubscription = SubscriptionOptions()
                 dontNotifyOnSubscription.notifyOnSubscription = false
                 
-                observable.subscribe(dontNotifyOnSubscription) { (_: Int) in
+                observable.subscribe(dontNotifyOnSubscription) { _ in
                     receivedValue = true
                 }.dispose()
                 
@@ -83,7 +83,7 @@ class ObservableSpec: QuickSpec {
             
             let observable = Observable(3.14)
             
-            let disposable = observable.subscribe(options) { (newValue: Double) in
+            let disposable = observable.subscribe(options) { newValue in
                 if observable.value != newValue {
                     receivedBeforeChange = true
                 }
