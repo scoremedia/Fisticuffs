@@ -46,5 +46,54 @@ class ObservableSpec: QuickSpec {
             expect(receivedValue) == true
         }
         
+        it("should obey the notifyOnSubscription option") {
+            let observable = Observable(11)
+            
+            do {
+                var receivedValue = false
+                
+                // default is notifyOnSubscription = true, so we should receive a value
+                observable.subscribe { _ in
+                    receivedValue = true
+                }.dispose()
+                
+                expect(receivedValue) == true
+            }
+            
+            do {
+                var receivedValue = false
+                
+                var dontNotifyOnSubscription = SubscriptionOptions()
+                dontNotifyOnSubscription.notifyOnSubscription = false
+                
+                observable.subscribe(dontNotifyOnSubscription) { (_: Int) in
+                    receivedValue = true
+                }.dispose()
+                
+                expect(receivedValue) == false
+            }
+        }
+        
+        it("should support receiving before-change callbacks") {
+            var options = SubscriptionOptions()
+            options.notifyOnSubscription = false
+            options.when = .BeforeChange
+            
+            var receivedBeforeChange = false
+            
+            let observable = Observable(3.14)
+            
+            let disposable = observable.subscribe(options) { (newValue: Double) in
+                if observable.value != newValue {
+                    receivedBeforeChange = true
+                }
+            }
+            
+            observable.value = 11.0
+            disposable.dispose()
+            
+            expect(receivedBeforeChange) == true
+        }
+        
     }
 }

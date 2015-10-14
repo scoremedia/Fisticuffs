@@ -14,9 +14,14 @@ public class Observable<T> : NSObject {
     
     public var value: T {
         set(newValue) {
+            for subscription in subscriptions where subscription.when == .BeforeChange {
+                subscription.callback(newValue)
+            }
+            
             storage = newValue
-            subscriptions.forEach { reference in
-                reference.callback(storage)
+            
+            for subscription in subscriptions where subscription.when == .AfterChange {
+                subscription.callback(storage)
             }
         }
         get {
@@ -35,13 +40,13 @@ public class Observable<T> : NSObject {
 
 public extension Observable {
     public func subscribe(observer: Callback) -> Disposable {
-        return subscribe(true, callback: observer)
+        return subscribe(SubscriptionOptions(), callback: observer)
     }
     
-    public func subscribe(notifyInitially: Bool, callback: Callback) -> Disposable {
-        let subscription = Subscription(callback: callback, observable: self)
+    public func subscribe(options: SubscriptionOptions, callback: Callback) -> Disposable {
+        let subscription = Subscription(callback: callback, when: options.when, observable: self)
         subscriptions.append(subscription)
-        if notifyInitially {
+        if options.notifyOnSubscription {
             callback(value)
         }
         return subscription
@@ -57,8 +62,8 @@ extension Observable {
 }
 
 extension Observable : AnyObservable {
-    func subscribe(notifyInitially: Bool, callback: (Void) -> Void) -> Disposable {
-        return subscribe(notifyInitially) { (_: T) -> Void in
+    func subscribe(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable {
+        return subscribe(options) { (_: T) -> Void in
             callback()
         }
     }
