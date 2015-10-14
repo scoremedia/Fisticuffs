@@ -20,6 +20,7 @@ public class Observable<T> : NSObject {
             }
         }
         get {
+            didReadObservable(self)
             return storage
         }
     }
@@ -38,6 +39,18 @@ public extension Observable {
         observers.append(reference)
         observer(value)
         return reference
+    }
+}
+
+protocol UntypedObservable: NSObjectProtocol {
+    func addUntypedObserver(observer: Void -> Void) -> Disposable
+}
+
+extension Observable : UntypedObservable {
+    public func addUntypedObserver(observer: Void -> Void) -> Disposable {
+        return addObserver { (_: T) -> Void in
+            observer()
+        }
     }
 }
 
