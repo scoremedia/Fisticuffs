@@ -25,9 +25,9 @@
 		6AAA54D61BCDA3F00006BE84 /* FakeTweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAA54D41BCDA2A90006BE84 /* FakeTweetService.swift */; settings = {ASSET_TAGS = (); }; };
 		6AAA54D71BCDA4D40006BE84 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAA54D21BCDA1BE0006BE84 /* TweetViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		6AAA54D81BCDA5320006BE84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAA54D01BCD9F9F0006BE84 /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		861FC110D874A8877AB96AA3 /* Pods_Bindings_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB4EF4600EED4DC1389BFA5 /* Pods_Bindings_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		6DDC77321FB1557D6439C4B4 /* Pods_SwiftMVVMBinding_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737423C9E241FFF76E15C9F5 /* Pods_SwiftMVVMBinding_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		A43021C9392416E41BA709D6 /* Pods_Bindings_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C74043EE0C1B148D9559E8 /* Pods_Bindings_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F6481243E12D479F1408AC17 /* Pods_SwiftMVVMBinding_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFAD1C011D12FD2261E2AC0 /* Pods_SwiftMVVMBinding_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,20 +41,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B9DDA49BCD5A479656B41C9 /* Pods-SwiftMVVMBinding_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMBinding_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftMVVMBinding_Tests/Pods-SwiftMVVMBinding_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		19FD22D80C27D4CDDE06173A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		36331A037671650243B41A7A /* Pods-Bindings_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bindings_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bindings_Tests/Pods-Bindings_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		6003F58A195388D20070C39A /* Bindings_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bindings_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CFAD1C011D12FD2261E2AC0 /* Pods_SwiftMVVMBinding_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMBinding_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003F58A195388D20070C39A /* SwiftMVVMBinding_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMVVMBinding_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		6003F595195388D20070C39A /* Bindings-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bindings-Info.plist"; sourceTree = "<group>"; };
+		6003F595195388D20070C39A /* SwiftMVVMBinding-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SwiftMVVMBinding-Info.plist"; sourceTree = "<group>"; };
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6003F59B195388D20070C39A /* Bindings-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bindings-Prefix.pch"; sourceTree = "<group>"; };
+		6003F59B195388D20070C39A /* SwiftMVVMBinding-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftMVVMBinding-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* BNDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BNDAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* BNDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BNDAppDelegate.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6003F5AE195388D20070C39A /* Bindings_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Bindings_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003F5AE195388D20070C39A /* SwiftMVVMBinding_Example.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMVVMBinding_Example.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -67,14 +68,13 @@
 		6AAA54D01BCD9F9F0006BE84 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6AAA54D21BCDA1BE0006BE84 /* TweetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		6AAA54D41BCDA2A90006BE84 /* FakeTweetService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTweetService.swift; sourceTree = "<group>"; };
+		737423C9E241FFF76E15C9F5 /* Pods_SwiftMVVMBinding_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMBinding_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		ABB45511AC3A17CF8F5CAC45 /* Pods-Bindings_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bindings_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bindings_Example/Pods-Bindings_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		C8977BB3F29F6B33787AC631 /* Bindings.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Bindings.podspec; path = ../Bindings.podspec; sourceTree = "<group>"; };
-		C8C74043EE0C1B148D9559E8 /* Pods_Bindings_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bindings_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C03BDF0255BE33E3FB6DD34E /* Pods-SwiftMVVMBinding_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMBinding_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftMVVMBinding_Example/Pods-SwiftMVVMBinding_Example.release.xcconfig"; sourceTree = "<group>"; };
+		C8977BB3F29F6B33787AC631 /* SwiftMVVMBinding.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SwiftMVVMBinding.podspec; path = ../SwiftMVVMBinding.podspec; sourceTree = "<group>"; };
 		CA22B7D6BA87787281AB5F82 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		CEB4EF4600EED4DC1389BFA5 /* Pods_Bindings_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bindings_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9E0BF3C59D6939C61FC11C9 /* Pods-Bindings_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bindings_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bindings_Example/Pods-Bindings_Example.release.xcconfig"; sourceTree = "<group>"; };
-		F9FBA65B3304094C9CFD0C35 /* Pods-Bindings_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bindings_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bindings_Tests/Pods-Bindings_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		CACEEE1948114D2213CCA86F /* Pods-SwiftMVVMBinding_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMBinding_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftMVVMBinding_Tests/Pods-SwiftMVVMBinding_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FAA80CA03CDB4C7F94699978 /* Pods-SwiftMVVMBinding_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMBinding_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftMVVMBinding_Example/Pods-SwiftMVVMBinding_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				861FC110D874A8877AB96AA3 /* Pods_Bindings_Example.framework in Frameworks */,
+				F6481243E12D479F1408AC17 /* Pods_SwiftMVVMBinding_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				A43021C9392416E41BA709D6 /* Pods_Bindings_Tests.framework in Frameworks */,
+				6DDC77321FB1557D6439C4B4 /* Pods_SwiftMVVMBinding_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,10 +106,10 @@
 		3D8A6F2067DA004A393533BE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ABB45511AC3A17CF8F5CAC45 /* Pods-Bindings_Example.debug.xcconfig */,
-				F9E0BF3C59D6939C61FC11C9 /* Pods-Bindings_Example.release.xcconfig */,
-				F9FBA65B3304094C9CFD0C35 /* Pods-Bindings_Tests.debug.xcconfig */,
-				36331A037671650243B41A7A /* Pods-Bindings_Tests.release.xcconfig */,
+				FAA80CA03CDB4C7F94699978 /* Pods-SwiftMVVMBinding_Example.debug.xcconfig */,
+				C03BDF0255BE33E3FB6DD34E /* Pods-SwiftMVVMBinding_Example.release.xcconfig */,
+				CACEEE1948114D2213CCA86F /* Pods-SwiftMVVMBinding_Tests.debug.xcconfig */,
+				0B9DDA49BCD5A479656B41C9 /* Pods-SwiftMVVMBinding_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
-				6003F593195388D20070C39A /* Example for Bindings */,
+				6003F593195388D20070C39A /* Example for SwiftMVVMBinding */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
@@ -129,8 +129,8 @@
 		6003F58B195388D20070C39A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6003F58A195388D20070C39A /* Bindings_Example.app */,
-				6003F5AE195388D20070C39A /* Bindings_Tests.xctest */,
+				6003F58A195388D20070C39A /* SwiftMVVMBinding_Example.app */,
+				6003F5AE195388D20070C39A /* SwiftMVVMBinding_Example.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,13 +142,13 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				CEB4EF4600EED4DC1389BFA5 /* Pods_Bindings_Example.framework */,
-				C8C74043EE0C1B148D9559E8 /* Pods_Bindings_Tests.framework */,
+				4CFAD1C011D12FD2261E2AC0 /* Pods_SwiftMVVMBinding_Example.framework */,
+				737423C9E241FFF76E15C9F5 /* Pods_SwiftMVVMBinding_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6003F593195388D20070C39A /* Example for Bindings */ = {
+		6003F593195388D20070C39A /* Example for SwiftMVVMBinding */ = {
 			isa = PBXGroup;
 			children = (
 				6003F59C195388D20070C39A /* BNDAppDelegate.h */,
@@ -160,17 +160,17 @@
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
-			name = "Example for Bindings";
-			path = Bindings;
+			name = "Example for SwiftMVVMBinding";
+			path = SwiftMVVMBinding;
 			sourceTree = "<group>";
 		};
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6003F595195388D20070C39A /* Bindings-Info.plist */,
+				6003F595195388D20070C39A /* SwiftMVVMBinding-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
-				6003F59B195388D20070C39A /* Bindings-Prefix.pch */,
+				6003F59B195388D20070C39A /* SwiftMVVMBinding-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				C8977BB3F29F6B33787AC631 /* Bindings.podspec */,
+				C8977BB3F29F6B33787AC631 /* SwiftMVVMBinding.podspec */,
 				CA22B7D6BA87787281AB5F82 /* README.md */,
 				19FD22D80C27D4CDDE06173A /* LICENSE */,
 			);
@@ -211,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6003F589195388D20070C39A /* Bindings_Example */ = {
+		6003F589195388D20070C39A /* SwiftMVVMBinding_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "Bindings_Example" */;
+			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding_Example" */;
 			buildPhases = (
 				51B56FA0FB443702685F8720 /* Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
@@ -226,14 +226,14 @@
 			);
 			dependencies = (
 			);
-			name = Bindings_Example;
+			name = SwiftMVVMBinding_Example;
 			productName = Bindings;
-			productReference = 6003F58A195388D20070C39A /* Bindings_Example.app */;
+			productReference = 6003F58A195388D20070C39A /* SwiftMVVMBinding_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6003F5AD195388D20070C39A /* Bindings_Tests */ = {
+		6003F5AD195388D20070C39A /* SwiftMVVMBinding_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "Bindings_Tests" */;
+			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding_Tests" */;
 			buildPhases = (
 				5E17A86809409C1B39D9AE6A /* Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
@@ -247,9 +247,9 @@
 			dependencies = (
 				6003F5B4195388D20070C39A /* PBXTargetDependency */,
 			);
-			name = Bindings_Tests;
+			name = SwiftMVVMBinding_Tests;
 			productName = BindingsTests;
-			productReference = 6003F5AE195388D20070C39A /* Bindings_Tests.xctest */;
+			productReference = 6003F5AE195388D20070C39A /* SwiftMVVMBinding_Example.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -268,7 +268,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "Bindings" */;
+			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "SwiftMVVMBinding" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -281,8 +281,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6003F589195388D20070C39A /* Bindings_Example */,
-				6003F5AD195388D20070C39A /* Bindings_Tests */,
+				6003F589195388D20070C39A /* SwiftMVVMBinding_Example */,
+				6003F5AD195388D20070C39A /* SwiftMVVMBinding_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -321,7 +321,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bindings_Example/Pods-Bindings_Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftMVVMBinding_Example/Pods-SwiftMVVMBinding_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		51B56FA0FB443702685F8720 /* Check Pods Manifest.lock */ = {
@@ -351,7 +351,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bindings_Tests/Pods-Bindings_Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftMVVMBinding_Tests/Pods-SwiftMVVMBinding_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5E17A86809409C1B39D9AE6A /* Check Pods Manifest.lock */ = {
@@ -381,7 +381,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bindings_Example/Pods-Bindings_Example-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftMVVMBinding_Example/Pods-SwiftMVVMBinding_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CF6BB5658D56EF1EAD94C1A1 /* Embed Pods Frameworks */ = {
@@ -396,7 +396,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bindings_Tests/Pods-Bindings_Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftMVVMBinding_Tests/Pods-SwiftMVVMBinding_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -430,7 +430,7 @@
 /* Begin PBXTargetDependency section */
 		6003F5B4195388D20070C39A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6003F589195388D20070C39A /* Bindings_Example */;
+			target = 6003F589195388D20070C39A /* SwiftMVVMBinding_Example */;
 			targetProxy = 6003F5B3195388D20070C39A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -487,7 +487,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -520,7 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -529,17 +529,17 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABB45511AC3A17CF8F5CAC45 /* Pods-Bindings_Example.debug.xcconfig */;
+			baseConfigurationReference = FAA80CA03CDB4C7F94699978 /* Pods-SwiftMVVMBinding_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Bindings/Bindings-Prefix.pch";
-				INFOPLIST_FILE = "Bindings/Bindings-Info.plist";
+				GCC_PREFIX_HEADER = "SwiftMVVMBinding/SwiftMVVMBinding-Prefix.pch";
+				INFOPLIST_FILE = "SwiftMVVMBinding/SwiftMVVMBinding-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftMVVMBinding_Example;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Bindings_Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
@@ -548,17 +548,17 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9E0BF3C59D6939C61FC11C9 /* Pods-Bindings_Example.release.xcconfig */;
+			baseConfigurationReference = C03BDF0255BE33E3FB6DD34E /* Pods-SwiftMVVMBinding_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Bindings/Bindings-Prefix.pch";
-				INFOPLIST_FILE = "Bindings/Bindings-Info.plist";
+				GCC_PREFIX_HEADER = "SwiftMVVMBinding/SwiftMVVMBinding-Prefix.pch";
+				INFOPLIST_FILE = "SwiftMVVMBinding/SwiftMVVMBinding-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftMVVMBinding_Example;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Bindings_Example-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
@@ -566,14 +566,9 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9FBA65B3304094C9CFD0C35 /* Pods-Bindings_Tests.debug.xcconfig */;
+			baseConfigurationReference = CACEEE1948114D2213CCA86F /* Pods-SwiftMVVMBinding_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -581,27 +576,22 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bindings_Example.app/Bindings_Example";
+				PRODUCT_NAME = SwiftMVVMBinding_Example;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMBinding_Example.app/SwiftMVVMBinding_Example";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36331A037671650243B41A7A /* Pods-Bindings_Tests.release.xcconfig */;
+			baseConfigurationReference = 0B9DDA49BCD5A479656B41C9 /* Pods-SwiftMVVMBinding_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bindings_Example.app/Bindings_Example";
+				PRODUCT_NAME = SwiftMVVMBinding_Example;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMBinding_Example.app/SwiftMVVMBinding_Example";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -609,7 +599,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6003F585195388D10070C39A /* Build configuration list for PBXProject "Bindings" */ = {
+		6003F585195388D10070C39A /* Build configuration list for PBXProject "SwiftMVVMBinding" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6003F5BD195388D20070C39A /* Debug */,
@@ -618,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "Bindings_Example" */ = {
+		6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6003F5C0195388D20070C39A /* Debug */,
@@ -627,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "Bindings_Tests" */ = {
+		6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6003F5C3195388D20070C39A /* Debug */,

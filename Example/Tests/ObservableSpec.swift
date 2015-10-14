@@ -9,7 +9,7 @@
 import Foundation
 import Quick
 import Nimble
-@testable import Bindings
+@testable import SwiftMVVMBinding
 
 
 class ObservableSpec: QuickSpec {

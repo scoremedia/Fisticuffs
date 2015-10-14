@@ -6,7 +6,7 @@
 //  Copyright © 2015 Darren Clark. All rights reserved.
 //
 
-import Bindings
+import SwiftMVVMBinding
 
 class TweetViewModel {
     let tweetBody = Observable("")

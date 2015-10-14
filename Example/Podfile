@@ -1,12 +1,20 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'Bindings_Example', :exclusive => true do
-  pod "Bindings", :path => "../"
+target 'SwiftMVVMBinding_Example', :exclusive => true do
+  pod "SwiftMVVMBinding", :path => "../"
 end
 
-target 'Bindings_Tests', :exclusive => true do
-  pod "Bindings", :path => "../"
+target 'SwiftMVVMBinding_Tests', :exclusive => true do
+  pod "SwiftMVVMBinding", :path => "../"
   pod 'Quick', '~> 0.6.0'
   pod 'Nimble', '2.0.0-rc.3'
+end
+
+
+post_install do |installer|
+    # Patch ENABLE_TESTABILITY = YES on the SwiftMVVM pod target
+    target = installer.pods_project.native_targets.find { |target| target.name == "SwiftMVVMBinding" }
+    debug_config = target.build_configurations.find { |config| config.name == "Debug" }
+    debug_config.build_settings["ENABLE_TESTABILITY"] = "YES"
 end
