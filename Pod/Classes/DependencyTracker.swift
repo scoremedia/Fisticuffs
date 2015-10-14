@@ -22,7 +22,7 @@ struct DependencyTracker {
     
     static func didReadObservable(observable: UntypedObservable) {
         if var top = observableReads.last {
-            if top.contains({ $0 !== observable }) == false {
+            if top.contains({ $0 === observable }) == false {
                 top.append(observable)
                 observableReads[observableReads.count - 1] = top
             }
