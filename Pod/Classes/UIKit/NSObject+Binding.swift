@@ -14,6 +14,12 @@ private var bindingStateKey = 0
 private class BindingState {
     private var activeDisposables = [String: Disposable]()
     private var activeObservables = [String: AnyObject]()  // String: Observer<T>
+    
+    deinit {
+        for (_, disposable) in activeDisposables {
+            disposable.dispose()
+        }
+    }
 }
 
 extension NSObject {

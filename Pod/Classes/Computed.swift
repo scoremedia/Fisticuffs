@@ -8,43 +8,44 @@
 
 import Foundation
 
-private var observableReads: [[UntypedObservable]] = []
-
-func didReadObservable(observable: UntypedObservable) {
-    if var top = observableReads.last {
-        if top.contains({ $0 !== observable }) == false {
-            top.append(observable)
-            observableReads[observableReads.count - 1] = top
-        }
-    }
-}
-
 
 public class Computed<T> : Observable<T> {
     
     let valueBlock: Void -> T
+    var dependencies = [(UntypedObservable, Disposable)]()
     
     public init(block: Void -> T) {
         valueBlock = block
         
-        let (initial, dependencies) = Computed.evalBlock(block)
+        let initial = block()
         super.init(initial)
         
-        for dependency in dependencies {
-            dependency.addUntypedObserver { [weak self] in
-                guard let strongSelf = self else {
-                    return
-                }
-                strongSelf.value = strongSelf.valueBlock()
-            }
+        updateValue()
+    }
+    
+    deinit {
+        for (_, disposable) in dependencies {
+            disposable.dispose()
         }
     }
     
-    static func evalBlock(block: Void -> T) -> (T, [UntypedObservable]) {
-        observableReads.append([])
-        let value = block()
-        let dependencies = observableReads.popLast()!
-        return (value, dependencies)
+    func updateValue() {
+        let dependencies = DependencyTracker.findDependencies {
+            value = valueBlock()
+        }
+        
+        for dependency in dependencies {
+            let isObserving = self.dependencies.contains { (observable, _) -> Bool in
+                return observable === dependency
+            }
+            
+            if isObserving == false {
+                let disposable = dependency.addUntypedObserver(false) { [weak self] in
+                    self?.updateValue()
+                }
+                self.dependencies.append((dependency, disposable))
+            }
+        }
     }
     
 }

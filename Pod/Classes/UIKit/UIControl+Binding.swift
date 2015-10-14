@@ -46,6 +46,12 @@ private var actionsStateKey = 0
 
 internal class ActionsState {
     var registeredActions = [Action]()
+    
+    deinit {
+        for action in registeredActions {
+            action.dispose()
+        }
+    }
 }
 
 public extension UIControl {
