@@ -23,7 +23,7 @@ class MemoryManagementSpec: QuickSpec {
                     var observable: Observable<String>? = Observable("test")
                     weakObservable = observable
                     
-                    let disposable = observable!.addObserver { (_: String) in }
+                    let disposable = observable!.subscribe { (_: String) in }
                     observable = nil
                     
                     // still have 1 observer
@@ -48,7 +48,7 @@ class MemoryManagementSpec: QuickSpec {
                         !dependency!.value
                     }
                     
-                    let disposable = computed!.addObserver { value in }
+                    let disposable = computed!.subscribe { value in }
                     
                     weakComputed = computed
                     weakDependency = dependency

@@ -54,7 +54,7 @@ extension NSObject {
         
         if let observable = observable {
             bindingState.activeObservables[key] = observable
-            bindingState.activeDisposables[key] = observable.addObserver(setter)
+            bindingState.activeDisposables[key] = observable.subscribe(setter)
         }
     }
     

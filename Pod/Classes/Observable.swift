@@ -10,13 +10,13 @@ import Foundation
 
 public class Observable<T> : NSObject {
     
-    public typealias Observer = (T) -> Void
+    public typealias Callback = (T) -> Void
     
     public var value: T {
         set(newValue) {
             storage = newValue
-            observers.forEach { reference in
-                reference.observer(storage)
+            subscriptions.forEach { reference in
+                reference.callback(storage)
             }
         }
         get {
@@ -26,7 +26,7 @@ public class Observable<T> : NSObject {
     }
     
     private var storage: T
-    private var observers = [ObserverReference<T>]()
+    private var subscriptions = [Subscription<T>]()
     
     public init(_ initial: T) {
         storage = initial
@@ -34,19 +34,28 @@ public class Observable<T> : NSObject {
 }
 
 public extension Observable {
-    public func addObserver(observer: Observer) -> Disposable {
-        return addObserver(true, observer: observer)
+    public func subscribe(observer: Callback) -> Disposable {
+        return subscribe(true, callback: observer)
     }
     
-    public func addObserver(notifyInitially: Bool, observer: Observer) -> Disposable {
-        let reference = ObserverReference(observer: observer, observable: self)
-        observers.append(reference)
+    public func subscribe(notifyInitially: Bool, callback: Callback) -> Disposable {
+        let subscription = Subscription(callback: callback, observable: self)
+        subscriptions.append(subscription)
         if notifyInitially {
-            observer(value)
+            callback(value)
         }
-        return reference
+        return subscription
     }
 }
+
+extension Observable {
+    func removeSubscription(subscription: Subscription<T>) {
+        subscriptions = subscriptions.filter { s in
+            s !== subscription
+        }
+    }
+}
+
 
 protocol UntypedObservable: NSObjectProtocol {
     func addUntypedObserver(notifyInitially: Bool, observer: Void -> Void) -> Disposable
@@ -54,27 +63,8 @@ protocol UntypedObservable: NSObjectProtocol {
 
 extension Observable : UntypedObservable {
     public func addUntypedObserver(notifyInitially: Bool, observer: Void -> Void) -> Disposable {
-        return addObserver(notifyInitially) { (_: T) -> Void in
+        return subscribe(notifyInitially) { (_: T) -> Void in
             observer()
         }
     }
 }
-
-
-class ObserverReference<T> : NSObject, Disposable {
-    private let observer: Observable<T>.Observer
-    // deliberate retain cycle (observable should only die out once all subscribers have been removed)
-    private var observable: Observable<T>
-    
-    private init(observer: Observable<T>.Observer, observable: Observable<T>) {
-        self.observer = observer
-        self.observable = observable
-    }
-    
-    internal func dispose() {
-        observable.observers = observable.observers.filter { o in
-            o !== self
-        }
-    }
-}
-

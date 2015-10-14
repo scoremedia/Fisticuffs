@@ -27,7 +27,7 @@ class ObservableSpec: QuickSpec {
             let observable = Observable(5)
             var receivedValue = 0
             
-            observable.addObserver { newValue in receivedValue = newValue }
+            observable.subscribe { newValue in receivedValue = newValue }
             
             observable.value = 11
             expect(receivedValue) == 11
@@ -37,7 +37,7 @@ class ObservableSpec: QuickSpec {
             let observable = Observable(true)
             var receivedValue = true
             
-            let disposable = observable.addObserver { newValue in receivedValue = newValue }
+            let disposable = observable.subscribe { newValue in receivedValue = newValue }
             disposable.dispose()
             
             observable.value = false
