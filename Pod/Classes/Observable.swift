@@ -63,7 +63,8 @@ extension Observable : UntypedObservable {
 
 class ObserverReference<T> : NSObject, Disposable {
     private let observer: Observable<T>.Observer
-    private weak var observable: Observable<T>?
+    // deliberate retain cycle (observable should only die out once all subscribers have been removed)
+    private var observable: Observable<T>
     
     private init(observer: Observable<T>.Observer, observable: Observable<T>) {
         self.observer = observer
@@ -71,10 +72,6 @@ class ObserverReference<T> : NSObject, Disposable {
     }
     
     internal func dispose() {
-        guard let observable = observable else {
-            return
-        }
-        
         observable.observers = observable.observers.filter { o in
             o !== self
         }
