@@ -27,7 +27,10 @@ class ObservableSpec: QuickSpec {
             let observable = Observable(5)
             var receivedValue = 0
             
-            observable.subscribe { newValue in receivedValue = newValue }
+            let disposable = observable.subscribe { newValue in receivedValue = newValue }
+            defer {
+                disposable.dispose()
+            }
             
             observable.value = 11
             expect(receivedValue) == 11
