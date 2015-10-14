@@ -56,15 +56,10 @@ extension Observable {
     }
 }
 
-
-protocol UntypedObservable: NSObjectProtocol {
-    func addUntypedObserver(notifyInitially: Bool, observer: Void -> Void) -> Disposable
-}
-
-extension Observable : UntypedObservable {
-    public func addUntypedObserver(notifyInitially: Bool, observer: Void -> Void) -> Disposable {
+extension Observable : AnyObservable {
+    func subscribe(notifyInitially: Bool, callback: (Void) -> Void) -> Disposable {
         return subscribe(notifyInitially) { (_: T) -> Void in
-            observer()
+            callback()
         }
     }
 }

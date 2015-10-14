@@ -12,7 +12,7 @@ import Foundation
 public class Computed<T> : Observable<T> {
     
     let valueBlock: Void -> T
-    var dependencies = [(UntypedObservable, Disposable)]()
+    var dependencies = [(AnyObservable, Disposable)]()
     
     public init(block: Void -> T) {
         valueBlock = block
@@ -40,7 +40,7 @@ public class Computed<T> : Observable<T> {
             }
             
             if isObserving == false {
-                let disposable = dependency.addUntypedObserver(false) { [weak self] in
+                let disposable = dependency.subscribe(false) { [weak self] in
                     self?.updateValue()
                 }
                 self.dependencies.append((dependency, disposable))

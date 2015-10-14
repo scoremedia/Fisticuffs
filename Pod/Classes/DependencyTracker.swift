@@ -10,9 +10,9 @@ import Foundation
 
 struct DependencyTracker {
     
-    private static var observableReads: [[UntypedObservable]] = []
+    private static var observableReads: [[AnyObservable]] = []
     
-    static func findDependencies(@noescape block: Void -> Void) -> [UntypedObservable] {
+    static func findDependencies(@noescape block: Void -> Void) -> [AnyObservable] {
         observableReads.append([])
         
         block()
@@ -20,7 +20,7 @@ struct DependencyTracker {
         return observableReads.popLast()!
     }
     
-    static func didReadObservable(observable: UntypedObservable) {
+    static func didReadObservable(observable: AnyObservable) {
         if var top = observableReads.last {
             if top.contains({ $0 === observable }) == false {
                 top.append(observable)
