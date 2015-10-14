@@ -39,10 +39,13 @@ public class Observable<T> : NSObject {
 }
 
 public extension Observable {
+    
+    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
     public func subscribe(observer: Callback) -> Disposable {
         return subscribe(SubscriptionOptions(), callback: observer)
     }
     
+    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
     public func subscribe(options: SubscriptionOptions, callback: Callback) -> Disposable {
         let subscription = Subscription(callback: callback, when: options.when, observable: self)
         subscriptions.append(subscription)
@@ -51,6 +54,7 @@ public extension Observable {
         }
         return subscription
     }
+    
 }
 
 extension Observable {
@@ -62,9 +66,12 @@ extension Observable {
 }
 
 extension Observable : AnyObservable {
+    
+    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
     func subscribeAny(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable {
         return subscribe(options) { (_: T) -> Void in
             callback()
         }
     }
+    
 }
