@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController : UIViewController {
+class TweetViewController : UIViewController {
     
     let viewModel = TweetViewModel()
     
@@ -16,6 +16,7 @@ class ViewController : UIViewController {
     @IBOutlet var postButton: UIButton!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var characterCountLabel: UILabel!
+
     
     override func viewDidLoad() {
         tweetBody.b_text = viewModel.tweetBody
@@ -24,6 +25,10 @@ class ViewController : UIViewController {
         
         postButton.b_enabled = viewModel.canSubmitTweet
         postButton.b_onTap(viewModel.postTweet)
+    }
+    
+    @IBAction func dismiss() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
 }
