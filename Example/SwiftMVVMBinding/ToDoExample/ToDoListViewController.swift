@@ -39,6 +39,20 @@ class ToDoListViewController : UIViewController {
         
         editingButton.b_onTap(viewModel.toggleEditing)
         editingButton.b_title = viewModel.toggleEditingButtonTitle
+        
+        
+        viewModel.editItem = { [weak self] item in
+            let alert = UIAlertController(title: "To Do", message: nil, preferredStyle: .Alert)
+            alert.addTextFieldWithConfigurationHandler { textField in
+                textField.placeholder = "Title"
+                textField.b_text = item.title
+            }
+            
+            let doneButton = UIAlertAction(title: "Done", style: .Default, handler: nil)
+            alert.addAction(doneButton)
+            
+            self?.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     @IBAction func dismiss() {

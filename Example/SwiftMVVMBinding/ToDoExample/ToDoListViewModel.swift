@@ -12,6 +12,9 @@ import SwiftMVVMBinding
 
 class ToDoListViewModel {
     
+    var editItem: ((ToDoItemViewModel) -> Void)?
+    
+    
     var toDoItems = ObservableArray<ToDoItemViewModel>([
         ToDoItemViewModel(title: "First task"),
         ToDoItemViewModel(title: "Another task"),
@@ -26,8 +29,9 @@ class ToDoListViewModel {
     
     func addToDo() {
         let todo = ToDoItemViewModel()
-        todo.title.value = "Hello"
         toDoItems.append(todo)
+        
+        editItem?(todo)
     }
     
     func toggleEditing() {
