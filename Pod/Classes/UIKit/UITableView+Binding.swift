@@ -10,7 +10,7 @@ import UIKit
 
 public extension UITableView {
     
-    func b_items<T>(items: ObservableArray<T>, cellIdentifier: String, configureCell: (T, UITableViewCell) -> Void) {
+    func b_items<T, CellType: UITableViewCell>(items: ObservableArray<T>, cellIdentifier: String, configureCell: (T, CellType) -> Void) {
         let delegate = TableViewDelegate(items: items, cellIdentifier: cellIdentifier, configureCell: configureCell)
         set("delegate", value: (delegate as AnyObject))
         
@@ -26,12 +26,14 @@ public extension UITableView {
 }
 
 
-private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableViewDelegate {
+private class TableViewDelegate<T, CellType: UITableViewCell> : NSObject, UITableViewDataSource, UITableViewDelegate {
     let items: ObservableArray<T>
     let cellIdentifier: String
-    let configureCell: (T, UITableViewCell) -> Void
+    let configureCell: (T, CellType) -> Void
     
-    init(items: ObservableArray<T>, cellIdentifier: String, configureCell: (T, UITableViewCell) -> Void) {
+    var selectionBlock: (T -> Void)?
+    
+    init(items: ObservableArray<T>, cellIdentifier: String, configureCell: (T, CellType) -> Void) {
         self.items = items
         self.cellIdentifier = cellIdentifier
         self.configureCell = configureCell
@@ -46,7 +48,7 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     }
     
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! CellType
         configureCell(items[indexPath.row], cell)
         return cell
     }
