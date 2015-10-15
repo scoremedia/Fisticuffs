@@ -12,7 +12,11 @@ import SwiftMVVMBinding
 
 class ToDoListViewModel {
     
-    var toDoItems = ObservableArray<ToDoItemViewModel>()
+    var toDoItems = ObservableArray<ToDoItemViewModel>([
+        ToDoItemViewModel(title: "First task"),
+        ToDoItemViewModel(title: "Another task"),
+        ToDoItemViewModel(title: "One final task")
+    ])
     
     let editing = Observable(false)
     

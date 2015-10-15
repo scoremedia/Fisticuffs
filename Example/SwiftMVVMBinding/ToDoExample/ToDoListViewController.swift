@@ -31,6 +31,7 @@ class ToDoListViewController : UIViewController {
             config.onSelect(viewModel.markToDoCompleted)
             
             config.allowsDeletion = true
+            config.allowsReordering = true
         }
         tableView.b_editing = viewModel.editing
         

@@ -45,6 +45,7 @@ public class TableViewConfig<T> : NSObject {
     public var deselectRowOnSelection = true
     
     public var allowsDeletion = false
+    public var allowsReordering = false
     
     public func usingCellIdentifier(cellIdentifier: String, configureCell: (T, UITableViewCell) -> Void) {
         self.cellIdentifier = cellIdentifier
@@ -62,6 +63,7 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     var items: ObservableArray<T>
     let config: TableViewConfig<T>
     
+    var suppressChangeNotifications = false
     let disposeBag = DisposableBag()
     
     
@@ -79,6 +81,10 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     }
     
     private func applyChange(change: ArrayChange<T>) {
+        if suppressChangeNotifications {
+            return
+        }
+        
         switch change {
         case .Initial:
             tableView?.reloadData()
@@ -115,6 +121,12 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
         }
     }
     
+    private func withoutChangeNotifications(@noescape block: Void -> Void) {
+        suppressChangeNotifications = true
+        block()
+        suppressChangeNotifications = false
+    }
+    
     @objc func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -125,6 +137,7 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(config.cellIdentifier, forIndexPath: indexPath)
+        cell.showsReorderControl = config.allowsReordering
         config.configureCell(items[indexPath.row], cell)
         return cell
     }
@@ -138,6 +151,8 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
         }
         config.onSelect?(items[indexPath.row])
     }
+    
+    //MARK: -
     
     @objc func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return config.allowsDeletion
@@ -154,6 +169,23 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
             
         default:
             break
+        }
+    }
+    
+    //MARK: -
+    
+    @objc func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return config.allowsReordering
+    }
+    
+    @objc func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        return proposedDestinationIndexPath
+    }
+    
+    @objc func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        withoutChangeNotifications {
+            let item = items.removeAtIndex(sourceIndexPath.row)
+            items.insert(item, atIndex: destinationIndexPath.row)
         }
     }
 }

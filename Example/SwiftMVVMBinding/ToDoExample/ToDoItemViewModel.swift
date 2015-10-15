@@ -15,4 +15,11 @@ class ToDoItemViewModel {
     let title = Observable("")
     let completed = Observable(false)
     
+    init() {
+    }
+    
+    init(title: String) {
+        self.title.value = title
+    }
+    
 }
