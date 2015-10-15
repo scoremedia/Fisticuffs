@@ -38,6 +38,16 @@
                ReferencedContainer = "container:SwiftMVVMBinding.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6A3633561BD0403C00732EF2"
+               BuildableName = "SwiftMVVMBinding_ExampleUITests.xctest"
+               BlueprintName = "SwiftMVVMBinding_ExampleUITests"
+               ReferencedContainer = "container:SwiftMVVMBinding.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

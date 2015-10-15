@@ -15,11 +15,7 @@ class ToDoListViewModel {
     var editItem: ((ToDoItemViewModel) -> Void)?
     
     
-    var toDoItems = ObservableArray<ToDoItemViewModel>([
-        ToDoItemViewModel(title: "First task"),
-        ToDoItemViewModel(title: "Another task"),
-        ToDoItemViewModel(title: "One final task")
-    ])
+    var toDoItems = ObservableArray<ToDoItemViewModel>([])
     
     let editing = Observable(false)
     

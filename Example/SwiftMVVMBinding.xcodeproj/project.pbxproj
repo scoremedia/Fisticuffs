@@ -20,6 +20,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6A36334E1BD0311F00732EF2 /* ToDoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36334D1BD0311F00732EF2 /* ToDoItemViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		6A3633501BD0322100732EF2 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36334F1BD0322100732EF2 /* ToDoItemCell.swift */; settings = {ASSET_TAGS = (); }; };
+		6A36335A1BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3633591BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift */; };
 		6A3B6DC91BCEAA5D0021FA1A /* MemoryManagementSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B6DC81BCEAA5D0021FA1A /* MemoryManagementSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		6A3B6DCB1BCEB3B50021FA1A /* DependencyTrackerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B6DCA1BCEB3B50021FA1A /* DependencyTrackerSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		6AA43A351BCEE6E100365704 /* DisposableBagSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA43A341BCEE6E100365704 /* DisposableBagSpec.swift */; settings = {ASSET_TAGS = (); }; };
@@ -43,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6003F589195388D20070C39A;
 			remoteInfo = Bindings;
+		};
+		6A36335C1BD0403D00732EF2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6003F582195388D10070C39A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6003F589195388D20070C39A;
+			remoteInfo = SwiftMVVMBinding_Example;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -68,6 +76,9 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6A36334D1BD0311F00732EF2 /* ToDoItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemViewModel.swift; sourceTree = "<group>"; };
 		6A36334F1BD0322100732EF2 /* ToDoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
+		6A3633571BD0403C00732EF2 /* SwiftMVVMBinding_ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMVVMBinding_ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A3633591BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMVVMBinding_ExampleUITests.swift; sourceTree = "<group>"; };
+		6A36335B1BD0403D00732EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A3B6DC81BCEAA5D0021FA1A /* MemoryManagementSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryManagementSpec.swift; sourceTree = "<group>"; };
 		6A3B6DCA1BCEB3B50021FA1A /* DependencyTrackerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTrackerSpec.swift; sourceTree = "<group>"; };
 		6A6F1A3D1BCD5C5B0036C3A2 /* Bindings_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bindings_Example-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -112,6 +123,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A3633541BD0403C00732EF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -132,6 +150,7 @@
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for SwiftMVVMBinding */,
 				6003F5B5195388D20070C39A /* Tests */,
+				6A3633581BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				3D8A6F2067DA004A393533BE /* Pods */,
@@ -143,6 +162,7 @@
 			children = (
 				6003F58A195388D20070C39A /* SwiftMVVMBinding_Example.app */,
 				6003F5AE195388D20070C39A /* SwiftMVVMBinding_Example.xctest */,
+				6A3633571BD0403C00732EF2 /* SwiftMVVMBinding_ExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,6 +241,15 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		6A3633581BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6A3633591BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift */,
+				6A36335B1BD0403D00732EF2 /* Info.plist */,
+			);
+			path = SwiftMVVMBinding_ExampleUITests;
+			sourceTree = "<group>";
+		};
 		6AA43A401BCFFFC000365704 /* TweetExample */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +315,24 @@
 			productReference = 6003F5AE195388D20070C39A /* SwiftMVVMBinding_Example.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6A3633561BD0403C00732EF2 /* SwiftMVVMBinding_ExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A36335E1BD0403D00732EF2 /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding_ExampleUITests" */;
+			buildPhases = (
+				6A3633531BD0403C00732EF2 /* Sources */,
+				6A3633541BD0403C00732EF2 /* Frameworks */,
+				6A3633551BD0403C00732EF2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A36335D1BD0403D00732EF2 /* PBXTargetDependency */,
+			);
+			name = SwiftMVVMBinding_ExampleUITests;
+			productName = SwiftMVVMBinding_ExampleUITests;
+			productReference = 6A3633571BD0403C00732EF2 /* SwiftMVVMBinding_ExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -298,6 +345,10 @@
 				ORGANIZATIONNAME = "Darren Clark";
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
+						TestTargetID = 6003F589195388D20070C39A;
+					};
+					6A3633561BD0403C00732EF2 = {
+						CreatedOnToolsVersion = 7.0;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
 				};
@@ -317,6 +368,7 @@
 			targets = (
 				6003F589195388D20070C39A /* SwiftMVVMBinding_Example */,
 				6003F5AD195388D20070C39A /* SwiftMVVMBinding_Tests */,
+				6A3633561BD0403C00732EF2 /* SwiftMVVMBinding_ExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -337,6 +389,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A3633551BD0403C00732EF2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +524,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A3633531BD0403C00732EF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A36335A1BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -472,6 +539,11 @@
 			isa = PBXTargetDependency;
 			target = 6003F589195388D20070C39A /* SwiftMVVMBinding_Example */;
 			targetProxy = 6003F5B3195388D20070C39A /* PBXContainerItemProxy */;
+		};
+		6A36335D1BD0403D00732EF2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6003F589195388D20070C39A /* SwiftMVVMBinding_Example */;
+			targetProxy = 6A36335C1BD0403D00732EF2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -636,6 +708,45 @@
 			};
 			name = Release;
 		};
+		6A36335F1BD0403D00732EF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SwiftMVVMBinding_ExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.SwiftMVVMBinding-ExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = SwiftMVVMBinding_Example;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		6A3633601BD0403D00732EF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SwiftMVVMBinding_ExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.SwiftMVVMBinding-ExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SwiftMVVMBinding_Example;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -665,6 +776,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6A36335E1BD0403D00732EF2 /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding_ExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A36335F1BD0403D00732EF2 /* Debug */,
+				6A3633601BD0403D00732EF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
