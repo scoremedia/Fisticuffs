@@ -10,8 +10,11 @@ import UIKit
 
 public extension UITableView {
     
-    func b_items<T, CellType: UITableViewCell>(items: ObservableArray<T>, cellIdentifier: String, configureCell: (T, CellType) -> Void) {
-        let delegate = TableViewDelegate(items: items, cellIdentifier: cellIdentifier, configureCell: configureCell)
+    func b_configure<T>(items: ObservableArray<T>, @noescape block: (TableViewConfig<T>) -> Void) {
+        let config = TableViewConfig<T>()
+        block(config)
+        
+        let delegate = TableViewDelegate(items: items, config: config)
         set("delegate", value: (delegate as AnyObject))
         
         self.delegate = delegate
@@ -25,18 +28,33 @@ public extension UITableView {
     
 }
 
-
-private class TableViewDelegate<T, CellType: UITableViewCell> : NSObject, UITableViewDataSource, UITableViewDelegate {
-    let items: ObservableArray<T>
-    let cellIdentifier: String
-    let configureCell: (T, CellType) -> Void
+public class TableViewConfig<T> : NSObject {
+    var cellIdentifier = ""
+    var configureCell: ((T, UITableViewCell) -> Void) = { _, _ in }
     
-    var selectionBlock: (T -> Void)?
+    var onSelect: (T -> Void)?
     
-    init(items: ObservableArray<T>, cellIdentifier: String, configureCell: (T, CellType) -> Void) {
-        self.items = items
+    public var deselectRowOnSelection = true
+    
+    
+    public func usingCellIdentifier(cellIdentifier: String, configureCell: (T, UITableViewCell) -> Void) {
         self.cellIdentifier = cellIdentifier
         self.configureCell = configureCell
+    }
+    
+    public func onSelect(block: T -> Void) {
+        onSelect = block
+    }
+}
+
+
+private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableViewDelegate {
+    let items: ObservableArray<T>
+    let config: TableViewConfig<T>
+    
+    init(items: ObservableArray<T>, config: TableViewConfig<T>) {
+        self.items = items
+        self.config = config
     }
     
     @objc func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -48,9 +66,18 @@ private class TableViewDelegate<T, CellType: UITableViewCell> : NSObject, UITabl
     }
     
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! CellType
-        configureCell(items[indexPath.row], cell)
+        let cell = tableView.dequeueReusableCellWithIdentifier(config.cellIdentifier, forIndexPath: indexPath)
+        config.configureCell(items[indexPath.row], cell)
         return cell
     }
     
+    
+    //MARK: -
+    
+    @objc func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if config.deselectRowOnSelection {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+        config.onSelect?(items[indexPath.row])
+    }
 }

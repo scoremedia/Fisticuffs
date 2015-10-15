@@ -18,4 +18,10 @@ class ToDoListViewModel {
         toDoItems.append("item")
     }
     
+    func markToDoCompleted(item: String) {
+        while let index = toDoItems.indexOf(item) {
+            toDoItems.removeAtIndex(index)
+        }
+    }
+    
 }

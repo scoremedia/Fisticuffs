@@ -21,8 +21,12 @@ class ToDoListViewController : UIViewController {
         super.viewDidLoad()
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.b_items(viewModel.toDoItems, cellIdentifier: "Cell") { item, cell in
-            cell.textLabel?.text = item
+        
+        tableView.b_configure(viewModel.toDoItems) { config in
+            config.usingCellIdentifier("Cell") { item, cell in
+                cell.textLabel?.text = item
+            }
+            config.onSelect(viewModel.markToDoCompleted)
         }
         
         addButton.b_onTap(viewModel.addToDo)
