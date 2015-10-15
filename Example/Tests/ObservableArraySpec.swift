@@ -98,8 +98,56 @@ class ObservableArraySpec: QuickSpec {
             
             array.replaceRange(0..<1, with: [6, 5])
             expect(receivedReplace) == true
-            
         }
         
+        it("should notify subscribers when the underlying value is set") {
+            var array = ObservableArray([1, 2, 3])
+            
+            var receivedReplace = false
+            
+            let disposable = array.subscribeArray { newValue, change in
+                switch change {
+                case let .Replace(range, removedElements, newElements):
+                    receivedReplace = true
+                    expect(range) == 0..<3
+                    expect(removedElements) == [1, 2, 3]
+                    expect(newElements) == [4, 5]
+                    
+                default:
+                    break
+                }
+            }
+            defer {
+                disposable.dispose()
+            }
+            
+            array.value = [4, 5]
+            expect(receivedReplace) == true
+        }
+        
+        it("should notify subscribers when elements are replaced via subscript") {
+            var array = ObservableArray([1, 2, 3])
+            
+            var receivedReplace = false
+            
+            let disposable = array.subscribeArray { newValue, change in
+                switch change {
+                case let .Replace(range, removedElements, newElements):
+                    receivedReplace = true
+                    expect(range) == 0..<1
+                    expect(removedElements) == [1]
+                    expect(newElements) == [11]
+                    
+                default:
+                    break
+                }
+            }
+            defer {
+                disposable.dispose()
+            }
+            
+            array[0] = 11
+            expect(receivedReplace) == true
+        }
     }
 }
