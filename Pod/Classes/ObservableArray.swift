@@ -49,7 +49,7 @@ public class ObservableArray<T> : Observable<[T]> {
         super.init([])
     }
     
-    override init(_ initial: [T]) {
+    public override init(_ initial: [T]) {
         super.init(initial)
     }
     
