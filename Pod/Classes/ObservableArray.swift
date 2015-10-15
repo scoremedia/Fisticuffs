@@ -22,6 +22,29 @@ public class ObservableArray<T> : Observable<[T]> {
     
     private var subscriptions = [ArraySubscription<T>]()
     
+    private var mutatingValue = false
+    
+    public override var value: [T] {
+        willSet (newValue) {
+            if mutatingValue {
+                return
+            }
+            
+            let oldValue = value
+            let change = ArrayChange.Replace(range: oldValue.startIndex ..< oldValue.endIndex, removedElements: oldValue, newElements: newValue)
+            notifySubscribersOfChange(change, when: .BeforeChange)
+        }
+        didSet (oldValue) {
+            if mutatingValue {
+                return
+            }
+            
+            let newValue = value
+            let change = ArrayChange.Replace(range: oldValue.startIndex ..< oldValue.endIndex, removedElements: oldValue, newElements: newValue)
+            notifySubscribersOfChange(change, when: .AfterChange)
+        }
+    }
+    
     public required init() {
         super.init([])
     }
@@ -102,8 +125,18 @@ extension ObservableArray : Indexable, MutableIndexable {
         get {
             return value[position]
         }
-        set (value) {
-            self.value[position] = value
+        set (item) {
+            let change = ArrayChange.Replace(
+                range: position ..< position + 1,
+                removedElements: [ value[position] ],
+                newElements: [ item ]
+            )
+            
+            notifySubscribersOfChange(change, when: .BeforeChange)
+            mutatingValue = true
+            value[position] = item
+            mutatingValue = false
+            notifySubscribersOfChange(change, when: .AfterChange)
         }
     }
 }
@@ -126,7 +159,9 @@ extension ObservableArray : RangeReplaceableCollectionType {
         let change = determineChange(subRange, newElements: Array(newElements))
         
         notifySubscribersOfChange(change, when: .BeforeChange)
+        mutatingValue = true
         value.replaceRange(subRange, with: newElements)
+        mutatingValue = false
         notifySubscribersOfChange(change, when: .AfterChange)
     }
     
