@@ -26,6 +26,19 @@ public extension UITableView {
         set("delegateSubscription", value: subscription)
     }
     
+    
+    var b_editing: Observable<Bool>? {
+        get {
+            return getObservableFor("editing")
+        }
+        set (value) {
+            setObservableFor("editing", observable: value) {
+                [weak self] editing in
+                self?.editing = editing
+            }
+        }
+    }
+    
 }
 
 public class TableViewConfig<T> : NSObject {
@@ -36,6 +49,7 @@ public class TableViewConfig<T> : NSObject {
     
     public var deselectRowOnSelection = true
     
+    public var allowsDeletion = false
     
     public func usingCellIdentifier(cellIdentifier: String, configureCell: (T, UITableViewCell) -> Void) {
         self.cellIdentifier = cellIdentifier
@@ -49,7 +63,7 @@ public class TableViewConfig<T> : NSObject {
 
 
 private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableViewDelegate {
-    let items: ObservableArray<T>
+    var items: ObservableArray<T>
     let config: TableViewConfig<T>
     
     init(items: ObservableArray<T>, config: TableViewConfig<T>) {
@@ -79,5 +93,23 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         config.onSelect?(items[indexPath.row])
+    }
+    
+    @objc func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return config.allowsDeletion
+    }
+    
+    @objc func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return config.allowsDeletion ? .Delete : .None
+    }
+    
+    @objc func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        switch editingStyle {
+        case .Delete:
+            items.removeAtIndex(indexPath.row)
+            
+        default:
+            break
+        }
     }
 }

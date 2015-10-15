@@ -16,6 +16,7 @@ class ToDoListViewController : UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var editingButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +27,17 @@ class ToDoListViewController : UIViewController {
             config.usingCellIdentifier("Cell") { item, cell in
                 cell.textLabel?.text = item
             }
+            
             config.onSelect(viewModel.markToDoCompleted)
+            
+            config.allowsDeletion = true
         }
+        tableView.b_editing = viewModel.editing
         
         addButton.b_onTap(viewModel.addToDo)
+        
+        editingButton.b_onTap(viewModel.toggleEditing)
+        editingButton.b_title = viewModel.toggleEditingButtonTitle
     }
     
     @IBAction func dismiss() {

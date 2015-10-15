@@ -192,23 +192,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qaq-ud-tF6">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qaq-ud-tF6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Qaq-ud-tF6" secondAttribute="trailing" id="0cw-8W-6Bh"/>
+                            <constraint firstItem="Qaq-ud-tF6" firstAttribute="top" secondItem="2Qu-df-XFP" secondAttribute="top" id="2z7-tq-kIv"/>
+                            <constraint firstItem="Qaq-ud-tF6" firstAttribute="leading" secondItem="2Qu-df-XFP" secondAttribute="leading" id="axD-l6-Zjv"/>
+                            <constraint firstItem="muj-ND-yl6" firstAttribute="top" secondItem="Qaq-ud-tF6" secondAttribute="bottom" id="zFq-6v-ixO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="To Do Example" id="HJL-Qz-VhM">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="bPk-Zc-c3o"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="8jw-Fa-iUx">
-                            <connections>
-                                <action selector="dismiss" destination="iRz-6u-cUY" id="UGp-th-Jjx"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Edit" style="done" id="8jw-Fa-iUx"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="bPk-Zc-c3o"/>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="bPk-Zc-c3o" id="AJG-kL-tHq"/>
+                        <outlet property="editingButton" destination="8jw-Fa-iUx" id="apZ-yj-kNl"/>
                         <outlet property="tableView" destination="Qaq-ud-tF6" id="wTz-Dm-2jc"/>
                     </connections>
                 </viewController>
