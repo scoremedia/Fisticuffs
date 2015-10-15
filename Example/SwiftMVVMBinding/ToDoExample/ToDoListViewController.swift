@@ -21,11 +21,11 @@ class ToDoListViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerClass(ToDoItemCell.self, forCellReuseIdentifier: "Cell")
         
         tableView.b_configure(viewModel.toDoItems) { config in
             config.usingCellIdentifier("Cell") { item, cell in
-                cell.textLabel?.text = item
+                (cell as! ToDoItemCell).bind(item)
             }
             
             config.onSelect(viewModel.markToDoCompleted)

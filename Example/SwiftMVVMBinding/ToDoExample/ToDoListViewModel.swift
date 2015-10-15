@@ -12,7 +12,7 @@ import SwiftMVVMBinding
 
 class ToDoListViewModel {
     
-    var toDoItems = ObservableArray(["one", "two", "three"])
+    var toDoItems = ObservableArray<ToDoItemViewModel>()
     
     let editing = Observable(false)
     
@@ -21,17 +21,17 @@ class ToDoListViewModel {
     }
     
     func addToDo() {
-        toDoItems.append("item")
+        let todo = ToDoItemViewModel()
+        todo.title.value = "Hello"
+        toDoItems.append(todo)
     }
     
     func toggleEditing() {
         editing.value = !editing.value
     }
     
-    func markToDoCompleted(item: String) {
-        while let index = toDoItems.indexOf(item) {
-            toDoItems.removeAtIndex(index)
-        }
+    func markToDoCompleted(item: ToDoItemViewModel) {
+        item.completed.value = !item.completed.value
     }
     
 }
