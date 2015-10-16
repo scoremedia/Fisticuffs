@@ -15,17 +15,24 @@ class SearchViewController: UIViewController {
     
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var selectionDisplay: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.b_text = viewModel.searchQuery
         
+        collectionView.allowsMultipleSelection = true
+        
         collectionView.b_configure(viewModel.results) { config in
             config.usingCellIdentifier("SearchResultCell") { model, cell in
                 (cell as! SearchResultCell).bind(model)
             }
+            
+            config.selections = viewModel.selections
         }
+        
+        selectionDisplay.b_text = viewModel.selectionsDisplayString
     }
     
 }

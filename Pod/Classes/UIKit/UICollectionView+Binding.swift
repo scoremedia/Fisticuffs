@@ -10,15 +10,15 @@ import UIKit
 
 public extension UICollectionView {
     
-    func b_configure<T>(items: ObservableArray<T>, @noescape block: (CollectionViewConfig<T>) -> Void) {
+    func b_configure<T: AnyObject>(items: ObservableArray<T>, @noescape block: (CollectionViewConfig<T>) -> Void) {
         b_configure(ArrayAdapter.forObservableArray(items), block: block)
     }
     
-    func b_configure<T>(items: Observable<[T]>, @noescape block: (CollectionViewConfig<T>) -> Void) {
+    func b_configure<T: AnyObject>(items: Observable<[T]>, @noescape block: (CollectionViewConfig<T>) -> Void) {
         b_configure(ArrayAdapter.forObservable(items), block: block)
     }
     
-    private func b_configure<T>(adapter: ArrayAdapter<T>, @noescape block: (CollectionViewConfig<T>) -> Void) {
+    private func b_configure<T: AnyObject>(adapter: ArrayAdapter<T>, @noescape block: (CollectionViewConfig<T>) -> Void) {
         let config = CollectionViewConfig<T>()
         block(config)
         
@@ -34,13 +34,15 @@ public class CollectionViewConfig<T> : NSObject {
     var cellIdentifier = ""
     var configureCell: ((T, UICollectionViewCell) -> Void) = { _, _ in }
     
+    public var selections: ObservableArray<T>?
+    
     public func usingCellIdentifier(cellIdentifier: String, configureCell: (T, UICollectionViewCell) -> Void) {
         self.cellIdentifier = cellIdentifier
         self.configureCell = configureCell
     }
 }
 
-private class CollectionViewDelegate<T> : NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+private class CollectionViewDelegate<T: AnyObject> : NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     weak var collectionView: UICollectionView?
     var adapter: ArrayAdapter<T>
     let config: CollectionViewConfig<T>
@@ -91,5 +93,17 @@ private class CollectionViewDelegate<T> : NSObject, UICollectionViewDataSource, 
         let item = adapter[indexPath.row]
         config.configureCell(item, cell)
         return cell
+    }
+    
+    @objc func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let item = adapter[indexPath.item]
+        config.selections?.append(item)
+    }
+    
+    @objc func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let item = adapter[indexPath.item]
+        if let index = config.selections?.indexOf({ $0 === item }) {
+            config.selections?.removeAtIndex(index)
+        }
     }
 }

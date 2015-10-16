@@ -305,7 +305,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Vr-qG-Yld">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="464"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4Bb-6x-Eru">
                                     <size key="itemSize" width="160" height="160"/>
@@ -321,6 +321,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qin-bS-Pfg" userLabel="Selected Background View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                                    <color key="backgroundColor" red="0.94215404989999996" green="1" blue="0.94634574650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zok-FL-03S">
                                                     <rect key="frame" x="58" y="131" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -349,18 +353,31 @@
                                         <connections>
                                             <outlet property="emojiLabel" destination="CQz-yH-7Nn" id="l4e-QR-bkl"/>
                                             <outlet property="nameLabel" destination="zok-FL-03S" id="a1m-7X-19p"/>
+                                            <outlet property="selectedBackgroundView" destination="Qin-bS-Pfg" id="Q1m-zj-Tna"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmz-iI-0Oo">
+                                <rect key="frame" x="0.0" y="108" width="600" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="FlX-8K-hAC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vcg-r0-AQ5" firstAttribute="top" secondItem="5Vr-qG-Yld" secondAttribute="bottom" id="ANP-DT-Cf4"/>
                             <constraint firstAttribute="trailing" secondItem="5Vr-qG-Yld" secondAttribute="trailing" id="Bpk-ku-1D4"/>
-                            <constraint firstItem="5Vr-qG-Yld" firstAttribute="top" secondItem="Qbo-ec-cRK" secondAttribute="bottom" id="SLD-tL-AeK"/>
                             <constraint firstAttribute="trailing" secondItem="Qbo-ec-cRK" secondAttribute="trailing" id="UVv-Gv-uqe"/>
+                            <constraint firstItem="5Vr-qG-Yld" firstAttribute="top" secondItem="Kmz-iI-0Oo" secondAttribute="bottom" id="Xgh-zv-FyR"/>
                             <constraint firstItem="Qbo-ec-cRK" firstAttribute="top" secondItem="wnP-qh-Zdi" secondAttribute="bottom" id="ZA4-7B-dWV"/>
+                            <constraint firstItem="Kmz-iI-0Oo" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="cvq-uA-kaA"/>
+                            <constraint firstAttribute="trailing" secondItem="Kmz-iI-0Oo" secondAttribute="trailing" id="gWU-TK-nhm"/>
+                            <constraint firstItem="Kmz-iI-0Oo" firstAttribute="top" secondItem="Qbo-ec-cRK" secondAttribute="bottom" id="m8W-Lv-UpQ"/>
                             <constraint firstItem="5Vr-qG-Yld" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="mdx-uE-vdr"/>
                             <constraint firstItem="Qbo-ec-cRK" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="nOV-Ne-KST"/>
                         </constraints>
@@ -369,6 +386,7 @@
                     <connections>
                         <outlet property="collectionView" destination="5Vr-qG-Yld" id="aQL-WG-llO"/>
                         <outlet property="searchBar" destination="Qbo-ec-cRK" id="L4P-cW-Wsl"/>
+                        <outlet property="selectionDisplay" destination="Kmz-iI-0Oo" id="02V-ec-eBN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PFL-ZV-dHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
