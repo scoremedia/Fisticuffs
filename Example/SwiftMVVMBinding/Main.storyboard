@@ -67,6 +67,31 @@
                                             <segue destination="MhI-wN-Rog" kind="presentation" id="yW0-wA-a55"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="74M-jI-c9b">
+                                        <rect key="frame" x="0.0" y="152" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="74M-jI-c9b" id="q2E-6e-XaW">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVQ-LK-Mbd">
+                                                    <rect key="frame" x="8" y="11" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wVQ-LK-Mbd" firstAttribute="leading" secondItem="q2E-6e-XaW" secondAttribute="leadingMargin" id="0N9-dt-fme"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="wVQ-LK-Mbd" secondAttribute="bottom" constant="3" id="OGJ-cc-yOF"/>
+                                                <constraint firstItem="wVQ-LK-Mbd" firstAttribute="trailing" secondItem="q2E-6e-XaW" secondAttribute="trailingMargin" id="qPB-nF-bi8"/>
+                                                <constraint firstItem="wVQ-LK-Mbd" firstAttribute="top" secondItem="q2E-6e-XaW" secondAttribute="topMargin" constant="3" id="wFp-gG-9IV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="4tn-ZC-6dZ" kind="show" id="KIh-MF-DjP"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -179,6 +204,87 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFj-SV-Z4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1013" y="409"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="mgx-8h-GB3">
+            <objects>
+                <viewController title="Search" id="4tn-ZC-6dZ" customClass="SearchViewController" customModule="SwiftMVVMBinding_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wnP-qh-Zdi"/>
+                        <viewControllerLayoutGuide type="bottom" id="vcg-r0-AQ5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EHh-6L-aL9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Qbo-ec-cRK">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mkz-HF-u2u">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchResultCell" id="UzQ-L4-65i" customClass="SearchResultCell" customModule="SwiftMVVMBinding_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UzQ-L4-65i" id="Hnh-hl-3X9">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😛" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzn-3c-Zl1">
+                                                    <rect key="frame" x="8" y="8" width="67" height="53"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="67" id="Hzh-er-aBo"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="47"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59I-vR-7W4">
+                                                    <rect key="frame" x="83" y="19" width="64" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="59I-vR-7W4" firstAttribute="centerY" secondItem="Hnh-hl-3X9" secondAttribute="centerY" id="2gz-1F-i9d"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="59I-vR-7W4" secondAttribute="trailing" id="BSf-Vb-jg1"/>
+                                                <constraint firstItem="zzn-3c-Zl1" firstAttribute="top" secondItem="Hnh-hl-3X9" secondAttribute="top" constant="8" id="Qd2-kc-oHL"/>
+                                                <constraint firstItem="59I-vR-7W4" firstAttribute="leading" secondItem="zzn-3c-Zl1" secondAttribute="trailing" constant="8" id="TLi-T5-htF"/>
+                                                <constraint firstItem="zzn-3c-Zl1" firstAttribute="leading" secondItem="Hnh-hl-3X9" secondAttribute="leading" constant="8" id="dhD-ig-5r5"/>
+                                                <constraint firstAttribute="bottom" secondItem="zzn-3c-Zl1" secondAttribute="bottom" constant="8" id="kon-u8-Lqx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="emojiLabel" destination="zzn-3c-Zl1" id="CZ2-yU-QTD"/>
+                                            <outlet property="nameLabel" destination="59I-vR-7W4" id="76V-nj-QDM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vcg-r0-AQ5" firstAttribute="top" secondItem="mkz-HF-u2u" secondAttribute="bottom" id="McZ-i8-o7N"/>
+                            <constraint firstAttribute="trailing" secondItem="Qbo-ec-cRK" secondAttribute="trailing" id="UVv-Gv-uqe"/>
+                            <constraint firstItem="Qbo-ec-cRK" firstAttribute="top" secondItem="wnP-qh-Zdi" secondAttribute="bottom" id="ZA4-7B-dWV"/>
+                            <constraint firstAttribute="trailing" secondItem="mkz-HF-u2u" secondAttribute="trailing" id="bWw-N8-0j6"/>
+                            <constraint firstItem="mkz-HF-u2u" firstAttribute="top" secondItem="Qbo-ec-cRK" secondAttribute="bottom" id="jVx-bz-ITw"/>
+                            <constraint firstItem="mkz-HF-u2u" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="kzA-tV-sbF"/>
+                            <constraint firstItem="Qbo-ec-cRK" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="nOV-Ne-KST"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Search Example" id="EIb-HE-NHF"/>
+                    <connections>
+                        <outlet property="searchBar" destination="Qbo-ec-cRK" id="L4P-cW-Wsl"/>
+                        <outlet property="tableView" destination="mkz-HF-u2u" id="5Ey-jU-TOQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PFL-ZV-dHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1013" y="1149"/>
         </scene>
         <!--To Do Example-->
         <scene sceneID="Tif-WL-43b">

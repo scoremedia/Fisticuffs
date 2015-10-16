@@ -21,6 +21,10 @@
 		6A36334E1BD0311F00732EF2 /* ToDoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36334D1BD0311F00732EF2 /* ToDoItemViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		6A3633501BD0322100732EF2 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36334F1BD0322100732EF2 /* ToDoItemCell.swift */; settings = {ASSET_TAGS = (); }; };
 		6A36335A1BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3633591BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift */; };
+		6A3979F21BD13BB400E351EC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3979F11BD13BB400E351EC /* SearchViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		6A3979F41BD13BD600E351EC /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3979F31BD13BD600E351EC /* SearchResultViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		6A3979F61BD140D400E351EC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3979F51BD140D400E351EC /* SearchViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6A3979F81BD140E200E351EC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3979F71BD140E200E351EC /* SearchResultCell.swift */; settings = {ASSET_TAGS = (); }; };
 		6A3B6DC91BCEAA5D0021FA1A /* MemoryManagementSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B6DC81BCEAA5D0021FA1A /* MemoryManagementSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		6A3B6DCB1BCEB3B50021FA1A /* DependencyTrackerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B6DCA1BCEB3B50021FA1A /* DependencyTrackerSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		6AA43A351BCEE6E100365704 /* DisposableBagSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA43A341BCEE6E100365704 /* DisposableBagSpec.swift */; settings = {ASSET_TAGS = (); }; };
@@ -79,6 +83,10 @@
 		6A3633571BD0403C00732EF2 /* SwiftMVVMBinding_ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMVVMBinding_ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A3633591BD0403D00732EF2 /* SwiftMVVMBinding_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMVVMBinding_ExampleUITests.swift; sourceTree = "<group>"; };
 		6A36335B1BD0403D00732EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A3979F11BD13BB400E351EC /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		6A3979F31BD13BD600E351EC /* SearchResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		6A3979F51BD140D400E351EC /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		6A3979F71BD140E200E351EC /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6A3B6DC81BCEAA5D0021FA1A /* MemoryManagementSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryManagementSpec.swift; sourceTree = "<group>"; };
 		6A3B6DCA1BCEB3B50021FA1A /* DependencyTrackerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTrackerSpec.swift; sourceTree = "<group>"; };
 		6A6F1A3D1BCD5C5B0036C3A2 /* Bindings_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bindings_Example-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -188,6 +196,7 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6AA43A401BCFFFC000365704 /* TweetExample */,
 				6AA43A471BCFFFE700365704 /* ToDoExample */,
+				6A3979F01BD13B6700E351EC /* SearchExample */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -248,6 +257,17 @@
 				6A36335B1BD0403D00732EF2 /* Info.plist */,
 			);
 			path = SwiftMVVMBinding_ExampleUITests;
+			sourceTree = "<group>";
+		};
+		6A3979F01BD13B6700E351EC /* SearchExample */ = {
+			isa = PBXGroup;
+			children = (
+				6A3979F51BD140D400E351EC /* SearchViewController.swift */,
+				6A3979F11BD13BB400E351EC /* SearchViewModel.swift */,
+				6A3979F31BD13BD600E351EC /* SearchResultViewModel.swift */,
+				6A3979F71BD140E200E351EC /* SearchResultCell.swift */,
+			);
+			path = SearchExample;
 			sourceTree = "<group>";
 		};
 		6AA43A401BCFFFC000365704 /* TweetExample */ = {
@@ -500,11 +520,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A3633501BD0322100732EF2 /* ToDoItemCell.swift in Sources */,
+				6A3979F41BD13BD600E351EC /* SearchResultViewModel.swift in Sources */,
 				6AA43A4B1BD0027B00365704 /* ToDoListViewModel.swift in Sources */,
 				6AA43A441BCFFFC000365704 /* TweetViewModel.swift in Sources */,
+				6A3979F81BD140E200E351EC /* SearchResultCell.swift in Sources */,
 				6AA43A431BCFFFC000365704 /* TweetViewController.swift in Sources */,
 				6A36334E1BD0311F00732EF2 /* ToDoItemViewModel.swift in Sources */,
+				6A3979F61BD140D400E351EC /* SearchViewController.swift in Sources */,
 				6AA43A461BCFFFD400365704 /* FakeTweetService.swift in Sources */,
+				6A3979F21BD13BB400E351EC /* SearchViewModel.swift in Sources */,
 				6003F59E195388D20070C39A /* BNDAppDelegate.m in Sources */,
 				6AA43A491BCFFFFA00365704 /* ToDoListViewController.swift in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
@@ -784,6 +808,7 @@
 				6A3633601BD0403D00732EF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

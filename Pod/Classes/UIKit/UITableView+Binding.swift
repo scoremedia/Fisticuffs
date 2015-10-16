@@ -11,16 +11,23 @@ import UIKit
 public extension UITableView {
     
     func b_configure<T>(items: ObservableArray<T>, @noescape block: (TableViewConfig<T>) -> Void) {
+        b_configure(ArrayAdapter.forObservableArray(items), block: block)
+    }
+    
+    func b_configure<T>(items: Observable<[T]>, @noescape block: (TableViewConfig<T>) -> Void) {
+        b_configure(ArrayAdapter.forObservable(items), block: block)
+    }
+    
+    private func b_configure<T>(adapter: ArrayAdapter<T>, @noescape block: (TableViewConfig<T>) -> Void) {
         let config = TableViewConfig<T>()
         block(config)
         
-        let delegate = TableViewDelegate(items: items, tableView: self, config: config)
+        let delegate = TableViewDelegate(adapter: adapter, tableView: self, config: config)
         set("delegate", value: (delegate as AnyObject))
         
         self.delegate = delegate
         dataSource = delegate
     }
-    
     
     var b_editing: Observable<Bool>? {
         get {
@@ -57,24 +64,23 @@ public class TableViewConfig<T> : NSObject {
     }
 }
 
-
 private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableViewDelegate {
     weak var tableView: UITableView?
-    var items: ObservableArray<T>
+    var adapter: ArrayAdapter<T>
     let config: TableViewConfig<T>
     
     var suppressChangeNotifications = false
     let disposeBag = DisposableBag()
     
     
-    init(items: ObservableArray<T>, tableView: UITableView, config: TableViewConfig<T>) {
-        self.items = items
+    init(adapter: ArrayAdapter<T>, tableView: UITableView, config: TableViewConfig<T>) {
+        self.adapter = adapter
         self.tableView = tableView
         self.config = config
         
         super.init()
         
-        items.subscribeArray { [weak self] _, change in
+        adapter.subscribe { [weak self] _, change in
             self?.applyChange(change)
         }
         .addTo(disposeBag)
@@ -86,13 +92,13 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
         }
         
         switch change {
-        case .Initial:
+        case .Set:
             tableView?.reloadData()
             
         case let .Insert(index, newElements):
             let indexPaths = (index ..< index + newElements.count).map { row in NSIndexPath(forRow: row, inSection: 0) }
             
-            let isAppending = index == items.count - newElements.count
+            let isAppending = index == adapter.count - newElements.count
             let animation = isAppending ? UITableViewRowAnimation.None : .Top
             tableView?.insertRowsAtIndexPaths(indexPaths, withRowAnimation: animation)
             
@@ -132,13 +138,13 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     }
     
     @objc func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return adapter.count
     }
     
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(config.cellIdentifier, forIndexPath: indexPath)
         cell.showsReorderControl = config.allowsReordering
-        config.configureCell(items[indexPath.row], cell)
+        config.configureCell(adapter[indexPath.row], cell)
         return cell
     }
     
@@ -149,7 +155,7 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
         if config.deselectRowOnSelection {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
-        config.onSelect?(items[indexPath.row])
+        config.onSelect?(adapter[indexPath.row])
     }
     
     //MARK: -
@@ -165,7 +171,7 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     @objc func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
-            items.removeAtIndex(indexPath.row)
+            adapter.removeAtIndex(indexPath.row)
             
         default:
             break
@@ -184,8 +190,8 @@ private class TableViewDelegate<T> : NSObject, UITableViewDataSource, UITableVie
     
     @objc func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         withoutChangeNotifications {
-            let item = items.removeAtIndex(sourceIndexPath.row)
-            items.insert(item, atIndex: destinationIndexPath.row)
+            let item = adapter.removeAtIndex(sourceIndexPath.row)
+            adapter.insert(item, atIndex: destinationIndexPath.row)
         }
     }
 }

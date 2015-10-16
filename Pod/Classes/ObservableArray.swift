@@ -9,7 +9,7 @@
 import Foundation
 
 public enum ArrayChange<T> {
-    case Initial(elements: [T])
+    case Set(elements: [T])
     case Insert(index: Int, newElements: [T])
     case Remove(range: Range<Int>, removedElements: [T])
     case Replace(range: Range<Int>, removedElements: [T], newElements: [T])
@@ -30,8 +30,7 @@ public class ObservableArray<T> : Observable<[T]> {
                 return
             }
             
-            let oldValue = value
-            let change = ArrayChange.Replace(range: oldValue.startIndex ..< oldValue.endIndex, removedElements: oldValue, newElements: newValue)
+            let change = ArrayChange.Set(elements: newValue)
             notifySubscribersOfChange(change, when: .BeforeChange)
         }
         didSet (oldValue) {
@@ -39,8 +38,7 @@ public class ObservableArray<T> : Observable<[T]> {
                 return
             }
             
-            let newValue = value
-            let change = ArrayChange.Replace(range: oldValue.startIndex ..< oldValue.endIndex, removedElements: oldValue, newElements: newValue)
+            let change = ArrayChange.Set(elements: value)
             notifySubscribersOfChange(change, when: .AfterChange)
         }
     }
@@ -67,7 +65,7 @@ extension ObservableArray {
         let subscription = ArraySubscription(callback: callback, when: options.when, observable: self)
         subscriptions.append(subscription)
         if options.notifyOnSubscription {
-            callback(value, .Initial(elements: value))
+            callback(value, .Set(elements: value))
         }
         return subscription
     }
@@ -85,7 +83,7 @@ extension ObservableArray {
             var updated = value
             
             switch change {
-            case let .Initial(elements):
+            case let .Set(elements):
                 updated = elements
             case let .Insert(index, newElements):
                 updated.insertContentsOf(newElements, at: index)

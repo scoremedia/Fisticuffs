@@ -63,7 +63,7 @@ class ObservableArraySpec: QuickSpec {
             
             let disposable = array.subscribeArray { newValue, change in
                 switch change {
-                case let .Initial(elements):
+                case let .Set(elements):
                     receivedInitial = true
                     expect(elements) == [1, 2, 3]
                 
