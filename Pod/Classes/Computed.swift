@@ -34,7 +34,7 @@ public class Computed<T> : Observable<T> {
             value = valueBlock()
         }
         
-        for dependency in dependencies {
+        for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in
                 return observable === dependency
             }
