@@ -27,7 +27,7 @@ class SearchViewModel {
         }
     }
     
-    var selections = ObservableArray<SearchResultViewModel>()
+    var selections = Observable<[SearchResultViewModel]>([])
     
     lazy var selectionsDisplayString: Computed<String> = Computed {
         let selections = self.selections.value

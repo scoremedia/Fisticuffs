@@ -9,11 +9,7 @@
 import UIKit
 
 public extension UITableView {
-    
-    func b_configure<T>(items: ObservableArray<T>, @noescape block: (TableViewConfig<T>) -> Void) {
-        b_configure(ArrayAdapter.forObservableArray(items), block: block)
-    }
-    
+        
     func b_configure<T>(items: Observable<[T]>, @noescape block: (TableViewConfig<T>) -> Void) {
         b_configure(ArrayAdapter.forObservable(items), block: block)
     }

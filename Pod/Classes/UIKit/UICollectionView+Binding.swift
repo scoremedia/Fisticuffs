@@ -10,10 +10,6 @@ import UIKit
 
 public extension UICollectionView {
     
-    func b_configure<T: AnyObject>(items: ObservableArray<T>, @noescape block: (CollectionViewConfig<T>) -> Void) {
-        b_configure(ArrayAdapter.forObservableArray(items), block: block)
-    }
-    
     func b_configure<T: AnyObject>(items: Observable<[T]>, @noescape block: (CollectionViewConfig<T>) -> Void) {
         b_configure(ArrayAdapter.forObservable(items), block: block)
     }
@@ -34,7 +30,7 @@ public class CollectionViewConfig<T> : NSObject {
     var cellIdentifier = ""
     var configureCell: ((T, UICollectionViewCell) -> Void) = { _, _ in }
     
-    public var selections: ObservableArray<T>?
+    public var selections: Observable<[T]>?
     
     public func usingCellIdentifier(cellIdentifier: String, configureCell: (T, UICollectionViewCell) -> Void) {
         self.cellIdentifier = cellIdentifier
@@ -143,13 +139,13 @@ private class CollectionViewDelegate<T: AnyObject> : NSObject, UICollectionViewD
     
     @objc func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let item = adapter[indexPath.item]
-        config.selections?.append(item)
+        config.selections?.value.append(item)
     }
     
     @objc func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let item = adapter[indexPath.item]
-        if let index = config.selections?.indexOf({ $0 === item }) {
-            config.selections?.removeAtIndex(index)
+        if let index = config.selections?.value.indexOf({ $0 === item }) {
+            config.selections?.value.removeAtIndex(index)
         }
     }
 }

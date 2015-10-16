@@ -34,11 +34,6 @@ class ArrayAdapter<T> {
         return AdapterForObservable(observable: observable)
     }
     
-    static func forObservableArray(array: ObservableArray<T>) -> ArrayAdapter<T> {
-        return AdapterForObservableArray(array: array)
-    }
-    
-    
     //MARK: - Overrides
     
     var rawArray: [T] {
@@ -103,37 +98,5 @@ private class AdapterForObservable<T>: ArrayAdapter<T> {
         let retVal = value.removeAtIndex(index)
         observable.value = value
         return retVal
-    }
-}
-
-private class AdapterForObservableArray<T>: ArrayAdapter<T> {
-    var array: ObservableArray<T>
-    
-    init(array: ObservableArray<T>) {
-        self.array = array
-    }
-    
-    override var rawArray: [T] {
-        return array.value
-    }
-    
-    override func subscribe(callback: ([T], ArrayChange<T>) -> Void) -> Disposable {
-        return array.subscribeArray(callback)
-    }
-    
-    override var count: Int {
-        return array.count
-    }
-    
-    override subscript(index: Int) -> T {
-        return array[index]
-    }
-    
-    override func insert(item: T, atIndex index: Int) {
-        array.insert(item, atIndex: index)
-    }
-    
-    override func removeAtIndex(index: Int) -> T {
-        return array.removeAtIndex(index)
     }
 }
