@@ -15,12 +15,15 @@ class SearchViewController: UIViewController {
     
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var clearButton: UIBarButtonItem!
     @IBOutlet var selectionDisplay: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.b_text = viewModel.searchQuery
+        
+        clearButton.b_onTap(viewModel.deselectAll)
         
         collectionView.allowsMultipleSelection = true
         

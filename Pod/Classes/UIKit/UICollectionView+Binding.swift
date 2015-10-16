@@ -62,6 +62,13 @@ private class CollectionViewDelegate<T: AnyObject> : NSObject, UICollectionViewD
             self?.applyChange(newItems, change: change)
         }
         .addTo(disposeBag)
+        
+        if let selections = config.selections {
+            selections.subscribe { [weak self] _ in
+                self?.syncSelectionsToModel()
+            }
+            .addTo(disposeBag)
+        }
     }
     
     private func applyChange(newItems: [T], change: ArrayChange<T>) {
@@ -75,20 +82,30 @@ private class CollectionViewDelegate<T: AnyObject> : NSObject, UICollectionViewD
         
         collectionView.reloadData()
         
+        syncSelectionsToModel()
+    }
+    
+    private func syncSelectionsToModel() {
+        guard let collectionView = collectionView else {
+            return
+        }
+
         guard let configSelections = config.selections else {
             return
         }
         
+        let items = adapter.rawArray
+        
         let currentSelections = Set(collectionView.indexPathsForSelectedItems() ?? [])
         let expectedSelections = Set(configSelections.value.map { (item: T) -> NSIndexPath? in
-            if let index = newItems.indexOf({ $0 === item }) {
+            if let index = items.indexOf({ $0 === item }) {
                 return NSIndexPath(forItem: index, inSection: 0)
             }
             else {
                 return nil
             }
-        }
-        .flatMap { $0 })
+            }
+            .flatMap { $0 })
         
         let toDeselect = currentSelections.subtract(expectedSelections)
         for indexPath in toDeselect {

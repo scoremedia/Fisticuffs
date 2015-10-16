@@ -382,8 +382,11 @@
                             <constraint firstItem="Qbo-ec-cRK" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="nOV-Ne-KST"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Search Example" id="EIb-HE-NHF"/>
+                    <navigationItem key="navigationItem" title="Search Example" id="EIb-HE-NHF">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="7ob-nu-yum"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="clearButton" destination="7ob-nu-yum" id="MBl-p0-6HM"/>
                         <outlet property="collectionView" destination="5Vr-qG-Yld" id="aQL-WG-llO"/>
                         <outlet property="searchBar" destination="Qbo-ec-cRK" id="L4P-cW-Wsl"/>
                         <outlet property="selectionDisplay" destination="Kmz-iI-0Oo" id="02V-ec-eBN"/>

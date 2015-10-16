@@ -41,6 +41,10 @@ class ArrayAdapter<T> {
     
     //MARK: - Overrides
     
+    var rawArray: [T] {
+        preconditionFailure("Override in subclass")
+    }
+    
     func subscribe(callback: ([T], ArrayChange<T>) -> Void) -> Disposable {
         preconditionFailure("Override in subclass")
     }
@@ -68,6 +72,10 @@ private class AdapterForObservable<T>: ArrayAdapter<T> {
     
     init(observable: Observable<[T]>) {
         self.observable = observable
+    }
+    
+    override var rawArray: [T] {
+        return observable.value
     }
     
     override func subscribe(callback: ([T], ArrayChange<T>) -> Void) -> Disposable {
@@ -103,6 +111,10 @@ private class AdapterForObservableArray<T>: ArrayAdapter<T> {
     
     init(array: ObservableArray<T>) {
         self.array = array
+    }
+    
+    override var rawArray: [T] {
+        return array.value
     }
     
     override func subscribe(callback: ([T], ArrayChange<T>) -> Void) -> Disposable {

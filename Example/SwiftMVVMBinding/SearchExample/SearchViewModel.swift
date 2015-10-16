@@ -27,7 +27,7 @@ class SearchViewModel {
         }
     }
     
-    let selections = ObservableArray<SearchResultViewModel>()
+    var selections = ObservableArray<SearchResultViewModel>()
     
     lazy var selectionsDisplayString: Computed<String> = Computed {
         let selections = self.selections.value
@@ -40,4 +40,8 @@ class SearchViewModel {
         }
     }
     
+    
+    func deselectAll() {
+        selections.value = []
+    }
 }
