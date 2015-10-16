@@ -92,6 +92,31 @@
                                             <segue destination="4tn-ZC-6dZ" kind="show" id="KIh-MF-DjP"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dbk-je-NXQ">
+                                        <rect key="frame" x="0.0" y="196" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dbk-je-NXQ" id="LZm-zO-uxf">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miscellanious Controls Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8C-Ap-Rv8">
+                                                    <rect key="frame" x="8" y="11" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="f8C-Ap-Rv8" secondAttribute="bottom" constant="3" id="CFQ-bi-qxk"/>
+                                                <constraint firstItem="f8C-Ap-Rv8" firstAttribute="trailing" secondItem="LZm-zO-uxf" secondAttribute="trailingMargin" id="Wft-tH-fAl"/>
+                                                <constraint firstItem="f8C-Ap-Rv8" firstAttribute="top" secondItem="LZm-zO-uxf" secondAttribute="topMargin" constant="3" id="gfi-Jx-Ltl"/>
+                                                <constraint firstItem="f8C-Ap-Rv8" firstAttribute="leading" secondItem="LZm-zO-uxf" secondAttribute="leadingMargin" id="gyP-m1-SRX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Zlf-9w-2Gk" kind="show" id="zOY-Vl-MGS"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -204,6 +229,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFj-SV-Z4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1013" y="409"/>
+        </scene>
+        <!--Miscellanious Controls Example-->
+        <scene sceneID="hfQ-pY-1XJ">
+            <objects>
+                <viewController id="Zlf-9w-2Gk" customClass="MiscControlsViewController" customModule="SwiftMVVMBinding_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YsZ-nR-VvE"/>
+                        <viewControllerLayoutGuide type="bottom" id="DvV-C0-l1J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HNQ-y4-FVE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRK-2c-gVw">
+                                <rect key="frame" x="20" y="72" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHV-CZ-cns">
+                                <rect key="frame" x="77" y="77" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IHV-CZ-cns" firstAttribute="centerY" secondItem="BRK-2c-gVw" secondAttribute="centerY" id="LuT-tu-iKe"/>
+                            <constraint firstItem="BRK-2c-gVw" firstAttribute="top" secondItem="YsZ-nR-VvE" secondAttribute="bottom" constant="8" id="ehS-T4-EQq"/>
+                            <constraint firstItem="IHV-CZ-cns" firstAttribute="leading" secondItem="BRK-2c-gVw" secondAttribute="trailing" constant="8" id="tvM-37-ucH"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="BRK-2c-gVw" secondAttribute="leading" id="uUP-qJ-FJ0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Miscellanious Controls Example" id="16H-JW-FQw"/>
+                    <connections>
+                        <outlet property="toggle" destination="BRK-2c-gVw" id="wXM-SE-d1E"/>
+                        <outlet property="toggleLabel" destination="IHV-CZ-cns" id="pr6-rK-Qfn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pLH-KC-cZY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="219" y="1419"/>
         </scene>
         <!--Search-->
         <scene sceneID="mgx-8h-GB3">
