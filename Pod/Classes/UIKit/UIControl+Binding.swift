@@ -40,11 +40,46 @@ class ActionWrapper: NSObject, Disposable {
 }
 
 
-public extension UIControl {
+extension UIControl {
     
-    internal var actionsBag: DisposableBag {
+    var actionsBag: DisposableBag {
         return get("actionsBag", orSet: { DisposableBag() })
     }
+    
+    /**
+    Sets up a 2 way binding.
+    
+    - parameter key:         Key to be used in part when storing the asssociated object
+                             It gets namespaced to the be specific to SwiftMVVMBinding & the kind of value being set,
+                             so simple strings like "text", "value", "on", etc... are fine
+    - parameter observable:  The observable
+    - parameter valueSetter: Closure to set the value on the control (make sure to capture self weakly!)
+                             i.e.:  setting the .text property on a UITextField
+    - parameter events:      Control events that signal the value has changed (ie., the user toggling a switch)
+                             *Generally* this is .ValueChanged
+    - parameter valueGetter: Closure to get the new value after a control event was received.
+                             Make sure to weakly capture self!  Expects an Optional return value for this reason
+    */
+    func setTwoWayBinding<T>(key: String, observable: Observable<T>?, valueSetter: (T) -> Void, events: UIControlEvents, valueGetter: () -> T?) {
+        setObservableFor(key, observable: observable, setter: valueSetter)
+        
+        let actionKey = "\(key)_valueChanged"
+        if let observable = observable {
+            let valueChanged = ActionWrapper(control: self, events: events) { [weak observable] in
+                if let value = valueGetter() {
+                    observable?.value = value
+                }
+            }
+            set(actionKey, value: valueChanged)
+        }
+        else {
+            set(actionKey, value: Optional<ActionWrapper>.None)
+        }
+    }
+
+}
+
+public extension UIControl {
     
     var b_enabled: Observable<Bool>? {
         get {
