@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchResultCell: UITableViewCell {
+class SearchResultCell: UICollectionViewCell {
     
     @IBOutlet var emojiLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!

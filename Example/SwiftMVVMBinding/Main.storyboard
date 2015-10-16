@@ -304,65 +304,71 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mkz-HF-u2u">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Vr-qG-Yld">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchResultCell" id="UzQ-L4-65i" customClass="SearchResultCell" customModule="SwiftMVVMBinding_Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UzQ-L4-65i" id="Hnh-hl-3X9">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4Bb-6x-Eru">
+                                    <size key="itemSize" width="160" height="160"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="0yL-FU-J0p" customClass="SearchResultCell" customModule="SwiftMVVMBinding_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😛" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzn-3c-Zl1">
-                                                    <rect key="frame" x="8" y="8" width="67" height="53"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="67" id="Hzh-er-aBo"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="47"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zok-FL-03S">
+                                                    <rect key="frame" x="58" y="131" width="45" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59I-vR-7W4">
-                                                    <rect key="frame" x="83" y="19" width="64" height="32"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😛" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQz-yH-7Nn">
+                                                    <rect key="frame" x="8" y="8" width="144" height="115"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="115" id="eYu-AC-nZs"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="69"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="59I-vR-7W4" firstAttribute="centerY" secondItem="Hnh-hl-3X9" secondAttribute="centerY" id="2gz-1F-i9d"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="59I-vR-7W4" secondAttribute="trailing" id="BSf-Vb-jg1"/>
-                                                <constraint firstItem="zzn-3c-Zl1" firstAttribute="top" secondItem="Hnh-hl-3X9" secondAttribute="top" constant="8" id="Qd2-kc-oHL"/>
-                                                <constraint firstItem="59I-vR-7W4" firstAttribute="leading" secondItem="zzn-3c-Zl1" secondAttribute="trailing" constant="8" id="TLi-T5-htF"/>
-                                                <constraint firstItem="zzn-3c-Zl1" firstAttribute="leading" secondItem="Hnh-hl-3X9" secondAttribute="leading" constant="8" id="dhD-ig-5r5"/>
-                                                <constraint firstAttribute="bottom" secondItem="zzn-3c-Zl1" secondAttribute="bottom" constant="8" id="kon-u8-Lqx"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="CQz-yH-7Nn" firstAttribute="top" secondItem="0yL-FU-J0p" secondAttribute="topMargin" id="1id-n7-4Ns"/>
+                                            <constraint firstItem="zok-FL-03S" firstAttribute="centerX" secondItem="0yL-FU-J0p" secondAttribute="centerX" id="BmP-5K-rzL"/>
+                                            <constraint firstItem="zok-FL-03S" firstAttribute="bottom" secondItem="0yL-FU-J0p" secondAttribute="bottomMargin" id="Gz2-tJ-dt3"/>
+                                            <constraint firstItem="CQz-yH-7Nn" firstAttribute="leading" secondItem="0yL-FU-J0p" secondAttribute="leadingMargin" id="UkQ-Am-SyW"/>
+                                            <constraint firstItem="CQz-yH-7Nn" firstAttribute="trailing" secondItem="0yL-FU-J0p" secondAttribute="trailingMargin" id="yQJ-hG-bZA"/>
+                                        </constraints>
                                         <connections>
-                                            <outlet property="emojiLabel" destination="zzn-3c-Zl1" id="CZ2-yU-QTD"/>
-                                            <outlet property="nameLabel" destination="59I-vR-7W4" id="76V-nj-QDM"/>
+                                            <outlet property="emojiLabel" destination="CQz-yH-7Nn" id="l4e-QR-bkl"/>
+                                            <outlet property="nameLabel" destination="zok-FL-03S" id="a1m-7X-19p"/>
                                         </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vcg-r0-AQ5" firstAttribute="top" secondItem="mkz-HF-u2u" secondAttribute="bottom" id="McZ-i8-o7N"/>
+                            <constraint firstItem="vcg-r0-AQ5" firstAttribute="top" secondItem="5Vr-qG-Yld" secondAttribute="bottom" id="ANP-DT-Cf4"/>
+                            <constraint firstAttribute="trailing" secondItem="5Vr-qG-Yld" secondAttribute="trailing" id="Bpk-ku-1D4"/>
+                            <constraint firstItem="5Vr-qG-Yld" firstAttribute="top" secondItem="Qbo-ec-cRK" secondAttribute="bottom" id="SLD-tL-AeK"/>
                             <constraint firstAttribute="trailing" secondItem="Qbo-ec-cRK" secondAttribute="trailing" id="UVv-Gv-uqe"/>
                             <constraint firstItem="Qbo-ec-cRK" firstAttribute="top" secondItem="wnP-qh-Zdi" secondAttribute="bottom" id="ZA4-7B-dWV"/>
-                            <constraint firstAttribute="trailing" secondItem="mkz-HF-u2u" secondAttribute="trailing" id="bWw-N8-0j6"/>
-                            <constraint firstItem="mkz-HF-u2u" firstAttribute="top" secondItem="Qbo-ec-cRK" secondAttribute="bottom" id="jVx-bz-ITw"/>
-                            <constraint firstItem="mkz-HF-u2u" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="kzA-tV-sbF"/>
+                            <constraint firstItem="5Vr-qG-Yld" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="mdx-uE-vdr"/>
                             <constraint firstItem="Qbo-ec-cRK" firstAttribute="leading" secondItem="EHh-6L-aL9" secondAttribute="leading" id="nOV-Ne-KST"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search Example" id="EIb-HE-NHF"/>
                     <connections>
+                        <outlet property="collectionView" destination="5Vr-qG-Yld" id="aQL-WG-llO"/>
                         <outlet property="searchBar" destination="Qbo-ec-cRK" id="L4P-cW-Wsl"/>
-                        <outlet property="tableView" destination="mkz-HF-u2u" id="5Ey-jU-TOQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PFL-ZV-dHY" userLabel="First Responder" sceneMemberID="firstResponder"/>

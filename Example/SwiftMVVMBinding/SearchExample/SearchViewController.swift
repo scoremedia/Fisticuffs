@@ -14,14 +14,14 @@ class SearchViewController: UIViewController {
     let viewModel = SearchViewModel()
     
     @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.b_text = viewModel.searchQuery
         
-        tableView.b_configure(viewModel.results) { config in
+        collectionView.b_configure(viewModel.results) { config in
             config.usingCellIdentifier("SearchResultCell") { model, cell in
                 (cell as! SearchResultCell).bind(model)
             }
