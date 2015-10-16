@@ -16,6 +16,10 @@ class MiscControlsViewModel {
         return self.toggleValue.value ? "Value:  ON" : "Value:  OFF"
     }
     
-    
+    let sliderValue = Observable(Float(0.0))
+    lazy var sliderValueString: Computed<String> = Computed {
+        let formatted = String(format: "%.1f", self.sliderValue.value)
+        return "Value: \(formatted)"
+    }
     
 }

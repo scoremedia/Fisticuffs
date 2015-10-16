@@ -251,9 +251,25 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Upv-qU-EaA">
+                                <rect key="frame" x="18" y="111" width="161" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="157" id="l9J-IF-BWR"/>
+                                </constraints>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJ2-XB-FEU">
+                                <rect key="frame" x="185" y="115" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WJ2-XB-FEU" firstAttribute="centerY" secondItem="Upv-qU-EaA" secondAttribute="centerY" id="4ve-8Z-AIj"/>
+                            <constraint firstItem="Upv-qU-EaA" firstAttribute="top" secondItem="BRK-2c-gVw" secondAttribute="bottom" constant="8" id="BVe-sE-tpv"/>
+                            <constraint firstItem="WJ2-XB-FEU" firstAttribute="leading" secondItem="Upv-qU-EaA" secondAttribute="trailing" constant="8" id="FMa-IM-J59"/>
+                            <constraint firstItem="Upv-qU-EaA" firstAttribute="leading" secondItem="HNQ-y4-FVE" secondAttribute="leadingMargin" id="Jyw-rh-BpQ"/>
                             <constraint firstItem="IHV-CZ-cns" firstAttribute="centerY" secondItem="BRK-2c-gVw" secondAttribute="centerY" id="LuT-tu-iKe"/>
                             <constraint firstItem="BRK-2c-gVw" firstAttribute="top" secondItem="YsZ-nR-VvE" secondAttribute="bottom" constant="8" id="ehS-T4-EQq"/>
                             <constraint firstItem="IHV-CZ-cns" firstAttribute="leading" secondItem="BRK-2c-gVw" secondAttribute="trailing" constant="8" id="tvM-37-ucH"/>
@@ -262,6 +278,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Miscellanious Controls Example" id="16H-JW-FQw"/>
                     <connections>
+                        <outlet property="slider" destination="Upv-qU-EaA" id="azg-Se-zhN"/>
+                        <outlet property="sliderLabel" destination="WJ2-XB-FEU" id="IK7-SP-V6g"/>
                         <outlet property="toggle" destination="BRK-2c-gVw" id="wXM-SE-d1E"/>
                         <outlet property="toggleLabel" destination="IHV-CZ-cns" id="pr6-rK-Qfn"/>
                     </connections>
