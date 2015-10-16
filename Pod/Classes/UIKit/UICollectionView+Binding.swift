@@ -58,18 +58,47 @@ private class CollectionViewDelegate<T: AnyObject> : NSObject, UICollectionViewD
         
         super.init()
         
-        adapter.subscribe { [weak self] _, change in
-            self?.applyChange(change)
+        adapter.subscribe { [weak self] newItems, change in
+            self?.applyChange(newItems, change: change)
         }
         .addTo(disposeBag)
     }
     
-    private func applyChange(change: ArrayChange<T>) {
+    private func applyChange(newItems: [T], change: ArrayChange<T>) {
         if suppressChangeNotifications {
             return
         }
         
-        collectionView?.reloadData()
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        collectionView.reloadData()
+        
+        guard let configSelections = config.selections else {
+            return
+        }
+        
+        let currentSelections = Set(collectionView.indexPathsForSelectedItems() ?? [])
+        let expectedSelections = Set(configSelections.value.map { (item: T) -> NSIndexPath? in
+            if let index = newItems.indexOf({ $0 === item }) {
+                return NSIndexPath(forItem: index, inSection: 0)
+            }
+            else {
+                return nil
+            }
+        }
+        .flatMap { $0 })
+        
+        let toDeselect = currentSelections.subtract(expectedSelections)
+        for indexPath in toDeselect {
+            collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+        }
+        
+        let toSelect = expectedSelections.subtract(currentSelections)
+        for indexPath in toSelect {
+            collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+        }
     }
     
     private func withoutChangeNotifications(@noescape block: Void -> Void) {
