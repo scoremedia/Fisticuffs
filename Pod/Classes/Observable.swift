@@ -10,18 +10,20 @@ import Foundation
 
 public class Observable<T> : NSObject {
     
-    public typealias Callback = (T) -> Void
+    public typealias Callback = (T, T) -> Void
     
     public var value: T {
         set(newValue) {
+            let old = storage
+            
             for subscription in subscriptions where subscription.when == .BeforeChange {
-                subscription.callback(newValue)
+                subscription.callback(old, newValue)
             }
             
             storage = newValue
             
             for subscription in subscriptions where subscription.when == .AfterChange {
-                subscription.callback(storage)
+                subscription.callback(old, storage)
             }
         }
         get {
@@ -39,18 +41,20 @@ public class Observable<T> : NSObject {
 }
 
 public extension Observable {
-    
+
     @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    public func subscribe(observer: Callback) -> Disposable {
-        return subscribe(SubscriptionOptions(), callback: observer)
+    public func subscribe(options: SubscriptionOptions = SubscriptionOptions(), callback: T -> Void) -> Disposable {
+        return subscribeDiff(options) { _, newValue in
+            callback(newValue)
+        }
     }
     
     @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    public func subscribe(options: SubscriptionOptions, callback: Callback) -> Disposable {
+    public func subscribeDiff(options: SubscriptionOptions = SubscriptionOptions(), callback: Callback) -> Disposable {
         let subscription = Subscription(callback: callback, when: options.when, observable: self)
         subscriptions.append(subscription)
         if options.notifyOnSubscription {
-            callback(value)
+            callback(value, value)
         }
         return subscription
     }

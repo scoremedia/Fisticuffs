@@ -15,7 +15,7 @@ class ToDoListViewModel {
     var editItem: ((ToDoItemViewModel) -> Void)?
     
     
-    var toDoItems = ObservableArray<ToDoItemViewModel>([])
+    var toDoItems = Observable<[ToDoItemViewModel]>([])
     
     let editing = Observable(false)
     
@@ -25,7 +25,7 @@ class ToDoListViewModel {
     
     func addToDo() {
         let todo = ToDoItemViewModel()
-        toDoItems.append(todo)
+        toDoItems.value.append(todo)
         
         editItem?(todo)
     }

@@ -34,7 +34,7 @@ class SearchViewController: UIViewController {
             
             config.selections = viewModel.selections
         }
-        
+
         selectionDisplay.b_text = viewModel.selectionsDisplayString
     }
     
