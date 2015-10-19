@@ -28,48 +28,47 @@ public extension Observable where T: CollectionType, T.Generator.Element : Equat
 
 private extension CollectionType where Generator.Element: Equatable {
     
-    private func calculateChange(other: Self) -> ArrayChange<Self.Generator.Element> {
-        let selfItems = Array(self)
-        let otherItems = Array(other)
+    private func calculateChange(new: Self) -> ArrayChange<Self.Generator.Element> {
+        let oldItems = Array(self)
+        let newItems = Array(new)
         
-        let commonAtStart = numberInCommon(Array(self), otherItems: Array(other))
-        let commonAtEnd = numberInCommon(self.reverse(), otherItems: other.reverse())
+        let commonAtStart = numberInCommon(Array(self), Array(new))
+        let commonAtEnd = numberInCommon(self.reverse(), new.reverse())
         
-        switch (selfItems.count, otherItems.count, commonAtStart, commonAtEnd) {
-            // sc = selfItems.count, oc = otherItems.count, cs = commonAtStart, ce = commonAtEnd
+        switch (oldItems.count, newItems.count, commonAtStart, commonAtEnd) {
             
-        case let (sc, oc, cs, ce)
-            where sc == oc && // same length
-                sc == cs && sc == ce: // all elements are same
-            return ArrayChange.Set(elements: otherItems)
+        case let (oldCount, newCount, commonStart, commonEnd)
+            where oldCount == newCount && // same length?
+                oldCount == commonStart && oldCount == commonEnd: // all elements are same
+            return ArrayChange.Set(elements: newItems)
             
         case (_, _, 0, 0): // nothing in common
-            return ArrayChange.Set(elements: otherItems)
+            return ArrayChange.Set(elements: newItems)
             
-        case let (sc, oc, cs, ce)
-            where sc < oc && // added items
-                cs + ce + (oc - sc) == oc:
-            return ArrayChange.Insert(index: cs, newElements: Array(otherItems[cs..<(oc - ce)]))
+        case let (oldCount, newCount, commonStart, commonEnd)
+            where oldCount < newCount && // added items?
+                commonStart + commonEnd + (newCount - oldCount) == newCount:
+            return ArrayChange.Insert(index: commonStart, newElements: Array(newItems[commonStart..<(newCount - commonEnd)]))
             
-        case let (sc, oc, cs, ce)
-            where sc > oc &&  // removed items
-                cs + ce + (sc - oc) == sc:
-            let range = cs..<(sc - ce)
-            return ArrayChange.Remove(range: range, removedElements: Array(selfItems[range]))
+        case let (oldCount, newCount, commonStart, commonEnd)
+            where oldCount > newCount &&  // removed items?
+                commonStart + commonEnd + (oldCount - newCount) == oldCount:
+            let range = commonStart..<(oldCount - commonEnd)
+            return ArrayChange.Remove(range: range, removedElements: Array(oldItems[range]))
             
-        case let (sc, oc, cs, ce):
-            let rangeInSelf = cs..<(sc - ce)
-            let rangeInOther = cs..<(oc - ce)
-            return ArrayChange.Replace(range: rangeInSelf, removedElements: Array(selfItems[rangeInSelf]), newElements: Array(otherItems[rangeInOther]))
+        case let (oldCount, newCount, commonStart, commonEnd):
+            let rangeInOld = commonStart..<(oldCount - commonEnd)
+            let rangeInNew = commonStart..<(newCount - commonEnd)
+            return ArrayChange.Replace(range: rangeInOld, removedElements: Array(oldItems[rangeInOld]), newElements: Array(newItems[rangeInNew]))
         }
     }
     
-    private func numberInCommon(selfItems: [Self.Generator.Element], otherItems: [Self.Generator.Element]) -> Int {
-        var selfGenerator = selfItems.generate()
-        var otherGenerator = otherItems.generate()
+    private func numberInCommon(oldItems: [Self.Generator.Element], _ newItems: [Self.Generator.Element]) -> Int {
+        var newGenerator = oldItems.generate()
+        var oldGenerator = newItems.generate()
         var count = 0
         
-        while let selfItem = selfGenerator.next(), otherItem = otherGenerator.next() where selfItem == otherItem {
+        while let newItem = newGenerator.next(), oldItem = oldGenerator.next() where newItem == oldItem {
             count += 1
         }
         
