@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SwiftMVVMBinding
 
-class SearchResultViewModel {
+class SearchResultViewModel : ViewModel {
     
     let emoji: String
     let name: String

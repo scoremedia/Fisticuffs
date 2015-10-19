@@ -10,7 +10,7 @@ import Foundation
 import SwiftMVVMBinding
 
 
-class ToDoItemViewModel {
+class ToDoItemViewModel: ViewModel {
     
     let title = Observable("")
     let completed = Observable(false)
