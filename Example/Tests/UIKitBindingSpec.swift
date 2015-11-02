@@ -101,5 +101,29 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UISearchBar") {
+            it("should support 2 way binding on its text value") {
+                
+                let value = Observable("Hello")
+                let searchBar = UISearchBar()
+                searchBar.b_text.bind(value)
+                
+                expect(searchBar.text) == "Hello"
+                
+                // pretend the user types " world"
+                searchBar.text = (searchBar.text ?? "") + " world"
+                searchBar.delegate?.searchBar?(searchBar, textDidChange: searchBar.text!)
+                
+                expect(searchBar.text) == "Hello world"
+                expect(value.value) == "Hello world"
+                
+                // modify it programmatically
+                value.value = "Bye"
+                
+                expect(searchBar.text) == "Bye"
+                expect(value.value) == "Bye"
+            }
+        }
+        
     }
 }
