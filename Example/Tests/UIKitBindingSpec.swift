@@ -175,5 +175,37 @@ class UIKitBindingSpec: QuickSpec {
                 expect(value.value) == 0.25
             }
         }
+        
+        describe("UISegmentedControl") {
+            let items = Observable([1, 2, 3])
+            let selection = Observable(1)
+            
+            let segmentedControl = UISegmentedControl()
+            segmentedControl.b_configure(items, selection: selection, display: { segmentValue in
+                .Title(String(segmentValue))
+            })
+            
+            it("should update it's items when its `items` subscription changes") {
+                items.value = [1, 2, 3, 4]
+                
+                let segments = (0..<segmentedControl.numberOfSegments).map { index in
+                    segmentedControl.titleForSegmentAtIndex(index)
+                }
+                .flatMap { title in title }
+                
+                expect(segments) == ["1", "2", "3", "4"]
+            }
+            
+            it("should keep its selection in sync with the specified `selection` observable") {
+                selection.value = 2
+                expect(segmentedControl.selectedSegmentIndex) == items.value.indexOf(selection.value)
+                
+                // Simulate the user switching selection
+                segmentedControl.selectedSegmentIndex = 0
+                segmentedControl.sendActionsForControlEvents(.ValueChanged)
+                
+                expect(selection.value) == items.value.first
+            }
+        }
     }
 }
