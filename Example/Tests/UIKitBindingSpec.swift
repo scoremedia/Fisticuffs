@@ -88,5 +88,18 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UITableViewCell") {
+            it("should support binding it's accessoryType value") {
+                let accessoryType = Observable(UITableViewCellAccessoryType.None)
+                
+                let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+                cell.b_accessoryType.bind(accessoryType)
+                expect(cell.accessoryType) == UITableViewCellAccessoryType.None
+                
+                accessoryType.value = .Checkmark
+                expect(cell.accessoryType) == UITableViewCellAccessoryType.Checkmark
+            }
+        }
+        
     }
 }

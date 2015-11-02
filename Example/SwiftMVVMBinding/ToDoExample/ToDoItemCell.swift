@@ -12,9 +12,9 @@ class ToDoItemCell: UITableViewCell {
     
     func bind(viewModel: ToDoItemViewModel) {
         textLabel?.b_text.bind(viewModel.title)
-        b_accessoryType = viewModel.completed.map { value in
+        b_accessoryType.bind(viewModel.completed.map { value in
             value ? UITableViewCellAccessoryType.Checkmark : .None
-        }
+        })
     }
     
 }
