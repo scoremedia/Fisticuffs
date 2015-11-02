@@ -148,5 +148,32 @@ class UIKitBindingSpec: QuickSpec {
                 expect(on.value) == false
             }
         }
+        
+        describe("UISlider") {
+            it("should support 2 way binding on its 'value' value") {
+                
+                let value = Observable(Float(0.0))
+                let slider = UISlider()
+                slider.minimumValue = 0.0
+                slider.maximumValue = 1.0
+                slider.value = 0.5
+                slider.b_value.bind(value)
+                
+                expect(slider.value) == 0.0
+                
+                // pretend the user toggles switch ON
+                slider.value = 0.5
+                slider.sendActionsForControlEvents(.ValueChanged)
+                
+                expect(slider.value) == 0.5
+                expect(value.value) == 0.5
+                
+                // modify it programmatically
+                value.value = 0.25
+                
+                expect(slider.value) == 0.25
+                expect(value.value) == 0.25
+            }
+        }
     }
 }

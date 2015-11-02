@@ -10,18 +10,25 @@ import Foundation
 
 public extension UISlider {
     
-    var b_value: Observable<Float>? {
+    var b_value: BidirectionalBinding<Float> {
         get {
-            return getObservableFor("value")
+            return get("b_value", orSet: {
+                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+                let cleanup = DisposableBlock { [weak self] in
+                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+                }
+                
+                return BidirectionalBinding<Float>(
+                    getter: { [weak self] in self?.value ?? 0.0 },
+                    setter: { [weak self] value in self?.value = value },
+                    extraCleanup: cleanup
+                )
+            })
         }
-        set (observable) {
-            setTwoWayBinding("value",
-                observable: observable,
-                valueSetter: { [weak self] v in self?.value = v },
-                events: .ValueChanged,
-                valueGetter: { [weak self] in self?.value }
-            )
-        }
+    }
+    
+    @objc private func b_valueChanged(sender: UITextField) {
+        b_value.pushChangeToObservable()
     }
 }
 

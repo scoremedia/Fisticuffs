@@ -27,7 +27,7 @@ class MiscControlsViewController: UIViewController {
         toggle.b_on.bind(viewModel.toggleValue)
         toggleLabel.b_text.bind(viewModel.toggleValueString)
         
-        slider.b_value = viewModel.sliderValue
+        slider.b_value.bind(viewModel.sliderValue)
         sliderLabel.b_text.bind(viewModel.sliderValueString)
         
         segment.b_configure(viewModel.segments, selection: viewModel.selectedSegment) { item in .Title(item) }
