@@ -20,7 +20,7 @@ class UIKitBindingSpec: QuickSpec {
                 let name = Observable("")
                 
                 let label = UILabel()
-                label.b_text = name
+                label.b_text.bind(name)
                 
                 name.value = "Fred"
                 expect(label.text) == "Fred"

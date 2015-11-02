@@ -13,15 +13,13 @@ private var textKey = "text"
 
 public extension UILabel {
     
-    var b_text: Observable<String>? {
+    var b_text: Binding<String> {
         get {
-            return getObservableFor("text")
-        }
-        set (value) {
-            setObservableFor("text", observable: value) {
-                [weak self] text in
-                self?.text = text
-            }
+            return get("b_text", orSet: {
+                return Binding<String>(setter: { [weak self] value in
+                    self?.text = value
+                })
+            })
         }
     }
     

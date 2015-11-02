@@ -11,7 +11,7 @@ import UIKit
 class ToDoItemCell: UITableViewCell {
     
     func bind(viewModel: ToDoItemViewModel) {
-        textLabel?.b_text = viewModel.title
+        textLabel?.b_text.bind(viewModel.title)
         b_accessoryType = viewModel.completed.map { value in
             value ? UITableViewCellAccessoryType.Checkmark : .None
         }
