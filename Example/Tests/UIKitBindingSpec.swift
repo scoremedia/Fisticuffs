@@ -45,7 +45,7 @@ class UIKitBindingSpec: QuickSpec {
                 
                 let value = Observable("Hello")
                 let textField = UITextField()
-                textField.b_text = value
+                textField.b_text.bind(value)
                 
                 expect(textField.text) == "Hello"
                 

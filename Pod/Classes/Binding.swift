@@ -13,14 +13,16 @@ public class Binding<ValueType> {
     let setter: Setter
     var currentBinding: Disposable?
     
-    init(setter: (ValueType) -> Void) {
+    init(setter: Setter) {
         self.setter = setter
     }
     
     deinit {
         currentBinding?.dispose()
     }
-    
+}
+
+public extension Binding {
     public func bind<S: Subscribable where S.ValueType == ValueType>(subscribable: S) {
         currentBinding?.dispose()
         

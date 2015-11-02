@@ -19,7 +19,7 @@ class TweetViewController : UIViewController {
 
     
     override func viewDidLoad() {
-        tweetBody.b_text = viewModel.tweetBody
+        tweetBody.b_text.bind(viewModel.tweetBody)
         statusLabel.b_text.bind(viewModel.statusMessage)
         characterCountLabel.b_text.bind(viewModel.charactersLeft)
         

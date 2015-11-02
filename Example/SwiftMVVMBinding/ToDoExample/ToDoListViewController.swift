@@ -45,7 +45,7 @@ class ToDoListViewController : UIViewController {
             let alert = UIAlertController(title: "To Do", message: nil, preferredStyle: .Alert)
             alert.addTextFieldWithConfigurationHandler { textField in
                 textField.placeholder = "Title"
-                textField.b_text = item.title
+                textField.b_text.bind(item.title)
             }
             
             let doneButton = UIAlertAction(title: "Done", style: .Default, handler: nil)
