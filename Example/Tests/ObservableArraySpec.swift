@@ -103,15 +103,14 @@ class ObservableArraySpec: QuickSpec {
         it("should notify subscribers when the underlying value is set") {
             var array = Observable([1, 2, 3])
             
-            var receivedReplace = false
+            var receivedSet = false
             
-            let disposable = array.subscribeArray { newValue, change in
+            let options = SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)
+            let disposable = array.subscribeArray(options) { newValue, change in
                 switch change {
-                case let .Replace(range, removedElements, newElements):
-                    receivedReplace = true
-                    expect(range) == 0..<3
-                    expect(removedElements) == [1, 2, 3]
-                    expect(newElements) == [4, 5]
+                case let .Set(elements):
+                    receivedSet = true
+                    expect(elements) == [4, 5]
                     
                 default:
                     break
@@ -122,7 +121,7 @@ class ObservableArraySpec: QuickSpec {
             }
             
             array.value = [4, 5]
-            expect(receivedReplace) == true
+            expect(receivedSet) == true
         }
         
         it("should notify subscribers when elements are replaced via subscript") {
