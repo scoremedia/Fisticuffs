@@ -16,25 +16,25 @@ class ObservableArraySpec: QuickSpec {
     override func spec() {
         
         it("should behave like an array") {
-            var array = ObservableArray(["Hello", "World"])
-            expect(array.count) == 2
-            expect(array[0]) == "Hello"
-            expect(array[1]) == "World"
+            var array = Observable(["Hello", "World"])
+            expect(array.value.count) == 2
+            expect(array.value[0]) == "Hello"
+            expect(array.value[1]) == "World"
             
-            expect(array[0..<2]).to(contain("Hello", "World"))
+            expect(array.value[0..<2]).to(contain("Hello", "World"))
             
-            array[1] = "Fred"
-            expect(array[1]) == "Fred"
+            array.value[1] = "Fred"
+            expect(array.value[1]) == "Fred"
             
-            array.removeLast()
-            expect(array.count) == 1
-            expect(array.first) == "Hello"
+            array.value.removeLast()
+            expect(array.value.count) == 1
+            expect(array.value.first) == "Hello"
             
-            array.append("World")
+            array.value.append("World")
         }
         
         it("should notify subscribers when its value changes") {
-            var array = ObservableArray([1, 2, 3])
+            var array = Observable([1, 2, 3])
             
             var receivedValue = false
             
@@ -48,13 +48,13 @@ class ObservableArraySpec: QuickSpec {
                 disposable.dispose()
             }
             
-            array.append(4)
+            array.value.append(4)
             
             expect(receivedValue) == true
         }
         
         it("should notify subscribers with the specifics of each change") {
-            var array = ObservableArray([1, 2, 3])
+            var array = Observable([1, 2, 3])
             
             var receivedInitial = false
             var receivedInsert = false
@@ -90,18 +90,18 @@ class ObservableArraySpec: QuickSpec {
             
             expect(receivedInitial) == true
             
-            array.append(4)
+            array.value.append(4)
             expect(receivedInsert) == true
             
-            array.removeRange(1..<3)
+            array.value.removeRange(1..<3)
             expect(receivedRemove) == true
             
-            array.replaceRange(0..<1, with: [6, 5])
+            array.value.replaceRange(0..<1, with: [6, 5])
             expect(receivedReplace) == true
         }
         
         it("should notify subscribers when the underlying value is set") {
-            var array = ObservableArray([1, 2, 3])
+            var array = Observable([1, 2, 3])
             
             var receivedReplace = false
             
@@ -126,7 +126,7 @@ class ObservableArraySpec: QuickSpec {
         }
         
         it("should notify subscribers when elements are replaced via subscript") {
-            var array = ObservableArray([1, 2, 3])
+            var array = Observable([1, 2, 3])
             
             var receivedReplace = false
             
@@ -146,7 +146,7 @@ class ObservableArraySpec: QuickSpec {
                 disposable.dispose()
             }
             
-            array[0] = 11
+            array.value[0] = 11
             expect(receivedReplace) == true
         }
     }

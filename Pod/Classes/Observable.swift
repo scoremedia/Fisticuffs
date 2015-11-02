@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class Observable<T> : NSObject {
+public class Observable<T> : AnySubscribable, Subscribable, SubscribableMixin {
     
-    public typealias Callback = (T, T) -> Void
+    //MARK: - Value property
     
     public var value: T {
         set(newValue) {
@@ -33,49 +33,36 @@ public class Observable<T> : NSObject {
     }
     
     private var storage: T
-    private var subscriptions = [Subscription<T>]()
+    
+    //MARK: - SubscribableMixin Storage
+    
+    var currentValue: T? {
+        return value
+    }
+    var subscriptions = [Subscription<T>]()
+    
+    //MARK: - Init
     
     public init(_ initial: T) {
         storage = initial
     }
+
 }
 
-public extension Observable {
-
-    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    public func subscribe(options: SubscriptionOptions = SubscriptionOptions(), callback: T -> Void) -> Disposable {
-        return subscribeDiff(options) { _, newValue in
-            callback(newValue)
-        }
-    }
-    
-    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    public func subscribeDiff(options: SubscriptionOptions = SubscriptionOptions(), callback: Callback) -> Disposable {
-        let subscription = Subscription(callback: callback, when: options.when, observable: self)
-        subscriptions.append(subscription)
-        if options.notifyOnSubscription {
-            callback(value, value)
-        }
-        return subscription
-    }
-    
-}
-
+//MARK: - Subscribable
 extension Observable {
-    func removeSubscription(subscription: Subscription<T>) {
-        subscriptions = subscriptions.filter { s in
-            s !== subscription
-        }
+    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
+    public func subscribeDiff(options: SubscriptionOptions = SubscriptionOptions(), callback: (T?, T) -> Void) -> Disposable {
+        return addSubscription(options, callback: callback)
     }
 }
 
-extension Observable : AnyObservable {
-    
+//MARK: - AnySubscribable
+extension Observable {
     @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    func subscribeAny(options: SubscriptionOptions, callback: (Void) -> Void) -> Disposable {
-        return subscribe(options) { (_: T) -> Void in
+    public func subscribeAny(options: SubscriptionOptions = SubscriptionOptions(), callback: () -> Void) -> Disposable {
+        return addSubscription(options) { _, _ in
             callback()
         }
     }
-    
 }
