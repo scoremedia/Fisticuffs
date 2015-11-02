@@ -20,6 +20,7 @@ extension SubscribableMixin {
         var subscription: Subscription<ValueType>? = nil
         subscription = Subscription(callback: callback, when: options.when, disposeBlock: {
             self.subscriptions = self.subscriptions.filter { s in s !== subscription }
+            subscription = nil
         })
         subscriptions.append(subscription!)
         if let value = currentValue where options.notifyOnSubscription {
