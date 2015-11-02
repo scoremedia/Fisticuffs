@@ -38,7 +38,7 @@ class ToDoListViewController : UIViewController {
         addButton.b_onTap(viewModel.addToDo)
         
         editingButton.b_onTap(viewModel.toggleEditing)
-        editingButton.b_title = viewModel.toggleEditingButtonTitle
+        editingButton.b_title.bind(viewModel.toggleEditingButtonTitle)
         
         
         viewModel.editItem = { [weak self] item in

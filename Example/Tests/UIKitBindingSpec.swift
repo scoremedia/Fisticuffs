@@ -64,5 +64,29 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UIBarButtonItem") {
+            let barButtonItem = UIBarButtonItem()
+            
+            it("should support taps") {
+                var receivedAction = false
+                let disposable = barButtonItem.b_onTap { receivedAction = true }
+                defer { disposable.dispose() }
+                
+                // simulate a tap
+                barButtonItem.target?.performSelector(barButtonItem.action, withObject: barButtonItem)
+                
+                expect(receivedAction) == true
+            }
+            
+            it("should support binding it's title") {
+                let title = Observable("Hello")
+                barButtonItem.b_title.bind(title)
+                expect(barButtonItem.title) == "Hello"
+                
+                title.value = "World"
+                expect(barButtonItem.title) == "World"
+            }
+        }
+        
     }
 }
