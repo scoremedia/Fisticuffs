@@ -22,4 +22,11 @@ class MiscControlsViewModel {
         return "Value: \(formatted)"
     }
     
+    let segments = Observable(["One", "Two", "Three"])
+    let selectedSegment = Observable("")
+    lazy var segmentValueString: Computed<String> = Computed {
+        return "Value: \(self.selectedSegment.value)"
+    }
+    
+    
 }

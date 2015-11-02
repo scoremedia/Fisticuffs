@@ -263,21 +263,40 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="F1l-R4-Pdu">
+                                <rect key="frame" x="20" y="149" width="121" height="29"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ui-Dr-E4g">
+                                <rect key="frame" x="149" y="152" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WJ2-XB-FEU" firstAttribute="centerY" secondItem="Upv-qU-EaA" secondAttribute="centerY" id="4ve-8Z-AIj"/>
                             <constraint firstItem="Upv-qU-EaA" firstAttribute="top" secondItem="BRK-2c-gVw" secondAttribute="bottom" constant="8" id="BVe-sE-tpv"/>
+                            <constraint firstItem="8ui-Dr-E4g" firstAttribute="centerY" secondItem="F1l-R4-Pdu" secondAttribute="centerY" id="D3g-Ob-oN7"/>
                             <constraint firstItem="WJ2-XB-FEU" firstAttribute="leading" secondItem="Upv-qU-EaA" secondAttribute="trailing" constant="8" id="FMa-IM-J59"/>
                             <constraint firstItem="Upv-qU-EaA" firstAttribute="leading" secondItem="HNQ-y4-FVE" secondAttribute="leadingMargin" id="Jyw-rh-BpQ"/>
                             <constraint firstItem="IHV-CZ-cns" firstAttribute="centerY" secondItem="BRK-2c-gVw" secondAttribute="centerY" id="LuT-tu-iKe"/>
                             <constraint firstItem="BRK-2c-gVw" firstAttribute="top" secondItem="YsZ-nR-VvE" secondAttribute="bottom" constant="8" id="ehS-T4-EQq"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="F1l-R4-Pdu" secondAttribute="leading" id="ls7-uh-oYq"/>
                             <constraint firstItem="IHV-CZ-cns" firstAttribute="leading" secondItem="BRK-2c-gVw" secondAttribute="trailing" constant="8" id="tvM-37-ucH"/>
                             <constraint firstAttribute="leadingMargin" secondItem="BRK-2c-gVw" secondAttribute="leading" id="uUP-qJ-FJ0"/>
+                            <constraint firstItem="F1l-R4-Pdu" firstAttribute="top" secondItem="Upv-qU-EaA" secondAttribute="bottom" constant="8" id="xNa-up-hcH"/>
+                            <constraint firstItem="8ui-Dr-E4g" firstAttribute="leading" secondItem="F1l-R4-Pdu" secondAttribute="trailing" constant="8" id="zdZ-Gs-pW5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Miscellanious Controls Example" id="16H-JW-FQw"/>
                     <connections>
+                        <outlet property="segment" destination="F1l-R4-Pdu" id="EYA-Ax-eOJ"/>
+                        <outlet property="segmentValue" destination="8ui-Dr-E4g" id="jkv-1Y-QnL"/>
                         <outlet property="slider" destination="Upv-qU-EaA" id="azg-Se-zhN"/>
                         <outlet property="sliderLabel" destination="WJ2-XB-FEU" id="IK7-SP-V6g"/>
                         <outlet property="toggle" destination="BRK-2c-gVw" id="wXM-SE-d1E"/>

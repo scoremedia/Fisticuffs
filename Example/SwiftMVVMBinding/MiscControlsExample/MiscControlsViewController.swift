@@ -18,6 +18,9 @@ class MiscControlsViewController: UIViewController {
     @IBOutlet var slider: UISlider!
     @IBOutlet var sliderLabel: UILabel!
     
+    @IBOutlet var segment: UISegmentedControl!
+    @IBOutlet var segmentValue: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +29,9 @@ class MiscControlsViewController: UIViewController {
         
         slider.b_value = viewModel.sliderValue
         sliderLabel.b_text = viewModel.sliderValueString
+        
+        segment.b_configure(viewModel.segments, selection: viewModel.selectedSegment) { item in .Title(item) }
+        segmentValue.b_text = viewModel.segmentValueString
     }
     
 }
