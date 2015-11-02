@@ -10,18 +10,25 @@ import Foundation
 
 public extension UISwitch {
     
-    var b_on: Observable<Bool>? {
+    var b_on: BidirectionalBinding<Bool> {
         get {
-            return getObservableFor("on")
+            return get("b_on", orSet: {
+                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+                let cleanup = DisposableBlock { [weak self] in
+                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+                }
+                
+                return BidirectionalBinding<Bool>(
+                    getter: { [weak self] in self?.on ?? false },
+                    setter: { [weak self] value in self?.on = value },
+                    extraCleanup: cleanup
+                )
+            })
         }
-        set (value) {
-            setTwoWayBinding("on",
-                observable: value,
-                valueSetter: { [weak self] on in self?.on = on },
-                events: .ValueChanged,
-                valueGetter: { [weak self] in self?.on }
-            )
-        }
+    }
+    
+    @objc private func b_valueChanged(sender: UITextField) {
+        b_on.pushChangeToObservable()
     }
 }
 

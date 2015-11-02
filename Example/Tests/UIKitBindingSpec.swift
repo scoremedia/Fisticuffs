@@ -125,5 +125,28 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UISwitch") {
+            it("should support 2 way binding on its 'on' value") {
+                
+                let on = Observable(false)
+                let toggle = UISwitch()
+                toggle.b_on.bind(on)
+                
+                expect(toggle.on) == false
+                
+                // pretend the user toggles switch ON
+                toggle.on = true
+                toggle.sendActionsForControlEvents(.ValueChanged)
+                
+                expect(toggle.on) == true
+                expect(on.value) == true
+                
+                // modify it programmatically
+                on.value = false
+                
+                expect(toggle.on) == false
+                expect(on.value) == false
+            }
+        }
     }
 }

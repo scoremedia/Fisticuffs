@@ -24,7 +24,7 @@ class MiscControlsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        toggle.b_on = viewModel.toggleValue
+        toggle.b_on.bind(viewModel.toggleValue)
         toggleLabel.b_text.bind(viewModel.toggleValueString)
         
         slider.b_value = viewModel.sliderValue
