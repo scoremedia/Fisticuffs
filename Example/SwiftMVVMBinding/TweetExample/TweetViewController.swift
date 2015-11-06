@@ -19,9 +19,9 @@ class TweetViewController : UIViewController {
 
     
     override func viewDidLoad() {
-        tweetBody.b_text = viewModel.tweetBody
-        statusLabel.b_text = viewModel.statusMessage
-        characterCountLabel.b_text = viewModel.charactersLeft
+        tweetBody.b_text.bind(viewModel.tweetBody)
+        statusLabel.b_text.bind(viewModel.statusMessage)
+        characterCountLabel.b_text.bind(viewModel.charactersLeft)
         
         postButton.b_enabled = viewModel.canSubmitTweet
         postButton.b_onTap(viewModel.postTweet)

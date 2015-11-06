@@ -24,14 +24,14 @@ class MiscControlsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        toggle.b_on = viewModel.toggleValue
-        toggleLabel.b_text = viewModel.toggleValueString
+        toggle.b_on.bind(viewModel.toggleValue)
+        toggleLabel.b_text.bind(viewModel.toggleValueString)
         
-        slider.b_value = viewModel.sliderValue
-        sliderLabel.b_text = viewModel.sliderValueString
+        slider.b_value.bind(viewModel.sliderValue)
+        sliderLabel.b_text.bind(viewModel.sliderValueString)
         
         segment.b_configure(viewModel.segments, selection: viewModel.selectedSegment) { item in .Title(item) }
-        segmentValue.b_text = viewModel.segmentValueString
+        segmentValue.b_text.bind(viewModel.segmentValueString)
     }
     
 }

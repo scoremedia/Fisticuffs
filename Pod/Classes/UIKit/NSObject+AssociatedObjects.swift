@@ -29,7 +29,7 @@ extension NSObject {
         return objc_getAssociatedObject(self, key) as? T
     }
     
-    func get<T: AnyObject>(name: String, orSet block: (Void) -> T) -> T {
+    func get<T: AnyObject>(name: String, @noescape orSet block: (Void) -> T) -> T {
         if let existing: T = get(name) {
             return existing
         }

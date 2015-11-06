@@ -80,7 +80,7 @@ class MemoryManagementSpec: QuickSpec {
                     weakObservable = observable
                     
                     let textField = UITextField()
-                    textField.b_text = observable
+                    textField.b_text.bind(observable)
                 }
                 
                 // if textField properly disposed of it's subscriptions, the object weakObservable

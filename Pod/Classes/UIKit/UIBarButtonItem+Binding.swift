@@ -59,15 +59,13 @@ public extension UIBarButtonItem {
         return action
     }
     
-    var b_title: Observable<String>? {
+    var b_title: Binding<String> {
         get {
-            return getObservableFor("title")
-        }
-        set (value) {
-            setObservableFor("title", observable: value) {
-                [weak self] title in
-                self?.title = title
-            }
+            return get("b_title", orSet: {
+                return Binding<String>(setter: { [weak self] value in
+                    self?.title = value
+                })
+            })
         }
     }
     

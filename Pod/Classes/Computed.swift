@@ -12,7 +12,7 @@ import Foundation
 public class Computed<T> : Observable<T> {
     
     let valueBlock: Void -> T
-    var dependencies = [(AnyObservable, Disposable)]()
+    var dependencies = [(AnySubscribable, Disposable)]()
     
     public init(block: Void -> T) {
         valueBlock = block

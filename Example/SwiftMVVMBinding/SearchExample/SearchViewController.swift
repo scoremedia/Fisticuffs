@@ -21,8 +21,8 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.b_text = viewModel.searchQuery
-        
+        searchBar.b_text.bind(viewModel.searchQuery)
+    
         clearButton.b_onTap(viewModel.deselectAll)
         
         collectionView.allowsMultipleSelection = true
@@ -35,7 +35,7 @@ class SearchViewController: UIViewController {
             config.selections = viewModel.selections
         }
 
-        selectionDisplay.b_text = viewModel.selectionsDisplayString
+        selectionDisplay.b_text.bind(viewModel.selectionsDisplayString)
     }
     
 }

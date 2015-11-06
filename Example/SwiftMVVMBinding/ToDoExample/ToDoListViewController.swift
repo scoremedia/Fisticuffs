@@ -38,14 +38,14 @@ class ToDoListViewController : UIViewController {
         addButton.b_onTap(viewModel.addToDo)
         
         editingButton.b_onTap(viewModel.toggleEditing)
-        editingButton.b_title = viewModel.toggleEditingButtonTitle
+        editingButton.b_title.bind(viewModel.toggleEditingButtonTitle)
         
         
         viewModel.editItem = { [weak self] item in
             let alert = UIAlertController(title: "To Do", message: nil, preferredStyle: .Alert)
             alert.addTextFieldWithConfigurationHandler { textField in
                 textField.placeholder = "Title"
-                textField.b_text = item.title
+                textField.b_text.bind(item.title)
             }
             
             let doneButton = UIAlertAction(title: "Done", style: .Default, handler: nil)

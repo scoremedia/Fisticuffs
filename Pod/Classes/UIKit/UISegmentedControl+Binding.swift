@@ -15,21 +15,27 @@ public enum SegmentDisplay {
 
 public extension UISegmentedControl {
     
-    func b_configure<T: Equatable>(items: Observable<[T]>, selection: Observable<T>, display: (T) -> SegmentDisplay) {
-        let manager = SegmentControlManager(control: self, items: items, display: display, selection: selection)
+    func b_configure<S: Subscribable where
+            S.ValueType: CollectionType,
+            S.ValueType.Index == Int,
+            S.ValueType.Generator.Element: Equatable>(items: S, selection: Observable<S.ValueType.Generator.Element>, display: (S.ValueType.Generator.Element) -> SegmentDisplay) {
+        let manager = SegmentControlManager<S>(control: self, items: items, display: display, selection: selection)
         set("manager", value: (manager as AnyObject))
     }
 }
 
-private class SegmentControlManager<T: Equatable> : NSObject {
+private class SegmentControlManager<S: Subscribable where S.ValueType: CollectionType, S.ValueType.Index == Int, S.ValueType.Generator.Element: Equatable> : NSObject {
+    typealias ItemType = S.ValueType.Generator.Element
+    
     weak var control: UISegmentedControl?
-    let items: Observable<[T]>
-    let display: (T) -> SegmentDisplay
-    let selection: Observable<T>
+    let items: S
+    var itemValues: [ItemType] = []
+    let display: (ItemType) -> SegmentDisplay
+    let selection: Observable<ItemType>
     
     let disposableBag = DisposableBag()
     
-    init(control: UISegmentedControl, items: Observable<[T]>, display: (T) -> SegmentDisplay, selection: Observable<T>) {
+    init(control: UISegmentedControl, items: S, display: (ItemType) -> SegmentDisplay, selection: Observable<ItemType>) {
         self.control = control
         self.items = items
         self.display = display
@@ -53,8 +59,10 @@ private class SegmentControlManager<T: Equatable> : NSObject {
         control?.removeTarget(self, action: "userChangedSelection:", forControlEvents: .ValueChanged)
     }
     
-    func itemsChanged(newValue: [T]) {
+    func itemsChanged(newValue: S.ValueType) {
         guard let control = control else { return }
+        
+        itemValues = Array(newValue)
         
         control.removeAllSegments()
         for (index, item) in newValue.enumerate() {
@@ -76,10 +84,10 @@ private class SegmentControlManager<T: Equatable> : NSObject {
         }
     }
     
-    func selectionChanged(newValue: T) {
+    func selectionChanged(newValue: ItemType) {
         guard let control = control else { return }
         
-        if let index = items.value.indexOf(newValue) {
+        if let index = itemValues.indexOf(newValue) {
             if index != control.selectedSegmentIndex {
                 control.selectedSegmentIndex = index
             }
@@ -92,7 +100,7 @@ private class SegmentControlManager<T: Equatable> : NSObject {
     @IBAction func userChangedSelection(sender: AnyObject) {
         guard let control = control else { return }
         
-        selection.value = items.value[control.selectedSegmentIndex]
+        selection.value = itemValues[control.selectedSegmentIndex]
     }
     
 }

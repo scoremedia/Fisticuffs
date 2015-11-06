@@ -9,19 +9,15 @@
 import UIKit
 
 
-private var textKey = "text"
-
 public extension UITableViewCell {
     
-    var b_accessoryType: Observable<UITableViewCellAccessoryType>? {
+    var b_accessoryType: Binding<UITableViewCellAccessoryType> {
         get {
-            return getObservableFor("accessoryType")
-        }
-        set (value) {
-            setObservableFor("accessoryType", observable: value) {
-                [weak self] accessoryType in
-                self?.accessoryType = accessoryType
-            }
+            return get("b_accessoryType", orSet: {
+                return Binding<UITableViewCellAccessoryType>(setter: { [weak self] value in
+                    self?.accessoryType = value
+                })
+            })
         }
     }
     

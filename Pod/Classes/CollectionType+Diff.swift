@@ -1,34 +1,14 @@
 //
-//  Observable+Array.swift
+//  CollectionType+Diff.swift
 //  Pods
 //
-//  Created by Darren Clark on 2015-10-16.
+//  Created by Darren Clark on 2015-11-02.
 //
 //
 
-import Foundation
-
-
-public enum ArrayChange<T> {
-    case Set(elements: [T])
-    case Insert(index: Int, newElements: [T])
-    case Remove(range: Range<Int>, removedElements: [T])
-    case Replace(range: Range<Int>, removedElements: [T], newElements: [T])
-}
-
-
-public extension Observable where T: CollectionType, T.Generator.Element : Equatable {
-    func subscribeArray(options: SubscriptionOptions = SubscriptionOptions(), callback: (T, ArrayChange<T.Generator.Element>) -> Void) -> Disposable {
-        return subscribeDiff(options) { oldValue, newValue in
-            let change = oldValue.calculateChange(newValue)
-            callback(newValue, change)
-        }
-    }
-}
-
-private extension CollectionType where Generator.Element: Equatable {
+extension CollectionType where Generator.Element: Equatable {
     
-    private func calculateChange(new: Self) -> ArrayChange<Self.Generator.Element> {
+    func calculateChange(new: Self) -> ArrayChange<Self.Generator.Element> {
         let oldItems = Array(self)
         let newItems = Array(new)
         

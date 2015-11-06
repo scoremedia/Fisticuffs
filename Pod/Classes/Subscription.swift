@@ -9,20 +9,20 @@
 import Foundation
 
 class Subscription<T> : NSObject, Disposable {
-    let callback: Observable<T>.Callback
+    let callback: (T?, T) -> Void
     let when: NotifyWhen
     
     // deliberate retain cycle (observable should only die out once all subscribers have been removed)
-    private var observable: Observable<T>
+    private var disposeBlock: () -> Void
     
-    internal init(callback: Observable<T>.Callback, when: NotifyWhen, observable: Observable<T>) {
+    internal init(callback: (T?, T) -> Void, when: NotifyWhen, disposeBlock: () -> Void) {
         self.callback = callback
         self.when = when
-        self.observable = observable
+        self.disposeBlock = disposeBlock
     }
     
     internal func dispose() {
-        observable.removeSubscription(self)
+        disposeBlock()
     }
 }
 

@@ -10,8 +10,11 @@ import UIKit
 
 public extension UICollectionView {
     
-    func b_configure<T: Equatable>(items: Observable<[T]>, @noescape block: (CollectionViewConfig<T>) -> Void) {
-        let config = CollectionViewConfig<T>()
+    func b_configure<S: Subscribable where
+            S.ValueType: CollectionType,
+            S.ValueType.Index == Int,
+            S.ValueType.Generator.Element: Equatable>(items: S, @noescape block: (CollectionViewConfig<S.ValueType.Generator.Element>) -> Void) {
+        let config = CollectionViewConfig<S.ValueType.Generator.Element>()
         block(config)
         
         let delegate = CollectionViewDelegate(items: items, collectionView: self, config: config)
@@ -34,17 +37,23 @@ public class CollectionViewConfig<T> : NSObject {
     }
 }
 
-private class CollectionViewDelegate<T: Equatable> : NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+private class CollectionViewDelegate<S: Subscribable where
+        S.ValueType: CollectionType,
+        S.ValueType.Index == Int,
+        S.ValueType.Generator.Element: Equatable> : NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    typealias ItemType = S.ValueType.Generator.Element
+    
     weak var collectionView: UICollectionView?
-    let items: Observable<[T]>
-    let config: CollectionViewConfig<T>
+    var items: [ItemType]
+    let config: CollectionViewConfig<ItemType>
     
     var suppressChangeNotifications = false
     let disposeBag = DisposableBag()
     
     
-    init(items: Observable<[T]>, collectionView: UICollectionView, config: CollectionViewConfig<T>) {
-        self.items = items
+    init(items: S, collectionView: UICollectionView, config: CollectionViewConfig<ItemType>) {
+        self.items = []
         self.collectionView = collectionView
         self.config = config
         
@@ -63,10 +72,12 @@ private class CollectionViewDelegate<T: Equatable> : NSObject, UICollectionViewD
         }
     }
     
-    private func applyChange(newItems: [T], change: ArrayChange<T>) {
+    private func applyChange(newItems: [ItemType], change: ArrayChange<ItemType>) {
         if suppressChangeNotifications {
             return
         }
+        
+        self.items = newItems
         
         guard let collectionView = collectionView else {
             return
@@ -86,10 +97,8 @@ private class CollectionViewDelegate<T: Equatable> : NSObject, UICollectionViewD
             return
         }
         
-        let items = self.items.value
-        
         let currentSelections = Set(collectionView.indexPathsForSelectedItems() ?? [])
-        let expectedSelections = Set(configSelections.value.map { (item: T) -> NSIndexPath? in
+        let expectedSelections = Set(configSelections.value.map { (item: ItemType) -> NSIndexPath? in
             if let index = items.indexOf(item) {
                 return NSIndexPath(forItem: index, inSection: 0)
             }
@@ -123,23 +132,23 @@ private class CollectionViewDelegate<T: Equatable> : NSObject, UICollectionViewD
     }
     
     @objc func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.value.count
+        return items.count
     }
     
     @objc func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(config.cellIdentifier, forIndexPath: indexPath)
-        let item = items.value[indexPath.row]
+        let item = items[indexPath.row]
         config.configureCell(item, cell)
         return cell
     }
     
     @objc func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let item = items.value[indexPath.item]
+        let item = items[indexPath.item]
         config.selections?.value.append(item)
     }
     
     @objc func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let item = items.value[indexPath.item]
+        let item = items[indexPath.item]
         if let index = config.selections?.value.indexOf(item) {
             config.selections?.value.removeAtIndex(index)
         }
