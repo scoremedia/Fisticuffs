@@ -33,13 +33,15 @@ public extension Subscribable {
 
 public extension Subscribable where ValueType: CollectionType, ValueType.Generator.Element : Equatable {
     
-    func subscribeArray(options: SubscriptionOptions = SubscriptionOptions(), callback: (ValueType, ArrayChange<ValueType.Generator.Element>) -> Void) -> Disposable {
+    typealias ItemType = ValueType.Generator.Element
+    
+    func subscribeArray(options: SubscriptionOptions = SubscriptionOptions(), callback: ([ItemType], ArrayChange<ItemType>) -> Void) -> Disposable {
         return subscribeDiff(options) { oldValue, newValue in
             if let change = oldValue?.calculateChange(newValue) {
-                callback(newValue, change)
+                callback(Array(newValue), change)
             }
             else {
-                callback(newValue, .Set(elements: Array(newValue)))
+                callback(Array(newValue), .Set(elements: Array(newValue)))
             }
         }
     }
