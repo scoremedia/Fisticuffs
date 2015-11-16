@@ -20,6 +20,8 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6A09EE9E1BFA66BD005C2B81 /* ComputedSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EE9C1BFA6577005C2B81 /* ComputedSpec.swift */; };
 		6A09EEA21BFA6BB7005C2B81 /* EventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EEA11BFA6BB7005C2B81 /* EventSpec.swift */; };
+		6A09EEA41BFA7021005C2B81 /* BindingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EEA31BFA7021005C2B81 /* BindingSpec.swift */; };
+		6A09EEA61BFA716B005C2B81 /* BidirectionalBindingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EEA51BFA716B005C2B81 /* BidirectionalBindingSpec.swift */; };
 		6A36334E1BD0311F00732EF2 /* ToDoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36334D1BD0311F00732EF2 /* ToDoItemViewModel.swift */; };
 		6A3633501BD0322100732EF2 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36334F1BD0322100732EF2 /* ToDoItemCell.swift */; };
 		6A3979F21BD13BB400E351EC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3979F11BD13BB400E351EC /* SearchViewModel.swift */; };
@@ -77,6 +79,8 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6A09EE9C1BFA6577005C2B81 /* ComputedSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputedSpec.swift; sourceTree = "<group>"; };
 		6A09EEA11BFA6BB7005C2B81 /* EventSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSpec.swift; sourceTree = "<group>"; };
+		6A09EEA31BFA7021005C2B81 /* BindingSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingSpec.swift; sourceTree = "<group>"; };
+		6A09EEA51BFA716B005C2B81 /* BidirectionalBindingSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBindingSpec.swift; sourceTree = "<group>"; };
 		6A36334D1BD0311F00732EF2 /* ToDoItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemViewModel.swift; sourceTree = "<group>"; };
 		6A36334F1BD0322100732EF2 /* ToDoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
 		6A3979F11BD13BB400E351EC /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 				6AA43A3C1BCFED1300365704 /* ObservableArraySpec.swift */,
 				6A09EE9C1BFA6577005C2B81 /* ComputedSpec.swift */,
 				6A09EEA11BFA6BB7005C2B81 /* EventSpec.swift */,
+				6A09EEA31BFA7021005C2B81 /* BindingSpec.swift */,
+				6A09EEA51BFA716B005C2B81 /* BidirectionalBindingSpec.swift */,
 				6AAA54C81BCD95190006BE84 /* UIKitBindingSpec.swift */,
 				6A3B6DC81BCEAA5D0021FA1A /* MemoryManagementSpec.swift */,
 				6A3B6DCA1BCEB3B50021FA1A /* DependencyTrackerSpec.swift */,
@@ -507,8 +513,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A09EEA61BFA716B005C2B81 /* BidirectionalBindingSpec.swift in Sources */,
 				6A09EE9E1BFA66BD005C2B81 /* ComputedSpec.swift in Sources */,
 				6A3B6DC91BCEAA5D0021FA1A /* MemoryManagementSpec.swift in Sources */,
+				6A09EEA41BFA7021005C2B81 /* BindingSpec.swift in Sources */,
 				6AA43A351BCEE6E100365704 /* DisposableBagSpec.swift in Sources */,
 				6AAA54C21BCD88790006BE84 /* ObservableSpec.swift in Sources */,
 				6AAA54C91BCD95190006BE84 /* UIKitBindingSpec.swift in Sources */,
