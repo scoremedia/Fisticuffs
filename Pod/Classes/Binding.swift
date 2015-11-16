@@ -33,4 +33,15 @@ public extension Binding {
             self?.setter(value)
         }
     }
+    
+    public func bind<S: Subscribable>(subscribable: S, transform: S.ValueType -> ValueType) {
+        currentBinding?.dispose()
+        
+        var options = SubscriptionOptions()
+        options.notifyOnSubscription = true
+        
+        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
+            self?.setter(transform(value))
+        }
+    }
 }

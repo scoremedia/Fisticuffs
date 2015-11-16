@@ -29,19 +29,6 @@ class MemoryManagementSpec: QuickSpec {
                 
                 expect(weakObservable).to(beNil())
             }
-            
-            it("should keep any .map() alive while the observable is alive") {
-                var receivedValue = false
-                
-                let observable = Observable(false)
-                observable.map { $0 } .subscribe { _, new in receivedValue = new }
-                
-                // if the result of observable.map(...) is still alive, receivedValue
-                // will change to true after this call
-                observable.value = true
-                
-                expect(receivedValue) == true
-            }
         }
         
         describe("Computed") {

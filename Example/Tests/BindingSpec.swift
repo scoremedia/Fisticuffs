@@ -35,6 +35,16 @@ class BindingSpec: QuickSpec {
                 
                 expect(backingVariable) == "Hello"
             }
+            
+            it("should support a custom value transform") {
+                var backingVariable = ""
+                let binding = Binding<String> { value in backingVariable = value }
+                
+                let observable = Observable(11)
+                binding.bind(observable, transform: { intValue in "\(intValue)" })
+                
+                expect(backingVariable) == "11"
+            }
         }
     }
 }

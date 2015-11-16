@@ -98,23 +98,5 @@ class ObservableSpec: QuickSpec {
             expect(receivedBeforeChange) == true
         }
         
-        it("should support map(...)") {
-            let observable = Observable("")
-            
-            var number: Int?
-            
-            let disposable = observable
-                .map { Int($0) }
-                .subscribe { _, newValue in number = newValue }
-            
-            defer {
-                disposable.dispose()
-            }
-            
-            observable.value = "11"
-            
-            expect(number) == 11
-        }
-        
     }
 }

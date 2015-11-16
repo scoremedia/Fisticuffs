@@ -32,14 +32,8 @@ public class Observable<T> : SubscribableType {
     public typealias ValueType = T
     public var currentValue: T? { return value }
     public var subscriptionCollection = SubscriptionCollection<T>()
-    
-    //MARK: - 
-    
-    // To keep a strong reference to Computed's returned by .map(...)
-    var mapDisposables = DisposableBag()
-    
+
     //MARK: - Init
-    
     public init(_ initial: T) {
         storage = initial
     }
