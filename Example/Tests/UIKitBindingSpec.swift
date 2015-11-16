@@ -27,6 +27,19 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UIControl") {
+            it("should support binding it's enabled value") {
+                let enabled = Observable(false)
+                
+                let control = UIControl()
+                control.b_enabled.bind(enabled)
+                expect(control.enabled) == false
+                
+                enabled.value = true
+                expect(control.enabled) == true
+            }
+        }
+        
         describe("UIButton") {
             it("should support binding an action for when the user taps") {
                 var receivedTap = false

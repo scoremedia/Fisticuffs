@@ -23,7 +23,7 @@ class TweetViewController : UIViewController {
         statusLabel.b_text.bind(viewModel.statusMessage)
         characterCountLabel.b_text.bind(viewModel.charactersLeft)
         
-//        postButton.b_enabled = viewModel.canSubmitTweet
+        postButton.b_enabled.bind(viewModel.canSubmitTweet)
         postButton.b_onTap(viewModel.postTweet)
     }
     
