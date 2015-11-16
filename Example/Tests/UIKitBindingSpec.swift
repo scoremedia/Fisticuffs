@@ -82,7 +82,7 @@ class UIKitBindingSpec: QuickSpec {
             
             it("should support taps") {
                 var receivedAction = false
-                let disposable = barButtonItem.b_onTap { receivedAction = true }
+                let disposable = barButtonItem.b_onTap.subscribe { receivedAction = true }
                 defer { disposable.dispose() }
                 
                 // simulate a tap

@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
         
         searchBar.b_text.bind(viewModel.searchQuery)
     
-        clearButton.b_onTap(viewModel.deselectAll)
+        clearButton.b_onTap.subscribe(viewModel.deselectAll)
         
         collectionView.allowsMultipleSelection = true
         

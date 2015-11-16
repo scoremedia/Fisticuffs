@@ -35,9 +35,9 @@ class ToDoListViewController : UIViewController {
         }
         tableView.b_editing = viewModel.editing
         
-        addButton.b_onTap(viewModel.addToDo)
+        addButton.b_onTap.subscribe(viewModel.addToDo)
         
-        editingButton.b_onTap(viewModel.toggleEditing)
+        editingButton.b_onTap.subscribe(viewModel.toggleEditing)
         editingButton.b_title.bind(viewModel.toggleEditingButtonTitle)
         
         
