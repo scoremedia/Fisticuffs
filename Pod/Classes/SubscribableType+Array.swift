@@ -1,10 +1,36 @@
 //
-//  CollectionType+Diff.swift
+//  SubscribableType+Array.swift
 //  Pods
 //
-//  Created by Darren Clark on 2015-11-02.
+//  Created by Darren Clark on 2015-11-16.
 //
 //
+
+public enum ArrayChange<T> {
+    case Set(elements: [T])
+    case Insert(index: Int, newElements: [T])
+    case Remove(range: Range<Int>, removedElements: [T])
+    case Replace(range: Range<Int>, removedElements: [T], newElements: [T])
+}
+
+
+public extension Subscribable where ValueType: CollectionType, ValueType.Generator.Element : Equatable {
+    
+    typealias ItemType = ValueType.Generator.Element
+    
+    func subscribeArray(options: SubscriptionOptions = SubscriptionOptions(), callback: ([ItemType], ArrayChange<ItemType>) -> Void) -> Disposable {
+        return subscribe(options) { oldValue, newValue in
+            if let change = oldValue?.calculateChange(newValue) {
+                callback(Array(newValue), change)
+            }
+            else {
+                callback(Array(newValue), .Set(elements: Array(newValue)))
+            }
+        }
+    }
+    
+}
+
 
 extension CollectionType where Generator.Element: Equatable {
     
