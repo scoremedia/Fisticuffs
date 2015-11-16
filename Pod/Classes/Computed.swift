@@ -9,17 +9,36 @@
 import Foundation
 
 
-public class Computed<T> : Observable<T> {
+public class Computed<T>: SubscribableType {
+    
+    //MARK: -
+    private(set) var value: T {
+        get {
+            DependencyTracker.didReadObservable(self)
+            return storage
+        }
+        set(newValue) {
+            let oldValue = storage
+            
+            subscriptionCollection.notify(time: .BeforeChange, old: oldValue, new: newValue)
+            storage = newValue
+            subscriptionCollection.notify(time: .AfterChange, old: oldValue, new: newValue)
+        }
+    }
+    private var storage: T
     
     let valueBlock: Void -> T
     var dependencies = [(AnySubscribable, Disposable)]()
     
+    //MARK: - SubscribableType
+    public typealias ValueType = T
+    public var currentValue: T? { return value }
+    public var subscriptionCollection = SubscriptionCollection<T>()
+
+    //MARK: -
     public init(block: Void -> T) {
+        storage = block()
         valueBlock = block
-        
-        let initial = block()
-        super.init(initial)
-        
         updateValue()
     }
     
