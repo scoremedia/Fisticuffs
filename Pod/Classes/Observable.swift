@@ -41,6 +41,11 @@ public class Observable<T> : AnySubscribable, Subscribable, SubscribableMixin {
     }
     var subscriptions = [Subscription<T>]()
     
+    //MARK: - 
+    
+    // To keep a strong reference to Computed's returned by .map(...)
+    var mapDisposables = DisposableBag()
+    
     //MARK: - Init
     
     public init(_ initial: T) {

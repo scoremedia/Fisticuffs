@@ -16,58 +16,47 @@ class MemoryManagementSpec: QuickSpec {
     override func spec() {
         
         describe("Observable") {
-            it("should stay alive until the last observer has been disposed") {
+            it("should not be referenced strongly by its subscriptions") {
                 weak var weakObservable: Observable<String>?
                 
                 autoreleasepool {
-                    var observable: Observable<String>? = Observable("test")
+                    let observable: Observable<String>? = Observable("test")
                     weakObservable = observable
+                    observable?.subscribeAny { }
                     
-                    let disposable = observable!.subscribe { (_: String) in }
-                    observable = nil
-                    
-                    // still have 1 observer
-                    expect(weakObservable).toNot(beNil())
-                    
-                    disposable.dispose()
-                    // should be dealloc'd now (observer was removed)
+                    // observable should dealloc here
                 }
                 
                 expect(weakObservable).to(beNil())
             }
+            
+            it("should keep any .map() alive while the observable is alive") {
+                var receivedValue = false
+                
+                let observable = Observable(false)
+                observable.map { $0 } .subscribe { receivedValue = $0 }
+                
+                // if the result of observable.map(...) is still alive, receivedValue
+                // will change to true after this call
+                observable.value = true
+                
+                expect(receivedValue) == true
+            }
         }
         
         describe("Computed") {
-            it("should dispose of its dependencies on deinit") {
-                weak var weakComputed: Computed<Bool>?
-                weak var weakDependency: Observable<Bool>?
+            it("should not be referenced strongly by its subscriptions") {
+                weak var weakComputed: Computed<String>?
                 
                 autoreleasepool {
-                    var dependency: Observable<Bool>? = Observable(true)
-                    var computed: Computed<Bool>? = Computed<Bool> {
-                        !dependency!.value
-                    }
-                    
-                    let disposable = computed!.subscribe { value in }
-                    
+                    let computed: Computed<String>? = Computed { "Hello" }
                     weakComputed = computed
-                    weakDependency = dependency
+                    computed?.subscribeAny { }
                     
-                    autoreleasepool {
-                        dependency = nil
-                        computed = nil
-                    }
-                    
-                    // still have an observer
-                    expect(weakComputed).toNot(beNil())
-                    expect(weakDependency).toNot(beNil())
-                    
-                    disposable.dispose()
-                    // should dealloc now (no more observers)
+                    // computed should dealloc here
                 }
                 
                 expect(weakComputed).to(beNil())
-                expect(weakDependency).to(beNil())
             }
         }
         

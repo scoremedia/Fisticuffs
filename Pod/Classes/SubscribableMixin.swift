@@ -18,8 +18,10 @@ extension SubscribableMixin {
     @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
     func addSubscription(options: SubscriptionOptions = SubscriptionOptions(), callback: (ValueType?, ValueType) -> Void) -> Disposable {
         var subscription: Subscription<ValueType>? = nil
-        subscription = Subscription(callback: callback, when: options.when, disposeBlock: {
-            self.subscriptions = self.subscriptions.filter { s in s !== subscription }
+        subscription = Subscription(callback: callback, when: options.when, disposeBlock: { [weak self] in
+            guard let this = self else { return }
+            
+            this.subscriptions = this.subscriptions.filter { s in s !== subscription }
             subscription = nil
         })
         subscriptions.append(subscription!)

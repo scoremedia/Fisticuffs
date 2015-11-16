@@ -10,10 +10,15 @@ import Foundation
 
 public extension Observable {
     
+    //TODO: Should look to how KnockoutJS handles 'map' and do something similar to that.
     func map<U>(block: (T) -> U) -> Observable<U> {
-        return Computed<U> {
+        var mapped: Computed<U>? = Computed<U> {
             return block(self.value)
         }
+        mapDisposables.add(DisposableBlock {
+            mapped = nil
+        })
+        return mapped!
     }
     
 }
