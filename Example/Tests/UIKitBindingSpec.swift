@@ -45,7 +45,7 @@ class UIKitBindingSpec: QuickSpec {
                 var receivedTap = false
                 
                 let button = UIButton()
-                button.b_onTap { receivedTap = true }
+                button.b_onTap.subscribe { receivedTap = true }
                 
                 button.sendActionsForControlEvents(.TouchUpInside)
                 

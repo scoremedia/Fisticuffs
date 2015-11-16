@@ -89,7 +89,7 @@ class MemoryManagementSpec: QuickSpec {
                     weakViewModel = viewModel
                     
                     let button = UIButton()
-                    button.b_onTap(viewModel.noop)
+                    button.b_onTap.subscribe(viewModel.noop)
                 }
                 
                 // if button correctly disposes of the tap listener, view model should be dealloc'd

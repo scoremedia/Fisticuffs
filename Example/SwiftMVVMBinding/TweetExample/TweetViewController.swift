@@ -24,7 +24,7 @@ class TweetViewController : UIViewController {
         characterCountLabel.b_text.bind(viewModel.charactersLeft)
         
         postButton.b_enabled.bind(viewModel.canSubmitTweet)
-        postButton.b_onTap(viewModel.postTweet)
+        postButton.b_onTap.subscribe(viewModel.postTweet)
     }
     
     @IBAction func dismiss() {
