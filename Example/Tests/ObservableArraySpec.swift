@@ -41,7 +41,7 @@ class ObservableArraySpec: QuickSpec {
             var options = SubscriptionOptions()
             options.notifyOnSubscription = false
             
-            let disposable = array.subscribe(options) { items in
+            let disposable = array.subscribe(options) { _, items in
                 receivedValue = true
             }
             defer {

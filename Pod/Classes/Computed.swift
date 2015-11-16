@@ -42,7 +42,7 @@ public class Computed<T> : Observable<T> {
             if isObserving == false {
                 var options = SubscriptionOptions()
                 options.notifyOnSubscription = false
-                let disposable = dependency.subscribeAny(options) { [weak self] in
+                let disposable = dependency.subscribe(options) { [weak self] in
                     self?.updateValue()
                 }
                 self.dependencies.append((dependency, disposable))

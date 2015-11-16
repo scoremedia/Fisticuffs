@@ -29,7 +29,7 @@ public extension Binding {
         var options = SubscriptionOptions()
         options.notifyOnSubscription = true
         
-        currentBinding = subscribable.subscribe(options) { [weak self] value in
+        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
             self?.setter(value)
         }
     }

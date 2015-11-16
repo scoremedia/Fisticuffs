@@ -28,7 +28,7 @@ class DisposableBagSpec: QuickSpec {
                 var options = SubscriptionOptions()
                 options.notifyOnSubscription = false
                 
-                observable.subscribe(options) { _ in
+                observable.subscribe(options) {
                     receivedValue = true
                 }
                 .addTo(bag)

@@ -42,12 +42,12 @@ private class SegmentControlManager<S: Subscribable where S.ValueType: Collectio
         self.selection = selection
         super.init()
         
-        items.subscribe { [weak self] value in
+        items.subscribe { [weak self] _, value in
             self?.itemsChanged(value)
         }
         .addTo(disposableBag)
         
-        selection.subscribe { [weak self] value in
+        selection.subscribe { [weak self] _, value in
             self?.selectionChanged(value)
         }
         .addTo(disposableBag)

@@ -52,7 +52,7 @@ public extension BidirectionalBinding {
         options.notifyOnSubscription = true
         
         currentObservable = observable
-        currentBinding = observable.subscribe(options) { [weak self] value in
+        currentBinding = observable.subscribe(options) { [weak self] _, value in
             self?.setter(value)
         }
     }
@@ -65,7 +65,7 @@ public extension BidirectionalBinding {
         options.notifyOnSubscription = true
 
         currentObservable = nil
-        currentBinding = subscribable.subscribe(options) { [weak self] value in
+        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
             self?.setter(value)
         }
     }

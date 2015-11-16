@@ -22,7 +22,7 @@ class MemoryManagementSpec: QuickSpec {
                 autoreleasepool {
                     let observable: Observable<String>? = Observable("test")
                     weakObservable = observable
-                    observable?.subscribeAny { }
+                    observable?.subscribe { }
                     
                     // observable should dealloc here
                 }
@@ -34,7 +34,7 @@ class MemoryManagementSpec: QuickSpec {
                 var receivedValue = false
                 
                 let observable = Observable(false)
-                observable.map { $0 } .subscribe { receivedValue = $0 }
+                observable.map { $0 } .subscribe { _, new in receivedValue = new }
                 
                 // if the result of observable.map(...) is still alive, receivedValue
                 // will change to true after this call
@@ -51,7 +51,7 @@ class MemoryManagementSpec: QuickSpec {
                 autoreleasepool {
                     let computed: Computed<String>? = Computed { "Hello" }
                     weakComputed = computed
-                    computed?.subscribeAny { }
+                    computed?.subscribe { }
                     
                     // computed should dealloc here
                 }

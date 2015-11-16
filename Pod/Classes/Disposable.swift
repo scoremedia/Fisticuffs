@@ -8,6 +8,6 @@
 
 import Foundation
 
-@objc public protocol Disposable {
+public protocol Disposable {
     func dispose()
 }

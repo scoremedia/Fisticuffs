@@ -65,7 +65,7 @@ private class CollectionViewDelegate<S: Subscribable where
         .addTo(disposeBag)
         
         if let selections = config.selections {
-            selections.subscribe { [weak self] _ in
+            selections.subscribe { [weak self] in
                 self?.syncSelectionsToModel()
             }
             .addTo(disposeBag)

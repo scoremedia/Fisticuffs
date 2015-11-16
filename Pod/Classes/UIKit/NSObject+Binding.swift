@@ -19,7 +19,7 @@ extension NSObject {
         set(key, value: observable)
         
         let bag = DisposableBag()
-        observable?.subscribe(callback: setter).addTo(bag)
+        observable?.subscribe { _, value in setter(value: value) } .addTo(bag)
         set(key, value: bag)
     }
     

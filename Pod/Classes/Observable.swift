@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Observable<T> : AnySubscribable, Subscribable, SubscribableMixin {
+public class Observable<T> : SubscribableType {
     
     //MARK: - Value property
     
@@ -16,15 +16,9 @@ public class Observable<T> : AnySubscribable, Subscribable, SubscribableMixin {
         set(newValue) {
             let old = storage
             
-            for subscription in subscriptions where subscription.when == .BeforeChange {
-                subscription.callback(old, newValue)
-            }
-            
+            subscriptionCollection.notify(time: .BeforeChange, old: old, new: newValue)
             storage = newValue
-            
-            for subscription in subscriptions where subscription.when == .AfterChange {
-                subscription.callback(old, storage)
-            }
+            subscriptionCollection.notify(time: .AfterChange, old: old, new: storage)
         }
         get {
             DependencyTracker.didReadObservable(self)
@@ -34,12 +28,10 @@ public class Observable<T> : AnySubscribable, Subscribable, SubscribableMixin {
     
     private var storage: T
     
-    //MARK: - SubscribableMixin Storage
-    
-    var currentValue: T? {
-        return value
-    }
-    var subscriptions = [Subscription<T>]()
+    //MARK: - SubscribableType
+    public typealias ValueType = T
+    public var currentValue: T? { return value }
+    public var subscriptionCollection = SubscriptionCollection<T>()
     
     //MARK: - 
     
@@ -52,22 +44,4 @@ public class Observable<T> : AnySubscribable, Subscribable, SubscribableMixin {
         storage = initial
     }
 
-}
-
-//MARK: - Subscribable
-extension Observable {
-    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    public func subscribeDiff(options: SubscriptionOptions = SubscriptionOptions(), callback: (T?, T) -> Void) -> Disposable {
-        return addSubscription(options, callback: callback)
-    }
-}
-
-//MARK: - AnySubscribable
-extension Observable {
-    @warn_unused_result(message="Returned Disposable must be used to cancel the subscription")
-    public func subscribeAny(options: SubscriptionOptions = SubscriptionOptions(), callback: () -> Void) -> Disposable {
-        return addSubscription(options) { _, _ in
-            callback()
-        }
-    }
 }

@@ -27,7 +27,7 @@ class ObservableSpec: QuickSpec {
             let observable = Observable(5)
             var receivedValue = 0
             
-            let disposable = observable.subscribe { newValue in receivedValue = newValue }
+            let disposable = observable.subscribe { _, newValue in receivedValue = newValue }
             defer {
                 disposable.dispose()
             }
@@ -40,7 +40,7 @@ class ObservableSpec: QuickSpec {
             let observable = Observable(true)
             var receivedValue = true
             
-            let disposable = observable.subscribe { newValue in receivedValue = newValue }
+            let disposable = observable.subscribe { _, newValue in receivedValue = newValue }
             disposable.dispose()
             
             observable.value = false
@@ -56,7 +56,7 @@ class ObservableSpec: QuickSpec {
                 var receivedValue = false
                 
                 // default is notifyOnSubscription = true, so we should receive a value
-                observable.subscribe { _ in
+                observable.subscribe {
                     receivedValue = true
                 }.dispose()
                 
@@ -69,7 +69,7 @@ class ObservableSpec: QuickSpec {
                 var dontNotifyOnSubscription = SubscriptionOptions()
                 dontNotifyOnSubscription.notifyOnSubscription = false
                 
-                observable.subscribe(dontNotifyOnSubscription) { _ in
+                observable.subscribe(dontNotifyOnSubscription) {
                     receivedValue = true
                 }.dispose()
                 
@@ -86,7 +86,7 @@ class ObservableSpec: QuickSpec {
             
             let observable = Observable(3.14)
             
-            let disposable = observable.subscribe(options) { newValue in
+            let disposable = observable.subscribe(options) { _, newValue in
                 if observable.value != newValue {
                     receivedBeforeChange = true
                 }
@@ -105,7 +105,7 @@ class ObservableSpec: QuickSpec {
             
             let disposable = observable
                 .map { Int($0) }
-                .subscribe { number = $0 }
+                .subscribe { _, newValue in number = newValue }
             
             defer {
                 disposable.dispose()
