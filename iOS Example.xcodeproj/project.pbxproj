@@ -19,7 +19,21 @@
 		6A06EDBA1BFBACA200231806 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDB91BFBACA200231806 /* ToDoItem.swift */; };
 		6A06EDBC1BFBB69B00231806 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDBB1BFBB69B00231806 /* DataManager.swift */; };
 		6A06EDBE1BFBB87600231806 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */; };
+		6A06EDCF1BFBBF8C00231806 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDCD1BFBBF8C00231806 /* Nimble.framework */; };
+		6A06EDD01BFBBF8C00231806 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDCE1BFBBF8C00231806 /* Quick.framework */; };
+		6A06EDD21BFBBF9900231806 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDD11BFBBF9900231806 /* SwiftMVVMBinding.framework */; };
+		6A06EDD51BFBC03000231806 /* AddItemViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6A06EDC81BFBBF1F00231806 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A06ED811BFB912500231806 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A06ED881BFB912500231806;
+			remoteInfo = "iOS Example";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6A06ED891BFB912500231806 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +50,12 @@
 		6A06EDB91BFBACA200231806 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		6A06EDBB1BFBB69B00231806 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
+		6A06EDC31BFBBF1F00231806 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A06EDC71BFBBF1F00231806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A06EDCD1BFBBF8C00231806 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Tests/Vendor/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
+		6A06EDCE1BFBBF8C00231806 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Tests/Vendor/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
+		6A06EDD11BFBBF9900231806 /* SwiftMVVMBinding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMVVMBinding.framework; path = "build/Debug-iphoneos/SwiftMVVMBinding.framework"; sourceTree = "<group>"; };
+		6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewModelSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +67,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A06EDC01BFBBF1F00231806 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A06EDD21BFBBF9900231806 /* SwiftMVVMBinding.framework in Frameworks */,
+				6A06EDCF1BFBBF8C00231806 /* Nimble.framework in Frameworks */,
+				6A06EDD01BFBBF8C00231806 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -54,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				6A06ED8B1BFB912500231806 /* iOS Example */,
+				6A06EDC41BFBBF1F00231806 /* Tests */,
 				6A06ED8A1BFB912500231806 /* Products */,
 				6A06EDB31BFBAA7F00231806 /* Frameworks */,
 			);
@@ -63,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				6A06ED891BFB912500231806 /* iOS Example.app */,
+				6A06EDC31BFBBF1F00231806 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +128,9 @@
 		6A06EDB31BFBAA7F00231806 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A06EDD11BFBBF9900231806 /* SwiftMVVMBinding.framework */,
+				6A06EDCD1BFBBF8C00231806 /* Nimble.framework */,
+				6A06EDCE1BFBBF8C00231806 /* Quick.framework */,
 				6A06EDB11BFBAA4C00231806 /* SwiftMVVMBinding.framework */,
 			);
 			name = Frameworks;
@@ -108,6 +143,16 @@
 				6A06EDBB1BFBB69B00231806 /* DataManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6A06EDC41BFBBF1F00231806 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6A06EDC71BFBBF1F00231806 /* Info.plist */,
+				6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */,
+			);
+			name = Tests;
+			path = "iOS Example/Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +175,24 @@
 			productReference = 6A06ED891BFB912500231806 /* iOS Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6A06EDC21BFBBF1F00231806 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A06EDCA1BFBBF1F00231806 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				6A06EDBF1BFBBF1F00231806 /* Sources */,
+				6A06EDC01BFBBF1F00231806 /* Frameworks */,
+				6A06EDC11BFBBF1F00231806 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A06EDC91BFBBF1F00231806 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 6A06EDC31BFBBF1F00231806 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -142,6 +205,10 @@
 				TargetAttributes = {
 					6A06ED881BFB912500231806 = {
 						CreatedOnToolsVersion = 7.1;
+					};
+					6A06EDC21BFBBF1F00231806 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 6A06ED881BFB912500231806;
 					};
 				};
 			};
@@ -159,6 +226,7 @@
 			projectRoot = "";
 			targets = (
 				6A06ED881BFB912500231806 /* iOS Example */,
+				6A06EDC21BFBBF1F00231806 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -171,6 +239,13 @@
 				6A06ED971BFB912500231806 /* LaunchScreen.storyboard in Resources */,
 				6A06ED941BFB912500231806 /* Assets.xcassets in Resources */,
 				6A06ED921BFB912500231806 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A06EDC11BFBBF1F00231806 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +267,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A06EDBF1BFBBF1F00231806 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A06EDD51BFBC03000231806 /* AddItemViewModelSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A06EDC91BFBBF1F00231806 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A06ED881BFB912500231806 /* iOS Example */;
+			targetProxy = 6A06EDC81BFBBF1F00231806 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6A06ED901BFB912500231806 /* Main.storyboard */ = {
@@ -325,6 +416,42 @@
 			};
 			name = Release;
 		};
+		6A06EDCB1BFBBF1F00231806 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Tests/Vendor/Nimble/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Tests/Vendor/Quick/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.SwiftMVVMBinding.iOS-Example.Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS Example.app/iOS Example";
+			};
+			name = Debug;
+		};
+		6A06EDCC1BFBBF1F00231806 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Tests/Vendor/Nimble/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Tests/Vendor/Quick/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.SwiftMVVMBinding.iOS-Example.Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS Example.app/iOS Example";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -345,6 +472,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6A06EDCA1BFBBF1F00231806 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A06EDCB1BFBBF1F00231806 /* Debug */,
+				6A06EDCC1BFBBF1F00231806 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
