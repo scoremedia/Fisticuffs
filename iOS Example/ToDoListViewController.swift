@@ -7,19 +7,37 @@
 //
 
 import UIKit
+import SwiftMVVMBinding
+
 
 class ToDoListViewController: UIViewController {
 
+    let viewModel = ToDoListViewModel(dataManager: DataManager.sharedManager)
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var addButton: UIBarButtonItem!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        addButton.b_onTap += viewModel.tappedAddNewItem
+        
+        viewModel.promptToAddNewItem += showAddItemController
+        
+        tableView.b_configure(viewModel.items) { config in
+            config.allowsDeletion = true
+            config.allowsReordering = true
+            config.usingCellIdentifier("Cell") { item, cell in
+                (cell as! ToDoItemCell).bind(item)
+            }
+            config.onSelect { item in item.completed.value = !item.completed.value }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    func showAddItemController() {
+        performSegueWithIdentifier("AddItem", sender: nil)
     }
-
-
 }
 

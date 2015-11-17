@@ -12,6 +12,13 @@
 		6A06ED921BFB912500231806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06ED901BFB912500231806 /* Main.storyboard */; };
 		6A06ED941BFB912500231806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A06ED931BFB912500231806 /* Assets.xcassets */; };
 		6A06ED971BFB912500231806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06ED951BFB912500231806 /* LaunchScreen.storyboard */; };
+		6A06EDAD1BFBA8EE00231806 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDAC1BFBA8EE00231806 /* AddItemViewController.swift */; };
+		6A06EDB01BFBA9ED00231806 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDAF1BFBA9ED00231806 /* ToDoListViewModel.swift */; };
+		6A06EDB21BFBAA4C00231806 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDB11BFBAA4C00231806 /* SwiftMVVMBinding.framework */; };
+		6A06EDB51BFBAC5000231806 /* AddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDB41BFBAC5000231806 /* AddItemViewModel.swift */; };
+		6A06EDBA1BFBACA200231806 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDB91BFBACA200231806 /* ToDoItem.swift */; };
+		6A06EDBC1BFBB69B00231806 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDBB1BFBB69B00231806 /* DataManager.swift */; };
+		6A06EDBE1BFBB87600231806 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		6A06ED931BFB912500231806 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A06ED961BFB912500231806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A06ED981BFB912500231806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A06EDAC1BFBA8EE00231806 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		6A06EDAF1BFBA9ED00231806 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
+		6A06EDB11BFBAA4C00231806 /* SwiftMVVMBinding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMVVMBinding.framework; path = "build/Debug-iphoneos/SwiftMVVMBinding.framework"; sourceTree = "<group>"; };
+		6A06EDB41BFBAC5000231806 /* AddItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewModel.swift; sourceTree = "<group>"; };
+		6A06EDB91BFBACA200231806 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		6A06EDBB1BFBB69B00231806 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A06EDB21BFBAA4C00231806 /* SwiftMVVMBinding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +55,7 @@
 			children = (
 				6A06ED8B1BFB912500231806 /* iOS Example */,
 				6A06ED8A1BFB912500231806 /* Products */,
+				6A06EDB31BFBAA7F00231806 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +70,44 @@
 		6A06ED8B1BFB912500231806 /* iOS Example */ = {
 			isa = PBXGroup;
 			children = (
+				6A06EDB81BFBAC9A00231806 /* Model */,
+				6A06EDAE1BFBA9DC00231806 /* ViewModels */,
 				6A06ED8C1BFB912500231806 /* AppDelegate.swift */,
 				6A06ED8E1BFB912500231806 /* ToDoListViewController.swift */,
+				6A06EDAC1BFBA8EE00231806 /* AddItemViewController.swift */,
+				6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */,
 				6A06ED901BFB912500231806 /* Main.storyboard */,
 				6A06ED931BFB912500231806 /* Assets.xcassets */,
 				6A06ED951BFB912500231806 /* LaunchScreen.storyboard */,
 				6A06ED981BFB912500231806 /* Info.plist */,
 			);
 			path = "iOS Example";
+			sourceTree = "<group>";
+		};
+		6A06EDAE1BFBA9DC00231806 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6A06EDAF1BFBA9ED00231806 /* ToDoListViewModel.swift */,
+				6A06EDB41BFBAC5000231806 /* AddItemViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6A06EDB31BFBAA7F00231806 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A06EDB11BFBAA4C00231806 /* SwiftMVVMBinding.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6A06EDB81BFBAC9A00231806 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A06EDB91BFBACA200231806 /* ToDoItem.swift */,
+				6A06EDBB1BFBB69B00231806 /* DataManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +181,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A06EDB51BFBAC5000231806 /* AddItemViewModel.swift in Sources */,
+				6A06EDB01BFBA9ED00231806 /* ToDoListViewModel.swift in Sources */,
+				6A06EDBE1BFBB87600231806 /* ToDoItemCell.swift in Sources */,
+				6A06EDBA1BFBACA200231806 /* ToDoItem.swift in Sources */,
+				6A06EDBC1BFBB69B00231806 /* DataManager.swift in Sources */,
 				6A06ED8F1BFB912500231806 /* ToDoListViewController.swift in Sources */,
 				6A06ED8D1BFB912500231806 /* AppDelegate.swift in Sources */,
+				6A06EDAD1BFBA8EE00231806 /* AddItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +299,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = "iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.SwiftMVVMBinding.iOS-Example";
@@ -258,6 +314,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = "iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.SwiftMVVMBinding.iOS-Example";
