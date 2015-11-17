@@ -4,4 +4,7 @@
    <FileRef
       location = "group:SwiftMVVMBinding.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:iOS Example.xcodeproj">
+   </FileRef>
 </Workspace>

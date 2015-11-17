@@ -12,7 +12,7 @@ import Foundation
 public class Computed<T>: SubscribableType {
     
     //MARK: -
-    private(set) var value: T {
+    public private(set) var value: T {
         get {
             DependencyTracker.didReadObservable(self)
             return storage
