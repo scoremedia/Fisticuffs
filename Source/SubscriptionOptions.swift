@@ -14,6 +14,14 @@ public enum NotifyWhen {
 }
 
 public struct SubscriptionOptions {
-    var notifyOnSubscription = true
-    var when = NotifyWhen.AfterChange
+    public var notifyOnSubscription = true
+    public var when = NotifyWhen.AfterChange
+    
+    public init() {
+    }
+    
+    public init(notifyOnSubscription: Bool, when: NotifyWhen) {
+        self.notifyOnSubscription = notifyOnSubscription
+        self.when = when
+    }
 }
