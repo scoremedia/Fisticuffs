@@ -972,6 +972,7 @@
 				6A09F1961BFB8C50005C2B81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
