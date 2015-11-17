@@ -13,6 +13,7 @@ public class Event<T> : SubscribableType {
     public var currentValue: T? { return nil }
     public var subscriptionCollection = SubscriptionCollection<T>()
     
+    public init() { }
     
     public func fire(value: T) {
         subscriptionCollection.notify(time: .BeforeChange, old: nil, new: value)
