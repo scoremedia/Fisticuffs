@@ -34,6 +34,9 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
     private var items: [Item] = []
     
     public var selections: Observable<[Item]>?
+    public var deselectOnSelection = true
+    public let onSelect = Event<Item>()
+    public let onDeselect = Event<Item>()
     
     public init(subscribable: S, view: View) {
         self.view = view
@@ -128,6 +131,12 @@ extension DataSource {
     public func didSelect(indexPath indexPath: NSIndexPath) {
         let item = itemAtIndexPath(indexPath)
         selections?.value.append(item)
+        onSelect.fire(item)
+        
+        if deselectOnSelection {
+            view?.deselect(indexPath: indexPath)
+            didDeselect(indexPath: indexPath)
+        }
     }
     
     public func didDeselect(indexPath indexPath: NSIndexPath) {
@@ -135,5 +144,6 @@ extension DataSource {
         if let index = selections?.value.indexOf(item) {
             selections?.value.removeAtIndex(index)
         }
+        onDeselect.fire(item)
     }
 }
