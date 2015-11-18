@@ -26,12 +26,13 @@ class ToDoListViewController: UIViewController {
         viewModel.promptToAddNewItem += showAddItemController
         
         tableView.b_configure(viewModel.items) { config in
-            config.allowsDeletion = true
-            config.allowsReordering = true
-            config.usingCellIdentifier("Cell") { item, cell in
+//TODO: Re-add this functionality
+//            config.allowsDeletion = true
+//            config.allowsReordering = true
+            config.useCell(reuseIdentifier: "Cell") { item, cell in
                 (cell as! ToDoItemCell).bind(item)
             }
-            config.onSelect { item in item.completed.value = !item.completed.value }
+//            config.onSelect { item in item.completed.value = !item.completed.value }
         }
     }
     

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A06EDD91BFBD84D00231806 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDD81BFBD84D00231806 /* DataSource.swift */; };
+		6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */; };
+		6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */; };
 		6A09EEF51BFB80E6005C2B81 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
 		6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */; };
 		6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF061BFB816D005C2B81 /* Binding.swift */; };
@@ -180,6 +183,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A06EDD81BFBD84D00231806 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMVVMBinding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A09EEF41BFB80E6005C2B81 /* SwiftMVVMBindingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMVVMBindingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBinding.swift; sourceTree = "<group>"; };
@@ -324,6 +330,9 @@
 				6A09EF201BFB816D005C2B81 /* UITableView+Binding.swift */,
 				6A09EF211BFB816D005C2B81 /* UITableViewCell+Binding.swift */,
 				6A09EF221BFB816D005C2B81 /* UITextField+Binding.swift */,
+				6A06EDD81BFBD84D00231806 /* DataSource.swift */,
+				6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */,
+				6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -700,8 +709,11 @@
 				6A09EF2A1BFB816D005C2B81 /* DisposableBlock.swift in Sources */,
 				6A09EF361BFB816D005C2B81 /* UIBarButtonItem+Binding.swift in Sources */,
 				6A09EF3C1BFB816D005C2B81 /* UISlider+Binding.swift in Sources */,
+				6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */,
+				6A06EDD91BFBD84D00231806 /* DataSource.swift in Sources */,
 				6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */,
 				6A09EF341BFB816D005C2B81 /* NSObject+AssociatedObjects.swift in Sources */,
+				6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */,
 				6A09EF351BFB816D005C2B81 /* NSObject+Binding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
