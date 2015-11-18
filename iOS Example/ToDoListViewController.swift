@@ -16,12 +16,17 @@ class ToDoListViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var editButton: UIBarButtonItem!
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addButton.b_onTap += viewModel.tappedAddNewItem
+        
+        editButton.b_title <-- viewModel.editButtonTitle
+        editButton.b_onTap += viewModel.tappedEditButton
         
         viewModel.promptToAddNewItem += showAddItemController
         
@@ -30,7 +35,7 @@ class ToDoListViewController: UIViewController {
 //            config.allowsDeletion = true
 //            config.allowsReordering = true
             
-            
+            config.allowsMoving = true
             config.useCell(reuseIdentifier: "Cell") { item, cell in
                 (cell as! ToDoItemCell).bind(item)
             }
@@ -38,6 +43,7 @@ class ToDoListViewController: UIViewController {
                 item.completed.value = !item.completed.value
             }
         }
+        tableView.b_editing <-- viewModel.editing
     }
     
     

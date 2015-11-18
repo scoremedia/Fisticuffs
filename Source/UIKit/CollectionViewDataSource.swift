@@ -29,11 +29,7 @@ extension UICollectionView: DataSourceView {
 }
 
 
-public class CollectionViewDataSource<S: SubscribableType where S.ValueType: CollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UICollectionView>, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    public override init(observable: Observable<Collection>, view: UICollectionView) {
-        super.init(observable: observable, view: view)
-    }
+public class CollectionViewDataSource<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UICollectionView>, UICollectionViewDataSource, UICollectionViewDelegate {
     
     public override init(subscribable: S, view: UICollectionView) {
         super.init(subscribable: subscribable, view: view)

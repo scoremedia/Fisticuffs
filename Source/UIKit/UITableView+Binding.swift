@@ -24,18 +24,16 @@ public extension UITableView {
             self.dataSource = dataSource
             
     }
-
     
-    var b_editing: Observable<Bool>? {
+    var b_editing: Binding<Bool> {
         get {
-            return getObservableFor("editing")
-        }
-        set (value) {
-            setObservableFor("editing", observable: value) {
-                [weak self] editing in
-                self?.editing = editing
-            }
+            return get("b_editing", orSet: {
+                return Binding<Bool>(setter: { [weak self] value -> Void in
+                    self?.editing = value
+                })
+            })
         }
     }
+
     
 }

@@ -14,10 +14,22 @@ class ToDoListViewModel {
     private let dataManager: DataManager
     
     let items: Observable<[ToDoItem]>
+    
+    //MARK: -
     let promptToAddNewItem = Event<Void>()
     
     func tappedAddNewItem() {
         promptToAddNewItem.fire()
+    }
+    
+    //MARK: -
+    let editing = Observable(false)
+    lazy var editButtonTitle: Computed<String> = Computed { [editing = self.editing] in
+        editing.value ? "Done" : "Edit"
+    }
+    
+    func tappedEditButton() {
+        editing.value = !editing.value
     }
     
     

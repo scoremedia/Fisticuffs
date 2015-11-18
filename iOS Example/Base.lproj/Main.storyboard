@@ -155,10 +155,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BE0-WQ-rAQ">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="6cR-bS-oHP"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bFw-qc-16E"/>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="bFw-qc-16E" id="RNc-dd-vrQ"/>
+                        <outlet property="editButton" destination="6cR-bS-oHP" id="XSq-nh-LwO"/>
                         <outlet property="tableView" destination="JQi-ld-VYp" id="pzK-R7-kyT"/>
                         <segue destination="44d-m7-lkM" kind="presentation" identifier="AddItem" id="2tb-lq-3rI"/>
                     </connections>

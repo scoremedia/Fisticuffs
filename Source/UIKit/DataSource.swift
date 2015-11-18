@@ -19,14 +19,14 @@ public protocol DataSourceView: class {
 }
 
 
-public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueType: CollectionType, S.ValueType.Generator.Element: Equatable> : NSObject {
+public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable> : NSObject {
     typealias Collection = S.ValueType
     typealias Item = Collection.Generator.Element
     
     private weak var view: View?
     
     // Underlying data
-    private let subscribable: S?
+    private let subscribable: S
     private let observable: Observable<Collection>?
     
     private var suppressChangeNotifications = false
@@ -38,22 +38,14 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
     public let onSelect = Event<Item>()
     public let onDeselect = Event<Item>()
     
+    public var editable: Bool { return observable != nil }
+    
     public init(subscribable: S, view: View) {
         self.view = view
         self.subscribable = subscribable
-        self.observable = nil
+        self.observable = subscribable as? Observable<Collection>
         super.init()
         subscribable.subscribeArray(SubscriptionOptions()) { [weak self] new, change in
-            self?.underlyingDataChanged(new, change)
-        }
-    }
-    
-    public init(observable: Observable<Collection>, view: View) {
-        self.view = view
-        self.subscribable = nil
-        self.observable = observable
-        super.init()
-        observable.subscribeArray(SubscriptionOptions()) { [weak self] new, change in
             self?.underlyingDataChanged(new, change)
         }
     }
@@ -65,6 +57,8 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
         self.reuseIdentifier = reuseIdentifier
         cellSetup = setup
     }
+    
+    public var allowsMoving = false
 }
 
 extension DataSource {
@@ -147,3 +141,45 @@ extension DataSource {
         onDeselect.fire(item)
     }
 }
+
+extension DataSource {
+    
+    func modifyUnderlyingData(@noescape block: (data: Observable<Collection>) -> Void) {
+        suppressChangeNotifications = true
+        defer { suppressChangeNotifications = false }
+        
+        assert(editable, "Underlying data must be editable")
+        guard let observable = observable else {
+            assertionFailure("Must have an observable to modify")
+            return
+        }
+        
+        block(data: observable)
+    }
+    
+    public func move(source source: NSIndexPath, destination: NSIndexPath) {
+        modifyUnderlyingData { data in
+            let sourceIndex = data.value.startIndex.nthSuccessor(source.item)
+            let item = data.value.removeAtIndex(sourceIndex)
+            
+            let destIndex = data.value.startIndex.nthSuccessor(destination.item)
+            data.value.insert(item, atIndex: destIndex)
+        }
+    }
+    
+}
+
+
+
+extension ForwardIndexType {
+    func nthSuccessor(n: Int) -> Self {
+        assert(n >= 0, "`n` must be positive")
+        
+        var index = self
+        for _ in 0 ..< n {
+            index = index.successor()
+        }
+        return index
+    }
+}
+

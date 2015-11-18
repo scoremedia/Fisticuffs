@@ -29,11 +29,7 @@ extension UITableView: DataSourceView {
 }
 
 
-public class TableViewDataSource<S: SubscribableType where S.ValueType: CollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UITableView>, UITableViewDataSource, UITableViewDelegate {
-
-    public override init(observable: Observable<Collection>, view: UITableView) {
-        super.init(observable: observable, view: view)
-    }
+public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UITableView>, UITableViewDataSource, UITableViewDelegate {
     
     public override init(subscribable: S, view: UITableView) {
         super.init(subscribable: subscribable, view: view)
@@ -53,7 +49,15 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: Collecti
         return cellAtIndexPath(indexPath)
     }
     
-    //MARK: UITableViewDataSource
+    public func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return editable && allowsMoving
+    }
+    
+    public func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        move(source: sourceIndexPath, destination: destinationIndexPath)
+    }
+    
+    //MARK: UITableViewDelegate
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         didSelect(indexPath: indexPath)
@@ -61,6 +65,10 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: Collecti
     
     public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         didDeselect(indexPath: indexPath)
+    }
+    
+    public func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        return proposedDestinationIndexPath
     }
     
 }
