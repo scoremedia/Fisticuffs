@@ -31,6 +31,8 @@ extension UITableView: DataSourceView {
 
 public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UITableView>, UITableViewDataSource, UITableViewDelegate {
     
+    public var allowsDeletion = false
+    
     public override init(subscribable: S, view: UITableView) {
         super.init(subscribable: subscribable, view: view)
     }
@@ -57,6 +59,16 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeRep
         move(source: sourceIndexPath, destination: destinationIndexPath)
     }
     
+    public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return editable && (allowsDeletion || allowsMoving)
+    }
+    
+    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            delete(indexPath: indexPath)
+        }
+    }
+    
     //MARK: UITableViewDelegate
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -69,6 +81,14 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeRep
     
     public func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
         return proposedDestinationIndexPath
+    }
+    
+    public func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return editable && allowsDeletion ? .Delete : .None
+    }
+    
+    public func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return allowsDeletion ? true : false
     }
     
 }

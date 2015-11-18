@@ -167,6 +167,13 @@ extension DataSource {
         }
     }
     
+    public func delete(indexPath indexPath: NSIndexPath) {
+        modifyUnderlyingData { data in
+            let index = data.value.startIndex.nthSuccessor(indexPath.item)
+            data.value.removeAtIndex(index)
+        }
+    }
+    
 }
 
 
