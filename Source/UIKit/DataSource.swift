@@ -38,7 +38,17 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
     
     private var items: [Item] = []
     
-    public var selections: Observable<[Item]>?
+    private var selectionSubscription: Disposable?
+    public var selections: Observable<[Item]>? {
+        didSet {
+            selectionSubscription?.dispose()
+            selectionSubscription = selections?.subscribe { [weak self] in
+                self?.syncSelections()
+            }
+        }
+    }
+    
+    
     public var deselectOnSelection = true
     public let onSelect = Event<Item>()
     public let onDeselect = Event<Item>()
@@ -95,6 +105,8 @@ extension DataSource {
                 view?.insertCells(indexPaths: added)
             }
         }
+        
+        syncSelections()
     }
     
     func syncSelections() {
