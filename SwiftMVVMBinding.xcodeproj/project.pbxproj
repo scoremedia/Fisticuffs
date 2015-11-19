@@ -60,6 +60,7 @@
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
 		6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
+		6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,6 +243,7 @@
 		6A09F1941BFB8C50005C2B81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSampleController.swift; sourceTree = "<group>"; };
 		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
+		6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Binding.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 				6A09EF201BFB816D005C2B81 /* UITableView+Binding.swift */,
 				6A09EF211BFB816D005C2B81 /* UITableViewCell+Binding.swift */,
 				6A09EF221BFB816D005C2B81 /* UITextField+Binding.swift */,
+				6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */,
 				6A06EDD81BFBD84D00231806 /* DataSource.swift */,
 				6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */,
 				6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */,
@@ -703,6 +706,7 @@
 				6A09EF391BFB816D005C2B81 /* UILabel+Binding.swift in Sources */,
 				6A09EF281BFB816D005C2B81 /* Disposable.swift in Sources */,
 				6A09EF2D1BFB816D005C2B81 /* Observable.swift in Sources */,
+				6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */,
 				6A09EF3E1BFB816D005C2B81 /* UITableView+Binding.swift in Sources */,
 				6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */,
 				6A09EF401BFB816D005C2B81 /* UITextField+Binding.swift in Sources */,
