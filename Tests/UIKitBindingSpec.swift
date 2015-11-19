@@ -38,6 +38,16 @@ class UIKitBindingSpec: QuickSpec {
                 enabled.value = true
                 expect(control.enabled) == true
             }
+            
+            it("should allow subscribing to arbitrary control events") {
+                var receivedEvent = false
+                
+                let control = UIControl()
+                control.b_controlEvent(.AllEvents) += { receivedEvent = true }
+                
+                control.sendActionsForControlEvents(.EditingDidBegin)
+                expect(receivedEvent) == true
+            }
         }
         
         describe("UIButton") {

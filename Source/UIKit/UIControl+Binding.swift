@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 public extension UIControl {
     
@@ -31,4 +31,37 @@ public extension UIControl {
         b_onTap.fire()
     }
     
+}
+
+public extension UIControl {
+    
+    /**
+     Get an Event<UIEvent?> for the specified events
+     
+     - parameter controlEvents: Control events to subscribe to
+     
+     - returns: The Event object
+     */
+    func b_controlEvent(controlEvents: UIControlEvents) -> Event<UIEvent?> {
+        let key = "events_\(controlEvents.rawValue)"
+        
+        let trampoline = get(key, orSet: { () -> ControlEventTrampoline in
+            let trampoline = ControlEventTrampoline()
+            addTarget(trampoline, action: "receivedEvent:uiEvent:", forControlEvents: controlEvents)
+            print(trampoline.respondsToSelector("receivedEvent:uiEvent:"))
+            return trampoline
+        })
+        
+        return trampoline.event
+    }
+    
+}
+
+
+private class ControlEventTrampoline: NSObject {
+    let event = Event<UIEvent?>()
+    
+    @objc func receivedEvent(sender: AnyObject?, uiEvent: UIEvent?) {
+        event.fire(uiEvent)
+    }
 }
