@@ -63,6 +63,16 @@ public class CollectionViewDataSource<S: SubscribableType where S.ValueType: Ran
         return cellAtIndexPath(indexPath)
     }
     
+    @available(iOS 9, *)
+    public func collectionView(collectionView: UICollectionView, canMoveItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return editable && allowsMoving
+    }
+    
+    @available(iOS 9, *)
+    public func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        move(source: sourceIndexPath, destination: destinationIndexPath)
+    }
+    
     //MARK: UICollectionViewDelegate
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
