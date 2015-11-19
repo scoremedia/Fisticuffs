@@ -59,6 +59,7 @@
 		6A09F1931BFB8C50005C2B81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A09F1911BFB8C50005C2B81 /* LaunchScreen.storyboard */; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
 		6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
+		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +241,7 @@
 		6A09F1921BFB8C50005C2B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A09F1941BFB8C50005C2B81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSampleController.swift; sourceTree = "<group>"; };
+		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +424,7 @@
 				6A09F1911BFB8C50005C2B81 /* LaunchScreen.storyboard */,
 				6A09F1941BFB8C50005C2B81 /* Info.plist */,
 				6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */,
+				6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */,
 			);
 			path = Samples;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 			files = (
 				6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */,
 				6A09F1891BFB8C50005C2B81 /* AppDelegate.swift in Sources */,
+				6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
