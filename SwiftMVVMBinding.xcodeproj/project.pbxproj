@@ -58,6 +58,7 @@
 		6A09F1901BFB8C50005C2B81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A09F18F1BFB8C50005C2B81 /* Assets.xcassets */; };
 		6A09F1931BFB8C50005C2B81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A09F1911BFB8C50005C2B81 /* LaunchScreen.storyboard */; };
 		6A1DB7421BFE59F4003817D9 /* UIButton+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB7411BFE59F4003817D9 /* UIButton+Binding.swift */; };
+		6A1DB7531BFE5B2E003817D9 /* UIDatePicker+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB7521BFE5B2E003817D9 /* UIDatePicker+Binding.swift */; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
 		6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
@@ -244,6 +245,7 @@
 		6A09F1921BFB8C50005C2B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A09F1941BFB8C50005C2B81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A1DB7411BFE59F4003817D9 /* UIButton+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Binding.swift"; sourceTree = "<group>"; };
+		6A1DB7521BFE5B2E003817D9 /* UIDatePicker+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Binding.swift"; sourceTree = "<group>"; };
 		6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSampleController.swift; sourceTree = "<group>"; };
 		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
 		6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Binding.swift"; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				6A1DB7411BFE59F4003817D9 /* UIButton+Binding.swift */,
 				6A09EF191BFB816D005C2B81 /* UICollectionView+Binding.swift */,
 				6A09EF1A1BFB816D005C2B81 /* UIControl+Binding.swift */,
+				6A1DB7521BFE5B2E003817D9 /* UIDatePicker+Binding.swift */,
 				6A09EF1B1BFB816D005C2B81 /* UILabel+Binding.swift */,
 				6A09EF1C1BFB816D005C2B81 /* UISearchBar+Binding.swift */,
 				6A09EF1D1BFB816D005C2B81 /* UISegmentedControl+Binding.swift */,
@@ -719,6 +722,7 @@
 				6A09EF3F1BFB816D005C2B81 /* UITableViewCell+Binding.swift in Sources */,
 				6A09EF371BFB816D005C2B81 /* UICollectionView+Binding.swift in Sources */,
 				6A09EF3D1BFB816D005C2B81 /* UISwitch+Binding.swift in Sources */,
+				6A1DB7531BFE5B2E003817D9 /* UIDatePicker+Binding.swift in Sources */,
 				6A09EF291BFB816D005C2B81 /* DisposableBag.swift in Sources */,
 				6A09EF321BFB816D005C2B81 /* SubscriptionOptions.swift in Sources */,
 				6A09EF2A1BFB816D005C2B81 /* DisposableBlock.swift in Sources */,

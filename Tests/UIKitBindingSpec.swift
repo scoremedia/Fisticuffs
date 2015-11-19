@@ -63,6 +63,34 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UIDatePicker") {
+            it("should support 2 way binding on its text value") {
+                
+                let initial = NSDate()
+                
+                let value = Observable(initial)
+                let datePicker = UIDatePicker()
+                datePicker.b_date.bind(value)
+                
+                expect(datePicker.date) == initial
+                
+                // pretend the user goes to the next day
+                let tomorrow = initial.dateByAddingTimeInterval(24 * 60 * 60)
+                datePicker.date = tomorrow
+                datePicker.sendActionsForControlEvents(.ValueChanged)
+                
+                expect(datePicker.date) == tomorrow
+                expect(value.value) == tomorrow
+                
+                // modify it programmatically
+                let yesterday = initial.dateByAddingTimeInterval(-24 * 60 * 60)
+                value.value = yesterday
+                
+                expect(datePicker.date) == yesterday
+                expect(value.value) == yesterday
+            }
+        }
+        
         describe("UITextField") {
             it("should support 2 way binding on its text value") {
                 
