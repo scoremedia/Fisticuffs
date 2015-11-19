@@ -22,5 +22,13 @@ public extension UILabel {
             })
         }
     }
-    
+        
+    var b_textColor: Binding<UIColor> {
+        return get("b_textColor", orSet: {
+            return Binding<UIColor>(setter: { [weak self] value in
+                self?.textColor = value
+            })
+        })
+    }
+
 }
