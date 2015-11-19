@@ -139,6 +139,40 @@ class UIKitBindingSpec: QuickSpec {
             }
         }
         
+        describe("UIPageControl") {
+            it("should support binding numberOfPages") {
+                let numberOfPages = Observable(5)
+                let pageControl = UIPageControl()
+                
+                pageControl.b_numberOfPages.bind(numberOfPages)
+                expect(pageControl.numberOfPages) == 5
+                
+                numberOfPages.value = 11
+                expect(pageControl.numberOfPages) == 11
+            }
+            
+            it("should support binding currentPage") {
+                let pageControl = UIPageControl()
+                pageControl.numberOfPages = 11
+                
+                let currentPage = Observable(2)
+                pageControl.b_currentPage.bind(currentPage)
+                
+                expect(pageControl.currentPage) == 2
+                
+                pageControl.currentPage += 1
+                pageControl.sendActionsForControlEvents(.ValueChanged)
+                
+                expect(pageControl.currentPage) == 3
+                expect(currentPage.value) == 3
+                
+                currentPage.value = 8
+                
+                expect(pageControl.currentPage) == 8
+                expect(currentPage.value) == 8
+            }
+        }
+        
         describe("UITableViewCell") {
             it("should support binding it's accessoryType value") {
                 let accessoryType = Observable(UITableViewCellAccessoryType.None)
