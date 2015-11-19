@@ -10,34 +10,20 @@ import UIKit
 import SwiftMVVMBinding
 
 class CollectionViewSampleViewModel {
-    let items = Observable([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    let items = Observable(Array(1...100))
+    let selections = Observable<[Int]>([])
     
-    let editing = Observable(false)
-    lazy var editingButtonTitle: Computed<String> = Computed { [editing = self.editing] in
-        editing.value ? "Done" : "Edit"
+    lazy var sum: Computed<Int> = Computed { [selections = self.selections] in
+        selections.value.reduce(0) { total, value in total + value }
     }
     
-    func toggleEditing() {
-        editing.value = !editing.value
+    lazy var sumDisplayString: Computed<String> = Computed { [sum = self.sum] in
+        sum.value > 0 ? "Sum: \(sum.value)" : "Try selecting some items!"
     }
     
     
-    func prependItem() {
-        if let min = items.value.minElement() {
-            items.value.insert(min - 1, atIndex: 0)
-        }
-        else {
-            items.value.insert(1, atIndex: 0)
-        }
-    }
-    
-    func appendItem() {
-        if let max = items.value.maxElement() {
-            items.value.append(max + 1)
-        }
-        else {
-            items.value.append(1)
-        }
+    func clearSelection() {
+        selections.value = []
     }
 }
 
@@ -45,10 +31,13 @@ class CollectionViewSampleViewModel {
 class CollectionViewSampleController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var clearButton: UIBarButtonItem!
     
     //MARK: -
     
     let viewModel = CollectionViewSampleViewModel()
+    let spacing: CGFloat = 10
+    let itemsPerRow = 4
     
     //MARK: -
     
@@ -56,11 +45,65 @@ class CollectionViewSampleController: UIViewController {
         super.viewDidLoad()
         
         collectionView.registerClass(CollectionViewSampleCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.allowsMultipleSelection = true
+        
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumInteritemSpacing = spacing
+        layout.minimumLineSpacing = spacing
+
+        if #available(iOS 9, *) {
+            let reorderGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "handleReorderGestureRecognizer:")
+            collectionView.addGestureRecognizer(reorderGestureRecognizer)
+        }
+        
+        
         collectionView.b_configure(viewModel.items) { config in
             config.allowsMoving = true
+            config.selections = viewModel.selections
+            config.deselectOnSelection = false
+            
             config.useCell(reuseIdentifier: "Cell") { item, cell in
                 (cell as! CollectionViewSampleCell).label.text = "\(item)"
             }
+        }
+        
+        clearButton.b_onTap += viewModel.clearSelection
+        
+        viewModel.sumDisplayString += { [navigationItem = navigationItem] _, displayString in
+            navigationItem.prompt = displayString
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let itemWidth = (view.frame.size.width - spacing * CGFloat(2 + itemsPerRow - 1)) / CGFloat(itemsPerRow)
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
+        super.viewDidLayoutSubviews()
+    }
+    
+    @available(iOS 9, *)
+    func handleReorderGestureRecognizer(gestureRecognizer: UILongPressGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .Began:
+            let touchLocation = gestureRecognizer.locationInView(collectionView)
+            if let indexPath = collectionView.indexPathForItemAtPoint(touchLocation) {
+                collectionView.beginInteractiveMovementForItemAtIndexPath(indexPath)
+            }
+            
+        case .Changed:
+            let touchLocation = gestureRecognizer.locationInView(collectionView)
+            collectionView.updateInteractiveMovementTargetPosition(touchLocation)
+            
+        case .Ended:
+            collectionView.endInteractiveMovement()
+            
+        case .Cancelled:
+            collectionView.cancelInteractiveMovement()
+            
+        default:
+            break
         }
     }
     

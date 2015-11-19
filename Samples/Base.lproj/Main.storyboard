@@ -159,7 +159,7 @@
             </objects>
             <point key="canvasLocation" x="999" y="123"/>
         </scene>
-        <!--Collection View Sample Controller-->
+        <!--Collection View-->
         <scene sceneID="D6x-fd-PwP">
             <objects>
                 <viewController id="VLX-DC-yVg" customClass="CollectionViewSampleController" customModule="Samples" customModuleProvider="target" sceneMemberID="viewController">
@@ -193,7 +193,11 @@
                             <constraint firstItem="lTA-xJ-KUF" firstAttribute="leading" secondItem="ugu-jY-cwb" secondAttribute="leading" id="rSv-2p-i4q"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Collection View" prompt="Try selecting some items" id="iaR-CB-Fkg">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="Bak-NU-KKw"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="clearButton" destination="Bak-NU-KKw" id="rcS-mg-XFL"/>
                         <outlet property="collectionView" destination="lTA-xJ-KUF" id="EIi-Ga-97K"/>
                     </connections>
                 </viewController>
