@@ -11,6 +11,19 @@ import UIKit
 extension UICollectionView: DataSourceView {
     public typealias CellView = UICollectionViewCell
     
+    public func insertCells(indexPaths indexPaths: [NSIndexPath]) {
+        insertItemsAtIndexPaths(indexPaths)
+    }
+    
+    public func deleteCells(indexPaths indexPaths: [NSIndexPath]) {
+        deleteItemsAtIndexPaths(indexPaths)
+    }
+    
+    public func batchUpdates(updates: () -> Void) {
+        performBatchUpdates(updates, completion: nil)
+    }
+    
+    
     public func indexPathsForSelections() -> [NSIndexPath]? {
         return indexPathsForSelectedItems()
     }
@@ -22,6 +35,7 @@ extension UICollectionView: DataSourceView {
     public func deselect(indexPath indexPath: NSIndexPath) {
         deselectItemAtIndexPath(indexPath, animated: false)
     }
+    
     
     public func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> UICollectionViewCell {
         return dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)

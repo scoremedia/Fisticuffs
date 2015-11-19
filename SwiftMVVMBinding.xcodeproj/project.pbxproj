@@ -58,6 +58,7 @@
 		6A09F1901BFB8C50005C2B81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A09F18F1BFB8C50005C2B81 /* Assets.xcassets */; };
 		6A09F1931BFB8C50005C2B81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A09F1911BFB8C50005C2B81 /* LaunchScreen.storyboard */; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
+		6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +264,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

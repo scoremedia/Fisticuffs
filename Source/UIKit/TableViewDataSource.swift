@@ -11,6 +11,22 @@ import UIKit
 extension UITableView: DataSourceView {
     public typealias CellView = UITableViewCell
     
+    public func insertCells(indexPaths indexPaths: [NSIndexPath]) {
+        insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
+    }
+    
+    public func deleteCells(indexPaths indexPaths: [NSIndexPath]) {
+        deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
+    }
+    
+    public func batchUpdates(updates: () -> Void) {
+        beginUpdates()
+        defer { endUpdates() }
+        
+        updates()
+    }
+    
+    
     public func indexPathsForSelections() -> [NSIndexPath]? {
         return indexPathsForSelectedRows
     }
@@ -22,6 +38,7 @@ extension UITableView: DataSourceView {
     public func deselect(indexPath indexPath: NSIndexPath) {
         deselectRowAtIndexPath(indexPath, animated: false)
     }
+    
     
     public func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> UITableViewCell {
         return dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)

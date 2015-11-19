@@ -12,9 +12,14 @@ public protocol DataSourceView: class {
     typealias CellView
     
     func reloadData()
+    func insertCells(indexPaths indexPaths: [NSIndexPath])
+    func deleteCells(indexPaths indexPaths: [NSIndexPath])
+    func batchUpdates(updates: () -> Void)
+    
     func indexPathsForSelections() -> [NSIndexPath]?
     func select(indexPath indexPath: NSIndexPath)
     func deselect(indexPath indexPath: NSIndexPath)
+    
     func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> CellView
 }
 
@@ -68,7 +73,28 @@ extension DataSource {
         
         items = Array(new)
         
-        view?.reloadData()
+        switch change {
+        case .Set(elements: _):
+            view?.reloadData()
+            
+        case let .Insert(index: index, newElements: newElements):
+            let indexPaths = (index ..< index + newElements.count).map { i in NSIndexPath(forItem: i, inSection: 0) }
+            view?.insertCells(indexPaths: indexPaths)
+        
+        case let .Remove(range: range, removedElements: _):
+            let indexPaths = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
+            view?.deleteCells(indexPaths: indexPaths)
+            
+        case let .Replace(range: range, removedElements: _, newElements: new):
+            view?.batchUpdates { [view = view] in
+                let deleted = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                view?.deleteCells(indexPaths: deleted)
+                
+                let addedRange = range.startIndex ..< range.startIndex + new.count
+                let added = addedRange.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                view?.insertCells(indexPaths: added)
+            }
+        }
     }
     
     func syncSelections() {
@@ -144,8 +170,8 @@ extension DataSource {
 
 extension DataSource {
     
-    func modifyUnderlyingData(@noescape block: (data: Observable<Collection>) -> Void) {
-        suppressChangeNotifications = true
+    func modifyUnderlyingData(suppressChangeNotifications suppress: Bool, @noescape block: (data: Observable<Collection>) -> Void) {
+        suppressChangeNotifications = suppress
         defer { suppressChangeNotifications = false }
         
         assert(editable, "Underlying data must be editable")
@@ -158,7 +184,7 @@ extension DataSource {
     }
     
     public func move(source source: NSIndexPath, destination: NSIndexPath) {
-        modifyUnderlyingData { data in
+        modifyUnderlyingData(suppressChangeNotifications: true) { data in
             let sourceIndex = data.value.startIndex.nthSuccessor(source.item)
             let item = data.value.removeAtIndex(sourceIndex)
             
@@ -168,7 +194,7 @@ extension DataSource {
     }
     
     public func delete(indexPath indexPath: NSIndexPath) {
-        modifyUnderlyingData { data in
+        modifyUnderlyingData(suppressChangeNotifications: false) { data in
             let index = data.value.startIndex.nthSuccessor(indexPath.item)
             data.value.removeAtIndex(index)
         }
