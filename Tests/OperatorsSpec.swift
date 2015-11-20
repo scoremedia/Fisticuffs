@@ -60,6 +60,11 @@ class OperatorsSpec: QuickSpec {
                 expect(underlyingValue) == 11
             }
             
+            it("should support binding BidirectionalBindings to blocks (anonymous Computed)") {
+                bidirectionalBinding <-- { observable.value }
+                expect(underlyingValue) == 11
+            }
+            
             it("should NOT setup a two-way binding between BidirectionalBindings and Observables") {
                 bidirectionalBinding <-- observable
                 expect(underlyingValue) == 11
@@ -85,6 +90,11 @@ class OperatorsSpec: QuickSpec {
             
             it("should supprt binding BidirectionalBindings to Observables") {
                 observable --> bidirectionalBinding
+                expect(underlyingValue) == 11
+            }
+            
+            it("should support binding BidirectionalBindings to blocks (anonymous Computed)") {
+                { observable.value } --> bidirectionalBinding
                 expect(underlyingValue) == 11
             }
             

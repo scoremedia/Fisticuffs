@@ -58,6 +58,18 @@ class BidirectionalBindingSpec: QuickSpec {
                 expect(backingVariable) == "11"
             }
             
+            it("should support one way binding with a transform") {
+                let observable = Observable(11)
+                binding.bind(observable, transform: { "\($0)" })
+                expect(backingVariable) == "11"
+            }
+            
+            it("should support one way binding to a block") {
+                let observable = Observable(10)
+                binding.bind { "\(observable.value + 1)" }
+                expect(backingVariable) == "11"
+            }
+            
             it("should support additional cleanup on deinit") {
                 var disposed = false
                 

@@ -69,4 +69,34 @@ public extension BidirectionalBinding {
             self?.setter(value)
         }
     }
+    
+    public func bind<S: Subscribable>(subscribable: S, transform: S.ValueType -> ValueType) {
+        currentBinding?.dispose()
+        
+        var options = SubscriptionOptions()
+        options.notifyOnSubscription = true
+        
+        currentObservable = nil
+        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
+            self?.setter(transform(value))
+        }
+    }
+    
+    public func bind(block: () -> ValueType) {
+        currentBinding?.dispose()
+        
+        var options = SubscriptionOptions()
+        options.notifyOnSubscription = true
+        
+        var computed: Computed<ValueType>? = Computed<ValueType>(block: block)
+        let subscription = computed!.subscribe(options) { [weak self] _, value in
+            self?.setter(value)
+        }
+        
+        currentObservable = nil
+        currentBinding = DisposableBlock {
+            computed = nil // keep a strong reference to the Computed
+            subscription.dispose()
+        }
+    }
 }

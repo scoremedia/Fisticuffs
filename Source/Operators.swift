@@ -42,6 +42,14 @@ public func --><T>(lhs: () -> T, rhs: Binding<T>) {
     rhs.bind(lhs)
 }
 
+public func <--<T>(lhs: BidirectionalBinding<T>, rhs: () -> T) {
+    lhs.bind(rhs)
+}
+
+public func --><T>(lhs: () -> T, rhs: BidirectionalBinding<T>) {
+    rhs.bind(lhs)
+}
+
 //MARK: - Two way binding
 
 public func <-><T>(lhs: BidirectionalBinding<T>, rhs: Observable<T>) {
