@@ -14,6 +14,7 @@ infix operator <-> {}
 
 
 //MARK: - One way binding
+//MARK: Subscribable's
 
 public func <--<T, S where S: Subscribable, S.ValueType == T>(lhs: Binding<T>, rhs: S) {
     lhs.bind(rhs)
@@ -28,6 +29,16 @@ public func <--<T, S where S: Subscribable, S.ValueType == T>(lhs: Bidirectional
 }
 
 public func --><T, S where S: Subscribable, S.ValueType == T>(lhs: S, rhs: BidirectionalBinding<T>) {
+    rhs.bind(lhs)
+}
+
+//MARK: Blocks
+
+public func <--<T>(lhs: Binding<T>, rhs: () -> T) {
+    lhs.bind(rhs)
+}
+
+public func --><T>(lhs: () -> T, rhs: Binding<T>) {
     rhs.bind(lhs)
 }
 

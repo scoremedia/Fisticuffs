@@ -50,6 +50,11 @@ class OperatorsSpec: QuickSpec {
                 expect(underlyingValue) == 11
             }
             
+            it("should support binding Bindings to blocks (anonymous Computed)") {
+                binding <-- { observable.value }
+                expect(underlyingValue) == 11
+            }
+            
             it("should supprt binding BidirectionalBindings to Observables") {
                 bidirectionalBinding <-- observable
                 expect(underlyingValue) == 11
@@ -70,6 +75,11 @@ class OperatorsSpec: QuickSpec {
         describe("-->") {
             it("should support binding Bindings to Subscribables") {
                 observable --> binding
+                expect(underlyingValue) == 11
+            }
+            
+            it("should support binding Bindings to blocks (anonymous Computed)") {
+                { observable.value } --> binding
                 expect(underlyingValue) == 11
             }
             

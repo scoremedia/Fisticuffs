@@ -44,4 +44,21 @@ public extension Binding {
             self?.setter(transform(value))
         }
     }
+    
+    public func bind(block: () -> ValueType) {
+        currentBinding?.dispose()
+        
+        var options = SubscriptionOptions()
+        options.notifyOnSubscription = true
+        
+        var computed: Computed<ValueType>? = Computed<ValueType>(block: block)
+        let subscription = computed!.subscribe(options) { [weak self] _, value in
+            self?.setter(value)
+        }
+        
+        currentBinding = DisposableBlock {
+            computed = nil // keep a strong reference to the Computed
+            subscription.dispose()
+        }
+    }
 }

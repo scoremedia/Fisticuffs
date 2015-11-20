@@ -45,6 +45,17 @@ class BindingSpec: QuickSpec {
                 
                 expect(backingVariable) == "11"
             }
+            
+            it("should support binding to a block (\"anonymous Computed\")") {
+                var backingVariable = ""
+                let binding = Binding<String> { value in backingVariable = value }
+                
+                let name = Observable("")
+                binding.bind { "Hello, \(name.value)!" }
+                name.value = "world"
+                
+                expect(backingVariable) == "Hello, world!"
+            }
         }
     }
 }
