@@ -255,6 +255,23 @@ Requirements:
 3. Add `SwiftMVVMBinding.framework` to your app's **Embedded Binaries** and **Linked Frameworks and Libraries**
 
 
+## Examples / Tests
+
+Tests and some examples are provided in the `SwiftMVVMBinding.xcworkspace`
+
+### Running the Tests
+
+1. Clone this repo
+
+2. To fetch [Quick](https://github.com/Quick/Quick) and [Nimble](https://github.com/Quick/Nimble), run:
+  ```
+  git submodule update --init --recursive
+  ```
+  
+3. Open `SwiftMVVMBinding.xcworkspace`, select the `SwiftMVVMBinding` scheme
+
+4. *Product* → *Test*
+
 ## License
 
 SwiftMVVMBinding is released under the MIT license.
