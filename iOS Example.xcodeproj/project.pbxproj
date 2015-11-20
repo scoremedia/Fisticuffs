@@ -23,6 +23,8 @@
 		6A06EDD01BFBBF8C00231806 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDCE1BFBBF8C00231806 /* Quick.framework */; };
 		6A06EDD21BFBBF9900231806 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDD11BFBBF9900231806 /* SwiftMVVMBinding.framework */; };
 		6A06EDD51BFBC03000231806 /* AddItemViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */; };
+		6A1DB7621BFFC0D2003817D9 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1DB7611BFFC0D2003817D9 /* SwiftMVVMBinding.framework */; };
+		6A1DB7631BFFC0D2003817D9 /* SwiftMVVMBinding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1DB7611BFFC0D2003817D9 /* SwiftMVVMBinding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,20 @@
 			remoteInfo = "iOS Example";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6A1DB7641BFFC0D2003817D9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6A1DB7631BFFC0D2003817D9 /* SwiftMVVMBinding.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6A06ED891BFB912500231806 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +72,7 @@
 		6A06EDCE1BFBBF8C00231806 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Tests/Vendor/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		6A06EDD11BFBBF9900231806 /* SwiftMVVMBinding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMVVMBinding.framework; path = "build/Debug-iphoneos/SwiftMVVMBinding.framework"; sourceTree = "<group>"; };
 		6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewModelSpec.swift; sourceTree = "<group>"; };
+		6A1DB7611BFFC0D2003817D9 /* SwiftMVVMBinding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SwiftMVVMBinding.framework; path = "/Users/dclark/Library/Developer/Xcode/DerivedData/SwiftMVVMBinding-gxbivebshoxrwtaatjdiqclwyxuz/Build/Products/Debug-iphoneos/SwiftMVVMBinding.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A1DB7621BFFC0D2003817D9 /* SwiftMVVMBinding.framework in Frameworks */,
 				6A06EDB21BFBAA4C00231806 /* SwiftMVVMBinding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +146,7 @@
 		6A06EDB31BFBAA7F00231806 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A1DB7611BFFC0D2003817D9 /* SwiftMVVMBinding.framework */,
 				6A06EDD11BFBBF9900231806 /* SwiftMVVMBinding.framework */,
 				6A06EDCD1BFBBF8C00231806 /* Nimble.framework */,
 				6A06EDCE1BFBBF8C00231806 /* Quick.framework */,
@@ -165,6 +184,7 @@
 				6A06ED851BFB912500231806 /* Sources */,
 				6A06ED861BFB912500231806 /* Frameworks */,
 				6A06ED871BFB912500231806 /* Resources */,
+				6A1DB7641BFFC0D2003817D9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -341,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -379,7 +399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -480,6 +500,7 @@
 				6A06EDCC1BFBBF1F00231806 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

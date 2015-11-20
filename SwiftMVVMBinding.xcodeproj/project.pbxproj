@@ -61,6 +61,8 @@
 		6A1DB7531BFE5B2E003817D9 /* UIDatePicker+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB7521BFE5B2E003817D9 /* UIDatePicker+Binding.swift */; };
 		6A1DB7551BFE5ED8003817D9 /* UIPageControl+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB7541BFE5ED8003817D9 /* UIPageControl+Binding.swift */; };
 		6A1DB75B1BFE7DCB003817D9 /* TextFieldSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB75A1BFE7DCB003817D9 /* TextFieldSample.swift */; };
+		6A1DB75C1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
+		6A1DB75D1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
 		6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
@@ -188,7 +190,28 @@
 			remoteGlobalIDString = 6A09F1851BFB8C50005C2B81;
 			remoteInfo = Samples;
 		};
+		6A1DB75E1BFFBD96003817D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A09EEE11BFB80E6005C2B81 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A09EEE91BFB80E6005C2B81;
+			remoteInfo = SwiftMVVMBinding;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6A1DB7601BFFBD97003817D9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6A1DB75D1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6A06EDD81BFBD84D00231806 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -278,6 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A1DB75C1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Frameworks */,
 				6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,10 +529,12 @@
 				6A09F1821BFB8C50005C2B81 /* Sources */,
 				6A09F1831BFB8C50005C2B81 /* Frameworks */,
 				6A09F1841BFB8C50005C2B81 /* Resources */,
+				6A1DB7601BFFBD97003817D9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6A1DB75F1BFFBD96003817D9 /* PBXTargetDependency */,
 			);
 			name = Samples;
 			productName = Samples;
@@ -788,6 +814,11 @@
 			target = 6A09F1851BFB8C50005C2B81 /* Samples */;
 			targetProxy = 6A09F1A71BFB8C71005C2B81 /* PBXContainerItemProxy */;
 		};
+		6A1DB75F1BFFBD96003817D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A09EEE91BFB80E6005C2B81 /* SwiftMVVMBinding */;
+			targetProxy = 6A1DB75E1BFFBD96003817D9 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -957,6 +988,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Samples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBinding.Samples;
@@ -968,6 +1000,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Samples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBinding.Samples;
