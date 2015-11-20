@@ -209,3 +209,52 @@ Some interesting things to note:
 - Any updates we make to `days` in code will be propagated up to the table view (including animating insertions, removals, etc..)
 
 Similar bindings exist for `UICollectionView`
+
+## Installation
+
+Requirements:
+
+- Xcode 7.1 / Swift 2.1
+- iOS 8+
+
+### Cocoapods
+
+1. If you haven't already, [install Cocoapods](https://guides.cocoapods.org/using/getting-started.html) and [setup your project for use with Cocoapods](https://guides.cocoapods.org/using/using-cocoapods.html)
+
+2. Add `SwiftMVVMBinding` to your `Podfile`:
+
+  ```
+  pod 'SwiftMVVMBinding', '0.1.0'
+  ```
+
+3. Run `pod install`
+
+
+*NOTE: There may be breaking changes before 1.0, so it is suggested to pin it to a specific version*
+
+### Carthage
+
+1. If you haven't already, install Carthage & setup your project for use with it.  See [here](https://github.com/Carthage/Carthage).
+
+2. Add `SwiftMVVMBinding` to your `Cartfile`:
+
+  ```
+  github "scoremedia/SwiftMVVMBinding" == 0.1.0
+  ```
+
+3. Run `carthage update`
+
+*May be breaking changes before 1.0, so it is suggested to pin it to a specific version*
+
+### Manual Installation
+
+1. Download this repository (if using Git, you can add it as a [submodule](https://git-scm.com/docs/git-submodule))
+
+2. Drag `SwiftMVVMBinding.xcodeproj` into your Xcode project or workspace
+
+3. Add `SwiftMVVMBinding.framework` to your app's **Embedded Binaries** and **Linked Frameworks and Libraries**
+
+
+## License
+
+SwiftMVVMBinding is released under the MIT license.
