@@ -21,7 +21,7 @@
 //  THE SOFTWARE.
 
 import UIKit
-import SwiftMVVMBinding
+import Fisticuffs
 
 class CollectionViewSampleViewModel {
     let items = Observable(Array(1...100))

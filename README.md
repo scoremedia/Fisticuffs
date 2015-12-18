@@ -1,6 +1,6 @@
-# SwiftMVVMBinding
+# Fisticuffs
 
-SwiftMVVMBinding is a data binding framework for Swift, inspired by [Knockout](http://knockoutjs.com) and shares many of the same concepts:
+Fisticuffs is a data binding framework for Swift, inspired by [Knockout](http://knockoutjs.com) and shares many of the same concepts:
 
 - **Declarative Bindings**
 
@@ -12,11 +12,11 @@ SwiftMVVMBinding is a data binding framework for Swift, inspired by [Knockout](h
 
 - **Automatic Dependency Tracking**
 
-  Easily and implicitly setup a graph of dependencies.  When an underlying dependency changes its value, SwiftMVVMBinding will ensure those changes are propagated up.
+  Easily and implicitly setup a graph of dependencies.  When an underlying dependency changes its value, Fisticuffs will ensure those changes are propagated up.
   
 ---
 
-⚠️ ***NOTE:*** *SwiftMVVMBinding is still alpha/beta. Hopefully the public interface won't change much, but no guarantees until version 1.0*
+⚠️ ***NOTE:*** *Fisticuffs is still alpha/beta. Hopefully the public interface won't change much, but no guarantees until version 1.0*
 
 ## Quick Example
 
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
 
 ### Observable
 
-The `Observable` class is one of the basic building blocks of SwiftMVVMBinding.  It stores a value and notifies any subscribers when it changes:
+The `Observable` class is one of the basic building blocks of Fisticuffs.  It stores a value and notifies any subscribers when it changes:
 
 ```swift
 let observable = Observable<String>("")
@@ -153,7 +153,7 @@ messageLabel.b_text.bind(message)
 Generally, bindings for UIKit classes are the original property name prefixed with `b_`.  For example:
 
 
-UIKit                | SwiftMVVMBinding       
+UIKit                | Fisticuffs       
 -------------------- | -----------------------
 `UILabel`.`text`     | `UILabel`.`b_text`     
 `UITextField`.`text` | `UITextField`.`b_text` 
@@ -186,7 +186,7 @@ button.b_onTap += {
 
 ### UITableViews / UICollectionViews
 
-SwiftMVVMBinding provides support for easily binding data to UITableViews / UICollectionViews.  See example below:
+Fisticuffs provides support for easily binding data to UITableViews / UICollectionViews.  See example below:
 
 ```swift
 let tableView: UITableView = ...
@@ -221,10 +221,10 @@ Requirements:
 
 1. If you haven't already, [install Cocoapods](https://guides.cocoapods.org/using/getting-started.html) and [setup your project for use with Cocoapods](https://guides.cocoapods.org/using/using-cocoapods.html)
 
-2. Add `SwiftMVVMBinding` to your `Podfile`:
+2. Add `Fisticuffs` to your `Podfile`:
 
   ```
-  pod 'SwiftMVVMBinding', '0.1.0'
+  pod 'Fisticuffs', '0.1.0'
   ```
 
 3. Run `pod install`
@@ -236,10 +236,10 @@ Requirements:
 
 1. If you haven't already, install Carthage & setup your project for use with it.  See [here](https://github.com/Carthage/Carthage).
 
-2. Add `SwiftMVVMBinding` to your `Cartfile`:
+2. Add `Fisticuffs` to your `Cartfile`:
 
   ```
-  github "scoremedia/SwiftMVVMBinding" == 0.1.0
+  github "scoremedia/Fisticuffs" == 0.1.0
   ```
 
 3. Run `carthage update`
@@ -250,14 +250,14 @@ Requirements:
 
 1. Download this repository (if using Git, you can add it as a [submodule](https://git-scm.com/docs/git-submodule))
 
-2. Drag `SwiftMVVMBinding.xcodeproj` into your Xcode project or workspace
+2. Drag `Fisticuffs.xcodeproj` into your Xcode project or workspace
 
-3. Add `SwiftMVVMBinding.framework` to your app's **Embedded Binaries** and **Linked Frameworks and Libraries**
+3. Add `Fisticuffs.framework` to your app's **Embedded Binaries** and **Linked Frameworks and Libraries**
 
 
 ## Examples / Tests
 
-Tests and some examples are provided in the `SwiftMVVMBinding.xcworkspace`
+Tests and some examples are provided in the `Fisticuffs.xcworkspace`
 
 ### Running the Tests
 
@@ -268,10 +268,10 @@ Tests and some examples are provided in the `SwiftMVVMBinding.xcworkspace`
   git submodule update --init --recursive
   ```
   
-3. Open `SwiftMVVMBinding.xcworkspace`, select the `SwiftMVVMBinding` scheme
+3. Open `Fisticuffs.xcworkspace`, select the `Fisticuffs` scheme
 
 4. *Product* → *Test*
 
 ## License
 
-SwiftMVVMBinding is released under the MIT license.
+Fisticuffs is released under the MIT license.

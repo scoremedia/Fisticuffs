@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = "SwiftMVVMBinding"
+  s.name             = "Fisticuffs"
   s.version          = "0.1.0"
   s.summary          = "MVVM library for Swift"
 
@@ -19,11 +19,11 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
                        DESC
 
-  s.homepage         = "https://github.com/scoremedia/SwiftMVVMBinding"
+  s.homepage         = "https://github.com/scoremedia/Fisticuffs"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Darren Clark" => "darren.clark@thescore.com" }
-  s.source           = { :git => "https://github.com/scoremedia/SwiftMVVMBinding.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/scoremedia/Fisticuffs.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'

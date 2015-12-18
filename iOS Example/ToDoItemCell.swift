@@ -21,7 +21,7 @@
 //  THE SOFTWARE.
 
 import UIKit
-import SwiftMVVMBinding
+import Fisticuffs
 
 
 class ToDoItemCell: UITableViewCell {

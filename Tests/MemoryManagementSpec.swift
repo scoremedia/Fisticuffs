@@ -23,7 +23,7 @@
 import Foundation
 import Quick
 import Nimble
-@testable import SwiftMVVMBinding
+@testable import Fisticuffs
 
 
 class MemoryManagementSpec: QuickSpec {

@@ -10,7 +10,7 @@
 		6A06EDD91BFBD84D00231806 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDD81BFBD84D00231806 /* DataSource.swift */; };
 		6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */; };
 		6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */; };
-		6A09EEF51BFB80E6005C2B81 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
+		6A09EEF51BFB80E6005C2B81 /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
 		6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */; };
 		6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF061BFB816D005C2B81 /* Binding.swift */; };
 		6A09EF261BFB816D005C2B81 /* Computed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF071BFB816D005C2B81 /* Computed.swift */; };
@@ -25,7 +25,7 @@
 		6A09EF301BFB816D005C2B81 /* SubscribableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF111BFB816D005C2B81 /* SubscribableType.swift */; };
 		6A09EF311BFB816D005C2B81 /* SubscriptionCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */; };
 		6A09EF321BFB816D005C2B81 /* SubscriptionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */; };
-		6A09EF331BFB816D005C2B81 /* SwiftMVVMBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A09EF141BFB816D005C2B81 /* SwiftMVVMBinding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A09EF331BFB816D005C2B81 /* Fisticuffs.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A09EF141BFB816D005C2B81 /* Fisticuffs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A09EF341BFB816D005C2B81 /* NSObject+AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF161BFB816D005C2B81 /* NSObject+AssociatedObjects.swift */; };
 		6A09EF351BFB816D005C2B81 /* NSObject+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF171BFB816D005C2B81 /* NSObject+Binding.swift */; };
 		6A09EF361BFB816D005C2B81 /* UIBarButtonItem+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */; };
@@ -61,10 +61,10 @@
 		6A1DB7531BFE5B2E003817D9 /* UIDatePicker+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB7521BFE5B2E003817D9 /* UIDatePicker+Binding.swift */; };
 		6A1DB7551BFE5ED8003817D9 /* UIPageControl+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB7541BFE5ED8003817D9 /* UIPageControl+Binding.swift */; };
 		6A1DB75B1BFE7DCB003817D9 /* TextFieldSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB75A1BFE7DCB003817D9 /* TextFieldSample.swift */; };
-		6A1DB75C1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
-		6A1DB75D1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A1DB75C1BFFBD96003817D9 /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
+		6A1DB75D1BFFBD96003817D9 /* Fisticuffs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
-		6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */; };
+		6A6B3BD91BFE190600B825DB /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
 		6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */; };
 		6A6B3BF21BFE32F700B825DB /* ControlsSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */; };
@@ -76,7 +76,7 @@
 			containerPortal = 6A09EEE11BFB80E6005C2B81 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6A09EEE91BFB80E6005C2B81;
-			remoteInfo = SwiftMVVMBinding;
+			remoteInfo = Fisticuffs;
 		};
 		6A09F11B1BFB8941005C2B81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -195,7 +195,7 @@
 			containerPortal = 6A09EEE11BFB80E6005C2B81 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6A09EEE91BFB80E6005C2B81;
-			remoteInfo = SwiftMVVMBinding;
+			remoteInfo = Fisticuffs;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -206,7 +206,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6A1DB75D1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Embed Frameworks */,
+				6A1DB75D1BFFBD96003817D9 /* Fisticuffs.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,8 +217,8 @@
 		6A06EDD81BFBD84D00231806 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
-		6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMVVMBinding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A09EEF41BFB80E6005C2B81 /* SwiftMVVMBindingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMVVMBindingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fisticuffs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A09EEF41BFB80E6005C2B81 /* FisticuffsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FisticuffsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBinding.swift; sourceTree = "<group>"; };
 		6A09EF061BFB816D005C2B81 /* Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		6A09EF071BFB816D005C2B81 /* Computed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Computed.swift; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 		6A09EF111BFB816D005C2B81 /* SubscribableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribableType.swift; sourceTree = "<group>"; };
 		6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCollection.swift; sourceTree = "<group>"; };
 		6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionOptions.swift; sourceTree = "<group>"; };
-		6A09EF141BFB816D005C2B81 /* SwiftMVVMBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftMVVMBinding.h; sourceTree = "<group>"; };
+		6A09EF141BFB816D005C2B81 /* Fisticuffs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fisticuffs.h; sourceTree = "<group>"; };
 		6A09EF161BFB816D005C2B81 /* NSObject+AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+AssociatedObjects.swift"; sourceTree = "<group>"; };
 		6A09EF171BFB816D005C2B81 /* NSObject+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Binding.swift"; sourceTree = "<group>"; };
 		6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Binding.swift"; sourceTree = "<group>"; };
@@ -293,7 +293,7 @@
 			files = (
 				6A09F1421BFB896D005C2B81 /* Nimble.framework in Frameworks */,
 				6A09F1431BFB896D005C2B81 /* Quick.framework in Frameworks */,
-				6A09EEF51BFB80E6005C2B81 /* SwiftMVVMBinding.framework in Frameworks */,
+				6A09EEF51BFB80E6005C2B81 /* Fisticuffs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,8 +301,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A1DB75C1BFFBD96003817D9 /* SwiftMVVMBinding.framework in Frameworks */,
-				6A6B3BD91BFE190600B825DB /* SwiftMVVMBinding.framework in Frameworks */,
+				6A1DB75C1BFFBD96003817D9 /* Fisticuffs.framework in Frameworks */,
+				6A6B3BD91BFE190600B825DB /* Fisticuffs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,8 +322,8 @@
 		6A09EEEB1BFB80E6005C2B81 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */,
-				6A09EEF41BFB80E6005C2B81 /* SwiftMVVMBindingTests.xctest */,
+				6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */,
+				6A09EEF41BFB80E6005C2B81 /* FisticuffsTests.xctest */,
 				6A09F1861BFB8C50005C2B81 /* Samples.app */,
 			);
 			name = Products;
@@ -347,7 +347,7 @@
 				6A09EF111BFB816D005C2B81 /* SubscribableType.swift */,
 				6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */,
 				6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */,
-				6A09EF141BFB816D005C2B81 /* SwiftMVVMBinding.h */,
+				6A09EF141BFB816D005C2B81 /* Fisticuffs.h */,
 				6A09EF151BFB816D005C2B81 /* UIKit */,
 				6A09EF231BFB816D005C2B81 /* ViewModel.swift */,
 			);
@@ -478,16 +478,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A09EF331BFB816D005C2B81 /* SwiftMVVMBinding.h in Headers */,
+				6A09EF331BFB816D005C2B81 /* Fisticuffs.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6A09EEE91BFB80E6005C2B81 /* SwiftMVVMBinding */ = {
+		6A09EEE91BFB80E6005C2B81 /* Fisticuffs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A09EEFE1BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding" */;
+			buildConfigurationList = 6A09EEFE1BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "Fisticuffs" */;
 			buildPhases = (
 				6A09EEE51BFB80E6005C2B81 /* Sources */,
 				6A09EEE61BFB80E6005C2B81 /* Frameworks */,
@@ -498,14 +498,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftMVVMBinding;
-			productName = SwiftMVVMBinding;
-			productReference = 6A09EEEA1BFB80E6005C2B81 /* SwiftMVVMBinding.framework */;
+			name = Fisticuffs;
+			productName = Fisticuffs;
+			productReference = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6A09EEF31BFB80E6005C2B81 /* SwiftMVVMBindingTests */ = {
+		6A09EEF31BFB80E6005C2B81 /* FisticuffsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A09EF011BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "SwiftMVVMBindingTests" */;
+			buildConfigurationList = 6A09EF011BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "FisticuffsTests" */;
 			buildPhases = (
 				6A09EEF01BFB80E6005C2B81 /* Sources */,
 				6A09EEF11BFB80E6005C2B81 /* Frameworks */,
@@ -517,9 +517,9 @@
 				6A09EEF71BFB80E6005C2B81 /* PBXTargetDependency */,
 				6A09F1A81BFB8C71005C2B81 /* PBXTargetDependency */,
 			);
-			name = SwiftMVVMBindingTests;
-			productName = SwiftMVVMBindingTests;
-			productReference = 6A09EEF41BFB80E6005C2B81 /* SwiftMVVMBindingTests.xctest */;
+			name = FisticuffsTests;
+			productName = FisticuffsTests;
+			productReference = 6A09EEF41BFB80E6005C2B81 /* FisticuffsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		6A09F1851BFB8C50005C2B81 /* Samples */ = {
@@ -563,7 +563,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6A09EEE41BFB80E6005C2B81 /* Build configuration list for PBXProject "SwiftMVVMBinding" */;
+			buildConfigurationList = 6A09EEE41BFB80E6005C2B81 /* Build configuration list for PBXProject "Fisticuffs" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -586,8 +586,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				6A09EEE91BFB80E6005C2B81 /* SwiftMVVMBinding */,
-				6A09EEF31BFB80E6005C2B81 /* SwiftMVVMBindingTests */,
+				6A09EEE91BFB80E6005C2B81 /* Fisticuffs */,
+				6A09EEF31BFB80E6005C2B81 /* FisticuffsTests */,
 				6A09F1851BFB8C50005C2B81 /* Samples */,
 			);
 		};
@@ -806,7 +806,7 @@
 /* Begin PBXTargetDependency section */
 		6A09EEF71BFB80E6005C2B81 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6A09EEE91BFB80E6005C2B81 /* SwiftMVVMBinding */;
+			target = 6A09EEE91BFB80E6005C2B81 /* Fisticuffs */;
 			targetProxy = 6A09EEF61BFB80E6005C2B81 /* PBXContainerItemProxy */;
 		};
 		6A09F1A81BFB8C71005C2B81 /* PBXTargetDependency */ = {
@@ -816,7 +816,7 @@
 		};
 		6A1DB75F1BFFBD96003817D9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6A09EEE91BFB80E6005C2B81 /* SwiftMVVMBinding */;
+			target = 6A09EEE91BFB80E6005C2B81 /* Fisticuffs */;
 			targetProxy = 6A1DB75E1BFFBD96003817D9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -940,7 +940,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBinding;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -956,7 +956,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBinding;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -967,7 +967,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBindingTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.FisticuffsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Samples.app/Samples";
 			};
@@ -978,7 +978,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBindingTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.FisticuffsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Samples.app/Samples";
 			};
@@ -991,7 +991,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Samples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBinding.Samples;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs.Samples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1003,7 +1003,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Samples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.SwiftMVVMBinding.Samples;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs.Samples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1011,7 +1011,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A09EEE41BFB80E6005C2B81 /* Build configuration list for PBXProject "SwiftMVVMBinding" */ = {
+		6A09EEE41BFB80E6005C2B81 /* Build configuration list for PBXProject "Fisticuffs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A09EEFC1BFB80E6005C2B81 /* Debug */,
@@ -1020,7 +1020,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A09EEFE1BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "SwiftMVVMBinding" */ = {
+		6A09EEFE1BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "Fisticuffs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A09EEFF1BFB80E6005C2B81 /* Debug */,
@@ -1029,7 +1029,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A09EF011BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "SwiftMVVMBindingTests" */ = {
+		6A09EF011BFB80E6005C2B81 /* Build configuration list for PBXNativeTarget "FisticuffsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A09EF021BFB80E6005C2B81 /* Debug */,

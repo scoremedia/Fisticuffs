@@ -22,7 +22,7 @@
 
 import Quick
 import Nimble
-import SwiftMVVMBinding
+import Fisticuffs
 @testable import iOS_Example
 
 
