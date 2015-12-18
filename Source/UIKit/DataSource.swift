@@ -48,7 +48,7 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
     private let subscribable: S
     private let observable: Observable<Collection>?
     
-    private var suppressChangeNotifications = false
+    private var suppressChangeUpdates = false
     
     private var items: [Item] = []
     
@@ -93,30 +93,30 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
 extension DataSource {
     
     func underlyingDataChanged(new: [Item], _ change: ArrayChange<Item>) {
-        guard suppressChangeNotifications == false else { return }
-        
         items = Array(new)
         
-        switch change {
-        case .Set(elements: _):
-            view?.reloadData()
-            
-        case let .Insert(index: index, newElements: newElements):
-            let indexPaths = (index ..< index + newElements.count).map { i in NSIndexPath(forItem: i, inSection: 0) }
-            view?.insertCells(indexPaths: indexPaths)
-        
-        case let .Remove(range: range, removedElements: _):
-            let indexPaths = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
-            view?.deleteCells(indexPaths: indexPaths)
-            
-        case let .Replace(range: range, removedElements: _, newElements: new):
-            view?.batchUpdates { [view = view] in
-                let deleted = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
-                view?.deleteCells(indexPaths: deleted)
+        if suppressChangeUpdates == false {
+            switch change {
+            case .Set(elements: _):
+                view?.reloadData()
                 
-                let addedRange = range.startIndex ..< range.startIndex + new.count
-                let added = addedRange.map { i in NSIndexPath(forItem: i, inSection: 0) }
-                view?.insertCells(indexPaths: added)
+            case let .Insert(index: index, newElements: newElements):
+                let indexPaths = (index ..< index + newElements.count).map { i in NSIndexPath(forItem: i, inSection: 0) }
+                view?.insertCells(indexPaths: indexPaths)
+            
+            case let .Remove(range: range, removedElements: _):
+                let indexPaths = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                view?.deleteCells(indexPaths: indexPaths)
+                
+            case let .Replace(range: range, removedElements: _, newElements: new):
+                view?.batchUpdates { [view = view] in
+                    let deleted = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                    view?.deleteCells(indexPaths: deleted)
+                    
+                    let addedRange = range.startIndex ..< range.startIndex + new.count
+                    let added = addedRange.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                    view?.insertCells(indexPaths: added)
+                }
             }
         }
         
@@ -196,9 +196,9 @@ extension DataSource {
 
 extension DataSource {
     
-    func modifyUnderlyingData(suppressChangeNotifications suppress: Bool, @noescape block: (data: Observable<Collection>) -> Void) {
-        suppressChangeNotifications = suppress
-        defer { suppressChangeNotifications = false }
+    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, @noescape block: (data: Observable<Collection>) -> Void) {
+        suppressChangeUpdates = suppress
+        defer { suppressChangeUpdates = false }
         
         assert(editable, "Underlying data must be editable")
         guard let observable = observable else {
@@ -210,7 +210,9 @@ extension DataSource {
     }
     
     public func move(source source: NSIndexPath, destination: NSIndexPath) {
-        modifyUnderlyingData(suppressChangeNotifications: true) { data in
+        // No need to send updates to the view (suppressChangeUpdates: true) for the moving items, 
+        // as that is handled internally by UITableView / UICollectionView
+        modifyUnderlyingData(suppressChangeUpdates: true) { data in
             let sourceIndex = data.value.startIndex.nthSuccessor(source.item)
             let item = data.value.removeAtIndex(sourceIndex)
             
@@ -220,7 +222,7 @@ extension DataSource {
     }
     
     public func delete(indexPath indexPath: NSIndexPath) {
-        modifyUnderlyingData(suppressChangeNotifications: false) { data in
+        modifyUnderlyingData(suppressChangeUpdates: false) { data in
             let index = data.value.startIndex.nthSuccessor(indexPath.item)
             data.value.removeAtIndex(index)
         }
