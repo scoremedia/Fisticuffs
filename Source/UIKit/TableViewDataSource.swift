@@ -101,6 +101,15 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeRep
     }
     
     //MARK: UITableViewDelegate
+
+    public func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        // UITableView doesn't prevent "double selection" (selecting a currently selected cell again),
+        // so we prevent that here (so it doesn't "spoil" our selections array)
+        if tableView.indexPathsForSelectedRows?.contains(indexPath) == true {
+            return nil
+        }
+        return indexPath
+    }
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         didSelect(indexPath: indexPath)
