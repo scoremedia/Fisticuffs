@@ -88,7 +88,15 @@ public class CollectionViewDataSource<S: SubscribableType where S.ValueType: Ran
     }
     
     //MARK: UICollectionViewDelegate
-    
+
+    public func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return canSelect(indexPath: indexPath)
+    }
+
+    public func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return canSelect(indexPath: indexPath)
+    }
+
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         didSelect(indexPath: indexPath)
     }

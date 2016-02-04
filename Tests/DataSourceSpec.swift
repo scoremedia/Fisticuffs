@@ -31,15 +31,18 @@ class DataSourceSpec: QuickSpec {
         var observable: Observable<[Int]>!
         var selections: Observable<[Int]>!
         var selection: Observable<Int?>!
+        var disabled: Observable<[Int]>!
         var dataSource: DataSource<Observable<[Int]>, FauxDataSourceView>!
-        
+
         beforeEach {
             observable = Observable([1, 2, 3, 4, 5])
             selections = Observable([])
             selection = Observable(nil)
+            disabled = Observable([])
             dataSource = DataSource(subscribable: observable, view: FauxDataSourceView())
             dataSource.selections = selections
             dataSource.selection = selection
+            dataSource.disableSelectionFor(disabled)
         }
         
         describe("DataSource") {
@@ -125,6 +128,18 @@ class DataSourceSpec: QuickSpec {
                     selection.value = 5
                     selections.value = []
                     expect(selection.value).to(beNil())
+                }
+            }
+
+            context("when disabled items are provided") {
+                it("should prevent selecting them") {
+                    disabled.value = [1]
+                    expect(dataSource.canSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))) == false
+                }
+
+                it("should allow selecting other (non disabled) items") {
+                    disabled.value = [1]
+                    expect(dataSource.canSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))) == true
                 }
             }
             

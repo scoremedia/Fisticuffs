@@ -108,7 +108,20 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
             }
         }
     }
-    
+
+
+    private var disabledItemsSubscription: Disposable?
+    private var disabledItemsValue: [Item] = []
+
+    /// If set, will prevent the user from selecting these rows/items in collection/table views
+    ///  NOTE: Won't adjust `selection`/`selections` properties (TODO: Should it?)
+    public func disableSelectionFor<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element == Item>(subscribable: S) {
+        disabledItemsSubscription?.dispose()
+        disabledItemsSubscription = subscribable.subscribe { [weak self] _, newValue in
+            self?.disabledItemsValue = Array(newValue)
+        }
+    }
+
     
     public var deselectOnSelection = true
     public let onSelect = Event<Item>()
@@ -261,6 +274,11 @@ extension DataSource {
         }
 
         onDeselect.fire(item)
+    }
+
+    public func canSelect(indexPath indexPath: NSIndexPath) -> Bool {
+        let item = itemAtIndexPath(indexPath)
+        return disabledItemsValue.contains(item) == false
     }
 }
 

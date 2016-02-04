@@ -102,12 +102,31 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeRep
     
     //MARK: UITableViewDelegate
 
+    public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // UITableView doesn't prevent "double selection" (selecting a currently selected cell again),
+        // so we prevent that here (so it doesn't "spoil" our selections array)
+        if tableView.indexPathsForSelectedRows?.contains(indexPath) == true {
+            return false
+        }
+
+        if canSelect(indexPath: indexPath) == false {
+            return false
+        }
+
+        return true
+    }
+
     public func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         // UITableView doesn't prevent "double selection" (selecting a currently selected cell again),
         // so we prevent that here (so it doesn't "spoil" our selections array)
         if tableView.indexPathsForSelectedRows?.contains(indexPath) == true {
             return nil
         }
+
+        if canSelect(indexPath: indexPath) == false {
+            return nil
+        }
+        
         return indexPath
     }
     
