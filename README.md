@@ -217,9 +217,9 @@ Requirements:
 - Xcode 7.1 / Swift 2.1
 - iOS 8+
 
-### Cocoapods
+### CocoaPods
 
-1. If you haven't already, [install Cocoapods](https://guides.cocoapods.org/using/getting-started.html) and [setup your project for use with Cocoapods](https://guides.cocoapods.org/using/using-cocoapods.html)
+1. If you haven't already, [install CocoaPods](https://guides.cocoapods.org/using/getting-started.html) and [setup your project for use with CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
 
 2. Add `Fisticuffs` to your `Podfile`:
 
