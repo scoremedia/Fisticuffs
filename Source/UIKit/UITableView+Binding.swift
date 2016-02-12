@@ -39,10 +39,10 @@ public extension UITableView {
             
     }
     
-    var b_editing: BindableProperty<Bool> {
+    var b_editing: BindableProperty<UITableView, Bool> {
         return associatedObjectProperty(self, &b_editing_key) { _ in
-            return BindableProperty<Bool>(setter: { [weak self] value -> Void in
-                self?.editing = value
+            return BindableProperty(self, setter: { control, value -> Void in
+                control.editing = value
             })
         }
     }

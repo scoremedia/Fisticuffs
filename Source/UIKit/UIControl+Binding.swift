@@ -31,11 +31,11 @@ private var trampolines_key = 0
 
 public extension UIControl {
 
-    var b_enabled: BindableProperty<Bool> {
+    var b_enabled: BindableProperty<UIControl, Bool> {
         get {
             return associatedObjectProperty(self, &b_enabled_key) { _ in
-                return BindableProperty<Bool>(setter: { [weak self] value -> Void in
-                    self?.enabled = value
+                return BindableProperty(self, setter: { control, value -> Void in
+                    control.enabled = value
                 })
             }
         }

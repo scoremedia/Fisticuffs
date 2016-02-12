@@ -30,11 +30,11 @@ infix operator <-> {}
 //MARK: - One way binding
 //MARK: Subscribable's
 
-public func <--<T>(lhs: BindableProperty<T>, rhs: Subscribable<T>) {
+public func <--<Control, T>(lhs: BindableProperty<Control, T>, rhs: Subscribable<T>) {
     lhs.bind(rhs)
 }
 
-public func --><T>(lhs: Subscribable<T>, rhs: BindableProperty<T>) {
+public func --><Control, T>(lhs: Subscribable<T>, rhs: BindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
@@ -48,11 +48,11 @@ public func --><T>(lhs: Subscribable<T>, rhs: BidirectionalBindableProperty<T>) 
 
 //MARK: Blocks
 
-public func <--<T>(lhs: BindableProperty<T>, rhs: () -> T) {
+public func <--<Control, T>(lhs: BindableProperty<Control, T>, rhs: () -> T) {
     lhs.bind(rhs)
 }
 
-public func --><T>(lhs: () -> T, rhs: BindableProperty<T>) {
+public func --><Control, T>(lhs: () -> T, rhs: BindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 

@@ -20,38 +20,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
 
-private var b_title_key = 0
-private var b_onTap_key = 0
+public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposable {
+    public typealias PropertySetter = (Control, PropertyValue) -> Void
 
+    private weak var control: Control?
+    private var propertySetter: PropertySetter?
 
-public extension UIBarButtonItem {
-    
-    var b_title: BindableProperty<UIBarButtonItem, String> {
-        get {
-            return associatedObjectProperty(self, &b_title_key) { _ in
-                return BindableProperty(self, setter: { control, value in
-                    control.title = value
-                })
+    private let disposableBag = DisposableBag()
+
+    func setup(control: Control, propertySetter: PropertySetter, subscribable: Subscribable<DataValue>) {
+        self.control = control
+        self.propertySetter = propertySetter
+
+        subscribable.subscribe { [weak self] oldValue, newValue in
+            if let this = self, control = this.control, propertySetter = this.propertySetter {
+                this.set(control: control, oldValue: oldValue, value: newValue, propertySetter: propertySetter)
             }
         }
+        .addTo(disposableBag)
     }
-    
-    var b_onTap: Event<Void> {
-        return associatedObjectProperty(self, &b_onTap_key) { _ in
-            assert(target == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
-            assert(action == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
-            
-            target = self
-            action = "b_receivedOnTap:"
-            
-            return Event<Void>()
-        }
+
+    public func set(control control: Control, oldValue: DataValue?, value: DataValue, propertySetter: PropertySetter) {
+        // Override in subclasses
     }
-    
-    @objc private func b_receivedOnTap(sender: AnyObject) {
-        b_onTap.fire()
+
+    public func dispose() {
+        disposableBag.dispose()
     }
-    
 }

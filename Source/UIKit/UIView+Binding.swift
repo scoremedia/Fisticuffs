@@ -30,34 +30,34 @@ private var b_tintColor_key = 0
 
 public extension UIView {
     
-    var b_backgroundColor: BindableProperty<UIColor> {
+    var b_backgroundColor: BindableProperty<UIView, UIColor> {
         return associatedObjectProperty(self, &b_backgroundColor_key) { _ in
-            return BindableProperty<UIColor>(setter: { [weak self] value in
-                self?.backgroundColor = value
+            return BindableProperty(self, setter: { control, value in
+                control.backgroundColor = value
             })
         }
     }
 
-    var b_hidden: BindableProperty<Bool> {
+    var b_hidden: BindableProperty<UIView, Bool> {
         return associatedObjectProperty(self, &b_hidden_key) { _ in
-            return BindableProperty<Bool>(setter: { [weak self] value in
-                self?.hidden = value
+            return BindableProperty(self, setter: { control, value in
+                control.hidden = value
             })
         }
     }
 
-    var b_alpha: BindableProperty<CGFloat> {
+    var b_alpha: BindableProperty<UIView, CGFloat> {
         return associatedObjectProperty(self, &b_alpha_key) { _ in
-            return BindableProperty<CGFloat>(setter: { [weak self] value in
-                self?.alpha = value
+            return BindableProperty(self, setter: { control, value in
+                control.alpha = value
             })
         }
     }
 
-    var b_tintColor: BindableProperty<UIColor> {
+    var b_tintColor: BindableProperty<UIView, UIColor> {
         return associatedObjectProperty(self, &b_tintColor_key) { _ in
-            return BindableProperty<UIColor>(setter: { [weak self] value in
-                self?.tintColor = value
+            return BindableProperty(self, setter: { control, value in
+                control.tintColor = value
             })
         }
     }

@@ -30,27 +30,27 @@ private var b_backgroundImage_key = 0
 
 public extension UIButton {
     
-    var b_title: BindableProperty<String> {
+    var b_title: BindableProperty<UIButton, String> {
         return associatedObjectProperty(self, &b_title_key) { _ in
-            return BindableProperty<String>(setter: { [weak self] value in
-                self?.setTitle(value, forState: .Normal)
-            })
+            return BindableProperty(self) { control, value in
+                control.setTitle(value, forState: .Normal)
+            }
         }
     }
 
-    var b_image: BindableProperty<UIImage> {
+    var b_image: BindableProperty<UIButton, UIImage> {
         return associatedObjectProperty(self, &b_image_key) { _ in
-            return BindableProperty<UIImage>(setter: { [weak self] value in
-                self?.setImage(value, forState: .Normal)
-            })
+            return BindableProperty(self) { control, value in
+                control.setImage(value, forState: .Normal)
+            }
         }
     }
 
-    var b_backgroundImage: BindableProperty<UIImage> {
+    var b_backgroundImage: BindableProperty<UIButton, UIImage> {
         return associatedObjectProperty(self, &b_backgroundImage_key) { _ in
-            return BindableProperty<UIImage>(setter: { [weak self] value in
-                self?.setBackgroundImage(value, forState: .Normal)
-            })
+            return BindableProperty(self) { control, value in
+                control.setBackgroundImage(value, forState: .Normal)
+            }
         }
     }
 

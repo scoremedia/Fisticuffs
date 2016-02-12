@@ -31,7 +31,7 @@ class BindablePropertySpec: QuickSpec {
         describe("BindableProperty") {
             it("should call its setter when the observed value changes") {
                 var backingVariable = ""
-                let binding = BindableProperty<String> { value in backingVariable = value }
+                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
                 
                 let observable = Observable("")
                 binding.bind(observable)
@@ -42,7 +42,7 @@ class BindablePropertySpec: QuickSpec {
             
             it("should immediately call its setter when bound to a new subscribable") {
                 var backingVariable = ""
-                let binding = BindableProperty<String> { value in backingVariable = value }
+                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
                 
                 let observable = Observable("Hello")
                 binding.bind(observable)
@@ -52,7 +52,7 @@ class BindablePropertySpec: QuickSpec {
             
             it("should support a custom value transform") {
                 var backingVariable = ""
-                let binding = BindableProperty<String> { value in backingVariable = value }
+                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
                 
                 let observable = Observable(11)
                 binding.bind(observable, transform: { intValue in "\(intValue)" })
@@ -62,7 +62,7 @@ class BindablePropertySpec: QuickSpec {
             
             it("should support binding to a block (\"anonymous Computed\")") {
                 var backingVariable = ""
-                let binding = BindableProperty<String> { value in backingVariable = value }
+                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
                 
                 let name = Observable("")
                 binding.bind { "Hello, \(name.value)!" }

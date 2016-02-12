@@ -28,18 +28,18 @@ private var b_textColor_key = 0
 
 public extension UILabel {
     
-    var b_text: BindableProperty<String> {
+    var b_text: BindableProperty<UILabel, String> {
         return associatedObjectProperty(self, &b_text_key) { _ in
-            return BindableProperty<String>(setter: { [weak self] value in
-                self?.text = value
+            return BindableProperty(self, setter: { control, value in
+                control.text = value
             })
         }
     }
         
-    var b_textColor: BindableProperty<UIColor> {
+    var b_textColor: BindableProperty<UILabel, UIColor> {
         return associatedObjectProperty(self, &b_textColor_key) { _ in
-            return BindableProperty<UIColor>(setter: { [weak self] value in
-                self?.textColor = value
+            return BindableProperty(self, setter: { control, value in
+                control.textColor = value
             })
         }
     }

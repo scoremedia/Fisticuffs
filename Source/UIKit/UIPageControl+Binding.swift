@@ -47,11 +47,11 @@ public extension UIPageControl {
     }
 
 
-    var b_numberOfPages: BindableProperty<Int> {
+    var b_numberOfPages: BindableProperty<UIPageControl, Int> {
         return associatedObjectProperty(self, &b_numberOfPages_key) { _ in
-            return BindableProperty<Int>(setter: { [weak self] value in
-                self?.numberOfPages = value
-            })
+            return BindableProperty(self) { control, value in
+                control.numberOfPages = value
+            }
         }
     }
 

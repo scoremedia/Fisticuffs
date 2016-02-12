@@ -27,12 +27,12 @@ private var b_accessoryType_key = 0
 
 public extension UITableViewCell {
     
-    var b_accessoryType: BindableProperty<UITableViewCellAccessoryType> {
+    var b_accessoryType: BindableProperty<UITableViewCell, UITableViewCellAccessoryType> {
         get {
             return associatedObjectProperty(self, &b_accessoryType_key) { _ in
-                return BindableProperty<UITableViewCellAccessoryType>(setter: { [weak self] value in
-                    self?.accessoryType = value
-                })
+                return BindableProperty(self) { control, value in
+                    control.accessoryType = value
+                }
             }
         }
     }

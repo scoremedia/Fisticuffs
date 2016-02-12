@@ -75,37 +75,37 @@ public extension UITextField {
         }
     }
 
-    var b_shouldBeginEditing: BindableProperty<Bool> {
+    var b_shouldBeginEditing: BindableProperty<UITextField, Bool> {
         return associatedObjectProperty(self, &b_shouldBeginEditing_key) { _ in
             let delegate = b_delegate
-            return BindableProperty { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldBeginEditing = value
             }
         }
     }
 
-    var b_shouldEndEditing: BindableProperty<Bool> {
+    var b_shouldEndEditing: BindableProperty<UITextField, Bool> {
         return associatedObjectProperty(self, &b_shouldEndEditing_key) { _ in
             let delegate = b_delegate
-            return BindableProperty { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldEndEditing = value
             }
         }
     }
 
-    var b_shouldClear: BindableProperty<Bool> {
+    var b_shouldClear: BindableProperty<UITextField, Bool> {
         return associatedObjectProperty(self, &b_shouldClear_key) { _ in
             let delegate = b_delegate
-            return BindableProperty { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldClear = value
             }
         }
     }
 
-    var b_shouldReturn: BindableProperty<Bool> {
+    var b_shouldReturn: BindableProperty<UITextField, Bool> {
         return associatedObjectProperty(self, &b_shouldReturn_key) { _ in
             let delegate = b_delegate
-            return BindableProperty { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldReturn = value
             }
         }
