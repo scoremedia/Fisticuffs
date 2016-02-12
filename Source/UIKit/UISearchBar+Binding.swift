@@ -22,19 +22,21 @@
 
 import Foundation
 
+private var b_text_key = 0
+private var b_delegate_key = 0
+
+
 public extension UISearchBar {
     
     var b_text: BidirectionalBindableProperty<String> {
-        get {
-            return get("b_text", orSet: {
-                let delegate: SearchBarDelegate = get("b_delegate", orSet: { SearchBarDelegate() })
-                self.delegate = delegate
-                
-                return BidirectionalBindableProperty<String>(
-                    getter: { [weak self] in self?.text ?? "" },
-                    setter: { [weak self] value in self?.text = value }
-                )
-            })
+        return associatedObjectProperty(self, &b_text_key) { _ in
+            let delegate: SearchBarDelegate = associatedObjectProperty(self, &b_delegate_key) { _ in SearchBarDelegate() }
+            self.delegate = delegate
+            
+            return BidirectionalBindableProperty<String>(
+                getter: { [weak self] in self?.text ?? "" },
+                setter: { [weak self] value in self?.text = value }
+            )
         }
     }
 }

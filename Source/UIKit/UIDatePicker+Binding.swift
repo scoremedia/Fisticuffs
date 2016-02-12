@@ -22,21 +22,23 @@
 
 import UIKit
 
+
+private var b_date_key = 0
+
+
 public extension UIDatePicker {
     var b_date: BidirectionalBindableProperty<NSDate> {
-        get {
-            return get("b_date", orSet: {
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                }
-                
-                return BidirectionalBindableProperty<NSDate>(
-                    getter: { [weak self] in self?.date ?? NSDate() },
-                    setter: { [weak self] value in self?.setDate(value, animated: true) },
-                    extraCleanup: cleanup
-                )
-            })
+        return associatedObjectProperty(self, &b_date_key) { _ in
+            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            let cleanup = DisposableBlock { [weak self] in
+                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            }
+
+            return BidirectionalBindableProperty<NSDate>(
+                getter: { [weak self] in self?.date ?? NSDate() },
+                setter: { [weak self] value in self?.setDate(value, animated: true) },
+                extraCleanup: cleanup
+            )
         }
     }
     

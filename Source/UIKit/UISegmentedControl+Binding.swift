@@ -22,6 +22,9 @@
 
 import UIKit
 
+private var manager_key = 0
+
+
 public enum SegmentDisplay {
     case Title(String)
     case Image(UIImage)
@@ -34,7 +37,7 @@ public extension UISegmentedControl {
             S.ValueType.Index == Int,
             S.ValueType.Generator.Element: Equatable>(items: S, selection: Observable<S.ValueType.Generator.Element>, display: (S.ValueType.Generator.Element) -> SegmentDisplay) {
         let manager = SegmentControlManager<S>(control: self, items: items, display: display, selection: selection)
-        set("manager", value: (manager as AnyObject))
+        setAssociatedObjectProperty(self, &manager_key, value: manager as AnyObject)
     }
 }
 

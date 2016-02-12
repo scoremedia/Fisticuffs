@@ -22,22 +22,24 @@
 
 import Foundation
 
+
+private var b_on_key = 0
+
+
 public extension UISwitch {
     
     var b_on: BidirectionalBindableProperty<Bool> {
-        get {
-            return get("b_on", orSet: {
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                }
-                
-                return BidirectionalBindableProperty<Bool>(
-                    getter: { [weak self] in self?.on ?? false },
-                    setter: { [weak self] value in self?.on = value },
-                    extraCleanup: cleanup
-                )
-            })
+        return associatedObjectProperty(self, &b_on_key) { _ in
+            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            let cleanup = DisposableBlock { [weak self] in
+                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            }
+
+            return BidirectionalBindableProperty<Bool>(
+                getter: { [weak self] in self?.on ?? false },
+                setter: { [weak self] value in self?.on = value },
+                extraCleanup: cleanup
+            )
         }
     }
     

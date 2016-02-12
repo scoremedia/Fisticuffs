@@ -22,6 +22,9 @@
 
 import UIKit
 
+private var dataSource_key = 0
+private var b_editing_key = 0
+
 public extension UITableView {
         
     func b_configure<S: Subscribable where
@@ -31,20 +34,18 @@ public extension UITableView {
             
             let dataSource = TableViewDataSource(subscribable: items, view: self)
             block(dataSource)
-            
-            set("dataSource", value: dataSource as AnyObject)
-            
+
+            setAssociatedObjectProperty(self, &dataSource_key, value: dataSource as AnyObject)
+
             self.delegate = dataSource
             self.dataSource = dataSource
             
     }
     
     var b_editing: BindableProperty<Bool> {
-        get {
-            return get("b_editing", orSet: {
-                return BindableProperty<Bool>(setter: { [weak self] value -> Void in
-                    self?.editing = value
-                })
+        return associatedObjectProperty(self, &b_editing_key) { _ in
+            return BindableProperty<Bool>(setter: { [weak self] value -> Void in
+                self?.editing = value
             })
         }
     }

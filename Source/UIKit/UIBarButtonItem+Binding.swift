@@ -22,21 +22,24 @@
 
 import Foundation
 
+private var b_title_key = 0
+private var b_onTap_key = 0
+
 
 public extension UIBarButtonItem {
     
     var b_title: BindableProperty<String> {
         get {
-            return get("b_title", orSet: {
+            return associatedObjectProperty(self, &b_title_key) { _ in
                 return BindableProperty<String>(setter: { [weak self] value in
                     self?.title = value
                 })
-            })
+            }
         }
     }
     
     var b_onTap: Event<Void> {
-        return get("b_onTap", orSet: {
+        return associatedObjectProperty(self, &b_onTap_key) { _ in
             assert(target == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
             assert(action == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
             
@@ -44,7 +47,7 @@ public extension UIBarButtonItem {
             action = "b_receivedOnTap:"
             
             return Event<Void>()
-        })
+        }
     }
     
     @objc private func b_receivedOnTap(sender: AnyObject) {

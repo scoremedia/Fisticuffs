@@ -22,38 +22,45 @@
 
 import Foundation
 
+private var b_backgroundColor_key = 0
+private var b_hidden_key = 0
+private var b_alpha_key = 0
+private var b_tintColor_key = 0
+
+
 public extension UIView {
     
     var b_backgroundColor: BindableProperty<UIColor> {
-        return get("b_backgroundColor", orSet: {
+        return associatedObjectProperty(self, &b_backgroundColor_key) { _ in
             return BindableProperty<UIColor>(setter: { [weak self] value in
                 self?.backgroundColor = value
             })
-        })
+        }
     }
-    
+
     var b_hidden: BindableProperty<Bool> {
-        return get("b_hidden", orSet: {
+        return associatedObjectProperty(self, &b_hidden_key) { _ in
             return BindableProperty<Bool>(setter: { [weak self] value in
                 self?.hidden = value
             })
-        })
+        }
     }
-    
+
     var b_alpha: BindableProperty<CGFloat> {
-        return get("b_alpha", orSet: {
+        return associatedObjectProperty(self, &b_alpha_key) { _ in
             return BindableProperty<CGFloat>(setter: { [weak self] value in
                 self?.alpha = value
             })
-        })
+        }
     }
-    
+
     var b_tintColor: BindableProperty<UIColor> {
-        return get("b_tintColor", orSet: {
+        return associatedObjectProperty(self, &b_tintColor_key) { _ in
             return BindableProperty<UIColor>(setter: { [weak self] value in
                 self?.tintColor = value
             })
-        })
+        }
     }
+
     
 }

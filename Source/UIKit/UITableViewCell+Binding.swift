@@ -22,16 +22,18 @@
 
 import UIKit
 
+private var b_accessoryType_key = 0
+
 
 public extension UITableViewCell {
     
     var b_accessoryType: BindableProperty<UITableViewCellAccessoryType> {
         get {
-            return get("b_accessoryType", orSet: {
+            return associatedObjectProperty(self, &b_accessoryType_key) { _ in
                 return BindableProperty<UITableViewCellAccessoryType>(setter: { [weak self] value in
                     self?.accessoryType = value
                 })
-            })
+            }
         }
     }
     

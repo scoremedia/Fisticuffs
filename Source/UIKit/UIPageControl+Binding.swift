@@ -20,37 +20,41 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+
+private var b_currentPage_key = 0
+private var b_numberOfPages_key = 0
+
+
 public extension UIPageControl {
     
     var b_currentPage: BidirectionalBindableProperty<Int> {
-        get {
-            return get("b_currentPage", orSet: {
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                }
-                
-                return BidirectionalBindableProperty<Int>(
-                    getter: { [weak self] in self?.currentPage ?? 0 },
-                    setter: { [weak self] value in self?.currentPage = value },
-                    extraCleanup: cleanup
-                )
-            })
+        return associatedObjectProperty(self, &b_currentPage_key) { _ in
+            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            let cleanup = DisposableBlock { [weak self] in
+                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            }
+
+            return BidirectionalBindableProperty<Int>(
+                getter: { [weak self] in self?.currentPage ?? 0 },
+                setter: { [weak self] value in self?.currentPage = value },
+                extraCleanup: cleanup
+            )
         }
     }
-    
+
     @objc private func b_valueChanged(sender: UITextField) {
         b_currentPage.pushChangeToObservable()
     }
-    
-    
+
+
     var b_numberOfPages: BindableProperty<Int> {
-        return get("b_numberOfPages", orSet: {
+        return associatedObjectProperty(self, &b_numberOfPages_key) { _ in
             return BindableProperty<Int>(setter: { [weak self] value in
                 self?.numberOfPages = value
             })
-        })
+        }
     }
+
     
 }
 

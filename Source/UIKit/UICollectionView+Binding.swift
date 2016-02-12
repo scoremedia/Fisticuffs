@@ -22,6 +22,10 @@
 
 import UIKit
 
+
+private var dataSource_key = 0
+
+
 public extension UICollectionView {
     
     func b_configure<S: Subscribable where
@@ -31,8 +35,8 @@ public extension UICollectionView {
 
                 let dataSource = CollectionViewDataSource(subscribable: items, view: self)
                 block(dataSource)
-                
-                set("dataSource", value: dataSource as AnyObject)
+
+                setAssociatedObjectProperty(self, &dataSource_key, value: dataSource as AnyObject)
                 
                 self.delegate = dataSource
                 self.dataSource = dataSource

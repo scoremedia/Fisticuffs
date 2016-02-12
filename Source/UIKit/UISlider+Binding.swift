@@ -22,22 +22,24 @@
 
 import Foundation
 
+
+private var b_value_key = 0
+
+
 public extension UISlider {
     
     var b_value: BidirectionalBindableProperty<Float> {
-        get {
-            return get("b_value", orSet: {
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                }
-                
-                return BidirectionalBindableProperty<Float>(
-                    getter: { [weak self] in self?.value ?? 0.0 },
-                    setter: { [weak self] value in self?.value = value },
-                    extraCleanup: cleanup
-                )
-            })
+        return associatedObjectProperty(self, &b_value_key) { _ in
+            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            let cleanup = DisposableBlock { [weak self] in
+                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
+            }
+
+            return BidirectionalBindableProperty<Float>(
+                getter: { [weak self] in self?.value ?? 0.0 },
+                setter: { [weak self] value in self?.value = value },
+                extraCleanup: cleanup
+            )
         }
     }
     
