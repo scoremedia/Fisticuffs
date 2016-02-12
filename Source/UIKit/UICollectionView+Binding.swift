@@ -28,18 +28,15 @@ private var dataSource_key = 0
 
 public extension UICollectionView {
     
-    func b_configure<S: Subscribable where
-            S.ValueType: CollectionType,
-            S.ValueType.Index == Int,
-            S.ValueType.Generator.Element: Equatable>(items: S, @noescape block: (CollectionViewDataSource<S>) -> Void) {
+    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, @noescape block: (CollectionViewDataSource<Item>) -> Void) {
 
-                let dataSource = CollectionViewDataSource(subscribable: items, view: self)
-                block(dataSource)
+        let dataSource = CollectionViewDataSource(subscribable: items, view: self)
+        block(dataSource)
 
-                setAssociatedObjectProperty(self, &dataSource_key, value: dataSource as AnyObject)
-                
-                self.delegate = dataSource
-                self.dataSource = dataSource
+        setAssociatedObjectProperty(self, &dataSource_key, value: dataSource as AnyObject)
+        
+        self.delegate = dataSource
+        self.dataSource = dataSource
     }
     
 }

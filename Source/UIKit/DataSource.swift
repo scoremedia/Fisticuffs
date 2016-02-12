@@ -38,15 +38,12 @@ public protocol DataSourceView: class {
 }
 
 
-public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable> : NSObject {
-    typealias Collection = S.ValueType
-    typealias Item = Collection.Generator.Element
-    
+public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     private weak var view: View?
     
     // Underlying data
-    private let subscribable: S
-    private let observable: Observable<Collection>?
+    private let subscribable: Subscribable<[Item]>
+    private let observable: Observable<[Item]>?
     
     private var suppressChangeUpdates = false
     
@@ -115,7 +112,7 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
 
     /// If set, will prevent the user from selecting these rows/items in collection/table views
     ///  NOTE: Won't adjust `selection`/`selections` properties (TODO: Should it?)
-    public func disableSelectionFor<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element == Item>(subscribable: S) {
+    public func disableSelectionFor(subscribable: Subscribable<[Item]>) {
         disabledItemsSubscription?.dispose()
         disabledItemsSubscription = subscribable.subscribe { [weak self] _, newValue in
             self?.disabledItemsValue = Array(newValue)
@@ -129,10 +126,10 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
     
     public var editable: Bool { return observable != nil }
     
-    public init(subscribable: S, view: View) {
+    public init(subscribable: Subscribable<[Item]>, view: View) {
         self.view = view
         self.subscribable = subscribable
-        self.observable = subscribable as? Observable<Collection>
+        self.observable = subscribable as? Observable<[Item]>
         super.init()
         subscribable.subscribeArray(SubscriptionOptions()) { [weak self] new, change in
             self?.underlyingDataChanged(new, change)
@@ -284,7 +281,7 @@ extension DataSource {
 
 extension DataSource {
     
-    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, @noescape block: (data: Observable<Collection>) -> Void) {
+    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, @noescape block: (data: Observable<[Item]>) -> Void) {
         suppressChangeUpdates = suppress
         defer { suppressChangeUpdates = false }
         

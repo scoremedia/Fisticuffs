@@ -30,19 +30,19 @@ infix operator <-> {}
 //MARK: - One way binding
 //MARK: Subscribable's
 
-public func <--<T, S where S: Subscribable, S.ValueType == T>(lhs: BindableProperty<T>, rhs: S) {
+public func <--<T>(lhs: BindableProperty<T>, rhs: Subscribable<T>) {
     lhs.bind(rhs)
 }
 
-public func --><T, S where S: Subscribable, S.ValueType == T>(lhs: S, rhs: BindableProperty<T>) {
+public func --><T>(lhs: Subscribable<T>, rhs: BindableProperty<T>) {
     rhs.bind(lhs)
 }
 
-public func <--<T, S where S: Subscribable, S.ValueType == T>(lhs: BidirectionalBindableProperty<T>, rhs: S) {
+public func <--<T>(lhs: BidirectionalBindableProperty<T>, rhs: Subscribable<T>) {
     lhs.bind(rhs)
 }
 
-public func --><T, S where S: Subscribable, S.ValueType == T>(lhs: S, rhs: BidirectionalBindableProperty<T>) {
+public func --><T>(lhs: Subscribable<T>, rhs: BidirectionalBindableProperty<T>) {
     rhs.bind(lhs)
 }
 
@@ -76,7 +76,7 @@ public func <-><T>(lhs: Observable<T>, rhs: BidirectionalBindableProperty<T>) {
 
 //MARK: - Subscriptions
 
-public func +=<T, S where S: Subscribable, S.ValueType == T>(lhs: S, rhs: (T?, T) -> Void) {
+public func +=<T>(lhs: Subscribable<T>, rhs: (T?, T) -> Void) {
     lhs.subscribe(rhs)
 }
 

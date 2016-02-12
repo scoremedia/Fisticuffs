@@ -32,7 +32,7 @@ class DataSourceSpec: QuickSpec {
         var selections: Observable<[Int]>!
         var selection: Observable<Int?>!
         var disabled: Observable<[Int]>!
-        var dataSource: DataSource<Observable<[Int]>, FauxDataSourceView>!
+        var dataSource: DataSource<Int, FauxDataSourceView>!
 
         beforeEach {
             observable = Observable([1, 2, 3, 4, 5])

@@ -37,7 +37,7 @@ public class BindableProperty<ValueType> {
 }
 
 public extension BindableProperty {
-    public func bind<S: Subscribable where S.ValueType == ValueType>(subscribable: S) {
+    public func bind(subscribable: Subscribable<ValueType>) {
         currentBinding?.dispose()
         
         var options = SubscriptionOptions()
@@ -48,7 +48,7 @@ public extension BindableProperty {
         }
     }
     
-    public func bind<S: Subscribable>(subscribable: S, transform: S.ValueType -> ValueType) {
+    public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
         currentBinding?.dispose()
         
         var options = SubscriptionOptions()

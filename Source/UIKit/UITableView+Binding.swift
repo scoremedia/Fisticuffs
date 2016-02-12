@@ -27,10 +27,7 @@ private var b_editing_key = 0
 
 public extension UITableView {
         
-    func b_configure<S: Subscribable where
-        S.ValueType: CollectionType,
-        S.ValueType.Index == Int,
-        S.ValueType.Generator.Element: Equatable>(items: S, @noescape block: (TableViewDataSource<S>) -> Void) {
+    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, @noescape block: (TableViewDataSource<Item>) -> Void) {
             
             let dataSource = TableViewDataSource(subscribable: items, view: self)
             block(dataSource)
