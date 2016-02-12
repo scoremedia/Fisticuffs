@@ -25,10 +25,10 @@ import Foundation
 
 public extension UIBarButtonItem {
     
-    var b_title: Binding<String> {
+    var b_title: BindableProperty<String> {
         get {
             return get("b_title", orSet: {
-                return Binding<String>(setter: { [weak self] value in
+                return BindableProperty<String>(setter: { [weak self] value in
                     self?.title = value
                 })
             })

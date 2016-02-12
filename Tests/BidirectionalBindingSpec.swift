@@ -28,12 +28,12 @@ import Nimble
 
 class BidirectionalBindingSpec: QuickSpec {
     override func spec() {
-        describe("BidirectionalBinding") {
+        describe("BidirectionalBindableProperty") {
             var backingVariable = ""
-            var binding: BidirectionalBinding<String>!
+            var binding: BidirectionalBindableProperty<String>!
             
             beforeEach {
-                binding = BidirectionalBinding(
+                binding = BidirectionalBindableProperty(
                     getter: { backingVariable },
                     setter: { value in backingVariable = value }
                 )
@@ -88,7 +88,7 @@ class BidirectionalBindingSpec: QuickSpec {
                 var disposed = false
                 
                 autoreleasepool {
-                    let _ = BidirectionalBinding<Void>(
+                    let _ = BidirectionalBindableProperty<Void>(
                         getter: { },
                         setter: { },
                         extraCleanup: DisposableBlock { disposed = true }

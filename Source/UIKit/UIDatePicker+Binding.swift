@@ -23,7 +23,7 @@
 import UIKit
 
 public extension UIDatePicker {
-    var b_date: BidirectionalBinding<NSDate> {
+    var b_date: BidirectionalBindableProperty<NSDate> {
         get {
             return get("b_date", orSet: {
                 addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
@@ -31,7 +31,7 @@ public extension UIDatePicker {
                     self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
                 }
                 
-                return BidirectionalBinding<NSDate>(
+                return BidirectionalBindableProperty<NSDate>(
                     getter: { [weak self] in self?.date ?? NSDate() },
                     setter: { [weak self] value in self?.setDate(value, animated: true) },
                     extraCleanup: cleanup

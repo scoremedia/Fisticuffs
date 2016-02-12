@@ -24,7 +24,7 @@ import Foundation
 
 public extension UISlider {
     
-    var b_value: BidirectionalBinding<Float> {
+    var b_value: BidirectionalBindableProperty<Float> {
         get {
             return get("b_value", orSet: {
                 addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
@@ -32,7 +32,7 @@ public extension UISlider {
                     self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
                 }
                 
-                return BidirectionalBinding<Float>(
+                return BidirectionalBindableProperty<Float>(
                     getter: { [weak self] in self?.value ?? 0.0 },
                     setter: { [weak self] value in self?.value = value },
                     extraCleanup: cleanup

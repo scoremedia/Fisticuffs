@@ -24,7 +24,7 @@ import Foundation
 
 public extension UISwitch {
     
-    var b_on: BidirectionalBinding<Bool> {
+    var b_on: BidirectionalBindableProperty<Bool> {
         get {
             return get("b_on", orSet: {
                 addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
@@ -32,7 +32,7 @@ public extension UISwitch {
                     self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
                 }
                 
-                return BidirectionalBinding<Bool>(
+                return BidirectionalBindableProperty<Bool>(
                     getter: { [weak self] in self?.on ?? false },
                     setter: { [weak self] value in self?.on = value },
                     extraCleanup: cleanup

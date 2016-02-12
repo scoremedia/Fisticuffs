@@ -25,7 +25,7 @@ import UIKit
 
 public extension UITextField {
     
-    var b_text: BidirectionalBinding<String> {
+    var b_text: BidirectionalBindableProperty<String> {
         get {
             return get("b_text", orSet: {
                 addTarget(self, action: "b_valueChanged:", forControlEvents: .EditingChanged)
@@ -33,7 +33,7 @@ public extension UITextField {
                     self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .EditingChanged)
                 }
                 
-                return BidirectionalBinding<String>(
+                return BidirectionalBindableProperty<String>(
                     getter: { [weak self] in self?.text ?? "" },
                     setter: { [weak self] value in self?.text = value },
                     extraCleanup: cleanup
@@ -68,37 +68,37 @@ public extension UITextField {
         })
     }
     
-    var b_shouldBeginEditing: Binding<Bool> {
+    var b_shouldBeginEditing: BindableProperty<Bool> {
         return get("b_shouldBeginEditing", orSet: {
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty { value in
                 delegate.shouldBeginEditing = value
             }
         })
     }
     
-    var b_shouldEndEditing: Binding<Bool> {
+    var b_shouldEndEditing: BindableProperty<Bool> {
         return get("b_shouldEndEditing", orSet: {
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty { value in
                 delegate.shouldEndEditing = value
             }
         })
     }
     
-    var b_shouldClear: Binding<Bool> {
+    var b_shouldClear: BindableProperty<Bool> {
         return get("b_shouldClear", orSet: {
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty { value in
                 delegate.shouldClear = value
             }
         })
     }
     
-    var b_shouldReturn: Binding<Bool> {
+    var b_shouldReturn: BindableProperty<Bool> {
         return get("b_shouldReturn", orSet: {
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty { value in
                 delegate.shouldReturn = value
             }
         })

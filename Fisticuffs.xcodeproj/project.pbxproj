@@ -11,8 +11,8 @@
 		6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */; };
 		6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */; };
 		6A09EEF51BFB80E6005C2B81 /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
-		6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */; };
-		6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF061BFB816D005C2B81 /* Binding.swift */; };
+		6A09EF241BFB816D005C2B81 /* BidirectionalBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF051BFB816D005C2B81 /* BidirectionalBindableProperty.swift */; };
+		6A09EF251BFB816D005C2B81 /* BindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF061BFB816D005C2B81 /* BindableProperty.swift */; };
 		6A09EF261BFB816D005C2B81 /* Computed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF071BFB816D005C2B81 /* Computed.swift */; };
 		6A09EF271BFB816D005C2B81 /* DependencyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF081BFB816D005C2B81 /* DependencyTracker.swift */; };
 		6A09EF281BFB816D005C2B81 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF091BFB816D005C2B81 /* Disposable.swift */; };
@@ -220,8 +220,8 @@
 		6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fisticuffs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A09EEF41BFB80E6005C2B81 /* FisticuffsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FisticuffsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBinding.swift; sourceTree = "<group>"; };
-		6A09EF061BFB816D005C2B81 /* Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
+		6A09EF051BFB816D005C2B81 /* BidirectionalBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBindableProperty.swift; sourceTree = "<group>"; };
+		6A09EF061BFB816D005C2B81 /* BindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindableProperty.swift; sourceTree = "<group>"; };
 		6A09EF071BFB816D005C2B81 /* Computed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Computed.swift; sourceTree = "<group>"; };
 		6A09EF081BFB816D005C2B81 /* DependencyTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTracker.swift; sourceTree = "<group>"; };
 		6A09EF091BFB816D005C2B81 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
@@ -334,8 +334,8 @@
 		6A09EF041BFB816D005C2B81 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */,
-				6A09EF061BFB816D005C2B81 /* Binding.swift */,
+				6A09EF051BFB816D005C2B81 /* BidirectionalBindableProperty.swift */,
+				6A09EF061BFB816D005C2B81 /* BindableProperty.swift */,
 				6A09EF071BFB816D005C2B81 /* Computed.swift */,
 				6A09EF081BFB816D005C2B81 /* DependencyTracker.swift */,
 				6A09EF091BFB816D005C2B81 /* Disposable.swift */,
@@ -752,7 +752,7 @@
 				6A09EF2D1BFB816D005C2B81 /* Observable.swift in Sources */,
 				6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */,
 				6A09EF3E1BFB816D005C2B81 /* UITableView+Binding.swift in Sources */,
-				6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */,
+				6A09EF241BFB816D005C2B81 /* BidirectionalBindableProperty.swift in Sources */,
 				6A09EF401BFB816D005C2B81 /* UITextField+Binding.swift in Sources */,
 				6A09EF3F1BFB816D005C2B81 /* UITableViewCell+Binding.swift in Sources */,
 				6A09EF371BFB816D005C2B81 /* UICollectionView+Binding.swift in Sources */,
@@ -766,7 +766,7 @@
 				6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */,
 				6A06EDD91BFBD84D00231806 /* DataSource.swift in Sources */,
 				6A1DB7551BFE5ED8003817D9 /* UIPageControl+Binding.swift in Sources */,
-				6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */,
+				6A09EF251BFB816D005C2B81 /* BindableProperty.swift in Sources */,
 				6A09EF341BFB816D005C2B81 /* NSObject+AssociatedObjects.swift in Sources */,
 				6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */,
 				6A1DB7421BFE59F4003817D9 /* UIButton+Binding.swift in Sources */,

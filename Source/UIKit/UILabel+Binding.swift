@@ -27,19 +27,19 @@ private var textKey = "text"
 
 public extension UILabel {
     
-    var b_text: Binding<String> {
+    var b_text: BindableProperty<String> {
         get {
             return get("b_text", orSet: {
-                return Binding<String>(setter: { [weak self] value in
+                return BindableProperty<String>(setter: { [weak self] value in
                     self?.text = value
                 })
             })
         }
     }
         
-    var b_textColor: Binding<UIColor> {
+    var b_textColor: BindableProperty<UIColor> {
         return get("b_textColor", orSet: {
-            return Binding<UIColor>(setter: { [weak self] value in
+            return BindableProperty<UIColor>(setter: { [weak self] value in
                 self?.textColor = value
             })
         })

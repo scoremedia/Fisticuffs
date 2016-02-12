@@ -22,7 +22,7 @@
 
 public extension UIPageControl {
     
-    var b_currentPage: BidirectionalBinding<Int> {
+    var b_currentPage: BidirectionalBindableProperty<Int> {
         get {
             return get("b_currentPage", orSet: {
                 addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
@@ -30,7 +30,7 @@ public extension UIPageControl {
                     self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
                 }
                 
-                return BidirectionalBinding<Int>(
+                return BidirectionalBindableProperty<Int>(
                     getter: { [weak self] in self?.currentPage ?? 0 },
                     setter: { [weak self] value in self?.currentPage = value },
                     extraCleanup: cleanup
@@ -44,9 +44,9 @@ public extension UIPageControl {
     }
     
     
-    var b_numberOfPages: Binding<Int> {
+    var b_numberOfPages: BindableProperty<Int> {
         return get("b_numberOfPages", orSet: {
-            return Binding<Int>(setter: { [weak self] value in
+            return BindableProperty<Int>(setter: { [weak self] value in
                 self?.numberOfPages = value
             })
         })

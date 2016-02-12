@@ -24,10 +24,10 @@ import UIKit
 
 public extension UIControl {
     
-    var b_enabled: Binding<Bool> {
+    var b_enabled: BindableProperty<Bool> {
         get {
             return get("b_enabled", orSet: {
-                return Binding<Bool>(setter: { [weak self] value -> Void in
+                return BindableProperty<Bool>(setter: { [weak self] value -> Void in
                     self?.enabled = value
                 })
             })

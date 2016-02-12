@@ -24,25 +24,25 @@ import UIKit
 
 public extension UIButton {
     
-    var b_title: Binding<String> {
+    var b_title: BindableProperty<String> {
         return get("b_title", orSet: {
-            return Binding<String>(setter: { [weak self] value in
+            return BindableProperty<String>(setter: { [weak self] value in
                 self?.setTitle(value, forState: .Normal)
             })
         })
     }
 
-    var b_image: Binding<UIImage> {
+    var b_image: BindableProperty<UIImage> {
         return get("b_image", orSet: {
-            return Binding<UIImage>(setter: { [weak self] value in
+            return BindableProperty<UIImage>(setter: { [weak self] value in
                 self?.setImage(value, forState: .Normal)
             })
         })
     }
 
-    var b_backgroundImage: Binding<UIImage> {
+    var b_backgroundImage: BindableProperty<UIImage> {
         return get("b_backgroundImage", orSet: {
-            return Binding<UIImage>(setter: { [weak self] value in
+            return BindableProperty<UIImage>(setter: { [weak self] value in
                 self?.setBackgroundImage(value, forState: .Normal)
             })
         })

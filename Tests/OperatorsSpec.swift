@@ -32,16 +32,16 @@ class OperatorsSpec: QuickSpec {
         var anySubscribable: AnySubscribable!
         
         var underlyingValue: Int!
-        var binding: Binding<Int>!
-        var bidirectionalBinding: BidirectionalBinding<Int>!
+        var binding: BindableProperty<Int>!
+        var bidirectionalBinding: BidirectionalBindableProperty<Int>!
         
         beforeEach {
             observable = Observable(11)
             anySubscribable = observable
             
             underlyingValue = 0
-            binding = Binding<Int>(setter: { value in underlyingValue = value })
-            bidirectionalBinding = BidirectionalBinding<Int>(getter: { underlyingValue }, setter: { underlyingValue = $0 })
+            binding = BindableProperty<Int>(setter: { value in underlyingValue = value })
+            bidirectionalBinding = BidirectionalBindableProperty<Int>(getter: { underlyingValue }, setter: { underlyingValue = $0 })
         }
         
         describe("+=") {
