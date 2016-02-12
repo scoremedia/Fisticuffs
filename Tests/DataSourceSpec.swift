@@ -30,13 +30,19 @@ class DataSourceSpec: QuickSpec {
     override func spec() {
         var observable: Observable<[Int]>!
         var selections: Observable<[Int]>!
+        var selection: Observable<Int?>!
+        var disabled: Observable<[Int]>!
         var dataSource: DataSource<Observable<[Int]>, FauxDataSourceView>!
-        
+
         beforeEach {
             observable = Observable([1, 2, 3, 4, 5])
             selections = Observable([])
+            selection = Observable(nil)
+            disabled = Observable([])
             dataSource = DataSource(subscribable: observable, view: FauxDataSourceView())
             dataSource.selections = selections
+            dataSource.selection = selection
+            dataSource.disableSelectionFor(disabled)
         }
         
         describe("DataSource") {
@@ -52,24 +58,89 @@ class DataSourceSpec: QuickSpec {
                 expect(dataSource.itemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))) == 1
                 expect(dataSource.itemAtIndexPath(NSIndexPath(forItem: 3, inSection: 0))) == 4
             }
-            
-            it("should track selections") {
-                dataSource.deselectOnSelection = false
+
+            context("multiple selection") {
+                it("should track selections") {
+                    dataSource.deselectOnSelection = false
+                    
+                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
+                    expect(selections.value) == [1]
+                    
+                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))
+                    expect(selections.value) == [1, 4]
+                }
                 
-                dataSource.didSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
-                expect(selections.value) == [1]
-                
-                dataSource.didSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))
-                expect(selections.value) == [1, 4]
+                it("should track deselections") {
+                    dataSource.deselectOnSelection = false
+                    
+                    selections.value = [3]
+                    
+                    dataSource.didDeselect(indexPath: NSIndexPath(forItem: 2, inSection: 0))
+                    expect(selections.value) == []
+                }
             }
-            
-            it("should track deselections") {
-                dataSource.deselectOnSelection = false
+
+            context("single selection") {
+                it("should track selections") {
+                    dataSource.deselectOnSelection = false
+                    
+                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
+                    expect(selection.value) == 1
+
+                    // simulate deselect that UITableView/UICollectionView would send
+                    dataSource.didDeselect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
+
+                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))
+                    expect(selection.value) == 4
+                }
                 
-                selections.value = [3]
-                
-                dataSource.didDeselect(indexPath: NSIndexPath(forItem: 2, inSection: 0))
-                expect(selections.value) == []
+                it("should track deselections") {
+                    dataSource.deselectOnSelection = false
+                    
+                    selection.value = 3
+                    
+                    dataSource.didDeselect(indexPath: NSIndexPath(forItem: 2, inSection: 0))
+                    expect(selection.value).to(beNil())
+                }
+            }
+
+            context("when single & multiple selection are used") {
+                it("should clear all selections when selection is set to nil") {
+                    selections.value = [1, 2, 3]
+                    selection.value = nil
+                    expect(selections.value) == []
+                }
+
+                it("should add to the selections array when selection is set") {
+                    selections.value = [1, 2]
+                    selection.value = 3
+                    expect(selections.value) == [1, 2, 3]
+                    expect(selection.value) == 3
+                }
+
+                it("should set a selection value when selections is set") {
+                    selections.value = [1, 2]
+                    expect(selections.value) == [1, 2]
+                    expect(selection.value).toNot(beNil()) // not defined it will be 1 or 2
+                }
+
+                it("should unset selection when all selections are removed") {
+                    selection.value = 5
+                    selections.value = []
+                    expect(selection.value).to(beNil())
+                }
+            }
+
+            context("when disabled items are provided") {
+                it("should prevent selecting them") {
+                    disabled.value = [1]
+                    expect(dataSource.canSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))) == false
+                }
+
+                it("should allow selecting other (non disabled) items") {
+                    disabled.value = [1]
+                    expect(dataSource.canSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))) == true
+                }
             }
             
             it("should support moving items") {

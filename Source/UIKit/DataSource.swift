@@ -51,17 +51,77 @@ public class DataSource<S: SubscribableType, View: DataSourceView where S.ValueT
     private var suppressChangeUpdates = false
     
     private var items: [Item] = []
-    
+
+    private var ignoreSelectionChanges: Bool = false
+    private var selectionsSubscription: Disposable?
     private var selectionSubscription: Disposable?
+
+    /// All selected items
     public var selections: Observable<[Item]>? {
         didSet {
-            selectionSubscription?.dispose()
-            selectionSubscription = selections?.subscribe { [weak self] in
+            selectionsSubscription?.dispose()
+            selectionsSubscription = selections?.subscribe { [weak self] _, newValue in
+                if self?.ignoreSelectionChanges == true {
+                    return
+                }
+
+                if let selection = self?.selection {
+                    self?.ignoreSelectionChanges = true
+                    if let selectionValue = selection.value {
+                        if newValue.contains(selectionValue) == false {
+                            selection.value = newValue.first
+                        }
+                    } else {
+                        selection.value = newValue.first
+                    }
+                    self?.ignoreSelectionChanges = false
+                }
+
                 self?.syncSelections()
             }
         }
     }
-    
+
+    /// The selected item.  If multiple items are allowed/selected, it is undefined which one
+    /// will show up in here.  Setting it will clear out `selections`
+    public var selection: Observable<Item?>? {
+        didSet {
+            selectionSubscription?.dispose()
+            selectionSubscription = selection?.subscribe { [weak self] _, newValue in
+                if self?.ignoreSelectionChanges == true {
+                    return
+                }
+
+                if let selections = self?.selections {
+                    self?.ignoreSelectionChanges = true
+                    if let newValue = newValue {
+                        if selections.value.contains(newValue) == false {
+                            selections.value.append(newValue)
+                        }
+                    } else {
+                        selections.value = []
+                    }
+                    self?.ignoreSelectionChanges = false
+                }
+
+                self?.syncSelections()
+            }
+        }
+    }
+
+
+    private var disabledItemsSubscription: Disposable?
+    private var disabledItemsValue: [Item] = []
+
+    /// If set, will prevent the user from selecting these rows/items in collection/table views
+    ///  NOTE: Won't adjust `selection`/`selections` properties (TODO: Should it?)
+    public func disableSelectionFor<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element == Item>(subscribable: S) {
+        disabledItemsSubscription?.dispose()
+        disabledItemsSubscription = subscribable.subscribe { [weak self] _, newValue in
+            self?.disabledItemsValue = Array(newValue)
+        }
+    }
+
     
     public var deselectOnSelection = true
     public let onSelect = Event<Item>()
@@ -124,12 +184,24 @@ extension DataSource {
     }
     
     func syncSelections() {
-        guard let view = view, selections = selections else { return }
+        guard let view = view else { return }
+
+        var selectedItems: [Item] = []
+        if let selections = selections {
+            selectedItems = selections.value
+        } else if let selection = selection {
+            if let value = selection.value {
+                selectedItems = [value]
+            }
+        } else {
+            // no selection binding setup
+            return
+        }
         
         let currentSelections = Set(view.indexPathsForSelections() ?? [])
         
         let expectedSelections: Set<NSIndexPath> = {
-            let expected = selections.value.map { item -> NSIndexPath? in
+            let expected = selectedItems.map { item -> NSIndexPath? in
                 items.indexOf(item).map { index in
                     NSIndexPath(forItem: index, inSection: 0)
                 }
@@ -176,7 +248,12 @@ extension DataSource {
     
     public func didSelect(indexPath indexPath: NSIndexPath) {
         let item = itemAtIndexPath(indexPath)
+
         selections?.value.append(item)
+        if selection?.value != item {
+            selection?.value = item
+        }
+
         onSelect.fire(item)
         
         if deselectOnSelection {
@@ -187,10 +264,21 @@ extension DataSource {
     
     public func didDeselect(indexPath indexPath: NSIndexPath) {
         let item = itemAtIndexPath(indexPath)
+
         if let index = selections?.value.indexOf(item) {
             selections?.value.removeAtIndex(index)
         }
+        if selection?.value == item {
+            // reset back to the first multiple selection (or none if there isn't one)
+            selection?.value = selections?.value.first
+        }
+
         onDeselect.fire(item)
+    }
+
+    public func canSelect(indexPath indexPath: NSIndexPath) -> Bool {
+        let item = itemAtIndexPath(indexPath)
+        return disabledItemsValue.contains(item) == false
     }
 }
 
