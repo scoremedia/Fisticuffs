@@ -37,6 +37,9 @@ public class BindableProperty<Control: AnyObject, ValueType> {
     }
 }
 
+
+
+
 public extension BindableProperty {
     public func bind(subscribable: Subscribable<ValueType>) {
         bind(subscribable, DefaultBindingHandler())
@@ -51,7 +54,25 @@ public extension BindableProperty {
         bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
         currentBinding = bindingHandler
     }
+}
 
+public extension BindableProperty where ValueType: OptionalType {
+    public func bind(subscribable: Subscribable<ValueType.Wrapped>) {
+        bind(subscribable, DefaultBindingHandler())
+    }
+
+    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+        currentBinding?.dispose()
+        currentBinding = nil
+
+        guard let control = control else { return }
+
+        let outerBindingHandler = OptionalTypeBindingHandler<Control, Data, ValueType>(innerHandler: bindingHandler)
+
+        outerBindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
+
+        currentBinding = outerBindingHandler
+    }
 }
 
 public extension BindableProperty {
@@ -78,3 +99,5 @@ public extension BindableProperty {
         }
     }
 }
+
+
