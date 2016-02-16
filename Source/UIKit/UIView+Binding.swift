@@ -30,7 +30,7 @@ private var b_tintColor_key = 0
 
 public extension UIView {
     
-    var b_backgroundColor: BindableProperty<UIView, UIColor> {
+    var b_backgroundColor: BindableProperty<UIView, UIColor?> {
         return associatedObjectProperty(self, &b_backgroundColor_key) { _ in
             return BindableProperty(self, setter: { control, value in
                 control.backgroundColor = value
@@ -54,7 +54,7 @@ public extension UIView {
         }
     }
 
-    var b_tintColor: BindableProperty<UIView, UIColor> {
+    var b_tintColor: BindableProperty<UIView, UIColor!> {
         return associatedObjectProperty(self, &b_tintColor_key) { _ in
             return BindableProperty(self, setter: { control, value in
                 control.tintColor = value

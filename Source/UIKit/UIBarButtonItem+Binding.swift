@@ -28,7 +28,7 @@ private var b_onTap_key = 0
 
 public extension UIBarButtonItem {
     
-    var b_title: BindableProperty<UIBarButtonItem, String> {
+    var b_title: BindableProperty<UIBarButtonItem, String?> {
         get {
             return associatedObjectProperty(self, &b_title_key) { _ in
                 return BindableProperty(self, setter: { control, value in
