@@ -29,7 +29,6 @@ public class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
     weak var control: Control?
     let getter: Getter
     let setter: Setter
-    var currentObservable: Observable<ValueType>?
     let uiChangeEvent: Event<Void> = Event()
     var currentBinding: Disposable?
     
@@ -61,8 +60,12 @@ extension BidirectionalBindableProperty {
 }
 
 public extension BidirectionalBindableProperty {
-    // Two way binding
+    //MARK: - Two way binding
     public func bind(observable: Observable<ValueType>) {
+        bind(observable, DefaultBindingHandler())
+    }
+
+    public func bind<Data>(observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -70,19 +73,18 @@ public extension BidirectionalBindableProperty {
 
         let disposables = DisposableBag()
 
-        let bindingHandler = DefaultBindingHandler<Control, ValueType>()
         bindingHandler.setup(control, propertySetter: setter, subscribable: observable)
         disposables.add(bindingHandler)
 
-        bindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak self] _, value in
-            self?.currentObservable?.value = value
+        bindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak observable] _, data in
+            observable?.value = data
         }.addTo(disposables)
 
-        currentObservable = observable
         currentBinding = disposables
     }
     
-    // One way binding
+    //MARK: - One way binding
+
     public func bind(subscribable: Subscribable<ValueType>) {
         bind(subscribable, DefaultBindingHandler())
     }
@@ -90,7 +92,6 @@ public extension BidirectionalBindableProperty {
     public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
         currentBinding = nil
-        currentObservable = nil
 
         guard let control = control else { return }
 
@@ -105,7 +106,6 @@ public extension BidirectionalBindableProperty {
     public func bind(block: () -> ValueType) {
         currentBinding?.dispose()
         currentBinding = nil
-        currentObservable = nil
 
         guard let control = control else { return }
 

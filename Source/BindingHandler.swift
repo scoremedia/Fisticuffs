@@ -24,7 +24,7 @@ struct BindingHandlerGetterNotImplemented: ErrorType {}
 
 public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposable {
     public typealias PropertySetter = (Control, PropertyValue) -> Void
-    public typealias PropertyGetter = Control -> DataValue
+    public typealias PropertyGetter = Control -> PropertyValue
 
     private weak var control: Control?
     private var propertySetter: PropertySetter?
