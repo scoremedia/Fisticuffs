@@ -11,8 +11,8 @@
 		6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */; };
 		6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */; };
 		6A09EEF51BFB80E6005C2B81 /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
-		6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */; };
-		6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF061BFB816D005C2B81 /* Binding.swift */; };
+		6A09EF241BFB816D005C2B81 /* BidirectionalBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF051BFB816D005C2B81 /* BidirectionalBindableProperty.swift */; };
+		6A09EF251BFB816D005C2B81 /* BindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF061BFB816D005C2B81 /* BindableProperty.swift */; };
 		6A09EF261BFB816D005C2B81 /* Computed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF071BFB816D005C2B81 /* Computed.swift */; };
 		6A09EF271BFB816D005C2B81 /* DependencyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF081BFB816D005C2B81 /* DependencyTracker.swift */; };
 		6A09EF281BFB816D005C2B81 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF091BFB816D005C2B81 /* Disposable.swift */; };
@@ -21,13 +21,11 @@
 		6A09EF2B1BFB816D005C2B81 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF0C1BFB816D005C2B81 /* Event.swift */; };
 		6A09EF2D1BFB816D005C2B81 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF0E1BFB816D005C2B81 /* Observable.swift */; };
 		6A09EF2E1BFB816D005C2B81 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF0F1BFB816D005C2B81 /* Operators.swift */; };
-		6A09EF2F1BFB816D005C2B81 /* SubscribableType+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF101BFB816D005C2B81 /* SubscribableType+Array.swift */; };
-		6A09EF301BFB816D005C2B81 /* SubscribableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF111BFB816D005C2B81 /* SubscribableType.swift */; };
+		6A09EF2F1BFB816D005C2B81 /* Subscribable+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF101BFB816D005C2B81 /* Subscribable+Array.swift */; };
+		6A09EF301BFB816D005C2B81 /* Subscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF111BFB816D005C2B81 /* Subscribable.swift */; };
 		6A09EF311BFB816D005C2B81 /* SubscriptionCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */; };
 		6A09EF321BFB816D005C2B81 /* SubscriptionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */; };
 		6A09EF331BFB816D005C2B81 /* Fisticuffs.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A09EF141BFB816D005C2B81 /* Fisticuffs.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6A09EF341BFB816D005C2B81 /* NSObject+AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF161BFB816D005C2B81 /* NSObject+AssociatedObjects.swift */; };
-		6A09EF351BFB816D005C2B81 /* NSObject+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF171BFB816D005C2B81 /* NSObject+Binding.swift */; };
 		6A09EF361BFB816D005C2B81 /* UIBarButtonItem+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */; };
 		6A09EF371BFB816D005C2B81 /* UICollectionView+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF191BFB816D005C2B81 /* UICollectionView+Binding.swift */; };
 		6A09EF381BFB816D005C2B81 /* UIControl+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09EF1A1BFB816D005C2B81 /* UIControl+Binding.swift */; };
@@ -69,6 +67,13 @@
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
 		6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */; };
 		6A6B3BF21BFE32F700B825DB /* ControlsSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */; };
+		6AEADE5B1C6E674C008DFDBA /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */; };
+		6AEADE5D1C6E6F5C008DFDBA /* BindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE5C1C6E6F5C008DFDBA /* BindingHandler.swift */; };
+		6AEADE721C6E7DF4008DFDBA /* DefaultBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */; };
+		6AEADE851C6E89B6008DFDBA /* TransformBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */; };
+		6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */; };
+		6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */; };
+		6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,8 +225,8 @@
 		6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fisticuffs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A09EEF41BFB80E6005C2B81 /* FisticuffsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FisticuffsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBinding.swift; sourceTree = "<group>"; };
-		6A09EF061BFB816D005C2B81 /* Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
+		6A09EF051BFB816D005C2B81 /* BidirectionalBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidirectionalBindableProperty.swift; sourceTree = "<group>"; };
+		6A09EF061BFB816D005C2B81 /* BindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindableProperty.swift; sourceTree = "<group>"; };
 		6A09EF071BFB816D005C2B81 /* Computed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Computed.swift; sourceTree = "<group>"; };
 		6A09EF081BFB816D005C2B81 /* DependencyTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTracker.swift; sourceTree = "<group>"; };
 		6A09EF091BFB816D005C2B81 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
@@ -231,13 +236,11 @@
 		6A09EF0D1BFB816D005C2B81 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A09EF0E1BFB816D005C2B81 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		6A09EF0F1BFB816D005C2B81 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		6A09EF101BFB816D005C2B81 /* SubscribableType+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubscribableType+Array.swift"; sourceTree = "<group>"; };
-		6A09EF111BFB816D005C2B81 /* SubscribableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribableType.swift; sourceTree = "<group>"; };
+		6A09EF101BFB816D005C2B81 /* Subscribable+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscribable+Array.swift"; sourceTree = "<group>"; };
+		6A09EF111BFB816D005C2B81 /* Subscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscribable.swift; sourceTree = "<group>"; };
 		6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCollection.swift; sourceTree = "<group>"; };
 		6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionOptions.swift; sourceTree = "<group>"; };
 		6A09EF141BFB816D005C2B81 /* Fisticuffs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fisticuffs.h; sourceTree = "<group>"; };
-		6A09EF161BFB816D005C2B81 /* NSObject+AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+AssociatedObjects.swift"; sourceTree = "<group>"; };
-		6A09EF171BFB816D005C2B81 /* NSObject+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Binding.swift"; sourceTree = "<group>"; };
 		6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Binding.swift"; sourceTree = "<group>"; };
 		6A09EF191BFB816D005C2B81 /* UICollectionView+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Binding.swift"; sourceTree = "<group>"; };
 		6A09EF1A1BFB816D005C2B81 /* UIControl+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Binding.swift"; sourceTree = "<group>"; };
@@ -279,6 +282,13 @@
 		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
 		6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Binding.swift"; sourceTree = "<group>"; };
 		6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsSample.swift; sourceTree = "<group>"; };
+		6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjects.swift; sourceTree = "<group>"; };
+		6AEADE5C1C6E6F5C008DFDBA /* BindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandler.swift; sourceTree = "<group>"; };
+		6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBindingHandler.swift; sourceTree = "<group>"; };
+		6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformBindingHandler.swift; sourceTree = "<group>"; };
+		6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlers.swift; sourceTree = "<group>"; };
+		6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionBindableProperty.swift; sourceTree = "<group>"; };
+		6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlersSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,8 +344,12 @@
 		6A09EF041BFB816D005C2B81 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6A09EF051BFB816D005C2B81 /* BidirectionalBinding.swift */,
-				6A09EF061BFB816D005C2B81 /* Binding.swift */,
+				6A09EF051BFB816D005C2B81 /* BidirectionalBindableProperty.swift */,
+				6A09EF061BFB816D005C2B81 /* BindableProperty.swift */,
+				6AEADE5C1C6E6F5C008DFDBA /* BindingHandler.swift */,
+				6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */,
+				6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */,
+				6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */,
 				6A09EF071BFB816D005C2B81 /* Computed.swift */,
 				6A09EF081BFB816D005C2B81 /* DependencyTracker.swift */,
 				6A09EF091BFB816D005C2B81 /* Disposable.swift */,
@@ -345,8 +359,8 @@
 				6A09EF0D1BFB816D005C2B81 /* Info.plist */,
 				6A09EF0E1BFB816D005C2B81 /* Observable.swift */,
 				6A09EF0F1BFB816D005C2B81 /* Operators.swift */,
-				6A09EF101BFB816D005C2B81 /* SubscribableType+Array.swift */,
-				6A09EF111BFB816D005C2B81 /* SubscribableType.swift */,
+				6A09EF101BFB816D005C2B81 /* Subscribable+Array.swift */,
+				6A09EF111BFB816D005C2B81 /* Subscribable.swift */,
 				6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */,
 				6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */,
 				6A09EF141BFB816D005C2B81 /* Fisticuffs.h */,
@@ -359,8 +373,8 @@
 		6A09EF151BFB816D005C2B81 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				6A09EF161BFB816D005C2B81 /* NSObject+AssociatedObjects.swift */,
-				6A09EF171BFB816D005C2B81 /* NSObject+Binding.swift */,
+				6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */,
+				6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */,
 				6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */,
 				6A1DB7411BFE59F4003817D9 /* UIButton+Binding.swift */,
 				6A09EF191BFB816D005C2B81 /* UICollectionView+Binding.swift */,
@@ -400,6 +414,7 @@
 				6A09EF4C1BFB878F005C2B81 /* OperatorsSpec.swift */,
 				6A09EF4D1BFB878F005C2B81 /* UIKitBindingSpec.swift */,
 				6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */,
+				6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -740,23 +755,28 @@
 				6A09EF2B1BFB816D005C2B81 /* Event.swift in Sources */,
 				6A09EF3A1BFB816D005C2B81 /* UISearchBar+Binding.swift in Sources */,
 				6A09EF2E1BFB816D005C2B81 /* Operators.swift in Sources */,
+				6AEADE721C6E7DF4008DFDBA /* DefaultBindingHandler.swift in Sources */,
 				6A09EF261BFB816D005C2B81 /* Computed.swift in Sources */,
+				6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */,
 				6A09EF311BFB816D005C2B81 /* SubscriptionCollection.swift in Sources */,
 				6A09EF411BFB816D005C2B81 /* ViewModel.swift in Sources */,
+				6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */,
+				6AEADE5D1C6E6F5C008DFDBA /* BindingHandler.swift in Sources */,
 				6A09EF381BFB816D005C2B81 /* UIControl+Binding.swift in Sources */,
 				6A09EF271BFB816D005C2B81 /* DependencyTracker.swift in Sources */,
-				6A09EF301BFB816D005C2B81 /* SubscribableType.swift in Sources */,
-				6A09EF2F1BFB816D005C2B81 /* SubscribableType+Array.swift in Sources */,
+				6A09EF301BFB816D005C2B81 /* Subscribable.swift in Sources */,
+				6A09EF2F1BFB816D005C2B81 /* Subscribable+Array.swift in Sources */,
 				6A09EF391BFB816D005C2B81 /* UILabel+Binding.swift in Sources */,
 				6A09EF281BFB816D005C2B81 /* Disposable.swift in Sources */,
 				6A09EF2D1BFB816D005C2B81 /* Observable.swift in Sources */,
 				6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */,
 				6A09EF3E1BFB816D005C2B81 /* UITableView+Binding.swift in Sources */,
-				6A09EF241BFB816D005C2B81 /* BidirectionalBinding.swift in Sources */,
+				6A09EF241BFB816D005C2B81 /* BidirectionalBindableProperty.swift in Sources */,
 				6A09EF401BFB816D005C2B81 /* UITextField+Binding.swift in Sources */,
 				6A09EF3F1BFB816D005C2B81 /* UITableViewCell+Binding.swift in Sources */,
 				6A09EF371BFB816D005C2B81 /* UICollectionView+Binding.swift in Sources */,
 				6A09EF3D1BFB816D005C2B81 /* UISwitch+Binding.swift in Sources */,
+				6AEADE851C6E89B6008DFDBA /* TransformBindingHandler.swift in Sources */,
 				6A1DB7531BFE5B2E003817D9 /* UIDatePicker+Binding.swift in Sources */,
 				6A09EF291BFB816D005C2B81 /* DisposableBag.swift in Sources */,
 				6A09EF321BFB816D005C2B81 /* SubscriptionOptions.swift in Sources */,
@@ -766,11 +786,10 @@
 				6A06EDEA1BFCD9AA00231806 /* CollectionViewDataSource.swift in Sources */,
 				6A06EDD91BFBD84D00231806 /* DataSource.swift in Sources */,
 				6A1DB7551BFE5ED8003817D9 /* UIPageControl+Binding.swift in Sources */,
-				6A09EF251BFB816D005C2B81 /* Binding.swift in Sources */,
-				6A09EF341BFB816D005C2B81 /* NSObject+AssociatedObjects.swift in Sources */,
+				6A09EF251BFB816D005C2B81 /* BindableProperty.swift in Sources */,
+				6AEADE5B1C6E674C008DFDBA /* AssociatedObjects.swift in Sources */,
 				6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */,
 				6A1DB7421BFE59F4003817D9 /* UIButton+Binding.swift in Sources */,
-				6A09EF351BFB816D005C2B81 /* NSObject+Binding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,6 +799,7 @@
 			files = (
 				6A09EF511BFB878F005C2B81 /* DependencyTrackerSpec.swift in Sources */,
 				6A09EF531BFB878F005C2B81 /* EventSpec.swift in Sources */,
+				6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */,
 				6A09EF521BFB878F005C2B81 /* DisposableBagSpec.swift in Sources */,
 				6A09EF561BFB878F005C2B81 /* ObservableSpec.swift in Sources */,
 				6A09EF551BFB878F005C2B81 /* ObservableArraySpec.swift in Sources */,

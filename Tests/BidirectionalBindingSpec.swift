@@ -28,14 +28,15 @@ import Nimble
 
 class BidirectionalBindingSpec: QuickSpec {
     override func spec() {
-        describe("BidirectionalBinding") {
+        describe("BidirectionalBindableProperty") {
             var backingVariable = ""
-            var binding: BidirectionalBinding<String>!
+            var binding: BidirectionalBindableProperty<BidirectionalBindingSpec, String>!
             
             beforeEach {
-                binding = BidirectionalBinding(
-                    getter: { backingVariable },
-                    setter: { value in backingVariable = value }
+                binding = BidirectionalBindableProperty(
+                    control: self,
+                    getter: { _ in backingVariable },
+                    setter: { _, value in backingVariable = value }
                 )
             }
             
@@ -88,14 +89,32 @@ class BidirectionalBindingSpec: QuickSpec {
                 var disposed = false
                 
                 autoreleasepool {
-                    let _ = BidirectionalBinding<Void>(
-                        getter: { },
-                        setter: { },
+                    let _ = BidirectionalBindableProperty<BidirectionalBindingSpec, Void>(
+                        control: self,
+                        getter: { _ in },
+                        setter: { _, _ in },
                         extraCleanup: DisposableBlock { disposed = true }
                     )
                 }
                 
                 expect(disposed) == true
+            }
+
+            it("should prevent value overwrites if a BindingHandler produces different values for its get & set") {
+                let observable = Observable(0)
+                binding.bind(observable, BindingHandlers.transform({ "\($0)" }, reverse: { (Int($0) ?? 0) * 2 }))
+
+                observable.value = 5
+
+                expect(observable.value) == 5
+                expect(backingVariable) == "5"
+
+                backingVariable = "20"
+                binding.pushChangeToObservable()
+
+                // Updating the observable (`pushChangeToObservable()`) shouldn't modify `backingVariable` (prevents potential infinite loops)
+                expect(backingVariable) == "20"
+                expect(observable.value) == 40
             }
         }
     }

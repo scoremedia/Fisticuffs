@@ -22,13 +22,14 @@
 
 import Foundation
 
-public class BidirectionalBinding<ValueType> {
-    typealias Getter = () -> ValueType
-    typealias Setter = (ValueType) -> Void
-    
+public class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
+    typealias Getter = Control -> ValueType
+    typealias Setter = (Control, ValueType) -> Void
+
+    weak var control: Control?
     let getter: Getter
     let setter: Setter
-    var currentObservable: Observable<ValueType>?
+    let uiChangeEvent: Event<Void> = Event()
     var currentBinding: Disposable?
     
     // Provides an easy way of setting up additional cleanup that should be done
@@ -37,7 +38,8 @@ public class BidirectionalBinding<ValueType> {
     var extraCleanup: Disposable?
     
     
-    init(getter: Getter, setter: Setter, extraCleanup: Disposable? = nil) {
+    init(control: Control, getter: Getter, setter: Setter, extraCleanup: Disposable? = nil) {
+        self.control = control
         self.getter = getter
         self.setter = setter
         self.extraCleanup = extraCleanup
@@ -49,68 +51,72 @@ public class BidirectionalBinding<ValueType> {
     }
 }
 
-extension BidirectionalBinding {
+extension BidirectionalBindableProperty {
     // Should be called when something results in the underlying value being changed
     // (ie., when a user types in a UITextField)
     func pushChangeToObservable() {
-        currentObservable?.value = getter()
+        uiChangeEvent.fire()
     }
 }
 
-public extension BidirectionalBinding {
-    // Two way binding
+public extension BidirectionalBindableProperty {
+    //MARK: - Two way binding
     public func bind(observable: Observable<ValueType>) {
-        currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
-        
-        currentObservable = observable
-        currentBinding = observable.subscribe(options) { [weak self] _, value in
-            self?.setter(value)
-        }
+        bind(observable, DefaultBindingHandler())
     }
-    
-    // One way binding
-    public func bind<S: Subscribable where S.ValueType == ValueType>(subscribable: S) {
-        currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
 
-        currentObservable = nil
-        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
-            self?.setter(value)
-        }
-    }
-    
-    public func bind<S: Subscribable>(subscribable: S, transform: S.ValueType -> ValueType) {
+    public func bind<Data>(observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
-        
-        currentObservable = nil
-        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
-            self?.setter(transform(value))
-        }
+        currentBinding = nil
+
+        guard let control = control else { return }
+
+        let disposables = DisposableBag()
+
+        bindingHandler.setup(control, propertySetter: setter, subscribable: observable)
+        disposables.add(bindingHandler)
+
+        bindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak observable] _, data in
+            observable?.value = data
+        }.addTo(disposables)
+
+        currentBinding = disposables
     }
     
+    //MARK: - One way binding
+
+    public func bind(subscribable: Subscribable<ValueType>) {
+        bind(subscribable, DefaultBindingHandler())
+    }
+
+    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
+        currentBinding?.dispose()
+        currentBinding = nil
+
+        guard let control = control else { return }
+
+        bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
+        currentBinding = bindingHandler
+    }
+
+    public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
+        bind(subscribable, BindingHandlers.transform(transform))
+    }
+
     public func bind(block: () -> ValueType) {
         currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
-        
+        currentBinding = nil
+
+        guard let control = control else { return }
+
         var computed: Computed<ValueType>? = Computed<ValueType>(block: block)
-        let subscription = computed!.subscribe(options) { [weak self] _, value in
-            self?.setter(value)
-        }
-        
-        currentObservable = nil
+
+        let bindingHandler = DefaultBindingHandler<Control, ValueType>()
+        bindingHandler.setup(control, propertySetter: setter, subscribable: computed!)
+
         currentBinding = DisposableBlock {
             computed = nil // keep a strong reference to the Computed
-            subscription.dispose()
+            bindingHandler.dispose()
         }
     }
 }

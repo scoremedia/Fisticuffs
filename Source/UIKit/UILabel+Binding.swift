@@ -22,27 +22,26 @@
 
 import UIKit
 
+private var b_text_key = 0
+private var b_textColor_key = 0
 
-private var textKey = "text"
 
 public extension UILabel {
     
-    var b_text: Binding<String> {
-        get {
-            return get("b_text", orSet: {
-                return Binding<String>(setter: { [weak self] value in
-                    self?.text = value
-                })
+    var b_text: BindableProperty<UILabel, String> {
+        return associatedObjectProperty(self, &b_text_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.text = value
             })
         }
     }
         
-    var b_textColor: Binding<UIColor> {
-        return get("b_textColor", orSet: {
-            return Binding<UIColor>(setter: { [weak self] value in
-                self?.textColor = value
+    var b_textColor: BindableProperty<UILabel, UIColor> {
+        return associatedObjectProperty(self, &b_textColor_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.textColor = value
             })
-        })
+        }
     }
 
 }

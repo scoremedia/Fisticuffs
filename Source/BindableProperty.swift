@@ -20,14 +20,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public class Binding<ValueType> {
-    typealias Setter = (ValueType) -> Void
+public class BindableProperty<Control: AnyObject, ValueType> {
+    typealias Setter = (Control, ValueType) -> Void
     
-    
-    let setter: Setter
+    weak var control: Control?
+    let setter: (Control, ValueType) -> Void
     var currentBinding: Disposable?
     
-    init(setter: Setter) {
+    init(_ control: Control?, setter: Setter) {
+        self.control = control
         self.setter = setter
     }
     
@@ -36,43 +37,39 @@ public class Binding<ValueType> {
     }
 }
 
-public extension Binding {
-    public func bind<S: Subscribable where S.ValueType == ValueType>(subscribable: S) {
+public extension BindableProperty {
+    public func bind(subscribable: Subscribable<ValueType>) {
+        bind(subscribable, DefaultBindingHandler())
+    }
+
+    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
-        
-        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
-            self?.setter(value)
-        }
+        currentBinding = nil
+
+        guard let control = control else { return }
+
+        bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
+        currentBinding = bindingHandler
     }
     
-    public func bind<S: Subscribable>(subscribable: S, transform: S.ValueType -> ValueType) {
-        currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
-        
-        currentBinding = subscribable.subscribe(options) { [weak self] _, value in
-            self?.setter(transform(value))
-        }
+    public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
+        bind(subscribable, BindingHandlers.transform(transform))
     }
     
     public func bind(block: () -> ValueType) {
         currentBinding?.dispose()
-        
-        var options = SubscriptionOptions()
-        options.notifyOnSubscription = true
+        currentBinding = nil
+
+        guard let control = control else { return }
         
         var computed: Computed<ValueType>? = Computed<ValueType>(block: block)
-        let subscription = computed!.subscribe(options) { [weak self] _, value in
-            self?.setter(value)
-        }
-        
+
+        let bindingHandler = DefaultBindingHandler<Control, ValueType>()
+        bindingHandler.setup(control, propertySetter: setter, subscribable: computed!)
+
         currentBinding = DisposableBlock {
             computed = nil // keep a strong reference to the Computed
-            subscription.dispose()
+            bindingHandler.dispose()
         }
     }
 }

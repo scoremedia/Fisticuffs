@@ -57,9 +57,9 @@ extension UICollectionView: DataSourceView {
 }
 
 
-public class CollectionViewDataSource<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UICollectionView>, UICollectionViewDataSource, UICollectionViewDelegate {
+public class CollectionViewDataSource<Item: Equatable>: DataSource<Item, UICollectionView>, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    public override init(subscribable: S, view: UICollectionView) {
+    public override init(subscribable: Subscribable<[Item]>, view: UICollectionView) {
         super.init(subscribable: subscribable, view: view)
     }
     

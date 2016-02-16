@@ -22,38 +22,45 @@
 
 import Foundation
 
+private var b_backgroundColor_key = 0
+private var b_hidden_key = 0
+private var b_alpha_key = 0
+private var b_tintColor_key = 0
+
+
 public extension UIView {
     
-    var b_backgroundColor: Binding<UIColor> {
-        return get("b_backgroundColor", orSet: {
-            return Binding<UIColor>(setter: { [weak self] value in
-                self?.backgroundColor = value
+    var b_backgroundColor: BindableProperty<UIView, UIColor> {
+        return associatedObjectProperty(self, &b_backgroundColor_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.backgroundColor = value
             })
-        })
+        }
     }
-    
-    var b_hidden: Binding<Bool> {
-        return get("b_hidden", orSet: {
-            return Binding<Bool>(setter: { [weak self] value in
-                self?.hidden = value
+
+    var b_hidden: BindableProperty<UIView, Bool> {
+        return associatedObjectProperty(self, &b_hidden_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.hidden = value
             })
-        })
+        }
     }
-    
-    var b_alpha: Binding<CGFloat> {
-        return get("b_alpha", orSet: {
-            return Binding<CGFloat>(setter: { [weak self] value in
-                self?.alpha = value
+
+    var b_alpha: BindableProperty<UIView, CGFloat> {
+        return associatedObjectProperty(self, &b_alpha_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.alpha = value
             })
-        })
+        }
     }
-    
-    var b_tintColor: Binding<UIColor> {
-        return get("b_tintColor", orSet: {
-            return Binding<UIColor>(setter: { [weak self] value in
-                self?.tintColor = value
+
+    var b_tintColor: BindableProperty<UIView, UIColor> {
+        return associatedObjectProperty(self, &b_tintColor_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.tintColor = value
             })
-        })
+        }
     }
+
     
 }

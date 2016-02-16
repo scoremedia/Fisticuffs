@@ -28,9 +28,9 @@ public enum ArrayChange<T> {
 }
 
 
-public extension Subscribable where ValueType: CollectionType, ValueType.Generator.Element : Equatable {
+public extension Subscribable where Value: CollectionType, Value.Generator.Element : Equatable {
     
-    typealias ItemType = ValueType.Generator.Element
+    typealias ItemType = Value.Generator.Element
     
     func subscribeArray(options: SubscriptionOptions = SubscriptionOptions(), callback: ([ItemType], ArrayChange<ItemType>) -> Void) -> Disposable {
         return subscribe(options) { oldValue, newValue in

@@ -20,43 +20,41 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
 
-private var keys = [String:NSObject]()
+public protocol AnySubscribable: class {
+    func subscribe(options: SubscriptionOptions, block: () -> Void) -> Disposable
+    func subscribe(block: () -> Void) -> Disposable
+}
 
-extension NSObject {
-    
-    func findKey(name: String, type: Any) -> UnsafePointer<Void> {
-        let keyString = "\(name)__\(type)"
-        if let keyObj = keys[keyString] {
-            return UnsafePointer(Unmanaged.passUnretained(keyObj).toOpaque())
-        }
-        else {
-            let keyObj = NSObject()
-            keys[keyString] = keyObj
-            return UnsafePointer(Unmanaged.passUnretained(keyObj).toOpaque())
-        }
+
+public class Subscribable<Value> : AnySubscribable {
+    public var currentValue: Value? {
+        return nil
     }
-    
-    func get<T: AnyObject>(name: String) -> T? {
-        let key = findKey(name, type: T.self)
-        return objc_getAssociatedObject(self, key) as? T
+
+    public let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
+
+    public func subscribe(block: (Value?, Value) -> Void) -> Disposable {
+        return subscribe(SubscriptionOptions(), block: block)
     }
-    
-    func get<T: AnyObject>(name: String, @noescape orSet block: (Void) -> T) -> T {
-        if let existing: T = get(name) {
-            return existing
+
+    public func subscribe(options: SubscriptionOptions, block: (Value?, Value) -> Void) -> Disposable {
+        let disposable = subscriptionCollection.add(when: options.when, callback: block)
+        if let value = currentValue where options.notifyOnSubscription {
+            block(value, value)
         }
-        else {
-            let new = block()
-            set(name, value: new)
-            return new
+        return disposable
+    }
+
+
+    //MARK: AnySubscribable
+    public func subscribe(options: SubscriptionOptions, block: () -> Void) -> Disposable {
+        return subscribe(options) { _, _ in
+            block()
         }
     }
-    
-    func set<T: AnyObject>(name: String, value: T?) {
-        let key = findKey(name, type: T.self)
-        objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN)
+
+    public func subscribe(block: () -> Void) -> Disposable {
+        return subscribe(SubscriptionOptions(), block: block)
     }
-    
 }

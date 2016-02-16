@@ -22,11 +22,11 @@
 
 import Foundation
 
-public class Observable<T> : SubscribableType {
+public class Observable<Value> : Subscribable<Value> {
     
     //MARK: - Value property
     
-    public var value: T {
+    public var value: Value {
         set(newValue) {
             let old = storage
             
@@ -39,16 +39,13 @@ public class Observable<T> : SubscribableType {
             return storage
         }
     }
+
+    public override var currentValue: Value? { return value }
     
-    private var storage: T
-    
-    //MARK: - SubscribableType
-    public typealias ValueType = T
-    public var currentValue: T? { return value }
-    public var subscriptionCollection = SubscriptionCollection<T>()
+    private var storage: Value
 
     //MARK: - Init
-    public init(_ initial: T) {
+    public init(_ initial: Value) {
         storage = initial
     }
 

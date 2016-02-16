@@ -60,11 +60,11 @@ extension UITableView: DataSourceView {
 }
 
 
-public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UITableView>, UITableViewDataSource, UITableViewDelegate {
+public class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>, UITableViewDataSource, UITableViewDelegate {
     
     public var allowsDeletion = false
     
-    public override init(subscribable: S, view: UITableView) {
+    public override init(subscribable: Subscribable<[Item]>, view: UITableView) {
         super.init(subscribable: subscribable, view: view)
     }
     

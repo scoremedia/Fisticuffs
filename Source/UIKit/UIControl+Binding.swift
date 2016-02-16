@@ -22,60 +22,72 @@
 
 import UIKit
 
+
+private var b_enabled_key = 0
+private var b_onTap_key = 0
+private var trampolines_key = 0
+
+
+
 public extension UIControl {
-    
-    var b_enabled: Binding<Bool> {
+
+    var b_enabled: BindableProperty<UIControl, Bool> {
         get {
-            return get("b_enabled", orSet: {
-                return Binding<Bool>(setter: { [weak self] value -> Void in
-                    self?.enabled = value
+            return associatedObjectProperty(self, &b_enabled_key) { _ in
+                return BindableProperty(self, setter: { control, value -> Void in
+                    control.enabled = value
                 })
-            })
+            }
         }
     }
-    
+
     var b_onTap: Event<Void> {
-        return get("b_onTap", orSet: {
+        return associatedObjectProperty(self, &b_onTap_key) { _ in
             self.addTarget(self, action: "b_receivedOnTap:", forControlEvents: .TouchUpInside)
             return Event<Void>()
-        })
+        }
     }
-    
+
     @objc private func b_receivedOnTap(sender: AnyObject) {
         b_onTap.fire()
     }
-    
+
 }
 
 public extension UIControl {
-    
+
     /**
      Get an Event<UIEvent?> for the specified events
-     
+
      - parameter controlEvents: Control events to subscribe to
-     
+
      - returns: The Event object
      */
     func b_controlEvent(controlEvents: UIControlEvents) -> Event<UIEvent?> {
-        let key = "events_\(controlEvents.rawValue)"
-        
-        let trampoline = get(key, orSet: { () -> ControlEventTrampoline in
+        let trampolinesCollection = associatedObjectProperty(self, &trampolines_key) { _ in ControlEventTrampolineCollection() }
+
+        if let trampoline = trampolinesCollection.trampolines[controlEvents.rawValue] {
+            return trampoline.event
+        } else {
             let trampoline = ControlEventTrampoline()
             addTarget(trampoline, action: "receivedEvent:uiEvent:", forControlEvents: controlEvents)
-            print(trampoline.respondsToSelector("receivedEvent:uiEvent:"))
-            return trampoline
-        })
-        
-        return trampoline.event
+            trampolinesCollection.trampolines[controlEvents.rawValue] = trampoline
+            return trampoline.event
+        }
     }
-    
+
 }
 
 
+private class ControlEventTrampolineCollection: NSObject {
+    var trampolines: [UInt: ControlEventTrampoline] = [:]
+}
+
 private class ControlEventTrampoline: NSObject {
     let event = Event<UIEvent?>()
-    
+
     @objc func receivedEvent(sender: AnyObject?, uiEvent: UIEvent?) {
         event.fire(uiEvent)
     }
 }
+

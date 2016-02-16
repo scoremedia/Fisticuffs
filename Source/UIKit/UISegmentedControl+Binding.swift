@@ -22,6 +22,9 @@
 
 import UIKit
 
+private var manager_key = 0
+
+
 public enum SegmentDisplay {
     case Title(String)
     case Image(UIImage)
@@ -29,27 +32,22 @@ public enum SegmentDisplay {
 
 public extension UISegmentedControl {
     
-    func b_configure<S: Subscribable where
-            S.ValueType: CollectionType,
-            S.ValueType.Index == Int,
-            S.ValueType.Generator.Element: Equatable>(items: S, selection: Observable<S.ValueType.Generator.Element>, display: (S.ValueType.Generator.Element) -> SegmentDisplay) {
-        let manager = SegmentControlManager<S>(control: self, items: items, display: display, selection: selection)
-        set("manager", value: (manager as AnyObject))
+    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, selection: Observable<Item>, display: (Item) -> SegmentDisplay) {
+        let manager = SegmentControlManager<Item>(control: self, items: items, display: display, selection: selection)
+        setAssociatedObjectProperty(self, &manager_key, value: manager as AnyObject)
     }
 }
 
-private class SegmentControlManager<S: Subscribable where S.ValueType: CollectionType, S.ValueType.Index == Int, S.ValueType.Generator.Element: Equatable> : NSObject {
-    typealias ItemType = S.ValueType.Generator.Element
-    
+private class SegmentControlManager<Item: Equatable> : NSObject {
     weak var control: UISegmentedControl?
-    let items: S
-    var itemValues: [ItemType] = []
-    let display: (ItemType) -> SegmentDisplay
-    let selection: Observable<ItemType>
+    let items: Subscribable<[Item]>
+    var itemValues: [Item] = []
+    let display: (Item) -> SegmentDisplay
+    let selection: Observable<Item>
     
     let disposableBag = DisposableBag()
     
-    init(control: UISegmentedControl, items: S, display: (ItemType) -> SegmentDisplay, selection: Observable<ItemType>) {
+    init(control: UISegmentedControl, items: Subscribable<[Item]>, display: (Item) -> SegmentDisplay, selection: Observable<Item>) {
         self.control = control
         self.items = items
         self.display = display
@@ -73,7 +71,7 @@ private class SegmentControlManager<S: Subscribable where S.ValueType: Collectio
         control?.removeTarget(self, action: "userChangedSelection:", forControlEvents: .ValueChanged)
     }
     
-    func itemsChanged(newValue: S.ValueType) {
+    func itemsChanged(newValue: [Item]) {
         guard let control = control else { return }
         
         itemValues = Array(newValue)
@@ -98,7 +96,7 @@ private class SegmentControlManager<S: Subscribable where S.ValueType: Collectio
         }
     }
     
-    func selectionChanged(newValue: ItemType) {
+    func selectionChanged(newValue: Item) {
         guard let control = control else { return }
         
         if let index = itemValues.indexOf(newValue) {
