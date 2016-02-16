@@ -99,6 +99,23 @@ class BidirectionalBindingSpec: QuickSpec {
                 
                 expect(disposed) == true
             }
+
+            it("should prevent value overwrites if a BindingHandler produces different values for its get & set") {
+                let observable = Observable(0)
+                binding.bind(observable, BindingHandlers.transform({ "\($0)" }, reverse: { (Int($0) ?? 0) * 2 }))
+
+                observable.value = 5
+
+                expect(observable.value) == 5
+                expect(backingVariable) == "5"
+
+                backingVariable = "20"
+                binding.pushChangeToObservable()
+
+                // Updating the observable (`pushChangeToObservable()`) shouldn't modify `backingVariable` (prevents potential infinite loops)
+                expect(backingVariable) == "20"
+                expect(observable.value) == 40
+            }
         }
     }
 }

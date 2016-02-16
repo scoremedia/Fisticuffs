@@ -34,14 +34,21 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
 
     private let disposableBag = DisposableBag()
 
+    private var accessingUnderlyingProperty = false
 
     func setup(control: Control, propertySetter: PropertySetter, subscribable: Subscribable<DataValue>) {
         self.control = control
         self.propertySetter = propertySetter
 
         subscribable.subscribe { [weak self] oldValue, newValue in
+            if self?.accessingUnderlyingProperty == true {
+                return
+            }
+
             if let this = self, control = this.control, propertySetter = this.propertySetter {
+                this.accessingUnderlyingProperty = true
                 this.set(control: control, oldValue: oldValue, value: newValue, propertySetter: propertySetter)
+                this.accessingUnderlyingProperty = false
             }
         }
         .addTo(disposableBag)
@@ -51,13 +58,19 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
         self.propertyGetter = propertyGetter
 
         changeEvent.subscribe { [weak self] _, _ in
+            if self?.accessingUnderlyingProperty == true {
+                return
+            }
+
             if let this = self, control = this.control, propertyGetter = this.propertyGetter {
+                this.accessingUnderlyingProperty = true
                 do {
                     let value = try this.get(control: control, propertyGetter: propertyGetter)
                     this.getSubscribable.fire(value)
                 } catch {
                     // print a warning maybe?
                 }
+                this.accessingUnderlyingProperty = false
             }
         }
         return getSubscribable
