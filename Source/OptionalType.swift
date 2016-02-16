@@ -1,6 +1,6 @@
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 theScore Inc.
+//  Copyright (c) 2016 theScore Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,28 +20,40 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
 
-private var b_text_key = 0
-private var b_textColor_key = 0
+// Protocol representing Optionals (and ImplicitlyUnwrappedOptionals) so that we can 
+// support concepts like binding a Observable<String> to a BindableProperty<String?>
 
+struct OptionalIsNone: ErrorType {}
 
-public extension UILabel {
-    
-    var b_text: BindableProperty<UILabel, String?> {
-        return associatedObjectProperty(self, &b_text_key) { _ in
-            return BindableProperty(self, setter: { control, value in
-                control.text = value
-            })
+public protocol OptionalType {
+    typealias Wrapped
+    init(wrappedValue: Wrapped)
+    func toUnwrappedValue() throws -> Wrapped
+}
+
+extension Optional: OptionalType {
+    public init(wrappedValue: Wrapped) {
+        self = .Some(wrappedValue)
+    }
+    public func toUnwrappedValue() throws -> Wrapped {
+        if let unwrapped = self {
+            return unwrapped
+        } else {
+            throw OptionalIsNone()
         }
     }
-        
-    var b_textColor: BindableProperty<UILabel, UIColor!> {
-        return associatedObjectProperty(self, &b_textColor_key) { _ in
-            return BindableProperty(self, setter: { control, value in
-                control.textColor = value
-            })
+}
+
+extension ImplicitlyUnwrappedOptional: OptionalType {
+    public init(wrappedValue: Wrapped) {
+        self = .Some(wrappedValue)
+    }
+    public func toUnwrappedValue() throws -> Wrapped {
+        if let unwrapped = self {
+            return unwrapped
+        } else {
+            throw OptionalIsNone()
         }
     }
-
 }

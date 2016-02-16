@@ -30,7 +30,7 @@ private var b_backgroundImage_key = 0
 
 public extension UIButton {
     
-    var b_title: BindableProperty<UIButton, String> {
+    var b_title: BindableProperty<UIButton, String?> {
         return associatedObjectProperty(self, &b_title_key) { _ in
             return BindableProperty(self) { control, value in
                 control.setTitle(value, forState: .Normal)
@@ -38,7 +38,7 @@ public extension UIButton {
         }
     }
 
-    var b_image: BindableProperty<UIButton, UIImage> {
+    var b_image: BindableProperty<UIButton, UIImage?> {
         return associatedObjectProperty(self, &b_image_key) { _ in
             return BindableProperty(self) { control, value in
                 control.setImage(value, forState: .Normal)
@@ -46,7 +46,7 @@ public extension UIButton {
         }
     }
 
-    var b_backgroundImage: BindableProperty<UIButton, UIImage> {
+    var b_backgroundImage: BindableProperty<UIButton, UIImage?> {
         return associatedObjectProperty(self, &b_backgroundImage_key) { _ in
             return BindableProperty(self) { control, value in
                 control.setBackgroundImage(value, forState: .Normal)

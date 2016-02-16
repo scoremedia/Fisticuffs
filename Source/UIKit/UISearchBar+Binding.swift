@@ -28,14 +28,14 @@ private var b_delegate_key = 0
 
 public extension UISearchBar {
     
-    var b_text: BidirectionalBindableProperty<UISearchBar, String> {
+    var b_text: BidirectionalBindableProperty<UISearchBar, String?> {
         return associatedObjectProperty(self, &b_text_key) { _ in
             let delegate: SearchBarDelegate = associatedObjectProperty(self, &b_delegate_key) { _ in SearchBarDelegate() }
             self.delegate = delegate
 
-            let bindableProperty = BidirectionalBindableProperty<UISearchBar, String>(
+            let bindableProperty = BidirectionalBindableProperty<UISearchBar, String?>(
                 control: self,
-                getter: { searchBar in searchBar.text ?? "" },
+                getter: { searchBar in searchBar.text },
                 setter: { searchBar, newValue in searchBar.text = newValue }
             )
             
@@ -48,7 +48,7 @@ public extension UISearchBar {
 
 private class SearchBarDelegate: NSObject, UISearchBarDelegate {
 
-    weak var bindableProperty: BidirectionalBindableProperty<UISearchBar, String>?
+    weak var bindableProperty: BidirectionalBindableProperty<UISearchBar, String?>?
     
     @objc func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         bindableProperty?.uiChangeEvent.fire()
