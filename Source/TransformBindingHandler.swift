@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataValue, PropertyValue>: BindingHandler<Control, InDataValue, PropertyValue> {
+public class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataValue, PropertyValue>: BindingHandler<Control, InDataValue, PropertyValue> {
     let bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>
     let transform: InDataValue -> OutDataValue
 
@@ -17,7 +17,18 @@ class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataValue, Pro
         self.bindingHandler = bindingHandler
     }
 
-    override func set(control control: Control, oldValue: InDataValue?, value: InDataValue, propertySetter: PropertySetter) {
+    public override func set(control control: Control, oldValue: InDataValue?, value: InDataValue, propertySetter: PropertySetter) {
         bindingHandler.set(control: control, oldValue: oldValue.map(transform), value: transform(value), propertySetter: propertySetter)
+    }
+}
+
+public extension BindingHandlers {
+    static func transform<Control, DataValue, PropertyValue>(block: DataValue -> PropertyValue) -> TransformBindingHandler<Control, DataValue, PropertyValue, PropertyValue> {
+        return TransformBindingHandler(block, bindingHandler: DefaultBindingHandler())
+    }
+
+    static func transform<Control, InDataValue, OutDataValue, PropertyValue>(block: InDataValue -> OutDataValue, bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>)
+            -> TransformBindingHandler<Control, InDataValue, OutDataValue, PropertyValue> {
+        return TransformBindingHandler<Control, InDataValue, OutDataValue, PropertyValue>(block, bindingHandler: bindingHandler)
     }
 }

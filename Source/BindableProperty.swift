@@ -53,7 +53,7 @@ public extension BindableProperty {
     }
     
     public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
-        bind(subscribable, TransformBindingHandler(transform, bindingHandler: DefaultBindingHandler()))
+        bind(subscribable, BindingHandlers.transform(transform))
     }
     
     public func bind(block: () -> ValueType) {
