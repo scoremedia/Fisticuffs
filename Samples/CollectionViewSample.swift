@@ -82,9 +82,9 @@ class CollectionViewSampleController: UIViewController {
             }
         }
         
-        clearButton.b_onTap += viewModel.clearSelection
+        clearButton.b_onTap.subscribe(viewModel.clearSelection)
         
-        viewModel.sumDisplayString += { [navigationItem = navigationItem] _, displayString in
+        viewModel.sumDisplayString.subscribe { [navigationItem = navigationItem] _, displayString in
             navigationItem.prompt = displayString
         }
     }

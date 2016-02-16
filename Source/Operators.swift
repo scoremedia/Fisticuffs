@@ -30,56 +30,68 @@ infix operator <-> {}
 //MARK: - One way binding
 //MARK: Subscribable's
 
+@available(*, deprecated, message="Use BindableProperty.bind(...) instead")
 public func <--<Control, T>(lhs: BindableProperty<Control, T>, rhs: Subscribable<T>) {
     lhs.bind(rhs)
 }
 
+@available(*, deprecated, message="Use BindableProperty.bind(...) instead")
 public func --><Control, T>(lhs: Subscribable<T>, rhs: BindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
+@available(*, deprecated, message="Use BidirectionalBindableProperty.bind(...) instead")
 public func <--<Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: Subscribable<T>) {
     lhs.bind(rhs)
 }
 
+@available(*, deprecated, message="Use BidirectionalBindableProperty.bind(...) instead")
 public func --><Control: AnyObject, T>(lhs: Subscribable<T>, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
 //MARK: Blocks
 
+@available(*, deprecated, message="Use BindableProperty.bind(...) instead")
 public func <--<Control, T>(lhs: BindableProperty<Control, T>, rhs: () -> T) {
     lhs.bind(rhs)
 }
 
+@available(*, deprecated, message="Use BindableProperty.bind(...) instead")
 public func --><Control, T>(lhs: () -> T, rhs: BindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
+@available(*, deprecated, message="Use BidirectionalBindableProperty.bind(...) instead")
 public func <--<Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: () -> T) {
     lhs.bind(rhs)
 }
 
+@available(*, deprecated, message="Use BidirectionalBindableProperty.bind(...) instead")
 public func --><Control: AnyObject, T>(lhs: () -> T, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
 //MARK: - Two way binding
 
+@available(*, deprecated, message="Use BindableProperty.bind(...) instead")
 public func <-><Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: Observable<T>) {
     lhs.bind(rhs)
 }
 
+@available(*, deprecated, message="Use BindableProperty.bind(...) instead")
 public func <-><Control: AnyObject, T>(lhs: Observable<T>, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
 //MARK: - Subscriptions
 
+@available(*, deprecated, message="Use Subscribable.subscribe(...) instead")
 public func +=<T>(lhs: Subscribable<T>, rhs: (T?, T) -> Void) {
     lhs.subscribe(rhs)
 }
 
+@available(*, deprecated, message="Use AnySubscribable.subscribe(...) instead")
 public func +=(lhs: AnySubscribable, rhs: () -> Void) {
     lhs.subscribe(rhs)
 }

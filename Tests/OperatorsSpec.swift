@@ -26,6 +26,7 @@ import Nimble
 @testable import Fisticuffs
 
 
+@available(*, deprecated) // bizarre way to silence "deprecated" warnings
 class OperatorsSpec: QuickSpec {
     override func spec() {
         var observable: Observable<Int>!

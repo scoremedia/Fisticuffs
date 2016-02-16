@@ -41,11 +41,11 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
     
     // bind the text in our username & password fields to their 
-    usernameField.b_text <-> username
-    passwordField.b_text <-> password
+    usernameField.b_text.bind(username)
+    passwordField.b_text.bind(password)
     
     // only enable the login button if they've entered an username and password
-    loginButton.b_enabled <-- inputIsValid
+    loginButton.b_enabled.bind(inputIsValid)
     
     // do the login when the user taps the login button 
     loginButton.b_onTap.subscribe { [weak self] in
@@ -107,50 +107,14 @@ event.fire("Hello, world")
 
 ### Subscribable
 
-As a side note, `Observable`, `Computed`, and `Event` all implement the same `Subscribable` protocol to provide a common interface to subscribing to changes/events.
+As a side note, `Observable`, `Computed`, and `Event` all inherit from `Subscribable` to provide a common interface to subscribing to changes/events.
 
 
 ## UI Bindings
 
-### Binding Setup
+### Property bindings
 
-UI binding are setup using the following operators:
-
-- `<--` / `-->`
-  
-  One-way binding.  Data flows in the direction of the arrow.  For example:
-  ```swift
-  let messageLabel: UILabel = ...
-  let message = Observable("")
-  messageLabel.b_text <-- message
-  
-  message.value = "Uh oh, an error has occurred"
-  // updates messageField's text automatically
-  ```
-
-- `<->`
-  
-  Two-way binding.  Data flows both directions.  For example, a `UITextField`'s `text` property can be changed by the user or in code by the programmer.
-  ```swift
-  let nameField: UITextField = ...
-  let name = Observable("")
-  nameField.b_text <-> name
-  
-  // `name` will stay in sync with `nameField`'s `text` property, whether we change the value of `name` or the user enters text into the text field
-  ```
-
-Or, if you prefer to avoid custom operators, you can use the provided `bind` method:
-
-```swift
-let messageLabel: UILabel = ...
-let message = Observable("")
-messageLabel.b_text.bind(message)
-```
-
-
-### Properties
-
-Generally, bindings for UIKit classes are the original property name prefixed with `b_`.  For example:
+Many of the `UIKit` classes have been extended to allow binding their properties to `Subscribables`.  These properties are generally to
 
 
 UIKit                | Fisticuffs       
@@ -161,6 +125,13 @@ UIKit                | Fisticuffs
 `UISwitch`.`on`      | `UISwitch`.`b_on`      
 *etc...*
 
+To bind a `Subscribable` (ie: `Observable`, `Computed`, etc...) to these, the `bind()` method can be used.
+
+```swift
+let messageLabel: UILabel = ...
+let message = Observable("")
+messageLabel.b_text.bind(message)
+```
 
 ### Events
 
@@ -170,16 +141,6 @@ UI events are exposed as `Event`'s, making it easy to attach behaviour to contro
 let button: UIButton = ...
 
 button.b_onTap.subscribe {
-  print("Pressed button!")
-}
-```
-
-Additionally, as syntactic sugar, a `+=` operator is provided for subscribing to events:
-
-```swift
-let button: UIButton = ...
-
-button.b_onTap += {
   print("Pressed button!")
 }
 ```

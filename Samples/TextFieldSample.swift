@@ -78,9 +78,9 @@ class TextFieldSampleViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firstName.b_text <-> viewModel.firstName
-        lastName.b_text <-> viewModel.lastName
-        email.b_text <-> viewModel.email
+        firstName.b_text.bind(viewModel.firstName)
+        lastName.b_text.bind(viewModel.lastName)
+        email.b_text.bind(viewModel.email)
         
         
         firstNameValidity.b_text.bind(viewModel.firstNameValid, transform: TextFieldSampleViewController.validStringTransform)
@@ -98,15 +98,15 @@ class TextFieldSampleViewController: UITableViewController {
         email.b_shouldReturn.bind(viewModel.emailValid, transform: { value in value ?? false })
         
         // Pressing enter should move the user on to the next field
-        firstName.b_willReturn += { [weak self] in
+        firstName.b_willReturn.subscribe { [weak self] in
             self?.lastName.becomeFirstResponder()
         }
         
-        lastName.b_willReturn += { [weak self] in
+        lastName.b_willReturn.subscribe { [weak self] in
             self?.email.becomeFirstResponder()
         }
         
-        email.b_willReturn += { [weak self] in
+        email.b_willReturn.subscribe { [weak self] in
             self?.email.resignFirstResponder()
         }
     }

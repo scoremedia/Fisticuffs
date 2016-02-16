@@ -80,13 +80,13 @@ class TableViewSampleController: UIViewController {
                 cell.textLabel?.text = "\(item)"
             }
         }
-        tableView.b_editing <-- viewModel.editing
+        tableView.b_editing.bind(viewModel.editing)
         
-        editButton.b_onTap += viewModel.toggleEditing
-        editButton.b_title <-- viewModel.editingButtonTitle
+        editButton.b_onTap.subscribe(viewModel.toggleEditing)
+        editButton.b_title.bind(viewModel.editingButtonTitle)
         
-        prependButton.b_onTap += viewModel.prependItem
-        appendButton.b_onTap += viewModel.appendItem
+        prependButton.b_onTap.subscribe(viewModel.prependItem)
+        appendButton.b_onTap.subscribe(viewModel.appendItem)
     }
     
 }

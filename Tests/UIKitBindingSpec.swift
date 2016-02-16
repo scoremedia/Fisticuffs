@@ -57,7 +57,7 @@ class UIKitBindingSpec: QuickSpec {
                 var receivedEvent = false
                 
                 let control = UIControl()
-                control.b_controlEvent(.AllEvents) += { receivedEvent = true }
+                control.b_controlEvent(.AllEvents).subscribe { receivedEvent = true }
                 
                 control.sendActionsForControlEvents(.EditingDidBegin)
                 expect(receivedEvent) == true

@@ -29,7 +29,7 @@ class ToDoItemCell: UITableViewCell {
     @IBOutlet var title: UILabel!
     
     func bind(item: ToDoItem) {
-        title.b_text <-- item.title
+        title.b_text.bind(item.title)
         
         b_accessoryType.bind(item.completed, transform: { completed in completed ? .Checkmark : .None })
     }
