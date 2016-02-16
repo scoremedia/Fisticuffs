@@ -13,5 +13,9 @@ public class DefaultBindingHandler<Control: AnyObject, Value>: BindingHandler<Co
     public override func set(control control: Control, oldValue: Value?, value: Value, propertySetter: PropertySetter) {
         propertySetter(control, value)
     }
+
+    public override func get(control control: Control, propertyGetter: PropertyGetter) throws -> Value {
+        return propertyGetter(control)
+    }
     
 }

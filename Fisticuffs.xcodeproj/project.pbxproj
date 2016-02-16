@@ -72,6 +72,7 @@
 		6AEADE721C6E7DF4008DFDBA /* DefaultBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */; };
 		6AEADE851C6E89B6008DFDBA /* TransformBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */; };
 		6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */; };
+		6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,6 +286,7 @@
 		6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBindingHandler.swift; sourceTree = "<group>"; };
 		6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformBindingHandler.swift; sourceTree = "<group>"; };
 		6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlers.swift; sourceTree = "<group>"; };
+		6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionBindableProperty.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */,
+				6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */,
 				6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */,
 				6A1DB7411BFE59F4003817D9 /* UIButton+Binding.swift */,
 				6A09EF191BFB816D005C2B81 /* UICollectionView+Binding.swift */,
@@ -751,6 +754,7 @@
 				6A09EF2E1BFB816D005C2B81 /* Operators.swift in Sources */,
 				6AEADE721C6E7DF4008DFDBA /* DefaultBindingHandler.swift in Sources */,
 				6A09EF261BFB816D005C2B81 /* Computed.swift in Sources */,
+				6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */,
 				6A09EF311BFB816D005C2B81 /* SubscriptionCollection.swift in Sources */,
 				6A09EF411BFB816D005C2B81 /* ViewModel.swift in Sources */,
 				6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */,

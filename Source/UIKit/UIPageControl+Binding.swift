@@ -27,25 +27,16 @@ private var b_numberOfPages_key = 0
 
 public extension UIPageControl {
     
-    var b_currentPage: BidirectionalBindableProperty<Int> {
+    var b_currentPage: BidirectionalBindableProperty<UIPageControl, Int> {
         return associatedObjectProperty(self, &b_currentPage_key) { _ in
-            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            let cleanup = DisposableBlock { [weak self] in
-                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            }
-
-            return BidirectionalBindableProperty<Int>(
-                getter: { [weak self] in self?.currentPage ?? 0 },
-                setter: { [weak self] value in self?.currentPage = value },
-                extraCleanup: cleanup
+            return TargetActionBindableProperty(
+                control: self,
+                getter: { control in control.currentPage },
+                setter: { control, value in control.currentPage = value },
+                events: .ValueChanged
             )
         }
     }
-
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_currentPage.pushChangeToObservable()
-    }
-
 
     var b_numberOfPages: BindableProperty<UIPageControl, Int> {
         return associatedObjectProperty(self, &b_numberOfPages_key) { _ in

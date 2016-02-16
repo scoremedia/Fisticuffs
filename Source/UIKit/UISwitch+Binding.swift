@@ -28,23 +28,16 @@ private var b_on_key = 0
 
 public extension UISwitch {
     
-    var b_on: BidirectionalBindableProperty<Bool> {
+    var b_on: BidirectionalBindableProperty<UISwitch, Bool> {
         return associatedObjectProperty(self, &b_on_key) { _ in
-            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            let cleanup = DisposableBlock { [weak self] in
-                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            }
-
-            return BidirectionalBindableProperty<Bool>(
-                getter: { [weak self] in self?.on ?? false },
-                setter: { [weak self] value in self?.on = value },
-                extraCleanup: cleanup
+            return TargetActionBindableProperty(
+                control: self,
+                getter: { control in control.on },
+                setter: { control, value in control.on = value },
+                events: .ValueChanged
             )
         }
     }
-    
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_on.pushChangeToObservable()
-    }
+
 }
 

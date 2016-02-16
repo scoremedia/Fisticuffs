@@ -33,7 +33,7 @@ class OperatorsSpec: QuickSpec {
         
         var underlyingValue: Int!
         var binding: BindableProperty<OperatorsSpec, Int>!
-        var bidirectionalBinding: BidirectionalBindableProperty<Int>!
+        var bidirectionalBinding: BidirectionalBindableProperty<OperatorsSpec, Int>!
         
         beforeEach {
             observable = Observable(11)
@@ -41,7 +41,7 @@ class OperatorsSpec: QuickSpec {
             
             underlyingValue = 0
             binding = BindableProperty<OperatorsSpec, Int>(self) { _, value in underlyingValue = value }
-            bidirectionalBinding = BidirectionalBindableProperty<Int>(getter: { underlyingValue }, setter: { underlyingValue = $0 })
+            bidirectionalBinding = BidirectionalBindableProperty<OperatorsSpec, Int>(control: self, getter: { _ in underlyingValue }, setter: { _, value in underlyingValue = value })
         }
         
         describe("+=") {

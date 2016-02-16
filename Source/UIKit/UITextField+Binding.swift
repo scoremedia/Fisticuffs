@@ -32,28 +32,19 @@ private var b_shouldReturn_key = 0
 
 public extension UITextField {
     
-    var b_text: BidirectionalBindableProperty<String> {
+    var b_text: BidirectionalBindableProperty<UITextField, String> {
         get {
             return associatedObjectProperty(self, &b_text_key) { _ in
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .EditingChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .EditingChanged)
-                }
-
-                return BidirectionalBindableProperty<String>(
-                    getter: { [weak self] in self?.text ?? "" },
-                    setter: { [weak self] value in self?.text = value },
-                    extraCleanup: cleanup
+                return TargetActionBindableProperty(
+                    control: self,
+                    getter: { control in control.text ?? "" },
+                    setter: { control, text in control.text = text },
+                    events: .EditingChanged
                 )
             }
         }
     }
-    
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_text.pushChangeToObservable()
-    }
-    
-    
+
     var b_didBeginEditing: Event<UIEvent?> {
         return b_controlEvent(.EditingDidBegin)
     }

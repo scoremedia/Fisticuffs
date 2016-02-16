@@ -27,23 +27,14 @@ private var b_date_key = 0
 
 
 public extension UIDatePicker {
-    var b_date: BidirectionalBindableProperty<NSDate> {
+    var b_date: BidirectionalBindableProperty<UIDatePicker, NSDate> {
         return associatedObjectProperty(self, &b_date_key) { _ in
-            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            let cleanup = DisposableBlock { [weak self] in
-                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            }
-
-            return BidirectionalBindableProperty<NSDate>(
-                getter: { [weak self] in self?.date ?? NSDate() },
-                setter: { [weak self] value in self?.setDate(value, animated: true) },
-                extraCleanup: cleanup
+            return TargetActionBindableProperty(
+                control: self,
+                getter: { control in control.date },
+                setter: { control, date in control.date = date },
+                events: .ValueChanged
             )
         }
     }
-    
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_date.pushChangeToObservable()
-    }
-
 }

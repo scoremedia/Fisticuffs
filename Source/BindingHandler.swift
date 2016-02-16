@@ -20,14 +20,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+struct BindingHandlerGetterNotImplemented: ErrorType {}
 
 public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposable {
     public typealias PropertySetter = (Control, PropertyValue) -> Void
+    public typealias PropertyGetter = Control -> DataValue
 
     private weak var control: Control?
     private var propertySetter: PropertySetter?
 
+    private var propertyGetter: PropertyGetter?
+    private let getSubscribable: Event<DataValue> = Event()
+
     private let disposableBag = DisposableBag()
+
 
     func setup(control: Control, propertySetter: PropertySetter, subscribable: Subscribable<DataValue>) {
         self.control = control
@@ -41,8 +47,29 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
         .addTo(disposableBag)
     }
 
+    func setup(propertyGetter: PropertyGetter, changeEvent: Event<Void>) -> Subscribable<DataValue> {
+        self.propertyGetter = propertyGetter
+
+        changeEvent.subscribe { [weak self] _, _ in
+            if let this = self, control = this.control, propertyGetter = this.propertyGetter {
+                do {
+                    let value = try this.get(control: control, propertyGetter: propertyGetter)
+                    this.getSubscribable.fire(value)
+                } catch {
+                    // print a warning maybe?
+                }
+            }
+        }
+        return getSubscribable
+    }
+
     public func set(control control: Control, oldValue: DataValue?, value: DataValue, propertySetter: PropertySetter) {
         // Override in subclasses
+    }
+
+    public func get(control control: Control, propertyGetter: PropertyGetter) throws -> DataValue {
+        // override in subclasses
+        throw BindingHandlerGetterNotImplemented()
     }
 
     public func dispose() {

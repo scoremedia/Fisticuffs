@@ -30,12 +30,13 @@ class BidirectionalBindingSpec: QuickSpec {
     override func spec() {
         describe("BidirectionalBindableProperty") {
             var backingVariable = ""
-            var binding: BidirectionalBindableProperty<String>!
+            var binding: BidirectionalBindableProperty<BidirectionalBindingSpec, String>!
             
             beforeEach {
                 binding = BidirectionalBindableProperty(
-                    getter: { backingVariable },
-                    setter: { value in backingVariable = value }
+                    control: self,
+                    getter: { _ in backingVariable },
+                    setter: { _, value in backingVariable = value }
                 )
             }
             
@@ -88,9 +89,10 @@ class BidirectionalBindingSpec: QuickSpec {
                 var disposed = false
                 
                 autoreleasepool {
-                    let _ = BidirectionalBindableProperty<Void>(
-                        getter: { },
-                        setter: { },
+                    let _ = BidirectionalBindableProperty<BidirectionalBindingSpec, Void>(
+                        control: self,
+                        getter: { _ in },
+                        setter: { _, _ in },
                         extraCleanup: DisposableBlock { disposed = true }
                     )
                 }

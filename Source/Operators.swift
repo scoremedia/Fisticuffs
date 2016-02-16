@@ -38,11 +38,11 @@ public func --><Control, T>(lhs: Subscribable<T>, rhs: BindableProperty<Control,
     rhs.bind(lhs)
 }
 
-public func <--<T>(lhs: BidirectionalBindableProperty<T>, rhs: Subscribable<T>) {
+public func <--<Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: Subscribable<T>) {
     lhs.bind(rhs)
 }
 
-public func --><T>(lhs: Subscribable<T>, rhs: BidirectionalBindableProperty<T>) {
+public func --><Control: AnyObject, T>(lhs: Subscribable<T>, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
@@ -56,21 +56,21 @@ public func --><Control, T>(lhs: () -> T, rhs: BindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
-public func <--<T>(lhs: BidirectionalBindableProperty<T>, rhs: () -> T) {
+public func <--<Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: () -> T) {
     lhs.bind(rhs)
 }
 
-public func --><T>(lhs: () -> T, rhs: BidirectionalBindableProperty<T>) {
+public func --><Control: AnyObject, T>(lhs: () -> T, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 
 //MARK: - Two way binding
 
-public func <-><T>(lhs: BidirectionalBindableProperty<T>, rhs: Observable<T>) {
+public func <-><Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: Observable<T>) {
     lhs.bind(rhs)
 }
 
-public func <-><T>(lhs: Observable<T>, rhs: BidirectionalBindableProperty<T>) {
+public func <-><Control: AnyObject, T>(lhs: Observable<T>, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 

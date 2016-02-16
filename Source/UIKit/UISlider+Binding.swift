@@ -28,24 +28,17 @@ private var b_value_key = 0
 
 public extension UISlider {
     
-    var b_value: BidirectionalBindableProperty<Float> {
+    var b_value: BidirectionalBindableProperty<UISlider, Float> {
         return associatedObjectProperty(self, &b_value_key) { _ in
-            addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            let cleanup = DisposableBlock { [weak self] in
-                self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-            }
-
-            return BidirectionalBindableProperty<Float>(
-                getter: { [weak self] in self?.value ?? 0.0 },
-                setter: { [weak self] value in self?.value = value },
-                extraCleanup: cleanup
+            return TargetActionBindableProperty(
+                control: self,
+                getter: { slider in slider.value },
+                setter: { slider, newValue in slider.value = newValue },
+                events: .ValueChanged
             )
         }
     }
-    
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_value.pushChangeToObservable()
-    }
+
 }
 
 
