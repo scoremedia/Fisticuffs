@@ -32,12 +32,12 @@ private var b_shouldReturn_key = 0
 
 public extension UITextField {
     
-    var b_text: BidirectionalBindableProperty<UITextField, String> {
+    var b_text: BidirectionalBindableProperty<UITextField, String?> {
         get {
             return associatedObjectProperty(self, &b_text_key) { _ in
                 return TargetActionBindableProperty(
                     control: self,
-                    getter: { control in control.text ?? "" },
+                    getter: { control in control.text },
                     setter: { control, text in control.text = text },
                     events: .EditingChanged
                 )

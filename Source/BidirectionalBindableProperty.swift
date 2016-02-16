@@ -59,8 +59,9 @@ extension BidirectionalBindableProperty {
     }
 }
 
+//MARK: - Binding
 public extension BidirectionalBindableProperty {
-    //MARK: - Two way binding
+    //MARK: Two way binding
     public func bind(observable: Observable<ValueType>) {
         bind(observable, DefaultBindingHandler())
     }
@@ -83,7 +84,7 @@ public extension BidirectionalBindableProperty {
         currentBinding = disposables
     }
     
-    //MARK: - One way binding
+    //MARK: One way binding
 
     public func bind(subscribable: Subscribable<ValueType>) {
         bind(subscribable, DefaultBindingHandler())
@@ -97,6 +98,53 @@ public extension BidirectionalBindableProperty {
 
         bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
         currentBinding = bindingHandler
+    }
+}
+
+//MARK: - Binding - Optionals
+public extension BidirectionalBindableProperty where ValueType: OptionalType {
+    //MARK: Two way binding
+
+    public func bind(observable: Observable<ValueType.Wrapped>) {
+        bind(observable, DefaultBindingHandler())
+    }
+
+    public func bind<Data>(observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+        currentBinding?.dispose()
+        currentBinding = nil
+
+        guard let control = control else { return }
+
+        let disposables = DisposableBag()
+
+        let outerBindingHandler = OptionalTypeBindingHandler<Control, Data, ValueType>(innerHandler: bindingHandler)
+        outerBindingHandler.setup(control, propertySetter: setter, subscribable: observable)
+        disposables.add(outerBindingHandler)
+
+        outerBindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak observable] _, data in
+            observable?.value = data
+        }.addTo(disposables)
+
+        currentBinding = disposables
+    }
+
+    //MARK: One way binding
+
+    public func bind(subscribable: Subscribable<ValueType.Wrapped>) {
+        bind(subscribable, DefaultBindingHandler())
+    }
+
+    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+        currentBinding?.dispose()
+        currentBinding = nil
+
+        guard let control = control else { return }
+
+        let outerBindingHandler = OptionalTypeBindingHandler<Control, Data, ValueType>(innerHandler: bindingHandler)
+
+        outerBindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
+
+        currentBinding = outerBindingHandler
     }
 }
 

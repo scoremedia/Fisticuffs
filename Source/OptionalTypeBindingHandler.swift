@@ -23,4 +23,13 @@ public class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue:
         }
         innerHandler.set(control: control, oldValue: oldValue, value: value, propertySetter: convertedSetter)
     }
+
+    public override func get(control control: Control, propertyGetter: PropertyGetter) throws -> Data {
+        let innerValue = propertyGetter(control)
+        let unwrapped = try innerValue.toUnwrappedValue()
+
+        let convertedGetter: InnerHandler.PropertyGetter = { _ in unwrapped }
+
+        return try innerHandler.get(control: control, propertyGetter: convertedGetter)
+    }
 }
