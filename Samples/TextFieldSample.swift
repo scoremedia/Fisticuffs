@@ -83,19 +83,19 @@ class TextFieldSampleViewController: UITableViewController {
         email.b_text.bind(viewModel.email)
         
         
-        firstNameValidity.b_text.bind(viewModel.firstNameValid, transform: TextFieldSampleViewController.validStringTransform)
-        firstNameValidity.b_textColor.bind(viewModel.firstNameValid, transform: TextFieldSampleViewController.validColorTransform)
+        firstNameValidity.b_text.bind(viewModel.firstNameValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
+        firstNameValidity.b_textColor.bind(viewModel.firstNameValid, BindingHandlers.transform(TextFieldSampleViewController.validColorTransform))
         
-        lastNameValidity.b_text.bind(viewModel.lastNameValid, transform: TextFieldSampleViewController.validStringTransform)
-        lastNameValidity.b_textColor.bind(viewModel.lastNameValid, transform: TextFieldSampleViewController.validColorTransform)
+        lastNameValidity.b_text.bind(viewModel.lastNameValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
+        lastNameValidity.b_textColor.bind(viewModel.lastNameValid, BindingHandlers.transform(TextFieldSampleViewController.validColorTransform))
         
-        emailValidity.b_text.bind(viewModel.emailValid, transform: TextFieldSampleViewController.validStringTransform)
-        emailValidity.b_textColor.bind(viewModel.emailValid, transform: TextFieldSampleViewController.validColorTransform)
+        emailValidity.b_text.bind(viewModel.emailValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
+        emailValidity.b_textColor.bind(viewModel.emailValid, BindingHandlers.transform(TextFieldSampleViewController.validColorTransform))
         
         // Only let users move on to next field if they've correctly filled out the current one
-        firstName.b_shouldReturn.bind(viewModel.firstNameValid, transform: { value in value ?? false })
-        lastName.b_shouldReturn.bind(viewModel.lastNameValid, transform: { value in value ?? false })
-        email.b_shouldReturn.bind(viewModel.emailValid, transform: { value in value ?? false })
+        firstName.b_shouldReturn.bind(viewModel.firstNameValid, BindingHandlers.transform { value in value ?? false })
+        lastName.b_shouldReturn.bind(viewModel.lastNameValid, BindingHandlers.transform { value in value ?? false })
+        email.b_shouldReturn.bind(viewModel.emailValid, BindingHandlers.transform { value in value ?? false })
         
         // Pressing enter should move the user on to the next field
         firstName.b_willReturn.subscribe { [weak self] in

@@ -70,7 +70,7 @@ class ControlsSampleViewController: UITableViewController {
         super.viewDidLoad()
         
         resultsDisplay.b_backgroundColor.bind(viewModel.color)
-        resultsDisplay.b_alpha.bind(viewModel.alpha, transform: { value in CGFloat(value) })
+        resultsDisplay.b_alpha.bind(viewModel.alpha, BindingHandlers.transform { value in CGFloat(value) })
         resultsDisplay.b_hidden.bind(viewModel.hidden)
         
         

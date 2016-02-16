@@ -51,11 +51,16 @@ public extension BindableProperty {
         bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
         currentBinding = bindingHandler
     }
-    
+
+}
+
+public extension BindableProperty {
+    @available(*, deprecated, message="Use BindableProperty(subscribable, BindingHandlers.transform(...)) instead")
     public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
         bind(subscribable, BindingHandlers.transform(transform))
     }
-    
+
+    @available(*, deprecated, message="Use a Computed in place of the `block`")
     public func bind(block: () -> ValueType) {
         currentBinding?.dispose()
         currentBinding = nil

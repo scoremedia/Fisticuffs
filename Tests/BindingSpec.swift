@@ -49,27 +49,32 @@ class BindablePropertySpec: QuickSpec {
                 
                 expect(backingVariable) == "Hello"
             }
+        }
+    }
+}
+
+@available(*, deprecated)
+class BindablePropertyDeprecatedSpec: QuickSpec {
+    override func spec() {
+        it("should support a custom value transform") {
+            var backingVariable = ""
+            let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(self) { _, value in backingVariable = value }
             
-            it("should support a custom value transform") {
-                var backingVariable = ""
-                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
-                
-                let observable = Observable(11)
-                binding.bind(observable, transform: { intValue in "\(intValue)" })
-                
-                expect(backingVariable) == "11"
-            }
+            let observable = Observable(11)
+            binding.bind(observable, transform: { intValue in "\(intValue)" })
             
-            it("should support binding to a block (\"anonymous Computed\")") {
-                var backingVariable = ""
-                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
-                
-                let name = Observable("")
-                binding.bind { "Hello, \(name.value)!" }
-                name.value = "world"
-                
-                expect(backingVariable) == "Hello, world!"
-            }
+            expect(backingVariable) == "11"
+        }
+        
+        it("should support binding to a block (\"anonymous Computed\")") {
+            var backingVariable = ""
+            let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(self) { _, value in backingVariable = value }
+            
+            let name = Observable("")
+            binding.bind { "Hello, \(name.value)!" }
+            name.value = "world"
+            
+            expect(backingVariable) == "Hello, world!"
         }
     }
 }

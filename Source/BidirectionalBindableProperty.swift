@@ -98,11 +98,16 @@ public extension BidirectionalBindableProperty {
         bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
         currentBinding = bindingHandler
     }
+}
 
+//MARK: - Deprecated
+public extension BidirectionalBindableProperty {
+    @available(*, deprecated, message="Use BidirectionBindableProperty(subscribable, BindingHandlers.transform(...)) instead")
     public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
         bind(subscribable, BindingHandlers.transform(transform))
     }
 
+    @available(*, deprecated, message="Use a Computed in place of the `block`")
     public func bind(block: () -> ValueType) {
         currentBinding?.dispose()
         currentBinding = nil

@@ -72,18 +72,7 @@ class BidirectionalBindingSpec: QuickSpec {
                 binding.bind(computed)
                 expect(backingVariable) == "11"
             }
-            
-            it("should support one way binding with a transform") {
-                let observable = Observable(11)
-                binding.bind(observable, transform: { "\($0)" })
-                expect(backingVariable) == "11"
-            }
-            
-            it("should support one way binding to a block") {
-                let observable = Observable(10)
-                binding.bind { "\(observable.value + 1)" }
-                expect(backingVariable) == "11"
-            }
+
             
             it("should support additional cleanup on deinit") {
                 var disposed = false
@@ -120,3 +109,32 @@ class BidirectionalBindingSpec: QuickSpec {
     }
 }
 
+@available(*, deprecated)
+class BidirectionalBindingDeprecatedSpec: QuickSpec {
+    override func spec() {
+        describe("BidirectionalBindableProperty") {
+            var backingVariable = ""
+            var binding: BidirectionalBindableProperty<BidirectionalBindingDeprecatedSpec, String>!
+
+            beforeEach {
+                binding = BidirectionalBindableProperty(
+                    control: self,
+                    getter: { _ in backingVariable },
+                    setter: { _, value in backingVariable = value }
+                )
+            }
+
+            it("should support one way binding with a transform") {
+                let observable = Observable(11)
+                binding.bind(observable, transform: { "\($0)" })
+                expect(backingVariable) == "11"
+            }
+            
+            it("should support one way binding to a block") {
+                let observable = Observable(10)
+                binding.bind { "\(observable.value + 1)" }
+                expect(backingVariable) == "11"
+            }
+        }
+    }
+}
