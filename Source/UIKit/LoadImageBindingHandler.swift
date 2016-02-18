@@ -15,8 +15,9 @@ public struct LoadImageBindingHandlerConfig {
 
     /// Can be replaced (for example, if you are using a logging framework, or you wish to silence errors)
     /// Handler is passed the NSURL for the image that was loaded, and the NSError (or nil if `UIImage.init(data:)` failed)
-    public static var imageLoadErrorLogger: (NSURL, NSError?) -> Void = { url, error in
-        print("Failed to load image at \(url): \(error)")
+    public static var logImageLoadError: (NSURL, NSError?) -> Void = { url, error in
+        let errorMessage = error.map { error in "\(error)" } ?? "Failed to parse image data"
+        print("Failed to load image at \(url): \(errorMessage)")
     }
 
     private static let imageCache = NSCache()
@@ -45,11 +46,13 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
         }
 
         currentTask = LoadImageBindingHandlerConfig.URLSession.dataTaskWithURL(value) { [weak control] data, response, error in
-            if error != nil {
+            if let error = error {
+                LoadImageBindingHandlerConfig.logImageLoadError(value, error)
                 return
             }
 
             guard let data = data, image = UIImage(data: data) else {
+                LoadImageBindingHandlerConfig.logImageLoadError(value, nil)
                 return
             }
 
