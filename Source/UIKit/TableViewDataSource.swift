@@ -61,13 +61,12 @@ extension UITableView: DataSourceView {
 
 
 public class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>, UITableViewDataSource, UITableViewDelegate {
-    
-    public var allowsDeletion = false
-    
-    public override init(subscribable: Subscribable<[Item]>, view: UITableView) {
-        super.init(subscribable: subscribable, view: view)
+
+    public convenience init(subscribable: Subscribable<[Item]>, view: View) {
+        let section = Section<Item, View>(subscribable: subscribable)
+        self.init(view: view, section: section)
     }
-    
+
     //MARK: UITableViewDataSource
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -91,7 +90,8 @@ public class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>
     }
     
     public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return editable && (allowsDeletion || allowsMoving)
+        let castSection = section as! TableViewSection<Item, UITableView> //TODO: Fix this LOL!
+        return editable && (castSection.allowsDeletion || allowsMoving)
     }
     
     public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -143,11 +143,13 @@ public class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>
     }
     
     public func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return editable && allowsDeletion ? .Delete : .None
+        let castSection = section as! TableViewSection<Item, UITableView> //TODO: Fix this LOL!
+        return editable && castSection.allowsDeletion ? .Delete : .None
     }
     
     public func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return allowsDeletion ? true : false
+        let castSection = section as! TableViewSection<Item, UITableView> //TODO: Fix this LOL!
+        return castSection.allowsDeletion ? true : false
     }
     
 }

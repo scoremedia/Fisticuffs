@@ -27,10 +27,10 @@ private var b_editing_key = 0
 
 public extension UITableView {
         
-    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, @noescape block: (TableViewDataSource<Item>) -> Void) {
+    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, @noescape block: (TableViewSection<Item, UITableView>) -> Void) {
             
             let dataSource = TableViewDataSource(subscribable: items, view: self)
-            block(dataSource)
+            block(dataSource.section as! TableViewSection<Item, UITableView>) //TODO: Fix me LOL!
 
             setAssociatedObjectProperty(self, &dataSource_key, value: dataSource as AnyObject)
 
