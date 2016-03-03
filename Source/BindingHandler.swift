@@ -36,6 +36,9 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
 
     private var accessingUnderlyingProperty = false
 
+    public init() { // so we can be subclassed outside of Fisticuffs
+    }
+
     func setup(control: Control, propertySetter: PropertySetter, subscribable: Subscribable<DataValue>) {
         self.control = control
         self.propertySetter = propertySetter
