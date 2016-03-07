@@ -61,6 +61,8 @@
 		6A1DB75B1BFE7DCB003817D9 /* TextFieldSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DB75A1BFE7DCB003817D9 /* TextFieldSample.swift */; };
 		6A1DB75C1BFFBD96003817D9 /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
 		6A1DB75D1BFFBD96003817D9 /* Fisticuffs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A218A961C8DE672000F0799 /* WritableComputed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A218A951C8DE672000F0799 /* WritableComputed.swift */; };
+		6A218AA81C8DE88D000F0799 /* WritableComputedSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A218AA61C8DE7FC000F0799 /* WritableComputedSpec.swift */; };
 		6A385FD91C246A0800DCB5AD /* DataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
 		6A6B3BD91BFE190600B825DB /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
@@ -282,6 +284,8 @@
 		6A1DB7521BFE5B2E003817D9 /* UIDatePicker+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Binding.swift"; sourceTree = "<group>"; };
 		6A1DB7541BFE5ED8003817D9 /* UIPageControl+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageControl+Binding.swift"; sourceTree = "<group>"; };
 		6A1DB75A1BFE7DCB003817D9 /* TextFieldSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldSample.swift; sourceTree = "<group>"; };
+		6A218A951C8DE672000F0799 /* WritableComputed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritableComputed.swift; sourceTree = "<group>"; };
+		6A218AA61C8DE7FC000F0799 /* WritableComputedSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritableComputedSpec.swift; sourceTree = "<group>"; };
 		6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceSpec.swift; sourceTree = "<group>"; };
 		6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSampleController.swift; sourceTree = "<group>"; };
 		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
@@ -375,6 +379,7 @@
 				6A09EF111BFB816D005C2B81 /* Subscribable.swift */,
 				6A09EF121BFB816D005C2B81 /* SubscriptionCollection.swift */,
 				6A09EF131BFB816D005C2B81 /* SubscriptionOptions.swift */,
+				6A218A951C8DE672000F0799 /* WritableComputed.swift */,
 				6A09EF141BFB816D005C2B81 /* Fisticuffs.h */,
 				6A09EF151BFB816D005C2B81 /* UIKit */,
 				6A09EF231BFB816D005C2B81 /* ViewModel.swift */,
@@ -429,6 +434,7 @@
 				6A09EF4D1BFB878F005C2B81 /* UIKitBindingSpec.swift */,
 				6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */,
 				6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */,
+				6A218AA61C8DE7FC000F0799 /* WritableComputedSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -774,6 +780,7 @@
 				6A09EF261BFB816D005C2B81 /* Computed.swift in Sources */,
 				6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */,
 				6A09EF311BFB816D005C2B81 /* SubscriptionCollection.swift in Sources */,
+				6A218A961C8DE672000F0799 /* WritableComputed.swift in Sources */,
 				6A09EF411BFB816D005C2B81 /* ViewModel.swift in Sources */,
 				6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */,
 				6AEADE5D1C6E6F5C008DFDBA /* BindingHandler.swift in Sources */,
@@ -819,6 +826,7 @@
 				6A09EF511BFB878F005C2B81 /* DependencyTrackerSpec.swift in Sources */,
 				6A09EF531BFB878F005C2B81 /* EventSpec.swift in Sources */,
 				6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */,
+				6A218AA81C8DE88D000F0799 /* WritableComputedSpec.swift in Sources */,
 				6A09EF521BFB878F005C2B81 /* DisposableBagSpec.swift in Sources */,
 				6A09EF561BFB878F005C2B81 /* ObservableSpec.swift in Sources */,
 				6A09EF551BFB878F005C2B81 /* ObservableArraySpec.swift in Sources */,
