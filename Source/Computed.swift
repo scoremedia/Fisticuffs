@@ -61,9 +61,11 @@ public class Computed<Value>: Subscribable<Value> {
     }
     
     func updateValue() {
+        var result: Value!
         let dependencies = DependencyTracker.findDependencies {
-            value = valueBlock()
+            result = valueBlock()
         }
+        value = result
         
         for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in

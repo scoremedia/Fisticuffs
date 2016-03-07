@@ -65,9 +65,11 @@ public class WritableComputed<Value>: Observable<Value> {
     }
 
     func updateValue() {
+        var result: Value!
         let dependencies = DependencyTracker.findDependencies {
-            setValue(getter())
+            result = getter()
         }
+        setValue(result)
 
         for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in

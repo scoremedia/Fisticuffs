@@ -57,6 +57,27 @@ class ComputedSpec: QuickSpec {
                 a.value = 42
                 expect(display.value) == "Sum: 84"
             }
+
+            it("should not collect dependencies for any Subscribables read in its subscriptions") {
+                let shouldNotDependOn = Observable(false)
+
+                let a = Observable(11)
+
+                let computed = Computed { a.value }
+                // attempt to introduce a (false) dependency on `shouldNotDependOn`
+                computed.subscribe { _, _ in
+                    shouldNotDependOn.value
+                }
+                a.value = 5 // trigger the subscription block
+
+                var fired = false
+                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)) { _, _ in fired = true }
+
+                // if a dependency was added, this'll cause `fired` to be set to `true`
+                shouldNotDependOn.value = true
+
+                expect(fired) == false
+            }
         }
     }
 }
