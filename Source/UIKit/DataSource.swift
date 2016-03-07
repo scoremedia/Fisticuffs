@@ -49,6 +49,7 @@ public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     
     private var items: [Item] = []
 
+    private var didInitialSelectionSync = false
     private var ignoreSelectionChanges: Bool = false
     private var selectionsSubscription: Disposable?
     private var selectionSubscription: Disposable?
@@ -217,6 +218,17 @@ extension DataSource {
 
 extension DataSource {
     public func numberOfSections() -> Int {
+        // Sadly this is the best place to hook into this... If we try to sync 
+        // selections before the table/collection view has been loaded (ie, when 
+        // setting up its bindings), it won't save those selections.  This triggers a
+        // sync again after the table/collection view has loaded its data
+        if didInitialSelectionSync == false {
+            didInitialSelectionSync = true
+            dispatch_async(dispatch_get_main_queue()) {
+                self.syncSelections()
+            }
+        }
+
         return 1
     }
     
