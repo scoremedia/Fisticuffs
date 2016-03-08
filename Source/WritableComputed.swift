@@ -25,6 +25,10 @@ public class WritableComputed<Value>: Observable<Value> {
     //MARK: -
     public override var value: Value {
         get {
+            if dirty {
+                updateValue()
+            }
+
             DependencyTracker.didReadObservable(self)
             return storage
         }

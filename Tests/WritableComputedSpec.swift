@@ -76,27 +76,40 @@ class WritableComputedSpec: QuickSpec {
                 expect(sum.value).toEventually(equal(84))
             }
 
-            it("should coalesce updates") {
-                var numberOfTimesComputed = 0
+            context("coalescing updates") {
+                it("should coalesce updates") {
+                    var numberOfTimesComputed = 0
 
-                let a = Observable(11)
-                let b = Observable(42)
+                    let a = Observable(11)
+                    let b = Observable(42)
 
-                let sum: WritableComputed<Int> = WritableComputed(
-                    getter: {
-                        numberOfTimesComputed += 1
-                        return a.value + b.value
-                    },
-                    setter: { _ in }
-                )
+                    let sum: WritableComputed<Int> = WritableComputed(
+                        getter: {
+                            numberOfTimesComputed += 1
+                            return a.value + b.value
+                        },
+                        setter: { _ in }
+                    )
 
-                a.value = 2
-                b.value = 3
+                    a.value = 2
+                    b.value = 3
 
-                expect(sum.value).toEventually(equal(5))
+                    expect(sum.value).toEventually(equal(5))
 
-                // once for init() & once for updating a/b
-                expect(numberOfTimesComputed) == 2
+                    // once for init() & once for updating a/b
+                    expect(numberOfTimesComputed) == 2
+                }
+
+                it("should immediately recompute if `.value` is accessed & it is dirty") {
+                    let a = Observable(5)
+                    let result = WritableComputed(
+                        getter: { a.value },
+                        setter: { _ in }
+                    )
+
+                    a.value = 11
+                    expect(result.value) == 11
+                }
             }
 
             it("should not collect dependencies for any Subscribables read in its subscriptions") {

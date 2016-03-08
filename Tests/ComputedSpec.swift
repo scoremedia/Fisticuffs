@@ -58,24 +58,33 @@ class ComputedSpec: QuickSpec {
                 expect(display.value) == "Sum: 84"
             }
 
-            it("should coalesce updates") {
-                var numberOfTimesComputed = 0
+            context("coalescing updates") {
+                it("should coalesce updates") {
+                    var numberOfTimesComputed = 0
 
-                let a = Observable(11)
-                let b = Observable(42)
+                    let a = Observable(11)
+                    let b = Observable(42)
 
-                let sum = Computed { a.value + b.value }
-                let display: Computed<String> = Computed {
-                    numberOfTimesComputed += 1
-                    return "Sum: \(sum.value)"
+                    let sum = Computed { a.value + b.value }
+                    let display: Computed<String> = Computed {
+                        numberOfTimesComputed += 1
+                        return "Sum: \(sum.value)"
+                    }
+
+                    a.value = 2
+                    b.value = 3
+                    expect(display.value).toEventually(equal("Sum: 5"))
+
+                    // once for init() & once for updating a/b
+                    expect(numberOfTimesComputed) == 2
                 }
 
-                a.value = 2
-                b.value = 3
-                expect(display.value).toEventually(equal("Sum: 5"))
-
-                // once for init() & once for updating a/b
-                expect(numberOfTimesComputed) == 2
+                it("should immediately recompute if `.value` is accessed & it is dirty") {
+                    let a = Observable(5)
+                    let result = Computed { a.value }
+                    a.value = 11
+                    expect(result.value) == 11
+                }
             }
 
             it("should not collect dependencies for any Subscribables read in its subscriptions") {
