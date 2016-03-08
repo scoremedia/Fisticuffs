@@ -55,10 +55,17 @@ public class Computed<Value>: Subscribable<Value> {
 
     //MARK: -
     public init(block: Void -> Value) {
-        storage = block()
         valueBlock = block
+
+        var result: Value!
+        let dependencies = DependencyTracker.findDependencies {
+            result = block()
+        }
+        storage = result
+
         super.init()
-        updateValue()
+
+        subscribeToDependencies(dependencies)
     }
     
     deinit {
@@ -88,7 +95,11 @@ public class Computed<Value>: Subscribable<Value> {
         }
         value = result
         dirty = false
-        
+
+        subscribeToDependencies(dependencies)
+    }
+
+    func subscribeToDependencies(dependencies: [AnySubscribable]) {
         for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in
                 return observable === dependency
