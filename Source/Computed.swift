@@ -93,8 +93,8 @@ public class Computed<Value>: Subscribable<Value> {
         let dependencies = DependencyTracker.findDependencies {
             result = valueBlock()
         }
-        value = result
         dirty = false
+        value = result
 
         subscribeToDependencies(dependencies)
     }

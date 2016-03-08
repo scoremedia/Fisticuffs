@@ -110,6 +110,21 @@ class WritableComputedSpec: QuickSpec {
                     a.value = 11
                     expect(result.value) == 11
                 }
+
+                it("should not recurse infinitely if the value is accessed in the subscription block") {
+                    let a = Observable(5)
+                    let result = WritableComputed(
+                        getter: { a.value },
+                        setter: { _ in }
+                    )
+                    
+                    result.subscribe { [weak result] in
+                        result?.value
+                    }
+                    a.value = 11
+                    expect(result.value) == 11
+                    // this test will blow the stack here if it fails
+                }
             }
 
             it("should not collect dependencies for any Subscribables read in its subscriptions") {

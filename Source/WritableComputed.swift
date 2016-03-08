@@ -96,8 +96,8 @@ public class WritableComputed<Value>: Observable<Value> {
         let dependencies = DependencyTracker.findDependencies {
             result = getter()
         }
-        setValue(result)
         dirty = false
+        setValue(result)
 
         subscribeToDependencies(dependencies)
     }
