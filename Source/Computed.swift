@@ -28,6 +28,10 @@ public class Computed<Value>: Subscribable<Value> {
     //MARK: -
     public private(set) var value: Value {
         get {
+            if dirty {
+                updateValue()
+            }
+
             DependencyTracker.didReadObservable(self)
             return storage
         }
@@ -40,6 +44,9 @@ public class Computed<Value>: Subscribable<Value> {
         }
     }
     private var storage: Value
+
+    private var dirty: Bool = false
+    private var pendingUpdate: Bool = false
     
     let valueBlock: Void -> Value
     var dependencies = [(AnySubscribable, Disposable)]()
@@ -48,15 +55,36 @@ public class Computed<Value>: Subscribable<Value> {
 
     //MARK: -
     public init(block: Void -> Value) {
-        storage = block()
         valueBlock = block
+
+        var result: Value!
+        let dependencies = DependencyTracker.findDependencies {
+            result = block()
+        }
+        storage = result
+
         super.init()
-        updateValue()
+
+        subscribeToDependencies(dependencies)
     }
     
     deinit {
         for (_, disposable) in dependencies {
             disposable.dispose()
+        }
+    }
+
+    func setNeedsUpdate() {
+        if dirty == false {
+            dirty = true
+            subscriptionCollection.notify(time: .ValueIsDirty, old: storage, new: storage)
+            if pendingUpdate == false {
+                pendingUpdate = true
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.pendingUpdate = false
+                    self.updateValue()
+                }
+            }
         }
     }
     
@@ -66,7 +94,12 @@ public class Computed<Value>: Subscribable<Value> {
             result = valueBlock()
         }
         value = result
-        
+        dirty = false
+
+        subscribeToDependencies(dependencies)
+    }
+
+    func subscribeToDependencies(dependencies: [AnySubscribable]) {
         for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in
                 return observable === dependency
@@ -74,9 +107,10 @@ public class Computed<Value>: Subscribable<Value> {
             
             if isObserving == false {
                 var options = SubscriptionOptions()
+                options.when = .ValueIsDirty
                 options.notifyOnSubscription = false
                 let disposable = dependency.subscribe(options) { [weak self] in
-                    self?.updateValue()
+                    self?.setNeedsUpdate()
                 }
                 self.dependencies.append((dependency, disposable))
             }

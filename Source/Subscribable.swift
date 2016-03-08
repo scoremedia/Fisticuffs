@@ -39,6 +39,8 @@ public class Subscribable<Value> : AnySubscribable {
     }
 
     public func subscribe(options: SubscriptionOptions, block: (Value?, Value) -> Void) -> Disposable {
+        let currentValue = self.currentValue
+
         let disposable = subscriptionCollection.add(when: options.when, callback: block)
         if let value = currentValue where options.notifyOnSubscription {
             block(value, value)

@@ -34,6 +34,9 @@ public class WritableComputed<Value>: Observable<Value> {
     }
     private var storage: Value
 
+    private var dirty: Bool = false
+    private var pendingUpdate: Bool = false
+
     let getter: Void -> Value
     let setter: Value -> Void
 
@@ -43,11 +46,17 @@ public class WritableComputed<Value>: Observable<Value> {
 
     //MARK: -
     public init(getter: Void -> Value, setter: Value -> Void) {
-        storage = getter()
+        var result: Value!
+        let dependencies = DependencyTracker.findDependencies {
+            result = getter()
+        }
+        storage = result
+
         self.getter = getter
         self.setter = setter
         super.init(storage)
-        updateValue()
+
+        subscribeToDependencies(dependencies)
     }
 
     deinit {
@@ -64,13 +73,32 @@ public class WritableComputed<Value>: Observable<Value> {
         subscriptionCollection.notify(time: .AfterChange, old: oldValue, new: newValue)
     }
 
+    func setNeedsUpdate() {
+        if dirty == false {
+            dirty = true
+            subscriptionCollection.notify(time: .ValueIsDirty, old: storage, new: storage)
+            if pendingUpdate == false {
+                pendingUpdate = true
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.pendingUpdate = false
+                    self.updateValue()
+                }
+            }
+        }
+    }
+
     func updateValue() {
         var result: Value!
         let dependencies = DependencyTracker.findDependencies {
             result = getter()
         }
         setValue(result)
+        dirty = false
 
+        subscribeToDependencies(dependencies)
+    }
+
+    func subscribeToDependencies(dependencies: [AnySubscribable]) {
         for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in
                 return observable === dependency
@@ -78,9 +106,10 @@ public class WritableComputed<Value>: Observable<Value> {
 
             if isObserving == false {
                 var options = SubscriptionOptions()
+                options.when = .ValueIsDirty
                 options.notifyOnSubscription = false
                 let disposable = dependency.subscribe(options) { [weak self] in
-                    self?.updateValue()
+                    self?.setNeedsUpdate()
                 }
                 self.dependencies.append((dependency, disposable))
             }
