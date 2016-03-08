@@ -25,6 +25,8 @@ import Foundation
 public enum NotifyWhen {
     case BeforeChange
     case AfterChange
+
+    case ValueIsDirty
 }
 
 public struct SubscriptionOptions {

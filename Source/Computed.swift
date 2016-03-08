@@ -68,12 +68,15 @@ public class Computed<Value>: Subscribable<Value> {
     }
 
     func setNeedsUpdate() {
-        dirty = true
-        if pendingUpdate == false {
-            pendingUpdate = true
-            dispatch_async(dispatch_get_main_queue()) {
-                self.pendingUpdate = false
-                self.updateValue()
+        if dirty == false {
+            dirty = true
+            subscriptionCollection.notify(time: .ValueIsDirty, old: storage, new: storage)
+            if pendingUpdate == false {
+                pendingUpdate = true
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.pendingUpdate = false
+                    self.updateValue()
+                }
             }
         }
     }
@@ -93,6 +96,7 @@ public class Computed<Value>: Subscribable<Value> {
             
             if isObserving == false {
                 var options = SubscriptionOptions()
+                options.when = .ValueIsDirty
                 options.notifyOnSubscription = false
                 let disposable = dependency.subscribe(options) { [weak self] in
                     self?.setNeedsUpdate()

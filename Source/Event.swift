@@ -31,6 +31,7 @@ public class Event<Value> : Subscribable<Value> {
 
     public func fire(value: Value) {
         subscriptionCollection.notify(time: .BeforeChange, old: nil, new: value)
+        subscriptionCollection.notify(time: .ValueIsDirty, old: nil, new: value)
         subscriptionCollection.notify(time: .AfterChange, old: nil, new: value)
     }
     

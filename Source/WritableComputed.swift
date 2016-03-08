@@ -60,6 +60,7 @@ public class WritableComputed<Value>: Observable<Value> {
         let oldValue = storage
 
         subscriptionCollection.notify(time: .BeforeChange, old: oldValue, new: newValue)
+        subscriptionCollection.notify(time: .ValueIsDirty, old: oldValue, new: newValue)
         storage = newValue
         subscriptionCollection.notify(time: .AfterChange, old: oldValue, new: newValue)
     }

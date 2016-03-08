@@ -31,6 +31,7 @@ public class Observable<Value> : Subscribable<Value> {
             let old = storage
             
             subscriptionCollection.notify(time: .BeforeChange, old: old, new: newValue)
+            subscriptionCollection.notify(time: .ValueIsDirty, old: old, new: newValue)
             storage = newValue
             subscriptionCollection.notify(time: .AfterChange, old: old, new: storage)
         }
