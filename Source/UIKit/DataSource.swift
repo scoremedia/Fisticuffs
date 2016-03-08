@@ -258,10 +258,14 @@ extension DataSource {
     public func didSelect(indexPath indexPath: NSIndexPath) {
         let item = itemAtIndexPath(indexPath)
 
-        selections?.value.append(item)
-        if selection?.value != item {
-            selection?.value = item
+        self.ignoreSelectionChanges = true
+        do {
+            selections?.value.append(item)
+            if selection?.value != item {
+                selection?.value = item
+            }
         }
+        self.ignoreSelectionChanges = false
 
         onSelect.fire(item)
         
@@ -274,13 +278,17 @@ extension DataSource {
     public func didDeselect(indexPath indexPath: NSIndexPath) {
         let item = itemAtIndexPath(indexPath)
 
-        if let index = selections?.value.indexOf(item) {
-            selections?.value.removeAtIndex(index)
+        self.ignoreSelectionChanges = true
+        do {
+            if let index = selections?.value.indexOf(item) {
+                selections?.value.removeAtIndex(index)
+            }
+            if selection?.value == item {
+                // reset back to the first multiple selection (or none if there isn't one)
+                selection?.value = selections?.value.first
+            }
         }
-        if selection?.value == item {
-            // reset back to the first multiple selection (or none if there isn't one)
-            selection?.value = selections?.value.first
-        }
+        self.ignoreSelectionChanges = false
 
         onDeselect.fire(item)
     }
