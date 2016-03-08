@@ -73,8 +73,8 @@ class BindablePropertyDeprecatedSpec: QuickSpec {
             let name = Observable("")
             binding.bind { "Hello, \(name.value)!" }
             name.value = "world"
-            
-            expect(backingVariable) == "Hello, world!"
+
+            expect(backingVariable).toEventually(equal("Hello, world!"))
         }
     }
 }

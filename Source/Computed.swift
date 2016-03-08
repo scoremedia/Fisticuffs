@@ -28,6 +28,10 @@ public class Computed<Value>: Subscribable<Value> {
     //MARK: -
     public private(set) var value: Value {
         get {
+            if dirty {
+                updateValue()
+            }
+
             DependencyTracker.didReadObservable(self)
             return storage
         }
@@ -40,6 +44,9 @@ public class Computed<Value>: Subscribable<Value> {
         }
     }
     private var storage: Value
+
+    private var dirty: Bool = false
+    private var pendingUpdate: Bool = false
     
     let valueBlock: Void -> Value
     var dependencies = [(AnySubscribable, Disposable)]()
@@ -59,6 +66,17 @@ public class Computed<Value>: Subscribable<Value> {
             disposable.dispose()
         }
     }
+
+    func setNeedsUpdate() {
+        dirty = true
+        if pendingUpdate == false {
+            pendingUpdate = true
+            dispatch_async(dispatch_get_main_queue()) {
+                self.pendingUpdate = false
+                self.updateValue()
+            }
+        }
+    }
     
     func updateValue() {
         var result: Value!
@@ -66,6 +84,7 @@ public class Computed<Value>: Subscribable<Value> {
             result = valueBlock()
         }
         value = result
+        dirty = false
         
         for dependency in dependencies where dependency !== self {
             let isObserving = self.dependencies.contains { (observable, _) -> Bool in
@@ -76,7 +95,7 @@ public class Computed<Value>: Subscribable<Value> {
                 var options = SubscriptionOptions()
                 options.notifyOnSubscription = false
                 let disposable = dependency.subscribe(options) { [weak self] in
-                    self?.updateValue()
+                    self?.setNeedsUpdate()
                 }
                 self.dependencies.append((dependency, disposable))
             }
