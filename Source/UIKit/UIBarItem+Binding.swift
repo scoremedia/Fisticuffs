@@ -1,6 +1,6 @@
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 theScore Inc.
+//  Copyright (c) 2016 theScore Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,25 +22,30 @@
 
 import Foundation
 
-private var b_onTap_key = 0
+private var b_title_key = 0
+private var b_enabled_key = 0
 
 
-public extension UIBarButtonItem {
-    
-    var b_onTap: Event<Void> {
-        return associatedObjectProperty(self, &b_onTap_key) { _ in
-            assert(target == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
-            assert(action == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
-            
-            target = self
-            action = "b_receivedOnTap:"
-            
-            return Event<Void>()
+public extension UIBarItem {
+
+    var b_title: BindableProperty<UIBarItem, String?> {
+        get {
+            return associatedObjectProperty(self, &b_title_key) { _ in
+                return BindableProperty(self, setter: { control, value in
+                    control.title = value
+                })
+            }
         }
     }
-    
-    @objc private func b_receivedOnTap(sender: AnyObject) {
-        b_onTap.fire()
+
+    var b_enabled: BindableProperty<UIBarItem, Bool> {
+        get {
+            return associatedObjectProperty(self, &b_enabled_key) { _ in
+                return BindableProperty(self, setter: { control, value in
+                    control.enabled = value
+                })
+            }
+        }
     }
-    
+
 }
