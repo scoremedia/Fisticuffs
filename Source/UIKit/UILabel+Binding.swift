@@ -36,7 +36,7 @@ public extension UILabel {
         }
     }
         
-    var b_textColor: BindableProperty<UILabel, UIColor!> {
+    var b_textColor: BindableProperty<UILabel, UIColor?> {
         return associatedObjectProperty(self, &b_textColor_key) { _ in
             return BindableProperty(self, setter: { control, value in
                 control.textColor = value

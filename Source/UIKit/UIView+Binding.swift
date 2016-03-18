@@ -54,7 +54,7 @@ public extension UIView {
         }
     }
 
-    var b_tintColor: BindableProperty<UIView, UIColor!> {
+    var b_tintColor: BindableProperty<UIView, UIColor?> {
         return associatedObjectProperty(self, &b_tintColor_key) { _ in
             return BindableProperty(self, setter: { control, value in
                 control.tintColor = value
