@@ -27,6 +27,7 @@ public struct LoadImageBindingHandlerConfig {
 class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSURL?, UIImage?> {
 
     private var currentTask: NSURLSessionDataTask?
+    private var currentURL: NSURL?
     private let placeholder: UIImage?
 
     init(placeholder: UIImage? = nil) {
@@ -37,15 +38,18 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
         propertySetter(control, placeholder)
         currentTask?.cancel()
 
+        currentURL = value
+
         guard let value = value else {
             return
         }
 
         if let cached = LoadImageBindingHandlerConfig.imageCache.objectForKey(value) as? UIImage {
             propertySetter(control, cached)
+            return
         }
 
-        currentTask = LoadImageBindingHandlerConfig.URLSession.dataTaskWithURL(value) { [weak control] data, response, error in
+        currentTask = LoadImageBindingHandlerConfig.URLSession.dataTaskWithURL(value) { [weak self, weak control] data, response, error in
             if let error = error {
                 LoadImageBindingHandlerConfig.logImageLoadError(value, error)
                 return
@@ -58,8 +62,11 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
 
             dispatch_async(dispatch_get_main_queue()) { [weak control] in
                 LoadImageBindingHandlerConfig.imageCache.setObject(image, forKey: value)
-                if let control = control {
-                    propertySetter(control, image)
+
+                if self?.currentURL == value {
+                    if let control = control {
+                        propertySetter(control, image)
+                    }
                 }
             }
         }
