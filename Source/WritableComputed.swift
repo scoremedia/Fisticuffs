@@ -44,7 +44,7 @@ public class WritableComputed<Value>: Observable<Value> {
     let getter: Void -> Value
     let setter: Value -> Void
 
-    var dependencies = [(AnySubscribable, Disposable)]()
+    var dependencies = [AnySubscribableBox: Disposable]()
 
     public override var currentValue: Value? { return value }
 
@@ -102,20 +102,16 @@ public class WritableComputed<Value>: Observable<Value> {
         subscribeToDependencies(dependencies)
     }
 
-    func subscribeToDependencies(dependencies: [AnySubscribable]) {
-        for dependency in dependencies where dependency !== self {
-            let isObserving = self.dependencies.contains { (observable, _) -> Bool in
-                return observable === dependency
-            }
-
-            if isObserving == false {
+    func subscribeToDependencies(deps: [AnySubscribableBox]) {
+        for dependency in deps where dependency.subscribable !== self {
+            if dependencies[dependency] == nil {
                 var options = SubscriptionOptions()
                 options.when = .ValueIsDirty
                 options.notifyOnSubscription = false
-                let disposable = dependency.subscribe(options) { [weak self] in
+                let disposable = dependency.subscribable.subscribe(options) { [weak self] in
                     self?.setNeedsUpdate()
                 }
-                self.dependencies.append((dependency, disposable))
+                self.dependencies[dependency] = disposable
             }
         }
     }

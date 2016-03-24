@@ -1,6 +1,6 @@
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 theScore Inc.
+//  Copyright (c) 2016 theScore Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,27 +20,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
 
 struct DependencyTracker {
     
-    private static var observableReads: [[AnySubscribable]] = []
+    private static var stack: [DependenciesCollection] = []
     
-    static func findDependencies(@noescape block: Void -> Void) -> [AnySubscribable] {
-        observableReads.append([])
-        
+    static func findDependencies(@noescape block: Void -> Void) -> [AnySubscribableBox] {
+        let collection = DependenciesCollection()
+        stack.append(collection)
+
         block()
-        
-        return observableReads.popLast()!
+
+        stack.removeLast()
+        return Array(collection.dependencies)
     }
     
-    static func didReadObservable(observable: AnySubscribable) {
-        if var top = observableReads.last {
-            if top.contains({ $0 === observable }) == false {
-                top.append(observable)
-                observableReads[observableReads.count - 1] = top
-            }
-        }
+    static func didReadObservable(subscribable: AnySubscribable) {
+        let boxed = AnySubscribableBox(subscribable: subscribable)
+        stack.last?.dependencies.insert(boxed)
     }
     
+}
+
+// Optimization - so we don't end up creating a new Set<AnySubscribableBox> every time a dependency is read
+private class DependenciesCollection {
+    var dependencies: Set<AnySubscribableBox> = []
 }
