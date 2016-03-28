@@ -20,7 +20,24 @@ public struct LoadImageBindingHandlerConfig {
         print("Failed to load image at \(url): \(errorMessage)")
     }
 
-    private static let imageCache = NSCache()
+    /// Can be replaced to customize the image caching behaviour
+    public static let imageCache: LoadImageBindingHandlerCache = LoadImageBindingHandlerCacheImpl()
+}
+
+public protocol LoadImageBindingHandlerCache {
+    func setImage(image: UIImage, forURL URL: NSURL)
+    func imageForURL(URL: NSURL) -> UIImage?
+}
+
+class LoadImageBindingHandlerCacheImpl: LoadImageBindingHandlerCache {
+    let cache = NSCache()
+
+    func setImage(image: UIImage, forURL URL: NSURL) {
+        cache.setObject(image, forKey: URL)
+    }
+    func imageForURL(URL: NSURL) -> UIImage? {
+        return cache.objectForKey(URL) as? UIImage
+    }
 }
 
 
@@ -44,7 +61,7 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
             return
         }
 
-        if let cached = LoadImageBindingHandlerConfig.imageCache.objectForKey(value) as? UIImage {
+        if let cached = LoadImageBindingHandlerConfig.imageCache.imageForURL(value) {
             propertySetter(control, cached)
             return
         }
@@ -61,7 +78,7 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
             }
 
             dispatch_async(dispatch_get_main_queue()) { [weak control] in
-                LoadImageBindingHandlerConfig.imageCache.setObject(image, forKey: value)
+                LoadImageBindingHandlerConfig.imageCache.setImage(image, forURL: value)
 
                 if self?.currentURL == value {
                     if let control = control {
