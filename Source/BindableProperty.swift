@@ -21,13 +21,13 @@
 //  THE SOFTWARE.
 
 public class BindableProperty<Control: AnyObject, ValueType> {
-    typealias Setter = (Control, ValueType) -> Void
+    public typealias Setter = (Control, ValueType) -> Void
     
     weak var control: Control?
     let setter: (Control, ValueType) -> Void
     var currentBinding: Disposable?
     
-    init(_ control: Control?, setter: Setter) {
+    public init(_ control: Control?, setter: Setter) {
         self.control = control
         self.setter = setter
     }

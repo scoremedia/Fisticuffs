@@ -23,8 +23,8 @@
 import Foundation
 
 public class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
-    typealias Getter = Control -> ValueType
-    typealias Setter = (Control, ValueType) -> Void
+    public typealias Getter = Control -> ValueType
+    public typealias Setter = (Control, ValueType) -> Void
 
     weak var control: Control?
     let getter: Getter
@@ -38,7 +38,7 @@ public class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
     var extraCleanup: Disposable?
     
     
-    init(control: Control, getter: Getter, setter: Setter, extraCleanup: Disposable? = nil) {
+    public init(control: Control, getter: Getter, setter: Setter, extraCleanup: Disposable? = nil) {
         self.control = control
         self.getter = getter
         self.setter = setter
