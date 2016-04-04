@@ -23,6 +23,7 @@
 import UIKit
 
 private var b_text_key = 0
+private var b_attributedText_key = 0
 private var b_textColor_key = 0
 
 
@@ -32,6 +33,14 @@ public extension UILabel {
         return associatedObjectProperty(self, &b_text_key) { _ in
             return BindableProperty(self, setter: { control, value in
                 control.text = value
+            })
+        }
+    }
+
+    var b_attributedText: BindableProperty<UILabel, NSAttributedString?> {
+        return associatedObjectProperty(self, &b_attributedText_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.attributedText = value
             })
         }
     }
