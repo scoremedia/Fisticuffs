@@ -25,6 +25,7 @@ import UIKit
 private var b_text_key = 0
 private var b_attributedText_key = 0
 private var b_textColor_key = 0
+private var b_textAlignment_key = 0
 
 
 public extension UILabel {
@@ -44,11 +45,19 @@ public extension UILabel {
             })
         }
     }
-        
+
     var b_textColor: BindableProperty<UILabel, UIColor?> {
         return associatedObjectProperty(self, &b_textColor_key) { _ in
             return BindableProperty(self, setter: { control, value in
                 control.textColor = value
+            })
+        }
+    }
+
+    var b_textAlignment: BindableProperty<UILabel, NSTextAlignment> {
+        return associatedObjectProperty(self, &b_textAlignment_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.textAlignment = value
             })
         }
     }
