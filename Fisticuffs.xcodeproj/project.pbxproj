@@ -85,6 +85,7 @@
 		6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */; };
 		6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */; };
 		6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */; };
+		8D6B81F01CF603E0005083F3 /* UIAlertAction+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +312,7 @@
 		6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlers.swift; sourceTree = "<group>"; };
 		6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionBindableProperty.swift; sourceTree = "<group>"; };
 		6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlersSpec.swift; sourceTree = "<group>"; };
+		8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Binding.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -404,6 +406,7 @@
 				6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */,
 				6A6E14C11C750F51003F4EC6 /* LoadImageBindingHandler.swift */,
 				6A10DECF1CB5AE920097BB54 /* UIActivityIndicatorView+Binding.swift */,
+				8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */,
 				6AB0AE381C9CA8AD000D2484 /* UIBarItem+Binding.swift */,
 				6A09EF181BFB816D005C2B81 /* UIBarButtonItem+Binding.swift */,
 				6A1DB7411BFE59F4003817D9 /* UIButton+Binding.swift */,
@@ -805,6 +808,7 @@
 				6A09EF281BFB816D005C2B81 /* Disposable.swift in Sources */,
 				6A09EF2D1BFB816D005C2B81 /* Observable.swift in Sources */,
 				6A10DED01CB5AE920097BB54 /* UIActivityIndicatorView+Binding.swift in Sources */,
+				8D6B81F01CF603E0005083F3 /* UIAlertAction+Binding.swift in Sources */,
 				6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */,
 				6A09EF3E1BFB816D005C2B81 /* UITableView+Binding.swift in Sources */,
 				6A09EF241BFB816D005C2B81 /* BidirectionalBindableProperty.swift in Sources */,

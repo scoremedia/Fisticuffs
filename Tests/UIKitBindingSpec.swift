@@ -306,5 +306,18 @@ class UIKitBindingSpec: QuickSpec {
                 expect(selection.value) == items.value.first
             }
         }
+
+        describe("UIAlertAction") {
+            it("should support binding its enabled value") {
+                let enabled = Observable(false)
+
+                let action = UIAlertAction(title: "Test", style: .Default, handler: nil)
+                action.b_enabled.bind(enabled)
+                expect(action.enabled) == false
+
+                enabled.value = true
+                expect(action.enabled) == true
+            }
+        }
     }
 }
