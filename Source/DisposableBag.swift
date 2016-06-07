@@ -25,6 +25,9 @@ import Foundation
 
 public class DisposableBag: Disposable {
     var disposables = [Disposable]()
+
+    public init() {
+    }
     
     deinit {
         for disposable in disposables {
