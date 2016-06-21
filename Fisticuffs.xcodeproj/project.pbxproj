@@ -72,7 +72,6 @@
 		6A6B3BE11BFE2FDD00B825DB /* UIView+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */; };
 		6A6B3BF21BFE32F700B825DB /* ControlsSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */; };
 		6A6E14B11C750CB4003F4EC6 /* UIImageView+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6E14B01C750CB4003F4EC6 /* UIImageView+Binding.swift */; };
-		6A6E14C21C750F51003F4EC6 /* LoadImageBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6E14C11C750F51003F4EC6 /* LoadImageBindingHandler.swift */; };
 		6A6E14C41C751925003F4EC6 /* ImageViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */; };
 		6AB0AE391C9CA8AD000D2484 /* UIBarItem+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB0AE381C9CA8AD000D2484 /* UIBarItem+Binding.swift */; };
 		6ACC32BE1C73C5CD00B241EA /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC32BD1C73C5CD00B241EA /* OptionalType.swift */; };
@@ -83,6 +82,9 @@
 		6AEADE721C6E7DF4008DFDBA /* DefaultBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */; };
 		6AEADE851C6E89B6008DFDBA /* TransformBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */; };
 		6AEB2DF91C736F8E00CCD179 /* BindingHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */; };
+		6AF784E61D19BBD800D57380 /* LoadImageBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF784E51D19BBD800D57380 /* LoadImageBindingHandler.swift */; };
+		6AF784E81D19BBFD00D57380 /* LoadImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF784E71D19BBFD00D57380 /* LoadImageManager.swift */; };
+		6AF784EA1D19BC2F00D57380 /* LoadImageManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF784E91D19BC2F00D57380 /* LoadImageManagerType.swift */; };
 		6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */; };
 		6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */; };
 		8D6B81F01CF603E0005083F3 /* UIAlertAction+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */; };
@@ -299,7 +301,6 @@
 		6A6B3BE01BFE2FDD00B825DB /* UIView+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Binding.swift"; sourceTree = "<group>"; };
 		6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsSample.swift; sourceTree = "<group>"; };
 		6A6E14B01C750CB4003F4EC6 /* UIImageView+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Binding.swift"; sourceTree = "<group>"; };
-		6A6E14C11C750F51003F4EC6 /* LoadImageBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageBindingHandler.swift; sourceTree = "<group>"; };
 		6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewSample.swift; sourceTree = "<group>"; };
 		6AB0AE381C9CA8AD000D2484 /* UIBarItem+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarItem+Binding.swift"; sourceTree = "<group>"; };
 		6ACC32BD1C73C5CD00B241EA /* OptionalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalType.swift; sourceTree = "<group>"; };
@@ -310,6 +311,9 @@
 		6AEADE711C6E7DF4008DFDBA /* DefaultBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBindingHandler.swift; sourceTree = "<group>"; };
 		6AEADE841C6E89B6008DFDBA /* TransformBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformBindingHandler.swift; sourceTree = "<group>"; };
 		6AEB2DF81C736F8E00CCD179 /* BindingHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlers.swift; sourceTree = "<group>"; };
+		6AF784E51D19BBD800D57380 /* LoadImageBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageBindingHandler.swift; sourceTree = "<group>"; };
+		6AF784E71D19BBFD00D57380 /* LoadImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageManager.swift; sourceTree = "<group>"; };
+		6AF784E91D19BC2F00D57380 /* LoadImageManagerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageManagerType.swift; sourceTree = "<group>"; };
 		6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionBindableProperty.swift; sourceTree = "<group>"; };
 		6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlersSpec.swift; sourceTree = "<group>"; };
 		8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Binding.swift"; sourceTree = "<group>"; };
@@ -404,7 +408,6 @@
 			children = (
 				6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */,
 				6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */,
-				6A6E14C11C750F51003F4EC6 /* LoadImageBindingHandler.swift */,
 				6A10DECF1CB5AE920097BB54 /* UIActivityIndicatorView+Binding.swift */,
 				8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */,
 				6AB0AE381C9CA8AD000D2484 /* UIBarItem+Binding.swift */,
@@ -427,6 +430,7 @@
 				6A06EDD81BFBD84D00231806 /* DataSource.swift */,
 				6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */,
 				6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */,
+				6AF784E41D19BBD800D57380 /* ImageLoading */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -523,6 +527,16 @@
 				6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */,
 			);
 			path = Samples;
+			sourceTree = "<group>";
+		};
+		6AF784E41D19BBD800D57380 /* ImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				6AF784E51D19BBD800D57380 /* LoadImageBindingHandler.swift */,
+				6AF784E91D19BC2F00D57380 /* LoadImageManagerType.swift */,
+				6AF784E71D19BBFD00D57380 /* LoadImageManager.swift */,
+			);
+			path = ImageLoading;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -821,7 +835,7 @@
 				6A1DB7531BFE5B2E003817D9 /* UIDatePicker+Binding.swift in Sources */,
 				6AB0AE391C9CA8AD000D2484 /* UIBarItem+Binding.swift in Sources */,
 				6A09EF291BFB816D005C2B81 /* DisposableBag.swift in Sources */,
-				6A6E14C21C750F51003F4EC6 /* LoadImageBindingHandler.swift in Sources */,
+				6AF784E61D19BBD800D57380 /* LoadImageBindingHandler.swift in Sources */,
 				6A09EF321BFB816D005C2B81 /* SubscriptionOptions.swift in Sources */,
 				6A09EF2A1BFB816D005C2B81 /* DisposableBlock.swift in Sources */,
 				6A09EF361BFB816D005C2B81 /* UIBarButtonItem+Binding.swift in Sources */,
@@ -832,9 +846,11 @@
 				6A09EF251BFB816D005C2B81 /* BindableProperty.swift in Sources */,
 				6AEADE5B1C6E674C008DFDBA /* AssociatedObjects.swift in Sources */,
 				6ACC32BE1C73C5CD00B241EA /* OptionalType.swift in Sources */,
+				6AF784E81D19BBFD00D57380 /* LoadImageManager.swift in Sources */,
 				6ACC32CF1C73D18300B241EA /* OptionalTypeBindingHandler.swift in Sources */,
 				6A57F0481CA4258A000114A2 /* AnySubscribable.swift in Sources */,
 				6A06EDEC1BFCE49A00231806 /* TableViewDataSource.swift in Sources */,
+				6AF784EA1D19BC2F00D57380 /* LoadImageManagerType.swift in Sources */,
 				6A1DB7421BFE59F4003817D9 /* UIButton+Binding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
