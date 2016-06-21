@@ -32,4 +32,9 @@ public class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue:
 
         return try innerHandler.get(control: control, propertyGetter: convertedGetter)
     }
+
+    public override func dispose() {
+        innerHandler.dispose()
+        super.dispose()
+    }
 }

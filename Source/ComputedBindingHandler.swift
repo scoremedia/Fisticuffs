@@ -51,6 +51,11 @@ public class ComputedBindingHandler<Control: AnyObject, InDataValue, OutDataValu
         }
         inValue.value = value
     }
+
+    override public func dispose() {
+        bindingHandler.dispose()
+        super.dispose()
+    }
 }
 
 public extension BindingHandlers {

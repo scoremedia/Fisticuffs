@@ -34,6 +34,11 @@ public class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataVal
         let value = try bindingHandler.get(control: control, propertyGetter: propertyGetter)
         return reverseTransform(value)
     }
+
+    override public func dispose() {
+        bindingHandler.dispose()
+        super.dispose()
+    }
 }
 
 public extension BindingHandlers {
