@@ -22,24 +22,42 @@
 
 
 struct DependencyTracker {
-    
-    private static var stack: [DependenciesCollection] = []
-    
+
     static func findDependencies(@noescape block: Void -> Void) -> [AnySubscribableBox] {
+        let stack = DependenciesCollectionStack.current
+
         let collection = DependenciesCollection()
-        stack.append(collection)
+        stack.items.append(collection)
 
         block()
 
-        stack.removeLast()
+        stack.items.removeLast()
         return Array(collection.dependencies)
     }
     
     static func didReadObservable(subscribable: AnySubscribable) {
         let boxed = AnySubscribableBox(subscribable: subscribable)
-        stack.last?.dependencies.insert(boxed)
+        DependenciesCollectionStack.current.items.last?.dependencies.insert(boxed)
     }
     
+}
+
+private class DependenciesCollectionStack: NSObject {
+    static var threadDictionaryKey = "Fisticuffs.DependenciesCollectionStack"
+
+    static var current: DependenciesCollectionStack {
+        let thread = NSThread.currentThread()
+        if let existing = thread.threadDictionary[threadDictionaryKey] as? DependenciesCollectionStack {
+            return existing
+        }
+        else {
+            let new = DependenciesCollectionStack()
+            thread.threadDictionary[threadDictionaryKey] = new
+            return new
+        }
+    }
+
+    var items: [DependenciesCollection] = []
 }
 
 // Optimization - so we don't end up creating a new Set<AnySubscribableBox> every time a dependency is read
