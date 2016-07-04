@@ -24,22 +24,29 @@ import Foundation
 
 public class SubscriptionCollection<T> {
     private var subscriptions = [Subscription<T>]()
+    private let lock = NSRecursiveLock()
     
     func add(when when: NotifyWhen, callback: (T?, T) -> Void) -> Disposable {
-        let subscription = Subscription(callback: callback, when: when, subscriptionCollection: self)
-        subscriptions.append(subscription)
-        return subscription
+        return lock.withLock {
+            let subscription = Subscription(callback: callback, when: when, subscriptionCollection: self)
+            subscriptions.append(subscription)
+            return subscription
+        }
     }
     
     func notify(time time: NotifyWhen, old: T?, new: T) {
-        for s in subscriptions where s.when == time {
-            s.callback(old, new)
+        lock.withLock {
+            for s in subscriptions where s.when == time {
+                s.callback(old, new)
+            }
         }
     }
     
     private func remove(subscription subscription: Subscription<T>) {
-        if let index = subscriptions.indexOf(subscription) {
-            subscriptions.removeAtIndex(index)
+        lock.withLock {
+            if let index = subscriptions.indexOf(subscription) {
+                subscriptions.removeAtIndex(index)
+            }
         }
     }
 }
