@@ -111,6 +111,26 @@ class WritableComputedSpec: QuickSpec {
                     expect(result.value) == 11
                 }
 
+                it("should avoid sending multiple updates when recomputed early due to accessing `value`") {
+                    let a = Observable(5)
+                    let result = WritableComputed(
+                        getter: { a.value },
+                        setter: { _ in }
+                    )
+
+                    var notificationCount = 0
+                    let opts = SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)
+                    result.subscribe(opts) { notificationCount += 1 }
+
+                    a.value = 11
+                    expect(result.value) == 11
+
+                    // let runloop finish so that coalesced update happens
+                    NSRunLoop.mainRunLoop().runUntilDate(NSDate())
+
+                    expect(notificationCount) == 1
+                }
+
                 it("should not recurse infinitely if the value is accessed in the subscription block") {
                     let a = Observable(5)
                     let result = WritableComputed(

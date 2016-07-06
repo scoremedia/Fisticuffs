@@ -82,7 +82,9 @@ public class Computed<Value>: Subscribable<Value> {
                 pendingUpdate = true
                 dispatch_async(dispatch_get_main_queue()) {
                     self.pendingUpdate = false
-                    self.updateValue()
+                    if self.dirty {
+                        self.updateValue()
+                    }
                 }
             }
         }
