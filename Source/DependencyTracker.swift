@@ -43,7 +43,12 @@ struct DependencyTracker {
 }
 
 private class DependenciesCollectionStack: NSObject {
-    static var threadDictionaryKey = "Fisticuffs.DependenciesCollectionStack"
+    private class ThreadDictionaryKey: NSObject, NSCopying {
+        @objc func copyWithZone(zone: NSZone) -> AnyObject {
+            return self
+        }
+    }
+    static let threadDictionaryKey = ThreadDictionaryKey()
 
     static var current: DependenciesCollectionStack {
         let thread = NSThread.currentThread()
