@@ -50,6 +50,10 @@ public class ComputedBindingHandler<Control: AnyObject, InDataValue, OutDataValu
             }
         }
         inValue.value = value
+
+        // Force an update right away (instead of waiting for next runloop) so that we don't leave old data on screen.  This is especially
+        // important for table view/collection view cells where views are reused.
+        computed.updateValue()
     }
 
     override public func dispose() {
