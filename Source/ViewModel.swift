@@ -28,6 +28,6 @@ public protocol ViewModel: Equatable {
 }
 
 
-public func ==<T where T: ViewModel, T: AnyObject>(lhs: T, rhs: T) -> Bool {
+public func ==<T>(lhs: T, rhs: T) -> Bool where T: ViewModel, T: AnyObject {
     return lhs === rhs
 }

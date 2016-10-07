@@ -34,7 +34,7 @@ public extension UISlider {
                 control: self,
                 getter: { slider in slider.value },
                 setter: { slider, newValue in slider.value = newValue },
-                events: .ValueChanged
+                events: .valueChanged
             )
         }
     }

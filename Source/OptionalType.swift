@@ -24,17 +24,17 @@
 // Protocol representing Optionals (and ImplicitlyUnwrappedOptionals) so that we can 
 // support concepts like binding a Observable<String> to a BindableProperty<String?>
 
-struct OptionalIsNone: ErrorType {}
+struct OptionalIsNone: Error {}
 
 public protocol OptionalType {
-    typealias Wrapped
+    associatedtype Wrapped
     init(wrappedValue: Wrapped)
     func toUnwrappedValue() throws -> Wrapped
 }
 
 extension Optional: OptionalType {
     public init(wrappedValue: Wrapped) {
-        self = .Some(wrappedValue)
+        self = .some(wrappedValue)
     }
     public func toUnwrappedValue() throws -> Wrapped {
         if let unwrapped = self {
@@ -47,7 +47,7 @@ extension Optional: OptionalType {
 
 extension ImplicitlyUnwrappedOptional: OptionalType {
     public init(wrappedValue: Wrapped) {
-        self = .Some(wrappedValue)
+        self = .some(wrappedValue)
     }
     public func toUnwrappedValue() throws -> Wrapped {
         if let unwrapped = self {

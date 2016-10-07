@@ -33,7 +33,7 @@ public extension UIButton {
     var b_title: BindableProperty<UIButton, String?> {
         return associatedObjectProperty(self, &b_title_key) { _ in
             return BindableProperty(self) { control, value in
-                control.setTitle(value, forState: .Normal)
+                control.setTitle(value, for: UIControlState())
             }
         }
     }
@@ -41,7 +41,7 @@ public extension UIButton {
     var b_image: BindableProperty<UIButton, UIImage?> {
         return associatedObjectProperty(self, &b_image_key) { _ in
             return BindableProperty(self) { control, value in
-                control.setImage(value, forState: .Normal)
+                control.setImage(value, for: UIControlState())
             }
         }
     }
@@ -49,7 +49,7 @@ public extension UIButton {
     var b_backgroundImage: BindableProperty<UIButton, UIImage?> {
         return associatedObjectProperty(self, &b_backgroundImage_key) { _ in
             return BindableProperty(self) { control, value in
-                control.setBackgroundImage(value, forState: .Normal)
+                control.setBackgroundImage(value, for: UIControlState())
             }
         }
     }

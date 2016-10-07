@@ -39,7 +39,7 @@ public extension UIBarButtonItem {
         }
     }
     
-    @objc private func b_receivedOnTap(sender: AnyObject) {
+    @objc fileprivate func b_receivedOnTap(_ sender: AnyObject) {
         b_onTap.fire()
     }
     

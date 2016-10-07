@@ -94,7 +94,7 @@ class ObservableSpec: QuickSpec {
         it("should support receiving before-change callbacks") {
             var options = SubscriptionOptions()
             options.notifyOnSubscription = false
-            options.when = .BeforeChange
+            options.when = .beforeChange
             
             var receivedBeforeChange = false
             

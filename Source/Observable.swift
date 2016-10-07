@@ -22,18 +22,18 @@
 
 import Foundation
 
-public class Observable<Value> : Subscribable<Value> {
+open class Observable<Value> : Subscribable<Value> {
     
     //MARK: - Value property
     
-    public var value: Value {
+    open var value: Value {
         set(newValue) {
             let old = storage
             
-            subscriptionCollection.notify(time: .BeforeChange, old: old, new: newValue)
-            subscriptionCollection.notify(time: .ValueIsDirty, old: old, new: newValue)
+            subscriptionCollection.notify(time: .beforeChange, old: old, new: newValue)
+            subscriptionCollection.notify(time: .valueIsDirty, old: old, new: newValue)
             storage = newValue
-            subscriptionCollection.notify(time: .AfterChange, old: old, new: storage)
+            subscriptionCollection.notify(time: .afterChange, old: old, new: storage)
         }
         get {
             DependencyTracker.didReadObservable(self)
@@ -41,9 +41,9 @@ public class Observable<Value> : Subscribable<Value> {
         }
     }
 
-    public override var currentValue: Value? { return value }
+    open override var currentValue: Value? { return value }
     
-    private var storage: Value
+    fileprivate var storage: Value
 
     //MARK: - Init
     public init(_ initial: Value) {

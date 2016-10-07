@@ -22,8 +22,8 @@
 
 import Foundation
 
-public class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
-    public typealias Getter = Control -> ValueType
+open class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
+    public typealias Getter = (Control) -> ValueType
     public typealias Setter = (Control, ValueType) -> Void
 
     weak var control: Control?
@@ -38,7 +38,7 @@ public class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
     var extraCleanup: Disposable?
     
     
-    public init(control: Control, getter: Getter, setter: Setter, extraCleanup: Disposable? = nil) {
+    public init(control: Control, getter: @escaping Getter, setter: @escaping Setter, extraCleanup: Disposable? = nil) {
         self.control = control
         self.getter = getter
         self.setter = setter
@@ -62,11 +62,11 @@ extension BidirectionalBindableProperty {
 //MARK: - Binding
 public extension BidirectionalBindableProperty {
     //MARK: Two way binding
-    public func bind(observable: Observable<ValueType>) {
+    public func bind(_ observable: Observable<ValueType>) {
         bind(observable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
+    public func bind<Data>(_ observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -86,11 +86,11 @@ public extension BidirectionalBindableProperty {
     
     //MARK: One way binding
 
-    public func bind(subscribable: Subscribable<ValueType>) {
+    public func bind(_ subscribable: Subscribable<ValueType>) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
+    public func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -105,11 +105,11 @@ public extension BidirectionalBindableProperty {
 public extension BidirectionalBindableProperty where ValueType: OptionalType {
     //MARK: Two way binding
 
-    public func bind(observable: Observable<ValueType.Wrapped>) {
+    public func bind(_ observable: Observable<ValueType.Wrapped>) {
         bind(observable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+    public func bind<Data>(_ observable: Observable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -130,11 +130,11 @@ public extension BidirectionalBindableProperty where ValueType: OptionalType {
 
     //MARK: One way binding
 
-    public func bind(subscribable: Subscribable<ValueType.Wrapped>) {
+    public func bind(_ subscribable: Subscribable<ValueType.Wrapped>) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+    public func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -150,13 +150,13 @@ public extension BidirectionalBindableProperty where ValueType: OptionalType {
 
 //MARK: - Deprecated
 public extension BidirectionalBindableProperty {
-    @available(*, deprecated, message="Use BidirectionBindableProperty(subscribable, BindingHandlers.transform(...)) instead")
-    public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
+    @available(*, deprecated, message: "Use BidirectionBindableProperty(subscribable, BindingHandlers.transform(...)) instead")
+    public func bind<OtherType>(_ subscribable: Subscribable<OtherType>, transform: @escaping (OtherType) -> ValueType) {
         bind(subscribable, BindingHandlers.transform(transform))
     }
 
-    @available(*, deprecated, message="Use a Computed in place of the `block`")
-    public func bind(block: () -> ValueType) {
+    @available(*, deprecated, message: "Use a Computed in place of the `block`")
+    public func bind(_ block: @escaping () -> ValueType) {
         currentBinding?.dispose()
         currentBinding = nil
 

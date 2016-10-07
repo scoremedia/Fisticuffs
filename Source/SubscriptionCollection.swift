@@ -22,11 +22,11 @@
 
 import Foundation
 
-public class SubscriptionCollection<T> {
-    private var subscriptions = [Subscription<T>]()
-    private let lock = NSRecursiveLock()
+open class SubscriptionCollection<T> {
+    fileprivate var subscriptions = [Subscription<T>]()
+    fileprivate let lock = NSRecursiveLock()
     
-    func add(when when: NotifyWhen, callback: (T?, T) -> Void) -> Disposable {
+    func add(when: NotifyWhen, callback: @escaping (T?, T) -> Void) -> Disposable {
         return lock.withLock {
             let subscription = Subscription(callback: callback, when: when, subscriptionCollection: self)
             subscriptions.append(subscription)
@@ -34,7 +34,7 @@ public class SubscriptionCollection<T> {
         }
     }
     
-    func notify(time time: NotifyWhen, old: T?, new: T) {
+    func notify(time: NotifyWhen, old: T?, new: T) {
         lock.withLock {
             for s in subscriptions where s.when == time {
                 s.callback(old, new)
@@ -42,10 +42,10 @@ public class SubscriptionCollection<T> {
         }
     }
     
-    private func remove(subscription subscription: Subscription<T>) {
+    fileprivate func remove(subscription: Subscription<T>) {
         lock.withLock {
-            if let index = subscriptions.indexOf(subscription) {
-                subscriptions.removeAtIndex(index)
+            if let index = subscriptions.index(of: subscription) {
+                subscriptions.remove(at: index)
             }
         }
     }
@@ -57,7 +57,7 @@ private class Subscription<T> : Disposable, Equatable {
     
     weak var subscriptionCollection: SubscriptionCollection<T>?
     
-    init(callback: (T?, T) -> Void, when: NotifyWhen, subscriptionCollection: SubscriptionCollection<T>) {
+    init(callback: @escaping (T?, T) -> Void, when: NotifyWhen, subscriptionCollection: SubscriptionCollection<T>) {
         self.callback = callback
         self.when = when
         self.subscriptionCollection = subscriptionCollection

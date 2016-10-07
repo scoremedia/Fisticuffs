@@ -21,9 +21,9 @@
 //  THE SOFTWARE.
 
 
-public class WritableComputed<Value>: Observable<Value> {
+open class WritableComputed<Value>: Observable<Value> {
     //MARK: -
-    public override var value: Value {
+    open override var value: Value {
         get {
             if dirty {
                 updateValue()
@@ -36,20 +36,20 @@ public class WritableComputed<Value>: Observable<Value> {
             setter(newValue)
         }
     }
-    private var storage: Value
+    fileprivate var storage: Value
 
-    private var dirty: Bool = false
-    private var pendingUpdate: Bool = false
+    fileprivate var dirty: Bool = false
+    fileprivate var pendingUpdate: Bool = false
 
-    let getter: Void -> Value
-    let setter: Value -> Void
+    let getter: (Void) -> Value
+    let setter: (Value) -> Void
 
     var dependencies = [AnySubscribableBox: Disposable]()
 
-    public override var currentValue: Value? { return value }
+    open override var currentValue: Value? { return value }
 
     //MARK: -
-    public init(getter: Void -> Value, setter: Value -> Void) {
+    public init(getter: @escaping (Void) -> Value, setter: @escaping (Value) -> Void) {
         var result: Value!
         let dependencies = DependencyTracker.findDependencies {
             result = getter()
@@ -69,21 +69,21 @@ public class WritableComputed<Value>: Observable<Value> {
         }
     }
 
-    func setValue(newValue: Value) {
+    func setValue(_ newValue: Value) {
         let oldValue = storage
 
-        subscriptionCollection.notify(time: .BeforeChange, old: oldValue, new: newValue)
+        subscriptionCollection.notify(time: .beforeChange, old: oldValue, new: newValue)
         storage = newValue
-        subscriptionCollection.notify(time: .AfterChange, old: oldValue, new: newValue)
+        subscriptionCollection.notify(time: .afterChange, old: oldValue, new: newValue)
     }
 
     func setNeedsUpdate() {
         if dirty == false {
             dirty = true
-            subscriptionCollection.notify(time: .ValueIsDirty, old: storage, new: storage)
+            subscriptionCollection.notify(time: .valueIsDirty, old: storage, new: storage)
             if pendingUpdate == false {
                 pendingUpdate = true
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.pendingUpdate = false
                     if self.dirty {
                         self.updateValue()
@@ -104,11 +104,11 @@ public class WritableComputed<Value>: Observable<Value> {
         subscribeToDependencies(dependencies)
     }
 
-    func subscribeToDependencies(deps: [AnySubscribableBox]) {
+    func subscribeToDependencies(_ deps: [AnySubscribableBox]) {
         for dependency in deps where dependency.subscribable !== self {
             if dependencies[dependency] == nil {
                 var options = SubscriptionOptions()
-                options.when = .ValueIsDirty
+                options.when = .valueIsDirty
                 options.notifyOnSubscription = false
                 let disposable = dependency.subscribable.subscribe(options) { [weak self] in
                     self?.setNeedsUpdate()

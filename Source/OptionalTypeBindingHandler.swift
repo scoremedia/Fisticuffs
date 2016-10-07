@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue: OptionalType>: BindingHandler<Control, Data, PropertyValue> {
+open class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue: OptionalType>: BindingHandler<Control, Data, PropertyValue> {
     typealias InnerHandler = BindingHandler<Control, Data, PropertyValue.Wrapped>
 
     let innerHandler: InnerHandler
@@ -17,14 +17,14 @@ public class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue:
         self.innerHandler = innerHandler
     }
 
-    public override func set(control control: Control, oldValue: Data?, value: Data, propertySetter: PropertySetter) {
+    open override func set(control: Control, oldValue: Data?, value: Data, propertySetter: @escaping PropertySetter) {
         let convertedSetter: InnerHandler.PropertySetter = { control, value in
             propertySetter(control, PropertyValue(wrappedValue: value))
         }
         innerHandler.set(control: control, oldValue: oldValue, value: value, propertySetter: convertedSetter)
     }
 
-    public override func get(control control: Control, propertyGetter: PropertyGetter) throws -> Data {
+    open override func get(control: Control, propertyGetter: @escaping PropertyGetter) throws -> Data {
         let innerValue = propertyGetter(control)
         let unwrapped = try innerValue.toUnwrappedValue()
 
@@ -33,7 +33,7 @@ public class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue:
         return try innerHandler.get(control: control, propertyGetter: convertedGetter)
     }
 
-    public override func dispose() {
+    open override func dispose() {
         innerHandler.dispose()
         super.dispose()
     }

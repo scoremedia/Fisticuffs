@@ -28,7 +28,7 @@ private var dataSource_key = 0
 
 public extension UICollectionView {
     
-    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, @noescape block: (CollectionViewDataSource<Item>) -> Void) {
+    func b_configure<Item: Equatable>(_ items: Subscribable<[Item]>, block: (CollectionViewDataSource<Item>) -> Void) {
 
         let dataSource = CollectionViewDataSource(subscribable: items, view: self)
         block(dataSource)

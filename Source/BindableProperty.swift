@@ -20,14 +20,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public class BindableProperty<Control: AnyObject, ValueType> {
+open class BindableProperty<Control: AnyObject, ValueType> {
     public typealias Setter = (Control, ValueType) -> Void
     
     weak var control: Control?
     let setter: (Control, ValueType) -> Void
     var currentBinding: Disposable?
     
-    public init(_ control: Control?, setter: Setter) {
+    public init(_ control: Control?, setter: @escaping Setter) {
         self.control = control
         self.setter = setter
     }
@@ -41,11 +41,11 @@ public class BindableProperty<Control: AnyObject, ValueType> {
 
 
 public extension BindableProperty {
-    public func bind(subscribable: Subscribable<ValueType>) {
+    public func bind(_ subscribable: Subscribable<ValueType>) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
+    public func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -57,11 +57,11 @@ public extension BindableProperty {
 }
 
 public extension BindableProperty where ValueType: OptionalType {
-    public func bind(subscribable: Subscribable<ValueType.Wrapped>) {
+    public func bind(_ subscribable: Subscribable<ValueType.Wrapped>) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+    public func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -76,13 +76,13 @@ public extension BindableProperty where ValueType: OptionalType {
 }
 
 public extension BindableProperty {
-    @available(*, deprecated, message="Use BindableProperty(subscribable, BindingHandlers.transform(...)) instead")
-    public func bind<OtherType>(subscribable: Subscribable<OtherType>, transform: OtherType -> ValueType) {
+    @available(*, deprecated, message: "Use BindableProperty(subscribable, BindingHandlers.transform(...)) instead")
+    public func bind<OtherType>(_ subscribable: Subscribable<OtherType>, transform: @escaping (OtherType) -> ValueType) {
         bind(subscribable, BindingHandlers.transform(transform))
     }
 
-    @available(*, deprecated, message="Use a Computed in place of the `block`")
-    public func bind(block: () -> ValueType) {
+    @available(*, deprecated, message: "Use a Computed in place of the `block`")
+    public func bind(_ block: @escaping () -> ValueType) {
         currentBinding?.dispose()
         currentBinding = nil
 

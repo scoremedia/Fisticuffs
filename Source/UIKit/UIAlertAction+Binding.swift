@@ -33,7 +33,7 @@ public extension UIAlertAction {
         get {
             return associatedObjectProperty(self, &b_enabled_key) { _ in
                 return BindableProperty(self, setter: { action, value -> Void in
-                    action.enabled = value
+                    action.isEnabled = value
                 })
             }
         }

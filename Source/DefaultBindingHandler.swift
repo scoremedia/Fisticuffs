@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class DefaultBindingHandler<Control: AnyObject, Value>: BindingHandler<Control, Value, Value> {
+open class DefaultBindingHandler<Control: AnyObject, Value>: BindingHandler<Control, Value, Value> {
 
-    public override func set(control control: Control, oldValue: Value?, value: Value, propertySetter: PropertySetter) {
+    open override func set(control: Control, oldValue: Value?, value: Value, propertySetter: @escaping PropertySetter) {
         propertySetter(control, value)
     }
 
-    public override func get(control control: Control, propertyGetter: PropertyGetter) throws -> Value {
+    open override func get(control: Control, propertyGetter: @escaping PropertyGetter) throws -> Value {
         return propertyGetter(control)
     }
     

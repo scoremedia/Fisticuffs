@@ -35,8 +35,8 @@ class WritableComputedSpec: QuickSpec {
                     getter: { "Hello, " + name.value },
                     setter: { value in
                         if value.hasPrefix("Hello, ") {
-                            let nameStartIndex = value.startIndex.advancedBy("Hello, ".characters.count)
-                            name.value = value.substringFromIndex(nameStartIndex)
+                            let nameStartIndex = value.index(value.startIndex, offsetBy: "Hello, ".characters.count)
+                            name.value = value.substring(from: nameStartIndex)
                         } else {
                             name.value = ""
                         }
@@ -119,14 +119,14 @@ class WritableComputedSpec: QuickSpec {
                     )
 
                     var notificationCount = 0
-                    let opts = SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)
+                    let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
                     result.subscribe(opts) { notificationCount += 1 }
 
                     a.value = 11
                     expect(result.value) == 11
 
                     // let runloop finish so that coalesced update happens
-                    NSRunLoop.mainRunLoop().runUntilDate(NSDate())
+                    RunLoop.main.run(until: Date())
 
                     expect(notificationCount) == 1
                 }
@@ -160,7 +160,7 @@ class WritableComputedSpec: QuickSpec {
                 a.value = 5 // trigger the subscription block
 
                 var fired = false
-                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)) { _, _ in fired = true }
+                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
 
                 // if a dependency was added, this'll cause `fired` to be set to `true`
                 shouldNotDependOn.value = true

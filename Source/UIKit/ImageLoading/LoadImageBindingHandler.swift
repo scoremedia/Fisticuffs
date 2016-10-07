@@ -9,26 +9,26 @@
 import Foundation
 import UIKit
 
-public class LoadImageBindingHandlerConfig {
+open class LoadImageBindingHandlerConfig {
     /// Default LoadImageManager to use for future BindingHandlers.loadImage()'s
-    public static var manager: LoadImageManagerType = LoadImageManager()
+    open static var manager: LoadImageManagerType = LoadImageManager()
 }
 
-class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSURL?, UIImage?> {
+class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, URL?, UIImage?> {
 
-    private var manager: LoadImageManagerType = LoadImageBindingHandlerConfig.manager
+    fileprivate var manager: LoadImageManagerType = LoadImageBindingHandlerConfig.manager
 
-    private var currentTask: Disposable?
-    private var disposed: Bool = false
+    fileprivate var currentTask: Disposable?
+    fileprivate var disposed: Bool = false
 
-    private var currentURL: NSURL?
-    private let placeholder: UIImage?
+    fileprivate var currentURL: URL?
+    fileprivate let placeholder: UIImage?
 
     init(placeholder: UIImage? = nil) {
         self.placeholder = placeholder
     }
 
-    override func set(control control: Control, oldValue: NSURL??, value: NSURL?, propertySetter: PropertySetter) {
+    override func set(control: Control, oldValue: URL??, value: URL?, propertySetter: @escaping PropertySetter) {
         propertySetter(control, placeholder)
         currentTask?.dispose()
         currentTask = nil
@@ -39,12 +39,12 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
             return
         }
 
-        currentTask = manager.loadImage(value) { result in
-            if self.disposed || self.currentURL?.isEqual(value) == false {
+        currentTask = manager.loadImage(URL: value) { result in
+            if self.disposed || (self.currentURL == value) == false {
                 return
             }
 
-            if case .Success(let image) = result {
+            if case .success(let image) = result {
                 propertySetter(control, image)
             }
         }
@@ -61,11 +61,11 @@ class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, NSUR
 }
 
 public extension BindingHandlers {
-    static func loadImage<Control: AnyObject>(placeholder placeholder: UIImage? = nil) -> BindingHandler<Control, NSURL?, UIImage?> {
+    static func loadImage<Control: AnyObject>(placeholder: UIImage? = nil) -> BindingHandler<Control, URL?, UIImage?> {
         return LoadImageBindingHandler(placeholder: placeholder)
     }
 
-    static func loadImage<Control: AnyObject>(placeholder placeholder: UIImage? = nil) -> BindingHandler<Control, NSURL, UIImage?> {
-        return transform({ .Some($0) }, reverse: nil, bindingHandler: LoadImageBindingHandler(placeholder: placeholder))
+    static func loadImage<Control: AnyObject>(placeholder: UIImage? = nil) -> BindingHandler<Control, URL, UIImage?> {
+        return transform({ .some($0) }, reverse: nil, bindingHandler: LoadImageBindingHandler(placeholder: placeholder))
     }
 }

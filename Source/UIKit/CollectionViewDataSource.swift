@@ -25,39 +25,39 @@ import UIKit
 extension UICollectionView: DataSourceView {
     public typealias CellView = UICollectionViewCell
     
-    public func insertCells(indexPaths indexPaths: [NSIndexPath]) {
-        insertItemsAtIndexPaths(indexPaths)
+    public func insertCells(indexPaths: [IndexPath]) {
+        insertItems(at: indexPaths)
     }
     
-    public func deleteCells(indexPaths indexPaths: [NSIndexPath]) {
-        deleteItemsAtIndexPaths(indexPaths)
+    public func deleteCells(indexPaths: [IndexPath]) {
+        deleteItems(at: indexPaths)
     }
     
-    public func batchUpdates(updates: () -> Void) {
+    public func batchUpdates(_ updates: @escaping () -> Void) {
         performBatchUpdates(updates, completion: nil)
     }
     
     
-    public func indexPathsForSelections() -> [NSIndexPath]? {
-        return indexPathsForSelectedItems()
+    public func indexPathsForSelections() -> [IndexPath]? {
+        return indexPathsForSelectedItems
     }
     
-    public func select(indexPath indexPath: NSIndexPath) {
-        selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+    public func select(indexPath: IndexPath) {
+        selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition())
     }
     
-    public func deselect(indexPath indexPath: NSIndexPath) {
-        deselectItemAtIndexPath(indexPath, animated: false)
+    public func deselect(indexPath: IndexPath) {
+        deselectItem(at: indexPath, animated: false)
     }
     
     
-    public func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> UICollectionViewCell {
-        return dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    public func dequeueCell(reuseIdentifier: String, indexPath: IndexPath) -> UICollectionViewCell {
+        return dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     }
 }
 
 
-public class CollectionViewDataSource<Item: Equatable>: DataSource<Item, UICollectionView>, UICollectionViewDataSource, UICollectionViewDelegate {
+open class CollectionViewDataSource<Item: Equatable>: DataSource<Item, UICollectionView>, UICollectionViewDataSource, UICollectionViewDelegate {
     
     public override init(subscribable: Subscribable<[Item]>, view: UICollectionView) {
         super.init(subscribable: subscribable, view: view)
@@ -65,43 +65,43 @@ public class CollectionViewDataSource<Item: Equatable>: DataSource<Item, UIColle
     
     //MARK: UICollectionViewDataSource
     
-    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return numberOfSections()
     }
     
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfItems(section: section)
     }
     
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return cellAtIndexPath(indexPath)
     }
     
     @available(iOS 9, *)
-    public func collectionView(collectionView: UICollectionView, canMoveItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         return editable && allowsMoving
     }
     
     @available(iOS 9, *)
-    public func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         move(source: sourceIndexPath, destination: destinationIndexPath)
     }
     
     //MARK: UICollectionViewDelegate
 
-    public func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return canSelect(indexPath: indexPath)
     }
 
-    public func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return canSelect(indexPath: indexPath)
     }
 
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didSelect(indexPath: indexPath)
     }
     
-    public func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         didDeselect(indexPath: indexPath)
     }
     

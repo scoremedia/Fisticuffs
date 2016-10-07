@@ -45,7 +45,7 @@ class TextFieldSampleViewModel {
             return nil
         }
         else {
-            return email.value.rangeOfString("@") != nil
+            return email.value.range(of: "@") != nil
         }
     }
     
@@ -111,26 +111,26 @@ class TextFieldSampleViewController: UITableViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         firstName.becomeFirstResponder()
     }
     
     //MARK: -
     
-    static func validStringTransform(input: Bool?) -> String {
+    static func validStringTransform(_ input: Bool?) -> String {
         switch input {
-        case .None: return " "
-        case .Some(true): return "✔︎"
-        case .Some(false): return "✘"
+        case .none: return " "
+        case .some(true): return "✔︎"
+        case .some(false): return "✘"
         }
     }
     
-    static func validColorTransform(input: Bool?) -> UIColor {
+    static func validColorTransform(_ input: Bool?) -> UIColor {
         switch input {
-        case .None: return .blackColor()
-        case .Some(true): return UIColor(red: 0.1, green: 0.8, blue: 0.15, alpha: 1.0)
-        case .Some(false): return UIColor(red: 0.88, green: 0.0, blue: 0.0, alpha: 1.0)
+        case .none: return .black
+        case .some(true): return UIColor(red: 0.1, green: 0.8, blue: 0.15, alpha: 1.0)
+        case .some(false): return UIColor(red: 0.88, green: 0.0, blue: 0.0, alpha: 1.0)
         }
     }
 }

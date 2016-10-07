@@ -27,7 +27,7 @@ private var b_editing_key = 0
 
 public extension UITableView {
         
-    func b_configure<Item: Equatable>(items: Subscribable<[Item]>, @noescape block: (TableViewDataSource<Item>) -> Void) {
+    func b_configure<Item: Equatable>(_ items: Subscribable<[Item]>, block: (TableViewDataSource<Item>) -> Void) {
             
             let dataSource = TableViewDataSource(subscribable: items, view: self)
             block(dataSource)
@@ -42,7 +42,7 @@ public extension UITableView {
     var b_editing: BindableProperty<UITableView, Bool> {
         return associatedObjectProperty(self, &b_editing_key) { _ in
             return BindableProperty(self, setter: { control, value -> Void in
-                control.editing = value
+                control.isEditing = value
             })
         }
     }

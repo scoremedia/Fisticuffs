@@ -15,7 +15,7 @@ public extension UIActivityIndicatorView {
     var b_animating: BindableProperty<UIActivityIndicatorView, Bool> {
         return associatedObjectProperty(self, &b_animating_key) { _ in
             return BindableProperty(self, setter: { control, value in
-                switch (control.isAnimating(), value) {
+                switch (control.isAnimating, value) {
                 case (false, true):
                     control.startAnimating()
                 case (true, false):

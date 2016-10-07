@@ -23,10 +23,10 @@
 import Foundation
 
 
-public class Computed<Value>: Subscribable<Value> {
+open class Computed<Value>: Subscribable<Value> {
     
     //MARK: -
-    public private(set) var value: Value {
+    open fileprivate(set) var value: Value {
         get {
             if dirty {
                 updateValue()
@@ -38,23 +38,23 @@ public class Computed<Value>: Subscribable<Value> {
         set(newValue) {
             let oldValue = storage
             
-            subscriptionCollection.notify(time: .BeforeChange, old: oldValue, new: newValue)
+            subscriptionCollection.notify(time: .beforeChange, old: oldValue, new: newValue)
             storage = newValue
-            subscriptionCollection.notify(time: .AfterChange, old: oldValue, new: newValue)
+            subscriptionCollection.notify(time: .afterChange, old: oldValue, new: newValue)
         }
     }
-    private var storage: Value
+    fileprivate var storage: Value
 
-    private var dirty: Bool = false
-    private var pendingUpdate: Bool = false
+    fileprivate var dirty: Bool = false
+    fileprivate var pendingUpdate: Bool = false
     
-    let valueBlock: Void -> Value
+    let valueBlock: (Void) -> Value
     var dependencies = [AnySubscribableBox: Disposable]()
     
-    public override var currentValue: Value? { return value }
+    open override var currentValue: Value? { return value }
 
     //MARK: -
-    public init(block: Void -> Value) {
+    public init(block: @escaping (Void) -> Value) {
         valueBlock = block
 
         var result: Value!
@@ -77,10 +77,10 @@ public class Computed<Value>: Subscribable<Value> {
     func setNeedsUpdate() {
         if dirty == false {
             dirty = true
-            subscriptionCollection.notify(time: .ValueIsDirty, old: storage, new: storage)
+            subscriptionCollection.notify(time: .valueIsDirty, old: storage, new: storage)
             if pendingUpdate == false {
                 pendingUpdate = true
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.pendingUpdate = false
                     if self.dirty {
                         self.updateValue()
@@ -101,11 +101,11 @@ public class Computed<Value>: Subscribable<Value> {
         subscribeToDependencies(dependencies)
     }
 
-    func subscribeToDependencies(deps: [AnySubscribableBox]) {
+    func subscribeToDependencies(_ deps: [AnySubscribableBox]) {
         for dependency in deps where dependency.subscribable !== self {
             if dependencies[dependency] == nil {
                 var options = SubscriptionOptions()
-                options.when = .ValueIsDirty
+                options.when = .valueIsDirty
                 options.notifyOnSubscription = false
                 let disposable = dependency.subscribable.subscribe(options) { [weak self] in
                     self?.setNeedsUpdate()

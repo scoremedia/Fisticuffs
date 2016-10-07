@@ -41,7 +41,7 @@ public extension UIView {
     var b_hidden: BindableProperty<UIView, Bool> {
         return associatedObjectProperty(self, &b_hidden_key) { _ in
             return BindableProperty(self, setter: { control, value in
-                control.hidden = value
+                control.isHidden = value
             })
         }
     }

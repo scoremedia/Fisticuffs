@@ -20,26 +20,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-struct BindingHandlerGetterNotImplemented: ErrorType {}
+struct BindingHandlerGetterNotImplemented: Error {}
 
-public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposable {
+open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposable {
     public typealias PropertySetter = (Control, PropertyValue) -> Void
-    public typealias PropertyGetter = Control -> PropertyValue
+    public typealias PropertyGetter = (Control) -> PropertyValue
 
-    private weak var control: Control?
-    private var propertySetter: PropertySetter?
+    fileprivate weak var control: Control?
+    fileprivate var propertySetter: PropertySetter?
 
-    private var propertyGetter: PropertyGetter?
-    private let getSubscribable: Event<DataValue> = Event()
+    fileprivate var propertyGetter: PropertyGetter?
+    fileprivate let getSubscribable: Event<DataValue> = Event()
 
-    private let disposableBag = DisposableBag()
+    fileprivate let disposableBag = DisposableBag()
 
-    private var accessingUnderlyingProperty = false
+    fileprivate var accessingUnderlyingProperty = false
 
     public init() { // so we can be subclassed outside of Fisticuffs
     }
 
-    func setup(control: Control, propertySetter: PropertySetter, subscribable: Subscribable<DataValue>) {
+    func setup(_ control: Control, propertySetter: @escaping PropertySetter, subscribable: Subscribable<DataValue>) {
         self.control = control
         self.propertySetter = propertySetter
 
@@ -48,7 +48,7 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
                 return
             }
 
-            if let this = self, control = this.control, propertySetter = this.propertySetter {
+            if let this = self, let control = this.control, let propertySetter = this.propertySetter {
                 this.accessingUnderlyingProperty = true
                 this.set(control: control, oldValue: oldValue, value: newValue, propertySetter: propertySetter)
                 this.accessingUnderlyingProperty = false
@@ -57,7 +57,7 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
         .addTo(disposableBag)
     }
 
-    func setup(propertyGetter: PropertyGetter, changeEvent: Event<Void>) -> Subscribable<DataValue> {
+    func setup(_ propertyGetter: @escaping PropertyGetter, changeEvent: Event<Void>) -> Subscribable<DataValue> {
         self.propertyGetter = propertyGetter
 
         changeEvent.subscribe { [weak self] _, _ in
@@ -65,7 +65,7 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
                 return
             }
 
-            if let this = self, control = this.control, propertyGetter = this.propertyGetter {
+            if let this = self, let control = this.control, let propertyGetter = this.propertyGetter {
                 this.accessingUnderlyingProperty = true
                 do {
                     let value = try this.get(control: control, propertyGetter: propertyGetter)
@@ -75,20 +75,21 @@ public class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Dispo
                 }
                 this.accessingUnderlyingProperty = false
             }
-        }
+        }.addTo(disposableBag)
+        
         return getSubscribable
     }
 
-    public func set(control control: Control, oldValue: DataValue?, value: DataValue, propertySetter: PropertySetter) {
+    open func set(control: Control, oldValue: DataValue?, value: DataValue, propertySetter: @escaping PropertySetter) {
         // Override in subclasses
     }
 
-    public func get(control control: Control, propertyGetter: PropertyGetter) throws -> DataValue {
+    open func get(control: Control, propertyGetter: @escaping PropertyGetter) throws -> DataValue {
         // override in subclasses
         throw BindingHandlerGetterNotImplemented()
     }
 
-    public func dispose() {
+    open func dispose() {
         disposableBag.dispose()
     }
 }

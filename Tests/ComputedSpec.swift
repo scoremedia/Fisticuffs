@@ -91,14 +91,14 @@ class ComputedSpec: QuickSpec {
                     let result = Computed { a.value }
 
                     var notificationCount = 0
-                    let opts = SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)
+                    let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
                     result.subscribe(opts) { notificationCount += 1 }
 
                     a.value = 11
                     expect(result.value) == 11
 
                     // let runloop finish so that coalesced update happens
-                    NSRunLoop.mainRunLoop().runUntilDate(NSDate())
+                    RunLoop.main.run(until: Date())
 
                     expect(notificationCount) == 1
                 }
@@ -128,7 +128,7 @@ class ComputedSpec: QuickSpec {
                 a.value = 5 // trigger the subscription block
 
                 var fired = false
-                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)) { _, _ in fired = true }
+                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
 
                 // if a dependency was added, this'll cause `fired` to be set to `true`
                 shouldNotDependOn.value = true

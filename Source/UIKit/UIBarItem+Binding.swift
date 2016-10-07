@@ -42,7 +42,7 @@ public extension UIBarItem {
         get {
             return associatedObjectProperty(self, &b_enabled_key) { _ in
                 return BindableProperty(self, setter: { control, value in
-                    control.enabled = value
+                    control.isEnabled = value
                 })
             }
         }

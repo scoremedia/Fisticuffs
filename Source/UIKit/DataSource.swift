@@ -23,39 +23,39 @@
 import UIKit
 
 public protocol DataSourceView: class {
-    typealias CellView
+    associatedtype CellView
     
     func reloadData()
-    func insertCells(indexPaths indexPaths: [NSIndexPath])
-    func deleteCells(indexPaths indexPaths: [NSIndexPath])
-    func batchUpdates(updates: () -> Void)
+    func insertCells(indexPaths: [IndexPath])
+    func deleteCells(indexPaths: [IndexPath])
+    func batchUpdates(_ updates: @escaping () -> Void)
     
-    func indexPathsForSelections() -> [NSIndexPath]?
-    func select(indexPath indexPath: NSIndexPath)
-    func deselect(indexPath indexPath: NSIndexPath)
+    func indexPathsForSelections() -> [IndexPath]?
+    func select(indexPath: IndexPath)
+    func deselect(indexPath: IndexPath)
     
-    func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> CellView
+    func dequeueCell(reuseIdentifier: String, indexPath: IndexPath) -> CellView
 }
 
 
-public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
-    private weak var view: View?
+open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
+    fileprivate weak var view: View?
     
     // Underlying data
-    private let subscribable: Subscribable<[Item]>
-    private let observable: Observable<[Item]>?
+    fileprivate let subscribable: Subscribable<[Item]>
+    fileprivate let observable: Observable<[Item]>?
     
-    private var suppressChangeUpdates = false
+    fileprivate var suppressChangeUpdates = false
     
-    private var items: [Item] = []
+    fileprivate var items: [Item] = []
 
-    private var didInitialSelectionSync = false
-    private var ignoreSelectionChanges: Bool = false
-    private var selectionsSubscription: Disposable?
-    private var selectionSubscription: Disposable?
+    fileprivate var didInitialSelectionSync = false
+    fileprivate var ignoreSelectionChanges: Bool = false
+    fileprivate var selectionsSubscription: Disposable?
+    fileprivate var selectionSubscription: Disposable?
 
     /// All selected items
-    public var selections: Observable<[Item]>? {
+    open var selections: Observable<[Item]>? {
         didSet {
             selectionsSubscription?.dispose()
             selectionsSubscription = selections?.subscribe { [weak self] _, newValue in
@@ -82,7 +82,7 @@ public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
 
     /// The selected item.  If multiple items are allowed/selected, it is undefined which one
     /// will show up in here.  Setting it will clear out `selections`
-    public var selection: Observable<Item?>? {
+    open var selection: Observable<Item?>? {
         didSet {
             selectionSubscription?.dispose()
             selectionSubscription = selection?.subscribe { [weak self] _, newValue in
@@ -108,12 +108,12 @@ public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     }
 
 
-    private var disabledItemsSubscription: Disposable?
-    private var disabledItemsValue: [Item] = []
+    fileprivate var disabledItemsSubscription: Disposable?
+    fileprivate var disabledItemsValue: [Item] = []
 
     /// If set, will prevent the user from selecting these rows/items in collection/table views
     ///  NOTE: Won't adjust `selection`/`selections` properties (TODO: Should it?)
-    public func disableSelectionFor(subscribable: Subscribable<[Item]>) {
+    open func disableSelectionFor(_ subscribable: Subscribable<[Item]>) {
         disabledItemsSubscription?.dispose()
         disabledItemsSubscription = subscribable.subscribe { [weak self] _, newValue in
             self?.disabledItemsValue = Array(newValue)
@@ -121,11 +121,11 @@ public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     }
 
     
-    public var deselectOnSelection = true
-    public let onSelect = Event<Item>()
-    public let onDeselect = Event<Item>()
+    open var deselectOnSelection = true
+    open let onSelect = Event<Item>()
+    open let onDeselect = Event<Item>()
     
-    public var editable: Bool { return observable != nil }
+    open var editable: Bool { return observable != nil }
     
     public init(subscribable: Subscribable<[Item]>, view: View) {
         self.view = view
@@ -137,42 +137,42 @@ public class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
         }
     }
     
-    private var reuseIdentifier: String?
-    private var cellSetup: ((Item, View.CellView) -> Void)?
+    fileprivate var reuseIdentifier: String?
+    fileprivate var cellSetup: ((Item, View.CellView) -> Void)?
     
-    public func useCell(reuseIdentifier reuseIdentifier: String, setup: (Item, View.CellView) -> Void) {
+    open func useCell(reuseIdentifier: String, setup: @escaping (Item, View.CellView) -> Void) {
         self.reuseIdentifier = reuseIdentifier
         cellSetup = setup
     }
     
-    public var allowsMoving = false
+    open var allowsMoving = false
 }
 
 extension DataSource {
     
-    func underlyingDataChanged(new: [Item], _ change: ArrayChange<Item>) {
+    func underlyingDataChanged(_ new: [Item], _ change: ArrayChange<Item>) {
         items = Array(new)
         
         if suppressChangeUpdates == false {
             switch change {
-            case .Set(elements: _):
+            case .set(elements: _):
                 view?.reloadData()
                 
-            case let .Insert(index: index, newElements: newElements):
-                let indexPaths = (index ..< index + newElements.count).map { i in NSIndexPath(forItem: i, inSection: 0) }
+            case let .insert(index: index, newElements: newElements):
+                let indexPaths = (index ..< index + newElements.count).map { i in IndexPath(item: i, section: 0) }
                 view?.insertCells(indexPaths: indexPaths)
             
-            case let .Remove(range: range, removedElements: _):
-                let indexPaths = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
+            case let .remove(range: range, removedElements: _):
+                let indexPaths = range.map { i in IndexPath(item: i, section: 0) }
                 view?.deleteCells(indexPaths: indexPaths)
                 
-            case let .Replace(range: range, removedElements: _, newElements: new):
+            case let .replace(range: range, removedElements: _, newElements: new):
                 view?.batchUpdates { [view = view] in
-                    let deleted = range.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                    let deleted = range.map { i in IndexPath(item: i, section: 0) }
                     view?.deleteCells(indexPaths: deleted)
                     
-                    let addedRange = range.startIndex ..< range.startIndex + new.count
-                    let added = addedRange.map { i in NSIndexPath(forItem: i, inSection: 0) }
+                    let addedRange = range.lowerBound ..< range.lowerBound + new.count
+                    let added = addedRange.map { i in IndexPath(item: i, section: 0) }
                     view?.insertCells(indexPaths: added)
                 }
             }
@@ -198,19 +198,19 @@ extension DataSource {
         
         let currentSelections = Set(view.indexPathsForSelections() ?? [])
         
-        let expectedSelections: Set<NSIndexPath> = {
-            let expected = selectedItems.map { item -> NSIndexPath? in
-                items.indexOf(item).map { index in
-                    NSIndexPath(forItem: index, inSection: 0)
+        let expectedSelections: Set<IndexPath> = {
+            let expected = selectedItems.map { item -> IndexPath? in
+                items.index(of: item).map { index in
+                    IndexPath(item: index, section: 0)
                 }
             }
             return Set(expected.flatMap { $0 })
         }()
         
-        let toDeselect = currentSelections.subtract(expectedSelections)
+        let toDeselect = currentSelections.subtracting(expectedSelections)
         toDeselect.forEach(view.deselect)
 
-        let toSelect = expectedSelections.subtract(currentSelections)
+        let toSelect = expectedSelections.subtracting(currentSelections)
         toSelect.forEach(view.select)
     }
     
@@ -224,7 +224,7 @@ extension DataSource {
         // sync again after the table/collection view has loaded its data
         if didInitialSelectionSync == false {
             didInitialSelectionSync = true
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.syncSelections()
             }
         }
@@ -232,20 +232,20 @@ extension DataSource {
         return 1
     }
     
-    public func numberOfItems(section section: Int) -> Int {
+    public func numberOfItems(section: Int) -> Int {
         return items.count
     }
     
-    public func itemAtIndexPath(indexPath: NSIndexPath) -> Item {
-        return items[indexPath.item]
+    public func itemAtIndexPath(_ indexPath: IndexPath) -> Item {
+        return items[(indexPath as NSIndexPath).item]
     }
     
-    public func cellAtIndexPath(indexPath: NSIndexPath) -> View.CellView {
+    public func cellAtIndexPath(_ indexPath: IndexPath) -> View.CellView {
         guard let view = view else {
             preconditionFailure("view not set")
         }
         
-        guard let reuseIdentifier = reuseIdentifier, cellSetup = cellSetup else {
+        guard let reuseIdentifier = reuseIdentifier, let cellSetup = cellSetup else {
             preconditionFailure("Cell reuseidentifier/setup block not set")
         }
         
@@ -255,7 +255,7 @@ extension DataSource {
         return cell
     }
     
-    public func didSelect(indexPath indexPath: NSIndexPath) {
+    public func didSelect(indexPath: IndexPath) {
         let item = itemAtIndexPath(indexPath)
 
         self.ignoreSelectionChanges = true
@@ -275,13 +275,13 @@ extension DataSource {
         }
     }
     
-    public func didDeselect(indexPath indexPath: NSIndexPath) {
+    public func didDeselect(indexPath: IndexPath) {
         let item = itemAtIndexPath(indexPath)
 
         self.ignoreSelectionChanges = true
         do {
-            if let index = selections?.value.indexOf(item) {
-                selections?.value.removeAtIndex(index)
+            if let index = selections?.value.index(of: item) {
+                selections?.value.remove(at: index)
             }
             if selection?.value == item {
                 // reset back to the first multiple selection (or none if there isn't one)
@@ -293,7 +293,7 @@ extension DataSource {
         onDeselect.fire(item)
     }
 
-    public func canSelect(indexPath indexPath: NSIndexPath) -> Bool {
+    public func canSelect(indexPath: IndexPath) -> Bool {
         let item = itemAtIndexPath(indexPath)
         return disabledItemsValue.contains(item) == false
     }
@@ -301,7 +301,7 @@ extension DataSource {
 
 extension DataSource {
     
-    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, @noescape block: (data: Observable<[Item]>) -> Void) {
+    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, block: (_ data: Observable<[Item]>) -> Void) {
         suppressChangeUpdates = suppress
         defer { suppressChangeUpdates = false }
         
@@ -311,41 +311,27 @@ extension DataSource {
             return
         }
         
-        block(data: observable)
+        block(observable)
     }
     
-    public func move(source source: NSIndexPath, destination: NSIndexPath) {
+    public func move(source: IndexPath, destination: IndexPath) {
         // No need to send updates to the view (suppressChangeUpdates: true) for the moving items, 
         // as that is handled internally by UITableView / UICollectionView
         modifyUnderlyingData(suppressChangeUpdates: true) { data in
-            let sourceIndex = data.value.startIndex.nthSuccessor(source.item)
-            let item = data.value.removeAtIndex(sourceIndex)
+            let sourceIndex = data.value.startIndex.advanced(by: source.item)
+            let item = data.value.remove(at: sourceIndex)
             
-            let destIndex = data.value.startIndex.nthSuccessor(destination.item)
-            data.value.insert(item, atIndex: destIndex)
+            let destIndex = data.value.startIndex.advanced(by: destination.item)
+            data.value.insert(item, at: destIndex)
         }
     }
     
-    public func delete(indexPath indexPath: NSIndexPath) {
+    public func delete(indexPath: IndexPath) {
         modifyUnderlyingData(suppressChangeUpdates: false) { data in
-            let index = data.value.startIndex.nthSuccessor(indexPath.item)
-            data.value.removeAtIndex(index)
+            let index = data.value.startIndex.advanced(by: indexPath.item)
+            data.value.remove(at: index)
         }
     }
     
-}
-
-
-
-extension ForwardIndexType {
-    func nthSuccessor(n: Int) -> Self {
-        assert(n >= 0, "`n` must be positive")
-        
-        var index = self
-        for _ in 0 ..< n {
-            index = index.successor()
-        }
-        return index
-    }
 }
 

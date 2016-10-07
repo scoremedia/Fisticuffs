@@ -9,7 +9,7 @@
 import Foundation
 
 extension NSLocking {
-    func withLock<T>(@noescape block: Void -> T) -> T {
+    func withLock<T>(_ block: (Void) -> T) -> T {
         lock()
         let result = block()
         unlock()

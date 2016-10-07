@@ -23,7 +23,7 @@
 
 struct DependencyTracker {
 
-    static func findDependencies(@noescape block: Void -> Void) -> [AnySubscribableBox] {
+    static func findDependencies(_ block: (Void) -> Void) -> [AnySubscribableBox] {
         let stack = DependenciesCollectionStack.current
 
         let collection = DependenciesCollection()
@@ -35,7 +35,7 @@ struct DependencyTracker {
         return Array(collection.dependencies)
     }
     
-    static func didReadObservable(subscribable: AnySubscribable) {
+    static func didReadObservable(_ subscribable: AnySubscribable) {
         let boxed = AnySubscribableBox(subscribable: subscribable)
         DependenciesCollectionStack.current.items.last?.dependencies.insert(boxed)
     }
@@ -43,15 +43,15 @@ struct DependencyTracker {
 }
 
 private class DependenciesCollectionStack: NSObject {
-    private class ThreadDictionaryKey: NSObject, NSCopying {
-        @objc func copyWithZone(zone: NSZone) -> AnyObject {
+    fileprivate class ThreadDictionaryKey: NSObject, NSCopying {
+        @objc func copy(with zone: NSZone?) -> Any {
             return self
         }
     }
     static let threadDictionaryKey = ThreadDictionaryKey()
 
     static var current: DependenciesCollectionStack {
-        let thread = NSThread.currentThread()
+        let thread = Thread.current
         if let existing = thread.threadDictionary[threadDictionaryKey] as? DependenciesCollectionStack {
             return existing
         }

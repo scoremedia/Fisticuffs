@@ -27,13 +27,13 @@ private var b_date_key = 0
 
 
 public extension UIDatePicker {
-    var b_date: BidirectionalBindableProperty<UIDatePicker, NSDate> {
+    var b_date: BidirectionalBindableProperty<UIDatePicker, Date> {
         return associatedObjectProperty(self, &b_date_key) { _ in
             return TargetActionBindableProperty(
                 control: self,
                 getter: { control in control.date },
                 setter: { control, date in control.date = date },
-                events: .ValueChanged
+                events: .valueChanged
             )
         }
     }

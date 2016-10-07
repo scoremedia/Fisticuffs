@@ -21,22 +21,22 @@
 //  THE SOFTWARE.
 
 
-public class Subscribable<Value> : AnySubscribable {
-    public var currentValue: Value? {
+open class Subscribable<Value> : AnySubscribable {
+    open var currentValue: Value? {
         return nil
     }
 
-    public let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
+    open let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
 
-    public func subscribe(block: (Value?, Value) -> Void) -> Disposable {
+    open func subscribe(_ block: @escaping (Value?, Value) -> Void) -> Disposable {
         return subscribe(SubscriptionOptions(), block: block)
     }
 
-    public func subscribe(options: SubscriptionOptions, block: (Value?, Value) -> Void) -> Disposable {
+    open func subscribe(_ options: SubscriptionOptions, block: @escaping (Value?, Value) -> Void) -> Disposable {
         let currentValue = self.currentValue
 
         let disposable = subscriptionCollection.add(when: options.when, callback: block)
-        if let value = currentValue where options.notifyOnSubscription {
+        if let value = currentValue , options.notifyOnSubscription {
             block(value, value)
         }
         return disposable
@@ -44,13 +44,13 @@ public class Subscribable<Value> : AnySubscribable {
 
 
     //MARK: AnySubscribable
-    public func subscribe(options: SubscriptionOptions, block: () -> Void) -> Disposable {
+    open func subscribe(_ options: SubscriptionOptions, block: @escaping () -> Void) -> Disposable {
         return subscribe(options) { _, _ in
             block()
         }
     }
 
-    public func subscribe(block: () -> Void) -> Disposable {
+    open func subscribe(_ block: @escaping () -> Void) -> Disposable {
         return subscribe(SubscriptionOptions(), block: block)
     }
 }

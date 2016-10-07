@@ -9,7 +9,7 @@
 import Foundation
 
 
-func associatedObjectProperty<This: AnyObject, PropertyType: AnyObject>(this: This, _ key: UnsafePointer<Void>, @noescape factory: (This) -> PropertyType) -> PropertyType {
+func associatedObjectProperty<This: AnyObject, PropertyType: AnyObject>(_ this: This, _ key: UnsafeRawPointer, factory: (This) -> PropertyType) -> PropertyType {
     if let value = objc_getAssociatedObject(this, key) as? PropertyType {
         return value
     } else {
@@ -19,6 +19,6 @@ func associatedObjectProperty<This: AnyObject, PropertyType: AnyObject>(this: Th
     }
 }
 
-func setAssociatedObjectProperty<This: AnyObject, PropertyType: AnyObject>(this: This, _ key: UnsafePointer<Void>, value: PropertyType?) {
+func setAssociatedObjectProperty<This: AnyObject, PropertyType: AnyObject>(_ this: This, _ key: UnsafeRawPointer, value: PropertyType?) {
     objc_setAssociatedObject(this, key, value, .OBJC_ASSOCIATION_RETAIN)
 }

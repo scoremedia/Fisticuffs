@@ -39,18 +39,18 @@ public extension UITextField {
                     control: self,
                     getter: { control in control.text },
                     setter: { control, text in control.text = text },
-                    events: .EditingChanged
+                    events: .editingChanged
                 )
             }
         }
     }
 
     var b_didBeginEditing: Event<UIEvent?> {
-        return b_controlEvent(.EditingDidBegin)
+        return b_controlEvent(.editingDidBegin)
     }
     
     var b_didEndEditing: Event<UIEvent?> {
-        return b_controlEvent([.EditingDidEnd, .EditingDidEndOnExit])
+        return b_controlEvent([.editingDidEnd, .editingDidEndOnExit])
     }
     
 }
@@ -58,7 +58,7 @@ public extension UITextField {
 
 public extension UITextField {
 
-    private var b_delegate: TextFieldDelegate {
+    fileprivate var b_delegate: TextFieldDelegate {
         return associatedObjectProperty(self, &b_delegate_key) { _ in
             let delegate = TextFieldDelegate()
             self.delegate = delegate
@@ -124,15 +124,15 @@ private class TextFieldDelegate: NSObject, UITextFieldDelegate {
     var shouldClear = true
     var shouldReturn = true
     
-    @objc func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    @objc func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return shouldBeginEditing
     }
     
-    @objc func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    @objc func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return shouldEndEditing
     }
     
-    @objc func textFieldShouldClear(textField: UITextField) -> Bool {
+    @objc func textFieldShouldClear(_ textField: UITextField) -> Bool {
         let retVal = shouldClear // copy to guard against `shouldClear` being changed in any event subscriptions
         if retVal {
             willClear.fire()
@@ -140,7 +140,7 @@ private class TextFieldDelegate: NSObject, UITextFieldDelegate {
         return retVal
     }
     
-    @objc func textFieldShouldReturn(textField: UITextField) -> Bool {
+    @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let retVal = shouldReturn // copy to guard against `shouldReturn` being changed in any event subscriptions
         if retVal {
             willReturn.fire()

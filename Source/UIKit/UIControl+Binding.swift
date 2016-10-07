@@ -35,7 +35,7 @@ public extension UIControl {
         get {
             return associatedObjectProperty(self, &b_enabled_key) { _ in
                 return BindableProperty(self, setter: { control, value -> Void in
-                    control.enabled = value
+                    control.isEnabled = value
                 })
             }
         }
@@ -43,12 +43,12 @@ public extension UIControl {
 
     var b_onTap: Event<Void> {
         return associatedObjectProperty(self, &b_onTap_key) { _ in
-            self.addTarget(self, action: "b_receivedOnTap:", forControlEvents: .TouchUpInside)
+            self.addTarget(self, action: "b_receivedOnTap:", for: .touchUpInside)
             return Event<Void>()
         }
     }
 
-    @objc private func b_receivedOnTap(sender: AnyObject) {
+    @objc fileprivate func b_receivedOnTap(_ sender: AnyObject) {
         b_onTap.fire()
     }
 
@@ -63,14 +63,14 @@ public extension UIControl {
 
      - returns: The Event object
      */
-    func b_controlEvent(controlEvents: UIControlEvents) -> Event<UIEvent?> {
+    func b_controlEvent(_ controlEvents: UIControlEvents) -> Event<UIEvent?> {
         let trampolinesCollection = associatedObjectProperty(self, &trampolines_key) { _ in ControlEventTrampolineCollection() }
 
         if let trampoline = trampolinesCollection.trampolines[controlEvents.rawValue] {
             return trampoline.event
         } else {
             let trampoline = ControlEventTrampoline()
-            addTarget(trampoline, action: "receivedEvent:uiEvent:", forControlEvents: controlEvents)
+            addTarget(trampoline, action: #selector(ControlEventTrampoline.receivedEvent(_:uiEvent:)), for: controlEvents)
             trampolinesCollection.trampolines[controlEvents.rawValue] = trampoline
             return trampoline.event
         }
@@ -86,7 +86,7 @@ private class ControlEventTrampolineCollection: NSObject {
 private class ControlEventTrampoline: NSObject {
     let event = Event<UIEvent?>()
 
-    @objc func receivedEvent(sender: AnyObject?, uiEvent: UIEvent?) {
+    @objc func receivedEvent(_ sender: AnyObject?, uiEvent: UIEvent?) {
         event.fire(uiEvent)
     }
 }

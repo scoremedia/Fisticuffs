@@ -20,19 +20,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public class Event<Value> : Subscribable<Value> {
+open class Event<Value> : Subscribable<Value> {
 
     public override init() {
     }
     
-    public override var currentValue: Value? {
+    open override var currentValue: Value? {
         return nil
     }
 
-    public func fire(value: Value) {
-        subscriptionCollection.notify(time: .BeforeChange, old: nil, new: value)
-        subscriptionCollection.notify(time: .ValueIsDirty, old: nil, new: value)
-        subscriptionCollection.notify(time: .AfterChange, old: nil, new: value)
+    open func fire(_ value: Value) {
+        subscriptionCollection.notify(time: .beforeChange, old: nil, new: value)
+        subscriptionCollection.notify(time: .valueIsDirty, old: nil, new: value)
+        subscriptionCollection.notify(time: .afterChange, old: nil, new: value)
     }
     
 }

@@ -32,9 +32,9 @@ public extension UISwitch {
         return associatedObjectProperty(self, &b_on_key) { _ in
             return TargetActionBindableProperty(
                 control: self,
-                getter: { control in control.on },
-                setter: { control, value in control.on = value },
-                events: .ValueChanged
+                getter: { control in control.isOn },
+                setter: { control, value in control.isOn = value },
+                events: .valueChanged
             )
         }
     }

@@ -8,25 +8,25 @@
 
 import Foundation
 
-private struct NoReverseTransformError: ErrorType {}
+private struct NoReverseTransformError: Error {}
 
-public class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataValue, PropertyValue>: BindingHandler<Control, InDataValue, PropertyValue> {
+open class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataValue, PropertyValue>: BindingHandler<Control, InDataValue, PropertyValue> {
 
     let bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>
-    let transform: InDataValue -> OutDataValue
-    let reverseTransform: (OutDataValue -> InDataValue)?
+    let transform: (InDataValue) -> OutDataValue
+    let reverseTransform: ((OutDataValue) -> InDataValue)?
 
-    init(_ transform: InDataValue -> OutDataValue, reverse: (OutDataValue -> InDataValue)?, bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>) {
+    init(_ transform: @escaping (InDataValue) -> OutDataValue, reverse: ((OutDataValue) -> InDataValue)?, bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>) {
         self.bindingHandler = bindingHandler
         self.transform = transform
         self.reverseTransform = reverse
     }
 
-    public override func set(control control: Control, oldValue: InDataValue?, value: InDataValue, propertySetter: PropertySetter) {
+    open override func set(control: Control, oldValue: InDataValue?, value: InDataValue, propertySetter: @escaping PropertySetter) {
         bindingHandler.set(control: control, oldValue: oldValue.map(transform), value: transform(value), propertySetter: propertySetter)
     }
 
-    public override func get(control control: Control, propertyGetter: PropertyGetter) throws -> InDataValue {
+    open override func get(control: Control, propertyGetter: @escaping PropertyGetter) throws -> InDataValue {
         guard let reverseTransform = reverseTransform else {
             throw NoReverseTransformError()
         }
@@ -35,22 +35,22 @@ public class TransformBindingHandler<Control: AnyObject, InDataValue, OutDataVal
         return reverseTransform(value)
     }
 
-    override public func dispose() {
+    override open func dispose() {
         bindingHandler.dispose()
         super.dispose()
     }
 }
 
 public extension BindingHandlers {
-    static func transform<Control, DataValue, PropertyValue>(block: DataValue -> PropertyValue) -> TransformBindingHandler<Control, DataValue, PropertyValue, PropertyValue> {
+    static func transform<Control, DataValue, PropertyValue>(_ block: @escaping (DataValue) -> PropertyValue) -> TransformBindingHandler<Control, DataValue, PropertyValue, PropertyValue> {
         return TransformBindingHandler(block, reverse: nil, bindingHandler: DefaultBindingHandler())
     }
 
-    static func transform<Control, DataValue, PropertyValue>(block: DataValue -> PropertyValue, reverse: PropertyValue -> DataValue) -> TransformBindingHandler<Control, DataValue, PropertyValue, PropertyValue> {
+    static func transform<Control, DataValue, PropertyValue>(_ block: @escaping (DataValue) -> PropertyValue, reverse: @escaping (PropertyValue) -> DataValue) -> TransformBindingHandler<Control, DataValue, PropertyValue, PropertyValue> {
         return TransformBindingHandler(block, reverse: reverse, bindingHandler: DefaultBindingHandler())
     }
 
-    static func transform<Control, InDataValue, OutDataValue, PropertyValue>(block: InDataValue -> OutDataValue, reverse: (OutDataValue -> InDataValue)?, bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>)
+    static func transform<Control, InDataValue, OutDataValue, PropertyValue>(_ block: @escaping (InDataValue) -> OutDataValue, reverse: ((OutDataValue) -> InDataValue)?, bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>)
             -> TransformBindingHandler<Control, InDataValue, OutDataValue, PropertyValue> {
         return TransformBindingHandler<Control, InDataValue, OutDataValue, PropertyValue>(block, reverse: reverse, bindingHandler: bindingHandler)
     }

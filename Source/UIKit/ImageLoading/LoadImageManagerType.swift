@@ -11,9 +11,9 @@
  */
 public enum LoadImageResult {
     /// Image was successfully loaded
-    case Success(UIImage)
+    case success(UIImage)
     /// Image failed to load
-    case Failure(NSError)
+    case failure(NSError)
 }
 
 /// Defines the interface that LoadImageBindingHandler uses
@@ -26,5 +26,5 @@ public protocol LoadImageManagerType {
      
      - returns: Disposable to cancel the request (if disposed, shouldn't call `completionHandler` ever, though this isn't strictly enforced)
      */
-    func loadImage(URL: NSURL, completionHandler: LoadImageResult -> Void) -> Disposable
+    func loadImage(URL: URL, completionHandler: @escaping (LoadImageResult) -> Void) -> Disposable
 }

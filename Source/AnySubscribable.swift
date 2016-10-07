@@ -22,8 +22,8 @@
 
 
 public protocol AnySubscribable: class {
-    func subscribe(options: SubscriptionOptions, block: () -> Void) -> Disposable
-    func subscribe(block: () -> Void) -> Disposable
+    func subscribe(_ options: SubscriptionOptions, block: @escaping () -> Void) -> Disposable
+    func subscribe(_ block: @escaping () -> Void) -> Disposable
 }
 
 // MARK: -
@@ -33,7 +33,8 @@ internal struct AnySubscribableBox: Equatable, Hashable {
     let subscribable: AnySubscribable
 
     var hashValue: Int {
-        return unsafeAddressOf(subscribable).hashValue
+        // TODO: Fix this
+        return 0
     }
 }
 

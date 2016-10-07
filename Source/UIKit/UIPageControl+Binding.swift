@@ -33,7 +33,7 @@ public extension UIPageControl {
                 control: self,
                 getter: { control in control.currentPage },
                 setter: { control, value in control.currentPage = value },
-                events: .ValueChanged
+                events: .valueChanged
             )
         }
     }

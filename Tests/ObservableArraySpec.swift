@@ -77,23 +77,23 @@ class ObservableArraySpec: QuickSpec {
             
             let disposable = array.subscribeArray { newValue, change in
                 switch change {
-                case let .Set(elements):
+                case let .set(elements):
                     receivedInitial = true
                     expect(elements) == [1, 2, 3]
                 
-                case let .Insert(index, newElements):
+                case let .insert(index, newElements):
                     receivedInsert = true
                     expect(index) == 3
                     expect(newElements) == [4]
                     
-                case let .Remove(range, removedElements):
+                case let .remove(range, removedElements):
                     receivedRemove = true
-                    expect(range) == Range(start: 1, end: 3)
+                    expect(range) == 1..<3
                     expect(removedElements) == [2, 3]
                     
-                case let .Replace(range, removedElements, newElements):
+                case let .replace(range, removedElements, newElements):
                     receivedReplace = true
-                    expect(range) == Range(start: 0, end: 1)
+                    expect(range) == 0..<1
                     expect(removedElements) == [1]
                     expect(newElements) == [6, 5]
                 }
@@ -107,10 +107,10 @@ class ObservableArraySpec: QuickSpec {
             array.value.append(4)
             expect(receivedInsert) == true
             
-            array.value.removeRange(1..<3)
+            array.value.removeSubrange(1..<3)
             expect(receivedRemove) == true
             
-            array.value.replaceRange(0..<1, with: [6, 5])
+            array.value.replaceSubrange(0..<1, with: [6, 5])
             expect(receivedReplace) == true
         }
         
@@ -119,10 +119,10 @@ class ObservableArraySpec: QuickSpec {
             
             var receivedSet = false
             
-            let options = SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)
+            let options = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
             let disposable = array.subscribeArray(options) { newValue, change in
                 switch change {
-                case let .Set(elements):
+                case let .set(elements):
                     receivedSet = true
                     expect(elements) == [4, 5]
                     
@@ -145,7 +145,7 @@ class ObservableArraySpec: QuickSpec {
             
             let disposable = array.subscribeArray { newValue, change in
                 switch change {
-                case let .Replace(range, removedElements, newElements):
+                case let .replace(range, removedElements, newElements):
                     receivedReplace = true
                     expect(range) == 0..<1
                     expect(removedElements) == [1]
