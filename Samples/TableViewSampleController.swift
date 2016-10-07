@@ -82,11 +82,11 @@ class TableViewSampleController: UIViewController {
         }
         tableView.b_editing.bind(viewModel.editing)
         
-        editButton.b_onTap.subscribe(viewModel.toggleEditing)
+        _ = editButton.b_onTap.subscribe(viewModel.toggleEditing)
         editButton.b_title.bind(viewModel.editingButtonTitle)
         
-        prependButton.b_onTap.subscribe(viewModel.prependItem)
-        appendButton.b_onTap.subscribe(viewModel.appendItem)
+        _ = prependButton.b_onTap.subscribe(viewModel.prependItem)
+        _ = appendButton.b_onTap.subscribe(viewModel.appendItem)
     }
     
 }

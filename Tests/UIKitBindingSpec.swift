@@ -57,7 +57,7 @@ class UIKitBindingSpec: QuickSpec {
                 var receivedEvent = false
                 
                 let control = UIControl()
-                control.b_controlEvent(.allEvents).subscribe { receivedEvent = true }
+                _ = control.b_controlEvent(.allEvents).subscribe { receivedEvent = true }
 
                 control.sendActions(for: .editingDidBegin)
                 expect(receivedEvent) == true
@@ -69,7 +69,7 @@ class UIKitBindingSpec: QuickSpec {
                 var receivedTap = false
                 
                 let button = UIButton()
-                button.b_onTap.subscribe { receivedTap = true }
+                _ = button.b_onTap.subscribe { receivedTap = true }
 
                 button.sendActions(for: .touchUpInside)
 
@@ -138,7 +138,7 @@ class UIKitBindingSpec: QuickSpec {
                 defer { disposable.dispose() }
                 
                 // simulate a tap
-                barButtonItem.target?.perform(barButtonItem.action, with: barButtonItem)
+                _ = barButtonItem.target?.perform(barButtonItem.action, with: barButtonItem)
                 
                 expect(receivedAction) == true
             }

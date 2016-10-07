@@ -62,7 +62,7 @@ class ImageViewSampleViewController: UITableViewController {
     @IBOutlet var loadButton: UIButton? {
         didSet {
             guard let loadButton = loadButton else { return }
-            loadButton.b_onTap.subscribe(viewModel.loadImage)
+            _ = loadButton.b_onTap.subscribe(viewModel.loadImage)
         }
     }
 

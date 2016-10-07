@@ -92,7 +92,7 @@ class ComputedSpec: QuickSpec {
 
                     var notificationCount = 0
                     let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
-                    result.subscribe(opts) { notificationCount += 1 }
+                    _ = result.subscribe(opts) { notificationCount += 1 }
 
                     a.value = 11
                     expect(result.value) == 11
@@ -106,8 +106,8 @@ class ComputedSpec: QuickSpec {
                 it("should not recurse infinitely if the value is accessed in the subscription block") {
                     let a = Observable(5)
                     let result = Computed { a.value }
-                    result.subscribe { [weak result] in
-                        result?.value
+                    _ = result.subscribe { [weak result] in
+                        _ = result?.value // trigger "side effects" in getter
                     }
                     a.value = 11
                     expect(result.value) == 11
@@ -122,13 +122,13 @@ class ComputedSpec: QuickSpec {
 
                 let computed = Computed { a.value }
                 // attempt to introduce a (false) dependency on `shouldNotDependOn`
-                computed.subscribe { _, _ in
-                    shouldNotDependOn.value
+                _ = computed.subscribe { _, _ in
+                    _ = shouldNotDependOn.value // trigger "side effects" in getter
                 }
                 a.value = 5 // trigger the subscription block
 
                 var fired = false
-                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
+                _ = computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
 
                 // if a dependency was added, this'll cause `fired` to be set to `true`
                 shouldNotDependOn.value = true

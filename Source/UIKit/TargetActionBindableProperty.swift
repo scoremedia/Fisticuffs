@@ -17,7 +17,7 @@ class TargetActionBindableProperty<Control: UIControl, ValueType>: Bidirectional
         super.init(control: control, getter: getter, setter: setter, extraCleanup: disposables)
         control.addTarget(self, action: #selector(TargetActionBindableProperty.controlEventFired), for: events)
         disposables.add(DisposableBlock { [weak self, weak control] in
-            control?.removeTarget(self, action: "controlEventFired", for: events)
+            control?.removeTarget(self, action: #selector(TargetActionBindableProperty.controlEventFired), for: events)
         })
     }
 

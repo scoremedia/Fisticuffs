@@ -120,7 +120,7 @@ class WritableComputedSpec: QuickSpec {
 
                     var notificationCount = 0
                     let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
-                    result.subscribe(opts) { notificationCount += 1 }
+                    _ = result.subscribe(opts) { notificationCount += 1 }
 
                     a.value = 11
                     expect(result.value) == 11
@@ -138,8 +138,8 @@ class WritableComputedSpec: QuickSpec {
                         setter: { _ in }
                     )
                     
-                    result.subscribe { [weak result] in
-                        result?.value
+                    _ = result.subscribe { [weak result] in
+                        _ = result?.value // trigger "side effects" in getter
                     }
                     a.value = 11
                     expect(result.value) == 11
@@ -154,13 +154,13 @@ class WritableComputedSpec: QuickSpec {
 
                 let computed = WritableComputed(getter: { a.value }, setter: { _ in })
                 // attempt to introduce a (false) dependency on `shouldNotDependOn`
-                computed.subscribe { _, _ in
-                    shouldNotDependOn.value
+                _ = computed.subscribe { _, _ in
+                    _ = shouldNotDependOn.value // trigger "side effects" in getter
                 }
                 a.value = 5 // trigger the subscription block
 
                 var fired = false
-                computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
+                _ = computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
 
                 // if a dependency was added, this'll cause `fired` to be set to `true`
                 shouldNotDependOn.value = true

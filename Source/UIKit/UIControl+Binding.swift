@@ -43,7 +43,7 @@ public extension UIControl {
 
     var b_onTap: Event<Void> {
         return associatedObjectProperty(self, &b_onTap_key) { _ in
-            self.addTarget(self, action: "b_receivedOnTap:", for: .touchUpInside)
+            self.addTarget(self, action: #selector(self.b_receivedOnTap(_:)), for: .touchUpInside)
             return Event<Void>()
         }
     }

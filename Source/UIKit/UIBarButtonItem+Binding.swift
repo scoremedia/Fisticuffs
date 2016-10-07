@@ -33,7 +33,7 @@ public extension UIBarButtonItem {
             assert(action == nil, "b_onTap cannot co-exist with another target/selector on UIBarButtonItem")
             
             target = self
-            action = "b_receivedOnTap:"
+            action = #selector(self.b_receivedOnTap(_:))
             
             return Event<Void>()
         }

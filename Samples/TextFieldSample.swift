@@ -98,15 +98,15 @@ class TextFieldSampleViewController: UITableViewController {
         email.b_shouldReturn.bind(viewModel.emailValid, BindingHandlers.transform { value in value ?? false })
         
         // Pressing enter should move the user on to the next field
-        firstName.b_willReturn.subscribe { [weak self] in
+        _ = firstName.b_willReturn.subscribe { [weak self] in
             self?.lastName.becomeFirstResponder()
         }
         
-        lastName.b_willReturn.subscribe { [weak self] in
+        _ = lastName.b_willReturn.subscribe { [weak self] in
             self?.email.becomeFirstResponder()
         }
         
-        email.b_willReturn.subscribe { [weak self] in
+        _ = email.b_willReturn.subscribe { [weak self] in
             self?.email.resignFirstResponder()
         }
     }

@@ -88,10 +88,10 @@ public func <-><Control: AnyObject, T>(lhs: Observable<T>, rhs: BidirectionalBin
 
 @available(*, deprecated, message: "Use Subscribable.subscribe(...) instead")
 public func +=<T>(lhs: Subscribable<T>, rhs: @escaping (T?, T) -> Void) {
-    lhs.subscribe(rhs)
+    _ = lhs.subscribe(rhs)
 }
 
 @available(*, deprecated, message: "Use AnySubscribable.subscribe(...) instead")
 public func +=(lhs: AnySubscribable, rhs: @escaping () -> Void) {
-    lhs.subscribe(rhs)
+    _ = lhs.subscribe(rhs)
 }

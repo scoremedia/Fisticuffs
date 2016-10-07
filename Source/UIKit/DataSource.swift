@@ -44,6 +44,7 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     // Underlying data
     fileprivate let subscribable: Subscribable<[Item]>
     fileprivate let observable: Observable<[Item]>?
+    fileprivate var subscribableSubscription: Disposable?
     
     fileprivate var suppressChangeUpdates = false
     
@@ -132,9 +133,16 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
         self.subscribable = subscribable
         self.observable = subscribable as? Observable<[Item]>
         super.init()
-        subscribable.subscribeArray(SubscriptionOptions()) { [weak self] new, change in
+        subscribableSubscription = subscribable.subscribeArray(SubscriptionOptions()) { [weak self] new, change in
             self?.underlyingDataChanged(new, change)
         }
+    }
+
+    deinit {
+        subscribableSubscription?.dispose()
+        selectionsSubscription?.dispose()
+        selectionSubscription?.dispose()
+        disabledItemsSubscription?.dispose()
     }
     
     fileprivate var reuseIdentifier: String?

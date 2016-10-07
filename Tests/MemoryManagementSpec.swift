@@ -36,7 +36,7 @@ class MemoryManagementSpec: QuickSpec {
                 autoreleasepool {
                     let observable: Observable<String>? = Observable("test")
                     weakObservable = observable
-                    observable?.subscribe { }
+                    _ = observable?.subscribe { }
                     
                     // observable should dealloc here
                 }
@@ -52,7 +52,7 @@ class MemoryManagementSpec: QuickSpec {
                 autoreleasepool {
                     let computed: Computed<String>? = Computed { "Hello" }
                     weakComputed = computed
-                    computed?.subscribe { }
+                    _ = computed?.subscribe { }
                     
                     // computed should dealloc here
                 }
@@ -90,7 +90,7 @@ class MemoryManagementSpec: QuickSpec {
                     weakViewModel = viewModel
                     
                     let button = UIButton()
-                    button.b_onTap.subscribe(viewModel.noop)
+                    _ = button.b_onTap.subscribe(viewModel.noop)
                 }
                 
                 // if button correctly disposes of the tap listener, view model should be dealloc'd
