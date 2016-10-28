@@ -154,6 +154,8 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     }
     
     open var allowsMoving = false
+
+    open var animateChanges = true
 }
 
 extension DataSource {
@@ -162,27 +164,32 @@ extension DataSource {
         items = Array(new)
         
         if suppressChangeUpdates == false {
-            switch change {
-            case .set(elements: _):
-                view?.reloadData()
-                
-            case let .insert(index: index, newElements: newElements):
-                let indexPaths = (index ..< index + newElements.count).map { i in IndexPath(item: i, section: 0) }
-                view?.insertCells(indexPaths: indexPaths)
-            
-            case let .remove(range: range, removedElements: _):
-                let indexPaths = range.map { i in IndexPath(item: i, section: 0) }
-                view?.deleteCells(indexPaths: indexPaths)
-                
-            case let .replace(range: range, removedElements: _, newElements: new):
-                view?.batchUpdates { [view = view] in
-                    let deleted = range.map { i in IndexPath(item: i, section: 0) }
-                    view?.deleteCells(indexPaths: deleted)
+            if animateChanges {
+                switch change {
+                case .set(elements: _):
+                    view?.reloadData()
                     
-                    let addedRange = range.lowerBound ..< range.lowerBound + new.count
-                    let added = addedRange.map { i in IndexPath(item: i, section: 0) }
-                    view?.insertCells(indexPaths: added)
+                case let .insert(index: index, newElements: newElements):
+                    let indexPaths = (index ..< index + newElements.count).map { i in IndexPath(item: i, section: 0) }
+                    view?.insertCells(indexPaths: indexPaths)
+                
+                case let .remove(range: range, removedElements: _):
+                    let indexPaths = range.map { i in IndexPath(item: i, section: 0) }
+                    view?.deleteCells(indexPaths: indexPaths)
+                    
+                case let .replace(range: range, removedElements: _, newElements: new):
+                    view?.batchUpdates { [view = view] in
+                        let deleted = range.map { i in IndexPath(item: i, section: 0) }
+                        view?.deleteCells(indexPaths: deleted)
+                        
+                        let addedRange = range.lowerBound ..< range.lowerBound + new.count
+                        let added = addedRange.map { i in IndexPath(item: i, section: 0) }
+                        view?.insertCells(indexPaths: added)
+                    }
                 }
+            }
+            else {
+                view?.reloadData()
             }
         }
         
