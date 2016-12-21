@@ -28,8 +28,8 @@ class LoginViewController: UIViewController {
   @IBOutlet var passwordField: UITextField!
   @IBOutlet var loginButton: UIButton!
   
-  let username: Observable("")
-  let password: Observable("")
+  let username = Observable("")
+  let password = Observable("")
   
   lazy var inputIsValid: Computed<Bool> = Computed { [weak self] in
     let user = self?.username.value
