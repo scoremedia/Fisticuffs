@@ -32,9 +32,9 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
     fileprivate var propertyGetter: PropertyGetter?
     fileprivate let getSubscribable: Event<DataValue> = Event()
 
-    fileprivate let disposableBag = DisposableBag()
-
     fileprivate var accessingUnderlyingProperty = false
+
+    let disposableBag = DisposableBag()
 
     public init() { // so we can be subclassed outside of Fisticuffs
     }
