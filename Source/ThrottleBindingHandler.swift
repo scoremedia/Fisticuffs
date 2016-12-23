@@ -23,18 +23,12 @@ open class ThrottleBindingHandler<Control: AnyObject, InDataValue, PropertyValue
     private let seconds: Int
 
     private let bindingHandler: BindingHandler<Control, InDataValue, PropertyValue>
-    private let proxyEvent: Event<Void> = Event()
 
     private var timer: DispatchSourceTimer?
 
-    public init(seconds: Int, bindingHandler: BindingHandler<Control, InDataValue, PropertyValue>) {
+    public init(delayInSeconds seconds: Int, bindingHandler: BindingHandler<Control, InDataValue, PropertyValue>) {
         self.seconds = seconds
         self.bindingHandler = bindingHandler
-    }
-
-    override func setup(_ propertyGetter: @escaping (Control) -> PropertyValue, changeEvent: Event<Void>) -> Subscribable<InDataValue> {
-        changeEvent.subscribe(throttle).addTo(disposableBag)
-        return super.setup(propertyGetter, changeEvent: proxyEvent)
     }
 
     override open func set(control: Control, oldValue: InDataValue?, value: InDataValue, propertySetter: @escaping (Control, PropertyValue) -> Void) {
@@ -45,20 +39,25 @@ open class ThrottleBindingHandler<Control: AnyObject, InDataValue, PropertyValue
         return try bindingHandler.get(control: control, propertyGetter: propertyGetter)
     }
 
+    override open func publishValue(_ value: InDataValue) {
+        let publishValue = super.publishValue
+        throttle(value, handler: publishValue)
+    }
+
+    private func throttle(_ value: InDataValue, handler: @escaping (InDataValue) -> Void) {
+        timer?.cancel()
+
+        timer = DispatchSource.makeScheduledOneshotTimer(
+            interval: .seconds(seconds),
+            handler: { handler(value) }
+        )
+    }
+
     override open func dispose() {
         bindingHandler.dispose()
         timer?.cancel()
 
         super.dispose()
-    }
-
-    private func throttle() {
-        timer?.cancel()
-
-        timer = DispatchSource.makeScheduledOneshotTimer(
-            interval: .seconds(seconds),
-            handler: { [weak self] in self?.proxyEvent.fire() }
-        )
     }
 }
 
@@ -75,7 +74,7 @@ private class BlockTarget {
 }
 
 public extension BindingHandlers {
-    static func defaultThrottle<Control, Value>(delayInSeconds seconds: Int) -> ThrottleBindingHandler<Control, Value, Value> {
-        return ThrottleBindingHandler(seconds: seconds, bindingHandler: DefaultBindingHandler())
+    static func throttle<Control, Value>(delayInSeconds seconds: Int) -> ThrottleBindingHandler<Control, Value, Value> {
+        return ThrottleBindingHandler(delayInSeconds: seconds, bindingHandler: DefaultBindingHandler())
     }
 }

@@ -29,8 +29,6 @@ class TextFieldSampleViewModel {
     let lastName = Observable("")
     let email = Observable("")
     let userName = Observable("")
-    let checkingUserName = Observable(false)
-    
     
     // Input valid?  (nil signifies no input/indeterminate)
     
@@ -56,9 +54,6 @@ class TextFieldSampleViewModel {
             return nil
         }
 
-        // TODO: remove
-        print(userName.value)
-
         return arc4random_uniform(UInt32(userName.value.characters.count)) % 2 == 0
     }
     
@@ -81,8 +76,6 @@ class TextFieldSampleViewController: UITableViewController {
     @IBOutlet var lastNameValidity: UILabel!
     @IBOutlet var emailValidity: UILabel!
     @IBOutlet var userNameValidity: UILabel!
-
-    @IBOutlet var userNameCheckActivityView: UIActivityIndicatorView!
     
     //MARK -
     
@@ -96,7 +89,7 @@ class TextFieldSampleViewController: UITableViewController {
         firstName.b_text.bind(viewModel.firstName)
         lastName.b_text.bind(viewModel.lastName)
         email.b_text.bind(viewModel.email)
-        userName.b_text.bind(viewModel.userName, BindingHandlers.defaultThrottle(delayInSeconds: 5))
+        userName.b_text.bind(viewModel.userName, BindingHandlers.throttle(delayInSeconds: 1))
         
         
         firstNameValidity.b_text.bind(viewModel.firstNameValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
@@ -115,6 +108,7 @@ class TextFieldSampleViewController: UITableViewController {
         firstName.b_shouldReturn.bind(viewModel.firstNameValid, BindingHandlers.transform { value in value ?? false })
         lastName.b_shouldReturn.bind(viewModel.lastNameValid, BindingHandlers.transform { value in value ?? false })
         email.b_shouldReturn.bind(viewModel.emailValid, BindingHandlers.transform { value in value ?? false })
+        userName.b_shouldReturn.bind(viewModel.userNameValid, BindingHandlers.transform { value in value ?? false })
         
         // Pressing enter should move the user on to the next field
         _ = firstName.b_willReturn.subscribe { [weak self] in

@@ -48,19 +48,19 @@ class BindingHandlersSpec: QuickSpec {
             it("should push changes to the observable after a timeout") {
                 let observable = Observable("")
 
-                property.bind(observable, BindingHandlers.defaultThrottle(delayInSeconds: 1))
+                property.bind(observable, BindingHandlers.throttle(delayInSeconds: 1))
 
                 backingVariable = "1"
                 property.pushChangeToObservable()
 
                 expect(observable.value) == ""
-                expect(observable.value).toEventually(equal("1"), timeout: 3.0)
+                expect(observable.value).toEventually(equal("1"), timeout: 5.0)
             }
 
             it("should push the most recent value to the observable after a timeout") {
                 let observable = Observable("")
 
-                property.bind(observable, BindingHandlers.defaultThrottle(delayInSeconds: 1))
+                property.bind(observable, BindingHandlers.throttle(delayInSeconds: 1))
 
                 var numberOfTimesObservableIsNotified = 0
                 var publishedValues = [String]()
@@ -91,7 +91,7 @@ class BindingHandlersSpec: QuickSpec {
                     numberOfTimesObservableIsNotified += 1
                 }
 
-                property.bind(observable, BindingHandlers.defaultThrottle(delayInSeconds: 1))
+                property.bind(observable, BindingHandlers.throttle(delayInSeconds: 1))
                 backingVariable = "test"
                 property.pushChangeToObservable()
 
@@ -112,7 +112,7 @@ class BindingHandlersSpec: QuickSpec {
                     reverse: { Int($0) }
                 )
 
-                property.bind(observable, ThrottleBindingHandler(seconds: 1, bindingHandler: toIntBindingHandler))
+                property.bind(observable, ThrottleBindingHandler(delayInSeconds: 1, bindingHandler: toIntBindingHandler))
 
                 backingVariable = "50"
                 property.pushChangeToObservable()
@@ -123,10 +123,45 @@ class BindingHandlersSpec: QuickSpec {
             it("should update control value immediately when observable value changes") {
                 let observable = Observable("")
 
-                property.bind(observable, BindingHandlers.defaultThrottle(delayInSeconds: 2))
+                property.bind(observable, BindingHandlers.throttle(delayInSeconds: 2))
                 observable.value = "test"
 
                 expect(backingVariable) == observable.value
+            }
+
+            it("should support computed subscribable") {
+                let observable = Observable("")
+
+                let computed: Computed<String> = Computed {
+                    observable.value.uppercased()
+                }
+
+                property.bind(observable, BindingHandlers.throttle(delayInSeconds: 1))
+
+                backingVariable = "hello"
+                property.pushChangeToObservable()
+
+                expect(computed.value).toEventually(equal(backingVariable.uppercased()), timeout: 2.0)
+            }
+
+            it("should support optionals") {
+                var optionalBackingVariable: String?
+
+                let optionalProperty: BidirectionalBindableProperty<BindingHandlersSpec, String?> = BidirectionalBindableProperty(
+                    control: self,
+                    getter: {_ in optionalBackingVariable},
+                    setter: { (_, value) in optionalBackingVariable = value}
+                )
+
+                let observable = Observable("")
+
+                optionalProperty.bind(observable, BindingHandlers.throttle(delayInSeconds: 1))
+
+                optionalBackingVariable = "test"
+                optionalProperty.pushChangeToObservable()
+
+                expect(observable.value) == ""
+                expect(observable.value).toEventually(equal(optionalBackingVariable), timeout: 2.0)
             }
         }
     }
