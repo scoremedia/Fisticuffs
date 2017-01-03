@@ -13,7 +13,7 @@ extension DispatchSource {
      Creates a single use timer source and resumes it.
      Once the timer fires, it is automatically invalidated.
      - parameters:
-        - queue: The dispatch queue that should be used to enque the handler.
+        - queue: The dispatch queue that should be used to enqueue the handler.
         - interval: Timer interval since now when the handler should be invoked.
         - leeway: The handler may be called at any time between its scheduled time + leeway.
         - handler: A function that should be called when the timer fires.
