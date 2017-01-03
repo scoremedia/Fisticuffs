@@ -10,7 +10,8 @@ import Foundation
 
 extension DispatchSource {
     /**
-     Creates a timer source and resumes it.
+     Creates a single use timer source and resumes it.
+     Once the timer fires, it is automatically invalidated.
      - parameters:
         - queue: The dispatch queue that should be used to enque the handler.
         - interval: Timer interval since now when the handler should be invoked.

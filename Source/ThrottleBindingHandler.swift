@@ -12,8 +12,7 @@ import Foundation
  A binding handler that delays notifying the observable of changes in the
  control it's bound to until a timeout expires. Once the timeout expires, this
  binding handler notifies the observable. The value that's passed to the observable
- is the value the control has at the time of the notification. The observable is
- notified once every time a timeout expires.
+ is the value the control has at the time of the notification.
  
  The delay is applied when a change in the value is propagated from the control to
  the observable only.
@@ -58,18 +57,6 @@ open class ThrottleBindingHandler<Control: AnyObject, InDataValue, PropertyValue
         timer?.cancel()
 
         super.dispose()
-    }
-}
-
-private class BlockTarget {
-    let block: () -> Void
-
-    init(_ block: @escaping () -> Void) {
-        self.block = block
-    }
-
-    @objc func invokeBlock() {
-        block()
     }
 }
 
