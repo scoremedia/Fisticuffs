@@ -20,14 +20,14 @@ import Foundation
  */
 open class ThrottleBindingHandler<Control: AnyObject, InDataValue, PropertyValue>: BindingHandler<Control, InDataValue, PropertyValue> {
 
-    private let seconds: Int
+    private let delay: DispatchTimeInterval
 
     private let bindingHandler: BindingHandler<Control, InDataValue, PropertyValue>
 
     private var timer: DispatchSourceTimer?
 
-    public init(delayInSeconds seconds: Int, bindingHandler: BindingHandler<Control, InDataValue, PropertyValue>) {
-        self.seconds = seconds
+    public init(delayBy interval: DispatchTimeInterval, bindingHandler: BindingHandler<Control, InDataValue, PropertyValue>) {
+        self.delay = interval
         self.bindingHandler = bindingHandler
     }
 
@@ -48,7 +48,7 @@ open class ThrottleBindingHandler<Control: AnyObject, InDataValue, PropertyValue
         timer?.cancel()
 
         timer = DispatchSource.makeScheduledOneshotTimer(
-            interval: .seconds(seconds),
+            interval: delay,
             handler: { handler(value) }
         )
     }
@@ -74,7 +74,7 @@ private class BlockTarget {
 }
 
 public extension BindingHandlers {
-    static func throttle<Control, Value>(delayInSeconds seconds: Int) -> ThrottleBindingHandler<Control, Value, Value> {
-        return ThrottleBindingHandler(delayInSeconds: seconds, bindingHandler: DefaultBindingHandler())
+    static func throttle<Control, Value>(delayBy interval: DispatchTimeInterval) -> ThrottleBindingHandler<Control, Value, Value> {
+        return ThrottleBindingHandler(delayBy: interval, bindingHandler: DefaultBindingHandler())
     }
 }

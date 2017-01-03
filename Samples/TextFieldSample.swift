@@ -89,7 +89,7 @@ class TextFieldSampleViewController: UITableViewController {
         firstName.b_text.bind(viewModel.firstName)
         lastName.b_text.bind(viewModel.lastName)
         email.b_text.bind(viewModel.email)
-        userName.b_text.bind(viewModel.userName, BindingHandlers.throttle(delayInSeconds: 1))
+        userName.b_text.bind(viewModel.userName, BindingHandlers.throttle(delayBy: .seconds(1)))
         
         
         firstNameValidity.b_text.bind(viewModel.firstNameValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
