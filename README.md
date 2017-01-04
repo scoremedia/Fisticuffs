@@ -109,6 +109,20 @@ event.fire("Hello, world")
 
 As a side note, `Observable`, `Computed`, and `Event` all inherit from `Subscribable` to provide a common interface to subscribing to changes/events.
 
+### BindingHandlers
+
+`BindingHandler`s describe how a raw data value (ie `Int`, `String`, `NSDate`, etc..) should be applied to a property 
+(`UILabel.text`, `UIImageView.image`, etc..)
+
+Some useful examples of what can be done with BindingHandlers:
+
+- `BindingHandlers.loadImage()` - enables binding a `NSURL` to a `UIImage` property
+- `BindingHandlers.formatSalary()` - formats a raw salary `Int` as a nice string (ie `100k`)
+- `BindingHandlers.autoupdatingTimeAgo()` - enables binding a `NSDate` to a `String` property (ie. `UILabel.text`) that
+  shows values like "5 minutes ago", etc.. (and automatically updates the displayed string as time passes)
+
+Generally the raw value (ie a `Double` for fantasy points) should be bubbled up to the UI in the view model, so that it
+can be formatted as need for that view.
 
 ## UI Bindings
 
