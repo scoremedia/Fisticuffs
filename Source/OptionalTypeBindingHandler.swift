@@ -15,6 +15,10 @@ open class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue: O
 
     init(innerHandler: InnerHandler) {
         self.innerHandler = innerHandler
+
+        super.init()
+
+        self.getSubscribable = innerHandler.getSubscribable
     }
 
     open override func set(control: Control, oldValue: Data?, value: Data, propertySetter: @escaping PropertySetter) {
@@ -31,6 +35,10 @@ open class OptionalTypeBindingHandler<Control: AnyObject, Data, PropertyValue: O
         let convertedGetter: InnerHandler.PropertyGetter = { _ in unwrapped }
 
         return try innerHandler.get(control: control, propertyGetter: convertedGetter)
+    }
+
+    open override func publishValue(_ value: Data) {
+        innerHandler.publishValue(value)
     }
 
     open override func dispose() {

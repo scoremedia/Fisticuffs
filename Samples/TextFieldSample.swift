@@ -28,7 +28,7 @@ class TextFieldSampleViewModel {
     let firstName = Observable("")
     let lastName = Observable("")
     let email = Observable("")
-    
+    let userName = Observable("")
     
     // Input valid?  (nil signifies no input/indeterminate)
     
@@ -48,14 +48,20 @@ class TextFieldSampleViewModel {
             return email.value.range(of: "@") != nil
         }
     }
-    
+
+    lazy var userNameValid: Computed<Bool?> = Computed { [userName = self.userName] in
+        if userName.value.isEmpty {
+            return nil
+        }
+
+        return arc4random_uniform(UInt32(userName.value.characters.count)) % 2 == 0
+    }
     
     lazy var inputValid: Computed<Bool> = Computed { [weak self] in
         self?.firstNameValid.value == true &&
             self?.lastNameValid.value == true &&
             self?.emailValid.value == true
     }
-    
 }
 
 
@@ -64,10 +70,12 @@ class TextFieldSampleViewController: UITableViewController {
     @IBOutlet var firstName: UITextField!
     @IBOutlet var lastName: UITextField!
     @IBOutlet var email: UITextField!
+    @IBOutlet var userName: UITextField!
     
     @IBOutlet var firstNameValidity: UILabel!
     @IBOutlet var lastNameValidity: UILabel!
     @IBOutlet var emailValidity: UILabel!
+    @IBOutlet var userNameValidity: UILabel!
     
     //MARK -
     
@@ -81,6 +89,7 @@ class TextFieldSampleViewController: UITableViewController {
         firstName.b_text.bind(viewModel.firstName)
         lastName.b_text.bind(viewModel.lastName)
         email.b_text.bind(viewModel.email)
+        userName.b_text.bind(viewModel.userName, BindingHandlers.throttle(delayBy: .seconds(1)))
         
         
         firstNameValidity.b_text.bind(viewModel.firstNameValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
@@ -91,11 +100,15 @@ class TextFieldSampleViewController: UITableViewController {
         
         emailValidity.b_text.bind(viewModel.emailValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
         emailValidity.b_textColor.bind(viewModel.emailValid, BindingHandlers.transform(TextFieldSampleViewController.validColorTransform))
+
+        userNameValidity.b_text.bind(viewModel.userNameValid, BindingHandlers.transform(TextFieldSampleViewController.validStringTransform))
+        userNameValidity.b_textColor.bind(viewModel.userNameValid, BindingHandlers.transform(TextFieldSampleViewController.validColorTransform))
         
         // Only let users move on to next field if they've correctly filled out the current one
         firstName.b_shouldReturn.bind(viewModel.firstNameValid, BindingHandlers.transform { value in value ?? false })
         lastName.b_shouldReturn.bind(viewModel.lastNameValid, BindingHandlers.transform { value in value ?? false })
         email.b_shouldReturn.bind(viewModel.emailValid, BindingHandlers.transform { value in value ?? false })
+        userName.b_shouldReturn.bind(viewModel.userNameValid, BindingHandlers.transform { value in value ?? false })
         
         // Pressing enter should move the user on to the next field
         _ = firstName.b_willReturn.subscribe { [weak self] in
@@ -107,7 +120,11 @@ class TextFieldSampleViewController: UITableViewController {
         }
         
         _ = email.b_willReturn.subscribe { [weak self] in
-            self?.email.resignFirstResponder()
+            self?.userName.becomeFirstResponder()
+        }
+
+        _ = userName.b_willReturn.subscribe { [weak self] in
+            self?.userName.resignFirstResponder()
         }
     }
     

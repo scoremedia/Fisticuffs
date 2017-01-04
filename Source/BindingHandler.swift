@@ -30,11 +30,12 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
     fileprivate var propertySetter: PropertySetter?
 
     fileprivate var propertyGetter: PropertyGetter?
-    fileprivate let getSubscribable: Event<DataValue> = Event()
 
-    fileprivate let disposableBag = DisposableBag()
+    var getSubscribable: Event<DataValue> = Event()
 
     fileprivate var accessingUnderlyingProperty = false
+
+    let disposableBag = DisposableBag()
 
     public init() { // so we can be subclassed outside of Fisticuffs
     }
@@ -69,7 +70,7 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
                 this.accessingUnderlyingProperty = true
                 do {
                     let value = try this.get(control: control, propertyGetter: propertyGetter)
-                    this.getSubscribable.fire(value)
+                    this.publishValue(value)
                 } catch {
                     // print a warning maybe?
                 }
@@ -78,6 +79,10 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
         }.addTo(disposableBag)
         
         return getSubscribable
+    }
+
+    open func publishValue(_ value: DataValue) {
+        getSubscribable.fire(value)
     }
 
     open func set(control: Control, oldValue: DataValue?, value: DataValue, propertySetter: @escaping PropertySetter) {
