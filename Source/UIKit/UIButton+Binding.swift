@@ -22,14 +22,22 @@
 
 import UIKit
 
-
+private var b_attributedTitle_key = 0
 private var b_title_key = 0
 private var b_image_key = 0
 private var b_backgroundImage_key = 0
 
 
 public extension UIButton {
-    
+
+    var b_attributedTitle: BindableProperty<UIButton, NSAttributedString?> {
+        return associatedObjectProperty(self, &b_attributedTitle_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.setAttributedTitle(value, for: UIControlState())
+            }
+        }
+    }
+
     var b_title: BindableProperty<UIButton, String?> {
         return associatedObjectProperty(self, &b_title_key) { _ in
             return BindableProperty(self) { control, value in
