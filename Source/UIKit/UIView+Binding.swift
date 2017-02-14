@@ -26,6 +26,7 @@ private var b_backgroundColor_key = 0
 private var b_hidden_key = 0
 private var b_alpha_key = 0
 private var b_tintColor_key = 0
+private var b_userInteractionEnabled_key = 0
 
 
 public extension UIView {
@@ -62,5 +63,11 @@ public extension UIView {
         }
     }
 
-    
+    var b_userInteractionEnabled: BindableProperty<UIView, Bool> {
+        return associatedObjectProperty(self, &b_userInteractionEnabled_key) { _ in
+            return BindableProperty(self, setter: { control, value in
+                control.isUserInteractionEnabled = value
+            })
+        }
+    }
 }
