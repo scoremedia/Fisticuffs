@@ -37,7 +37,7 @@ open class LoadImageManager: LoadImageManagerType {
             let mainQueue = DispatchQueue.main
             mainQueue.async {
                 //TODO: Maybe "fix" error here??
-                let nsError = error as? NSError
+                let nsError = error as NSError?
                 if nsError?.domain == NSURLErrorDomain && nsError?.code == NSURLErrorCancelled {
                     return
                 }

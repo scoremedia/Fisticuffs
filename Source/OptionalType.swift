@@ -50,9 +50,10 @@ extension ImplicitlyUnwrappedOptional: OptionalType {
         self = .some(wrappedValue)
     }
     public func toUnwrappedValue() throws -> Wrapped {
-        if let unwrapped = self {
+        switch self {
+        case .some(let unwrapped):
             return unwrapped
-        } else {
+        case .none:
             throw OptionalIsNone()
         }
     }
