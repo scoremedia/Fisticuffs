@@ -52,6 +52,9 @@ extension UICollectionView: DataSourceView {
     
     
     public func dequeueCell(reuseIdentifier: String, indexPath: IndexPath) -> UICollectionViewCell {
+        layer.drawsAsynchronously = true
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
         return dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     }
 }
