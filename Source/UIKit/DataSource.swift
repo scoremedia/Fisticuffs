@@ -50,7 +50,7 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     
     fileprivate var items: [Item] = []
 
-    fileprivate var didInitialSelectionSync = false
+    fileprivate var hasDoneInitialDataLoad = false
     fileprivate var ignoreSelectionChanges: Bool = false
     fileprivate var selectionsSubscription: Disposable?
     fileprivate var selectionSubscription: Disposable?
@@ -164,7 +164,17 @@ extension DataSource {
         items = Array(new)
         
         if suppressChangeUpdates == false {
-            if animateChanges {
+            // Need to use straight up `reloadData()` if the table view / collection view has not done the initial data load yet
+            // (for example, if the collection view is on a page that is not yet visible).
+            //
+            // Reason being, when we do the insertCells / deleteCells calls (and the view hasn't loaded any data yet), it'll do a query
+            // "before" to get the old ("current") counts, but we've already updated our internal items array, so we return the new items.
+            // Therefore, when we try to do the insertCells / deleteCells, we get exceptions thrown like:
+            //
+            //      *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'attempt to delete 
+            //      item 3 from section 0 which only contains 1 items before the update'
+            //
+            if animateChanges && hasDoneInitialDataLoad {
                 switch change {
                 case .set(elements: _):
                     view?.reloadData()
@@ -237,8 +247,8 @@ extension DataSource {
         // selections before the table/collection view has been loaded (ie, when 
         // setting up its bindings), it won't save those selections.  This triggers a
         // sync again after the table/collection view has loaded its data
-        if didInitialSelectionSync == false {
-            didInitialSelectionSync = true
+        if hasDoneInitialDataLoad == false {
+            hasDoneInitialDataLoad = true
             DispatchQueue.main.async {
                 self.syncSelections()
             }

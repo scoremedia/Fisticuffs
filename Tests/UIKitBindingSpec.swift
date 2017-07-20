@@ -319,5 +319,24 @@ class UIKitBindingSpec: QuickSpec {
                 expect(action.isEnabled) == true
             }
         }
+
+        describe("UICollectionView") {
+            it("should not crash when adding/deleting items before the collection view has appeared on screen") {
+                let items = Observable<[Int]>([1, 2, 3])
+
+                let reuseIdentifier = "Cell"
+
+                let frame = CGRect(x: 0, y: 0, width: 320, height: 480)
+                let layout = UICollectionViewFlowLayout()
+                let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+                collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
+                collectionView.b_configure(items, block: { config in
+                    config.useCell(reuseIdentifier: reuseIdentifier) { _, _ in }
+                })
+
+                items.value.append(5)
+            }
+        }
     }
 }
