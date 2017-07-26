@@ -133,8 +133,8 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
         self.subscribable = subscribable
         self.observable = subscribable as? Observable<[Item]>
         super.init()
-        subscribableSubscription = subscribable.subscribeArray(SubscriptionOptions()) { [weak self] new, change in
-            self?.underlyingDataChanged(new, change)
+        subscribableSubscription = subscribable.subscribe { [weak self] old, new in
+            self?.underlyingDataChanged(new)
         }
     }
 
@@ -160,52 +160,74 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
 
 extension DataSource {
     
-    func underlyingDataChanged(_ new: [Item], _ change: ArrayChange<Item>) {
-        items = Array(new)
-        
-        if suppressChangeUpdates == false {
-            // Need to use straight up `reloadData()` if the table view / collection view has not done the initial data load yet
-            // (for example, if the collection view is on a page that is not yet visible).
-            //
-            // Reason being, when we do the insertCells / deleteCells calls (and the view hasn't loaded any data yet), it'll do a query
-            // "before" to get the old ("current") counts, but we've already updated our internal items array, so we return the new items.
-            // Therefore, when we try to do the insertCells / deleteCells, we get exceptions thrown like:
-            //
-            //      *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'attempt to delete 
-            //      item 3 from section 0 which only contains 1 items before the update'
-            //
-            if animateChanges && hasDoneInitialDataLoad {
-                switch change {
-                case .set(elements: _):
-                    view?.reloadData()
-                    
-                case let .insert(index: index, newElements: newElements):
-                    let indexPaths = (index ..< index + newElements.count).map { i in IndexPath(item: i, section: 0) }
-                    view?.insertCells(indexPaths: indexPaths)
-                
-                case let .remove(range: range, removedElements: _):
-                    let indexPaths = range.map { i in IndexPath(item: i, section: 0) }
-                    view?.deleteCells(indexPaths: indexPaths)
-                    
-                case let .replace(range: range, removedElements: _, newElements: new):
-                    view?.batchUpdates { [view = view] in
-                        let deleted = range.map { i in IndexPath(item: i, section: 0) }
-                        view?.deleteCells(indexPaths: deleted)
-                        
-                        let addedRange = range.lowerBound ..< range.lowerBound + new.count
-                        let added = addedRange.map { i in IndexPath(item: i, section: 0) }
-                        view?.insertCells(indexPaths: added)
-                    }
-                }
-            }
-            else {
-                view?.reloadData()
+    func underlyingDataChanged(_ new: [Item]) {
+        let change = items.calculateChange(new)
+
+        guard suppressChangeUpdates == false else {
+            items = new
+            syncSelections()
+            return
+        }
+
+        guard animateChanges else {
+            items = new
+            view?.reloadData()
+            syncSelections()
+            return
+        }
+
+        if case .set = change {
+            items = new
+            view?.reloadData()
+            syncSelections()
+            return
+        }
+
+        // Do all updates in batch updates (ie UITableView.beginUpdates()/.endUpdates() 
+        // or UICollectionView.performUpdates(_:completion:)) to avoid getting in a 
+        // situation where the collection view may have not have queried for section/item counts
+        // already.  
+        //
+        // By using performUpdate(_:completion:) it will query for section/item counts
+        // right away if needed, do the updates, and query the section/item counts after to validate
+        // the correct number of items were inserted/removed.
+        //
+        // If we do the inserts before it's queried for section/item counts (and outside a performUpdate(_:completion:)
+        // block).  It'll simply query before and after it does the inserts, and we don't have any way of returning the 
+        // old counts the first time, and the new counts the second time, so it'll always cause a crash like:
+        //
+        //      *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'attempt to delete
+        //      item 3 from section 0 which only contains 1 items before the update'
+        //
+        view?.batchUpdates {
+            // NOTE: important this happens inside the block, see above comment
+            self.items = new
+
+            switch change {
+            case .set:
+                assertionFailure("the .set case is handled above")
+                return
+
+            case let .insert(index: index, newElements: newElements):
+                let indexPaths = (index ..< index + newElements.count).map { i in IndexPath(item: i, section: 0) }
+                self.view?.insertCells(indexPaths: indexPaths)
+
+            case let .remove(range: range, removedElements: _):
+                let indexPaths = range.map { i in IndexPath(item: i, section: 0) }
+                self.view?.deleteCells(indexPaths: indexPaths)
+
+            case let .replace(range: range, removedElements: _, newElements: new):
+                let deleted = range.map { i in IndexPath(item: i, section: 0) }
+                self.view?.deleteCells(indexPaths: deleted)
+
+                let addedRange = range.lowerBound ..< range.lowerBound + new.count
+                let added = addedRange.map { i in IndexPath(item: i, section: 0) }
+                self.view?.insertCells(indexPaths: added)
             }
         }
-        
         syncSelections()
     }
-    
+
     func syncSelections() {
         guard let view = view else { return }
 
