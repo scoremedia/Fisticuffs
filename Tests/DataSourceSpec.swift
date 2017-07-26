@@ -32,6 +32,7 @@ class DataSourceSpec: QuickSpec {
         var selections: Observable<[Int]>!
         var selection: Observable<Int?>!
         var disabled: Observable<[Int]>!
+        var view: FauxDataSourceView!
         var dataSource: DataSource<Int, FauxDataSourceView>!
 
         beforeEach {
@@ -39,7 +40,8 @@ class DataSourceSpec: QuickSpec {
             selections = Observable([])
             selection = Observable(nil)
             disabled = Observable([])
-            dataSource = DataSource(subscribable: observable, view: FauxDataSourceView())
+            view = FauxDataSourceView()
+            dataSource = DataSource(subscribable: observable, view: view)
             dataSource.selections = selections
             dataSource.selection = selection
             dataSource.disableSelectionFor(disabled)
@@ -163,7 +165,10 @@ class DataSourceSpec: QuickSpec {
         func reloadData() { }
         func insertCells(indexPaths: [IndexPath]) { }
         func deleteCells(indexPaths: [IndexPath]) { }
-        func batchUpdates(_ updates: @escaping () -> Void) { }
+        
+        func batchUpdates(_ updates: @escaping () -> Void) {
+            updates()
+        }
         
         func indexPathsForSelections() -> [IndexPath]? { return [] }
         func select(indexPath: IndexPath) { }
