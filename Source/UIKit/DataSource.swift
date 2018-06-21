@@ -251,7 +251,7 @@ extension DataSource {
                     IndexPath(item: index, section: 0)
                 }
             }
-            return Set(expected.flatMap { $0 })
+            return Set(expected.compactMap { $0 })
         }()
         
         let toDeselect = currentSelections.subtracting(expectedSelections)

@@ -290,7 +290,7 @@ class UIKitBindingSpec: QuickSpec {
                 let segments = (0..<segmentedControl.numberOfSegments).map { index in
                     segmentedControl.titleForSegment(at: index)
                 }
-                .flatMap { title in title }
+                .compactMap { title in title }
                 
                 expect(segments) == ["1", "2", "3", "4"]
             }

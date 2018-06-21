@@ -97,7 +97,7 @@ class CollectionViewSampleController: UIViewController {
         super.viewDidLayoutSubviews()
     }
     
-    @available(iOS 9, *)
+    @objc @available(iOS 9, *)
     func handleReorderGestureRecognizer(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:

@@ -30,7 +30,7 @@ extension DispatchSource {
         let timer = DispatchSource.makeTimerSource(queue: queue)
 
         timer.setEventHandler(handler: handler)
-        timer.scheduleOneshot(deadline: DispatchTime.now() + interval)
+        timer.schedule(deadline: DispatchTime.now() + interval)
         timer.resume()
 
         return timer

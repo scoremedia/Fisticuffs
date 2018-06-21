@@ -37,12 +37,12 @@ class ToDoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addButton.b_onTap.subscribe(viewModel.tappedAddNewItem)
+        _ = addButton.b_onTap.subscribe(viewModel.tappedAddNewItem)
         
         editButton.b_title.bind(viewModel.editButtonTitle)
-        editButton.b_onTap.subscribe(viewModel.tappedEditButton)
+        _ = editButton.b_onTap.subscribe(viewModel.tappedEditButton)
         
-        viewModel.promptToAddNewItem.subscribe(showAddItemController)
+        _ = viewModel.promptToAddNewItem.subscribe(showAddItemController)
         
         tableView.b_configure(viewModel.items) { config in
 //TODO: Re-add this functionality
@@ -51,9 +51,9 @@ class ToDoListViewController: UIViewController {
             
             config.allowsMoving = true
             config.useCell(reuseIdentifier: "Cell") { item, cell in
-                (cell as! ToDoItemCell).bind(item)
+                (cell as! ToDoItemCell).bind(item: item)
             }
-            config.onSelect.subscribe { _, item in
+            _ = config.onSelect.subscribe { _, item in
                 item.completed.value = !item.completed.value
             }
         }
@@ -62,7 +62,7 @@ class ToDoListViewController: UIViewController {
     
     
     func showAddItemController() {
-        performSegueWithIdentifier("AddItem", sender: nil)
+        performSegue(withIdentifier: "AddItem", sender: nil)
     }
 }
 

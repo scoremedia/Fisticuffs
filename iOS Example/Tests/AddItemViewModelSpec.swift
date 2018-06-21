@@ -41,15 +41,14 @@ class AddItemViewModelSpec: QuickSpec {
             
             it("should finish with a cancel result if Cancel is tapped") {
                 viewModel.cancelTapped()
-                guard case .Some(.Cancelled) = finishedResult else { fail(); return }
+                guard case .some(.Cancelled) = finishedResult else { fail(); return }
             }
             
             it("should finish with a new item result if Done is tapped and input is valid") {
                 viewModel.item.title.value = "Hello"
                 viewModel.doneTapped()
                 
-                guard case .Some(.NewToDoItem(let item)) = finishedResult
-                    where item.title.value == "Hello" else { fail(); return }
+                guard case .some(.NewToDoItem(let item)) = finishedResult, item.title.value == "Hello" else { fail(); return }
             }
             
             it("should require a non-empty title to be valid") {

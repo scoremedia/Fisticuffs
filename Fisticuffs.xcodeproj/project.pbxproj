@@ -219,6 +219,27 @@
 			remoteGlobalIDString = 6A09EEE91BFB80E6005C2B81;
 			remoteInfo = Fisticuffs;
 		};
+		FECA446120DC4C5E0064C1C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A09F0281BFB8941005C2B81 /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64076CF51D6D7C2000E2B499;
+			remoteInfo = "QuickAfterSuite - macOSTests";
+		};
+		FECA446320DC4C5E0064C1C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A09F0281BFB8941005C2B81 /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64076D081D6D7CD600E2B499;
+			remoteInfo = "QuickAfterSuite - iOSTests";
+		};
+		FECA446520DC4C5E0064C1C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A09F0281BFB8941005C2B81 /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64076D1A1D6D7CEA00E2B499;
+			remoteInfo = "QuickAfterSuite - tvOSTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -506,14 +527,17 @@
 			isa = PBXGroup;
 			children = (
 				6A09F1311BFB8941005C2B81 /* Quick.framework */,
-				6A09F1331BFB8941005C2B81 /* Quick-macOSTests.xctest */,
-				6A09F1351BFB8941005C2B81 /* QuickFocused-macOSTests.xctest */,
+				6A09F1331BFB8941005C2B81 /* Quick - macOSTests.xctest */,
+				6A09F1351BFB8941005C2B81 /* QuickFocused - macOSTests.xctest */,
+				FECA446220DC4C5E0064C1C6 /* QuickAfterSuite - macOSTests.xctest */,
 				6A09F1371BFB8941005C2B81 /* Quick.framework */,
-				6A09F1391BFB8941005C2B81 /* Quick-iOSTests.xctest */,
-				6A09F13B1BFB8941005C2B81 /* QuickFocused-iOSTests.xctest */,
+				6A09F1391BFB8941005C2B81 /* Quick - iOSTests.xctest */,
+				6A09F13B1BFB8941005C2B81 /* QuickFocused - iOSTests.xctest */,
+				FECA446420DC4C5E0064C1C6 /* QuickAfterSuite - iOSTests.xctest */,
 				6A09F13D1BFB8941005C2B81 /* Quick.framework */,
-				6A09F13F1BFB8941005C2B81 /* Quick-tvOSTests.xctest */,
-				6A09F1411BFB8941005C2B81 /* QuickFocused-tvOSTests.xctest */,
+				6A09F13F1BFB8941005C2B81 /* Quick - tvOSTests.xctest */,
+				6A09F1411BFB8941005C2B81 /* QuickFocused - tvOSTests.xctest */,
+				FECA446620DC4C5E0064C1C6 /* QuickAfterSuite - tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -729,17 +753,17 @@
 			remoteRef = 6A09F1301BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A09F1331BFB8941005C2B81 /* Quick-macOSTests.xctest */ = {
+		6A09F1331BFB8941005C2B81 /* Quick - macOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Quick-macOSTests.xctest";
+			path = "Quick - macOSTests.xctest";
 			remoteRef = 6A09F1321BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A09F1351BFB8941005C2B81 /* QuickFocused-macOSTests.xctest */ = {
+		6A09F1351BFB8941005C2B81 /* QuickFocused - macOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickFocused-macOSTests.xctest";
+			path = "QuickFocused - macOSTests.xctest";
 			remoteRef = 6A09F1341BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -750,17 +774,17 @@
 			remoteRef = 6A09F1361BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A09F1391BFB8941005C2B81 /* Quick-iOSTests.xctest */ = {
+		6A09F1391BFB8941005C2B81 /* Quick - iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Quick-iOSTests.xctest";
+			path = "Quick - iOSTests.xctest";
 			remoteRef = 6A09F1381BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A09F13B1BFB8941005C2B81 /* QuickFocused-iOSTests.xctest */ = {
+		6A09F13B1BFB8941005C2B81 /* QuickFocused - iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickFocused-iOSTests.xctest";
+			path = "QuickFocused - iOSTests.xctest";
 			remoteRef = 6A09F13A1BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -771,18 +795,39 @@
 			remoteRef = 6A09F13C1BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A09F13F1BFB8941005C2B81 /* Quick-tvOSTests.xctest */ = {
+		6A09F13F1BFB8941005C2B81 /* Quick - tvOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Quick-tvOSTests.xctest";
+			path = "Quick - tvOSTests.xctest";
 			remoteRef = 6A09F13E1BFB8941005C2B81 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A09F1411BFB8941005C2B81 /* QuickFocused-tvOSTests.xctest */ = {
+		6A09F1411BFB8941005C2B81 /* QuickFocused - tvOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickFocused-tvOSTests.xctest";
+			path = "QuickFocused - tvOSTests.xctest";
 			remoteRef = 6A09F1401BFB8941005C2B81 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FECA446220DC4C5E0064C1C6 /* QuickAfterSuite - macOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "QuickAfterSuite - macOSTests.xctest";
+			remoteRef = FECA446120DC4C5E0064C1C6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FECA446420DC4C5E0064C1C6 /* QuickAfterSuite - iOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "QuickAfterSuite - iOSTests.xctest";
+			remoteRef = FECA446320DC4C5E0064C1C6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FECA446620DC4C5E0064C1C6 /* QuickAfterSuite - tvOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "QuickAfterSuite - tvOSTests.xctest";
+			remoteRef = FECA446520DC4C5E0064C1C6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1058,7 +1103,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1077,7 +1122,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1089,7 +1134,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.FisticuffsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Samples.app/Samples";
 			};
 			name = Debug;
@@ -1102,7 +1147,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.FisticuffsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Samples.app/Samples";
 			};
 			name = Release;
@@ -1117,7 +1162,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs.Samples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1131,7 +1176,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs.Samples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

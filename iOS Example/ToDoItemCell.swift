@@ -31,7 +31,7 @@ class ToDoItemCell: UITableViewCell {
     func bind(item: ToDoItem) {
         title.b_text.bind(item.title)
         
-        b_accessoryType.bind(item.completed, transform: { completed in completed ? .Checkmark : .None })
+        b_accessoryType.bind(item.completed, transform: { completed in completed ? .checkmark : .none })
     }
     
 }
