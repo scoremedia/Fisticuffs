@@ -135,7 +135,7 @@ private class TextFieldDelegate: NSObject, UITextFieldDelegate {
     @objc func textFieldShouldClear(_ textField: UITextField) -> Bool {
         let retVal = shouldClear // copy to guard against `shouldClear` being changed in any event subscriptions
         if retVal {
-            willClear.fire()
+            willClear.fire(())
         }
         return retVal
     }
@@ -143,7 +143,7 @@ private class TextFieldDelegate: NSObject, UITextFieldDelegate {
     @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let retVal = shouldReturn // copy to guard against `shouldReturn` being changed in any event subscriptions
         if retVal {
-            willReturn.fire()
+            willReturn.fire(())
         }
         return retVal
     }

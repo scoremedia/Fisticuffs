@@ -55,7 +55,7 @@ extension BidirectionalBindableProperty {
     // Should be called when something results in the underlying value being changed
     // (ie., when a user types in a UITextField)
     public func pushChangeToObservable() {
-        uiChangeEvent.fire()
+        uiChangeEvent.fire(())
     }
 }
 

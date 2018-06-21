@@ -51,7 +51,7 @@ private class SearchBarDelegate: NSObject, UISearchBarDelegate {
     weak var bindableProperty: BidirectionalBindableProperty<UISearchBar, String?>?
     
     @objc func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        bindableProperty?.uiChangeEvent.fire()
+        bindableProperty?.uiChangeEvent.fire(())
     }
     
 }

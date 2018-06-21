@@ -49,7 +49,7 @@ public extension UIControl {
     }
 
     @objc fileprivate func b_receivedOnTap(_ sender: AnyObject) {
-        b_onTap.fire()
+        b_onTap.fire(())
     }
 
 }

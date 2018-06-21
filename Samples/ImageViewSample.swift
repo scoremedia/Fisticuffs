@@ -37,7 +37,7 @@ class ImageViewSampleViewController: UITableViewController {
 
         let centered = NSMutableParagraphStyle()
         centered.alignment = .center
-        ("?" as NSString).draw(at: CGPoint(x: imageRect.midX - 5, y: imageRect.midY - 5), withAttributes: [NSParagraphStyleAttributeName: centered, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24)])
+        ("?" as NSString).draw(at: CGPoint(x: imageRect.midX - 5, y: imageRect.midY - 5), withAttributes: [NSAttributedStringKey.paragraphStyle: centered, NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24)])
 
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsGetCurrentContext()

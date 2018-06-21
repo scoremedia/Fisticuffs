@@ -36,7 +36,7 @@ class WritableComputedSpec: QuickSpec {
                     setter: { value in
                         if value.hasPrefix("Hello, ") {
                             let nameStartIndex = value.index(value.startIndex, offsetBy: "Hello, ".count)
-                            name.value = value.substring(from: nameStartIndex)
+                            name.value = String(value[nameStartIndex...])
                         } else {
                             name.value = ""
                         }
