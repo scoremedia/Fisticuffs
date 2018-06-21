@@ -1,11 +1,8 @@
 # Changelog
 
 
-## 0.0.4
+## 0.0.5
  - Adds Swift 4.1 Compatibility
-
-## 0.0.3
- - Adds Swift 3 Compatibility
 
 ## 0.0.2
 
