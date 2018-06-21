@@ -23,13 +23,15 @@
 import Foundation
 
 public enum NotifyWhen {
-    case BeforeChange
-    case AfterChange
+    case beforeChange
+    case afterChange
+
+    case valueIsDirty
 }
 
 public struct SubscriptionOptions {
     public var notifyOnSubscription = true
-    public var when = NotifyWhen.AfterChange
+    public var when = NotifyWhen.afterChange
     
     public init() {
     }

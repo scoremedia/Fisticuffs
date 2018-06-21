@@ -28,14 +28,15 @@ import Nimble
 
 class BidirectionalBindingSpec: QuickSpec {
     override func spec() {
-        describe("BidirectionalBinding") {
+        describe("BidirectionalBindableProperty") {
             var backingVariable = ""
-            var binding: BidirectionalBinding<String>!
+            var binding: BidirectionalBindableProperty<BidirectionalBindingSpec, String>!
             
             beforeEach {
-                binding = BidirectionalBinding(
-                    getter: { backingVariable },
-                    setter: { value in backingVariable = value }
+                binding = BidirectionalBindableProperty(
+                    control: self,
+                    getter: { _ in backingVariable },
+                    setter: { _, value in backingVariable = value }
                 )
             }
             
@@ -71,7 +72,58 @@ class BidirectionalBindingSpec: QuickSpec {
                 binding.bind(computed)
                 expect(backingVariable) == "11"
             }
+
             
+            it("should support additional cleanup on deinit") {
+                var disposed = false
+                
+                autoreleasepool {
+                    let _ = BidirectionalBindableProperty<BidirectionalBindingSpec, Void>(
+                        control: self,
+                        getter: { _ in },
+                        setter: { _, _ in },
+                        extraCleanup: DisposableBlock { disposed = true }
+                    )
+                }
+                
+                expect(disposed) == true
+            }
+
+            it("should prevent value overwrites if a BindingHandler produces different values for its get & set") {
+                let observable = Observable(0)
+                binding.bind(observable, BindingHandlers.transform({ "\($0)" }, reverse: { (Int($0) ?? 0) * 2 }))
+
+                observable.value = 5
+
+                expect(observable.value) == 5
+                expect(backingVariable) == "5"
+
+                backingVariable = "20"
+                binding.pushChangeToObservable()
+
+                // Updating the observable (`pushChangeToObservable()`) shouldn't modify `backingVariable` (prevents potential infinite loops)
+                expect(backingVariable) == "20"
+                expect(observable.value) == 40
+            }
+        }
+    }
+}
+
+@available(*, deprecated)
+class BidirectionalBindingDeprecatedSpec: QuickSpec {
+    override func spec() {
+        describe("BidirectionalBindableProperty") {
+            var backingVariable = ""
+            var binding: BidirectionalBindableProperty<BidirectionalBindingDeprecatedSpec, String>!
+
+            beforeEach {
+                binding = BidirectionalBindableProperty(
+                    control: self,
+                    getter: { _ in backingVariable },
+                    setter: { _, value in backingVariable = value }
+                )
+            }
+
             it("should support one way binding with a transform") {
                 let observable = Observable(11)
                 binding.bind(observable, transform: { "\($0)" })
@@ -83,21 +135,6 @@ class BidirectionalBindingSpec: QuickSpec {
                 binding.bind { "\(observable.value + 1)" }
                 expect(backingVariable) == "11"
             }
-            
-            it("should support additional cleanup on deinit") {
-                var disposed = false
-                
-                autoreleasepool {
-                    let _ = BidirectionalBinding<Void>(
-                        getter: { },
-                        setter: { },
-                        extraCleanup: DisposableBlock { disposed = true }
-                    )
-                }
-                
-                expect(disposed) == true
-            }
         }
     }
 }
-

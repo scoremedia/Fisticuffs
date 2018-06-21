@@ -32,14 +32,16 @@ class DataSourceSpec: QuickSpec {
         var selections: Observable<[Int]>!
         var selection: Observable<Int?>!
         var disabled: Observable<[Int]>!
-        var dataSource: DataSource<Observable<[Int]>, FauxDataSourceView>!
+        var view: FauxDataSourceView!
+        var dataSource: DataSource<Int, FauxDataSourceView>!
 
         beforeEach {
             observable = Observable([1, 2, 3, 4, 5])
             selections = Observable([])
             selection = Observable(nil)
             disabled = Observable([])
-            dataSource = DataSource(subscribable: observable, view: FauxDataSourceView())
+            view = FauxDataSourceView()
+            dataSource = DataSource(subscribable: observable, view: view)
             dataSource.selections = selections
             dataSource.selection = selection
             dataSource.disableSelectionFor(disabled)
@@ -55,18 +57,18 @@ class DataSourceSpec: QuickSpec {
             }
             
             it("should return items by index path") {
-                expect(dataSource.itemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))) == 1
-                expect(dataSource.itemAtIndexPath(NSIndexPath(forItem: 3, inSection: 0))) == 4
+                expect(dataSource.itemAtIndexPath(IndexPath(item: 0, section: 0))) == 1
+                expect(dataSource.itemAtIndexPath(IndexPath(item: 3, section: 0))) == 4
             }
 
             context("multiple selection") {
                 it("should track selections") {
                     dataSource.deselectOnSelection = false
                     
-                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
+                    dataSource.didSelect(indexPath: IndexPath(item: 0, section: 0))
                     expect(selections.value) == [1]
                     
-                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))
+                    dataSource.didSelect(indexPath: IndexPath(item: 3, section: 0))
                     expect(selections.value) == [1, 4]
                 }
                 
@@ -75,7 +77,7 @@ class DataSourceSpec: QuickSpec {
                     
                     selections.value = [3]
                     
-                    dataSource.didDeselect(indexPath: NSIndexPath(forItem: 2, inSection: 0))
+                    dataSource.didDeselect(indexPath: IndexPath(item: 2, section: 0))
                     expect(selections.value) == []
                 }
             }
@@ -84,13 +86,13 @@ class DataSourceSpec: QuickSpec {
                 it("should track selections") {
                     dataSource.deselectOnSelection = false
                     
-                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
+                    dataSource.didSelect(indexPath: IndexPath(item: 0, section: 0))
                     expect(selection.value) == 1
 
                     // simulate deselect that UITableView/UICollectionView would send
-                    dataSource.didDeselect(indexPath: NSIndexPath(forItem: 0, inSection: 0))
+                    dataSource.didDeselect(indexPath: IndexPath(item: 0, section: 0))
 
-                    dataSource.didSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))
+                    dataSource.didSelect(indexPath: IndexPath(item: 3, section: 0))
                     expect(selection.value) == 4
                 }
                 
@@ -99,7 +101,7 @@ class DataSourceSpec: QuickSpec {
                     
                     selection.value = 3
                     
-                    dataSource.didDeselect(indexPath: NSIndexPath(forItem: 2, inSection: 0))
+                    dataSource.didDeselect(indexPath: IndexPath(item: 2, section: 0))
                     expect(selection.value).to(beNil())
                 }
             }
@@ -134,42 +136,45 @@ class DataSourceSpec: QuickSpec {
             context("when disabled items are provided") {
                 it("should prevent selecting them") {
                     disabled.value = [1]
-                    expect(dataSource.canSelect(indexPath: NSIndexPath(forItem: 0, inSection: 0))) == false
+                    expect(dataSource.canSelect(indexPath: IndexPath(item: 0, section: 0))) == false
                 }
 
                 it("should allow selecting other (non disabled) items") {
                     disabled.value = [1]
-                    expect(dataSource.canSelect(indexPath: NSIndexPath(forItem: 3, inSection: 0))) == true
+                    expect(dataSource.canSelect(indexPath: IndexPath(item: 3, section: 0))) == true
                 }
             }
             
             it("should support moving items") {
-                dataSource.move(source: NSIndexPath(forItem: 2, inSection: 0), destination: NSIndexPath(forItem: 0, inSection: 0))
-                expect(dataSource.itemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))) == 3
+                dataSource.move(source: IndexPath(item: 2, section: 0), destination: IndexPath(item: 0, section: 0))
+                expect(dataSource.itemAtIndexPath(IndexPath(item: 0, section: 0))) == 3
                 expect(observable.value) == [3, 1, 2, 4, 5]
             }
             
             it("should support deleting items") {
-                dataSource.delete(indexPath: NSIndexPath(forItem: 0, inSection: 0))
-                expect(dataSource.itemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))) == 2
+                dataSource.delete(indexPath: IndexPath(item: 0, section: 0))
+                expect(dataSource.itemAtIndexPath(IndexPath(item: 0, section: 0))) == 2
                 expect(observable.value) == [2, 3, 4, 5]
             }
         }
     }
     
-    private class FauxDataSourceView: DataSourceView {
+    fileprivate class FauxDataSourceView: DataSourceView {
         typealias CellView = Void
         
         func reloadData() { }
-        func insertCells(indexPaths indexPaths: [NSIndexPath]) { }
-        func deleteCells(indexPaths indexPaths: [NSIndexPath]) { }
-        func batchUpdates(updates: () -> Void) { }
+        func insertCells(indexPaths: [IndexPath]) { }
+        func deleteCells(indexPaths: [IndexPath]) { }
         
-        func indexPathsForSelections() -> [NSIndexPath]? { return [] }
-        func select(indexPath indexPath: NSIndexPath) { }
-        func deselect(indexPath indexPath: NSIndexPath) { }
+        func batchUpdates(_ updates: @escaping () -> Void) {
+            updates()
+        }
         
-        func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> Void { }
+        func indexPathsForSelections() -> [IndexPath]? { return [] }
+        func select(indexPath: IndexPath) { }
+        func deselect(indexPath: IndexPath) { }
+        
+        func dequeueCell(reuseIdentifier: String, indexPath: IndexPath) -> Void { }
 
     }
 }

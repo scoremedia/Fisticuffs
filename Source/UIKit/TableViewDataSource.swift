@@ -25,15 +25,15 @@ import UIKit
 extension UITableView: DataSourceView {
     public typealias CellView = UITableViewCell
     
-    public func insertCells(indexPaths indexPaths: [NSIndexPath]) {
-        insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
+    public func insertCells(indexPaths: [IndexPath]) {
+        insertRows(at: indexPaths, with: .top)
     }
     
-    public func deleteCells(indexPaths indexPaths: [NSIndexPath]) {
-        deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
+    public func deleteCells(indexPaths: [IndexPath]) {
+        deleteRows(at: indexPaths, with: .top)
     }
     
-    public func batchUpdates(updates: () -> Void) {
+    public func batchUpdates(_ updates: @escaping () -> Void) {
         beginUpdates()
         defer { endUpdates() }
         
@@ -41,68 +41,68 @@ extension UITableView: DataSourceView {
     }
     
     
-    public func indexPathsForSelections() -> [NSIndexPath]? {
+    public func indexPathsForSelections() -> [IndexPath]? {
         return indexPathsForSelectedRows
     }
     
-    public func select(indexPath indexPath: NSIndexPath) {
-        selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+    public func select(indexPath: IndexPath) {
+        selectRow(at: indexPath, animated: false, scrollPosition: .none)
     }
     
-    public func deselect(indexPath indexPath: NSIndexPath) {
-        deselectRowAtIndexPath(indexPath, animated: false)
+    public func deselect(indexPath: IndexPath) {
+        deselectRow(at: indexPath, animated: false)
     }
     
     
-    public func dequeueCell(reuseIdentifier reuseIdentifier: String, indexPath: NSIndexPath) -> UITableViewCell {
-        return dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    public func dequeueCell(reuseIdentifier: String, indexPath: IndexPath) -> UITableViewCell {
+        return dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
     }
 }
 
 
-public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeReplaceableCollectionType, S.ValueType.Generator.Element: Equatable>: DataSource<S, UITableView>, UITableViewDataSource, UITableViewDelegate {
+open class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>, UITableViewDataSource, UITableViewDelegate {
     
-    public var allowsDeletion = false
+    open var allowsDeletion = false
     
-    public override init(subscribable: S, view: UITableView) {
+    public override init(subscribable: Subscribable<[Item]>, view: UITableView) {
         super.init(subscribable: subscribable, view: view)
     }
     
     //MARK: UITableViewDataSource
     
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return numberOfSections()
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfItems(section: section)
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return cellAtIndexPath(indexPath)
     }
     
-    public func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return editable && allowsMoving
     }
     
-    public func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         move(source: sourceIndexPath, destination: destinationIndexPath)
     }
     
-    public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return editable && (allowsDeletion || allowsMoving)
     }
     
-    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    open func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             delete(indexPath: indexPath)
         }
     }
     
     //MARK: UITableViewDelegate
 
-    public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         // UITableView doesn't prevent "double selection" (selecting a currently selected cell again),
         // so we prevent that here (so it doesn't "spoil" our selections array)
         if tableView.indexPathsForSelectedRows?.contains(indexPath) == true {
@@ -116,7 +116,7 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeRep
         return true
     }
 
-    public func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+    open func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         // UITableView doesn't prevent "double selection" (selecting a currently selected cell again),
         // so we prevent that here (so it doesn't "spoil" our selections array)
         if tableView.indexPathsForSelectedRows?.contains(indexPath) == true {
@@ -130,23 +130,23 @@ public class TableViewDataSource<S: SubscribableType where S.ValueType: RangeRep
         return indexPath
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         didSelect(indexPath: indexPath)
     }
     
-    public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         didDeselect(indexPath: indexPath)
     }
     
-    public func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+    open func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         return proposedDestinationIndexPath
     }
     
-    public func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return editable && allowsDeletion ? .Delete : .None
+    open func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return editable && allowsDeletion ? .delete : .none
     }
     
-    public func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return allowsDeletion ? true : false
     }
     

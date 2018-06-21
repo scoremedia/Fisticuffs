@@ -22,30 +22,45 @@
 
 import UIKit
 
+private var b_attributedTitle_key = 0
+private var b_title_key = 0
+private var b_image_key = 0
+private var b_backgroundImage_key = 0
+
+
 public extension UIButton {
-    
-    var b_title: Binding<String> {
-        return get("b_title", orSet: {
-            return Binding<String>(setter: { [weak self] value in
-                self?.setTitle(value, forState: .Normal)
-            })
-        })
+
+    var b_attributedTitle: BindableProperty<UIButton, NSAttributedString?> {
+        return associatedObjectProperty(self, &b_attributedTitle_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.setAttributedTitle(value, for: UIControlState())
+            }
+        }
     }
 
-    var b_image: Binding<UIImage> {
-        return get("b_image", orSet: {
-            return Binding<UIImage>(setter: { [weak self] value in
-                self?.setImage(value, forState: .Normal)
-            })
-        })
+    var b_title: BindableProperty<UIButton, String?> {
+        return associatedObjectProperty(self, &b_title_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.setTitle(value, for: UIControlState())
+            }
+        }
     }
 
-    var b_backgroundImage: Binding<UIImage> {
-        return get("b_backgroundImage", orSet: {
-            return Binding<UIImage>(setter: { [weak self] value in
-                self?.setBackgroundImage(value, forState: .Normal)
-            })
-        })
+    var b_image: BindableProperty<UIButton, UIImage?> {
+        return associatedObjectProperty(self, &b_image_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.setImage(value, for: UIControlState())
+            }
+        }
     }
+
+    var b_backgroundImage: BindableProperty<UIButton, UIImage?> {
+        return associatedObjectProperty(self, &b_backgroundImage_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.setBackgroundImage(value, for: UIControlState())
+            }
+        }
+    }
+
 
 }

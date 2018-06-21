@@ -47,19 +47,19 @@ class UIKitBindingSpec: QuickSpec {
                 
                 let control = UIControl()
                 control.b_enabled.bind(enabled)
-                expect(control.enabled) == false
+                expect(control.isEnabled) == false
                 
                 enabled.value = true
-                expect(control.enabled) == true
+                expect(control.isEnabled) == true
             }
             
             it("should allow subscribing to arbitrary control events") {
                 var receivedEvent = false
                 
                 let control = UIControl()
-                control.b_controlEvent(.AllEvents) += { receivedEvent = true }
-                
-                control.sendActionsForControlEvents(.EditingDidBegin)
+                _ = control.b_controlEvent(.allEvents).subscribe { receivedEvent = true }
+
+                control.sendActions(for: .editingDidBegin)
                 expect(receivedEvent) == true
             }
         }
@@ -69,10 +69,10 @@ class UIKitBindingSpec: QuickSpec {
                 var receivedTap = false
                 
                 let button = UIButton()
-                button.b_onTap.subscribe { receivedTap = true }
-                
-                button.sendActionsForControlEvents(.TouchUpInside)
-                
+                _ = button.b_onTap.subscribe { receivedTap = true }
+
+                button.sendActions(for: .touchUpInside)
+
                 expect(receivedTap) == true
             }
         }
@@ -80,7 +80,7 @@ class UIKitBindingSpec: QuickSpec {
         describe("UIDatePicker") {
             it("should support 2 way binding on its text value") {
                 
-                let initial = NSDate()
+                let initial = Date()
                 
                 let value = Observable(initial)
                 let datePicker = UIDatePicker()
@@ -89,15 +89,15 @@ class UIKitBindingSpec: QuickSpec {
                 expect(datePicker.date) == initial
                 
                 // pretend the user goes to the next day
-                let tomorrow = initial.dateByAddingTimeInterval(24 * 60 * 60)
+                let tomorrow = initial.addingTimeInterval(24 * 60 * 60)
                 datePicker.date = tomorrow
-                datePicker.sendActionsForControlEvents(.ValueChanged)
+                datePicker.sendActions(for: .valueChanged)
                 
                 expect(datePicker.date) == tomorrow
                 expect(value.value) == tomorrow
                 
                 // modify it programmatically
-                let yesterday = initial.dateByAddingTimeInterval(-24 * 60 * 60)
+                let yesterday = initial.addingTimeInterval(-24 * 60 * 60)
                 value.value = yesterday
                 
                 expect(datePicker.date) == yesterday
@@ -116,8 +116,8 @@ class UIKitBindingSpec: QuickSpec {
                 
                 // pretend the user types " world"
                 textField.text = (textField.text ?? "") + " world"
-                textField.sendActionsForControlEvents(.EditingChanged)
-                
+                textField.sendActions(for: .editingChanged)
+
                 expect(textField.text) == "Hello world"
                 expect(value.value) == "Hello world"
                 
@@ -138,7 +138,7 @@ class UIKitBindingSpec: QuickSpec {
                 defer { disposable.dispose() }
                 
                 // simulate a tap
-                barButtonItem.target?.performSelector(barButtonItem.action, withObject: barButtonItem)
+                _ = barButtonItem.target?.perform(barButtonItem.action, with: barButtonItem)
                 
                 expect(receivedAction) == true
             }
@@ -175,8 +175,8 @@ class UIKitBindingSpec: QuickSpec {
                 expect(pageControl.currentPage) == 2
                 
                 pageControl.currentPage += 1
-                pageControl.sendActionsForControlEvents(.ValueChanged)
-                
+                pageControl.sendActions(for: .valueChanged)
+
                 expect(pageControl.currentPage) == 3
                 expect(currentPage.value) == 3
                 
@@ -189,14 +189,14 @@ class UIKitBindingSpec: QuickSpec {
         
         describe("UITableViewCell") {
             it("should support binding it's accessoryType value") {
-                let accessoryType = Observable(UITableViewCellAccessoryType.None)
+                let accessoryType = Observable(UITableViewCellAccessoryType.none)
                 
-                let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+                let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.b_accessoryType.bind(accessoryType)
-                expect(cell.accessoryType) == UITableViewCellAccessoryType.None
+                expect(cell.accessoryType) == UITableViewCellAccessoryType.none
                 
-                accessoryType.value = .Checkmark
-                expect(cell.accessoryType) == UITableViewCellAccessoryType.Checkmark
+                accessoryType.value = .checkmark
+                expect(cell.accessoryType) == UITableViewCellAccessoryType.checkmark
             }
         }
         
@@ -231,19 +231,19 @@ class UIKitBindingSpec: QuickSpec {
                 let toggle = UISwitch()
                 toggle.b_on.bind(on)
                 
-                expect(toggle.on) == false
+                expect(toggle.isOn) == false
                 
                 // pretend the user toggles switch ON
-                toggle.on = true
-                toggle.sendActionsForControlEvents(.ValueChanged)
+                toggle.isOn = true
+                toggle.sendActions(for: .valueChanged)
                 
-                expect(toggle.on) == true
+                expect(toggle.isOn) == true
                 expect(on.value) == true
                 
                 // modify it programmatically
                 on.value = false
                 
-                expect(toggle.on) == false
+                expect(toggle.isOn) == false
                 expect(on.value) == false
             }
         }
@@ -262,7 +262,7 @@ class UIKitBindingSpec: QuickSpec {
                 
                 // pretend the user toggles switch ON
                 slider.value = 0.5
-                slider.sendActionsForControlEvents(.ValueChanged)
+                slider.sendActions(for: .valueChanged)
                 
                 expect(slider.value) == 0.5
                 expect(value.value) == 0.5
@@ -281,14 +281,14 @@ class UIKitBindingSpec: QuickSpec {
             
             let segmentedControl = UISegmentedControl()
             segmentedControl.b_configure(items, selection: selection, display: { segmentValue in
-                .Title(String(segmentValue))
+                .title(String(segmentValue))
             })
             
             it("should update it's items when its `items` subscription changes") {
                 items.value = [1, 2, 3, 4]
                 
                 let segments = (0..<segmentedControl.numberOfSegments).map { index in
-                    segmentedControl.titleForSegmentAtIndex(index)
+                    segmentedControl.titleForSegment(at: index)
                 }
                 .flatMap { title in title }
                 
@@ -297,13 +297,45 @@ class UIKitBindingSpec: QuickSpec {
             
             it("should keep its selection in sync with the specified `selection` observable") {
                 selection.value = 2
-                expect(segmentedControl.selectedSegmentIndex) == items.value.indexOf(selection.value)
+                expect(segmentedControl.selectedSegmentIndex) == items.value.index(of: selection.value)
                 
                 // Simulate the user switching selection
                 segmentedControl.selectedSegmentIndex = 0
-                segmentedControl.sendActionsForControlEvents(.ValueChanged)
+                segmentedControl.sendActions(for: .valueChanged)
                 
                 expect(selection.value) == items.value.first
+            }
+        }
+
+        describe("UIAlertAction") {
+            it("should support binding its enabled value") {
+                let enabled = Observable(false)
+
+                let action = UIAlertAction(title: "Test", style: .default, handler: nil)
+                action.b_enabled.bind(enabled)
+                expect(action.isEnabled) == false
+
+                enabled.value = true
+                expect(action.isEnabled) == true
+            }
+        }
+
+        describe("UICollectionView") {
+            it("should not crash when adding/deleting items before the collection view has appeared on screen") {
+                let items = Observable<[Int]>([1, 2, 3])
+
+                let reuseIdentifier = "Cell"
+
+                let frame = CGRect(x: 0, y: 0, width: 320, height: 480)
+                let layout = UICollectionViewFlowLayout()
+                let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+                collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
+                collectionView.b_configure(items, block: { config in
+                    config.useCell(reuseIdentifier: reuseIdentifier) { _, _ in }
+                })
+
+                items.value.append(5)
             }
         }
     }

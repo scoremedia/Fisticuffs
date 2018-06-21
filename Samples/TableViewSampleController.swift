@@ -37,16 +37,16 @@ class TableViewSampleViewModel {
     
     
     func prependItem() {
-        if let min = items.value.minElement() {
-            items.value.insert(min - 1, atIndex: 0)
+        if let min = items.value.min() {
+            items.value.insert(min - 1, at: 0)
         }
         else {
-            items.value.insert(1, atIndex: 0)
+            items.value.insert(1, at: 0)
         }
     }
     
     func appendItem() {
-        if let max = items.value.maxElement() {
+        if let max = items.value.max() {
             items.value.append(max + 1)
         }
         else {
@@ -72,7 +72,7 @@ class TableViewSampleController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.b_configure(viewModel.items) { config in
             config.allowsMoving = true
             config.allowsDeletion = true
@@ -80,13 +80,13 @@ class TableViewSampleController: UIViewController {
                 cell.textLabel?.text = "\(item)"
             }
         }
-        tableView.b_editing <-- viewModel.editing
+        tableView.b_editing.bind(viewModel.editing)
         
-        editButton.b_onTap += viewModel.toggleEditing
-        editButton.b_title <-- viewModel.editingButtonTitle
+        _ = editButton.b_onTap.subscribe(viewModel.toggleEditing)
+        editButton.b_title.bind(viewModel.editingButtonTitle)
         
-        prependButton.b_onTap += viewModel.prependItem
-        appendButton.b_onTap += viewModel.appendItem
+        _ = prependButton.b_onTap.subscribe(viewModel.prependItem)
+        _ = appendButton.b_onTap.subscribe(viewModel.appendItem)
     }
     
 }

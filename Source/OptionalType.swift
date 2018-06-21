@@ -1,6 +1,6 @@
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 theScore Inc.
+//  Copyright (c) 2016 theScore Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,43 +20,41 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
 
-private var keys = [String:NSObject]()
+// Protocol representing Optionals (and ImplicitlyUnwrappedOptionals) so that we can 
+// support concepts like binding a Observable<String> to a BindableProperty<String?>
 
-extension NSObject {
-    
-    func findKey(name: String, type: Any) -> UnsafePointer<Void> {
-        let keyString = "\(name)__\(type)"
-        if let keyObj = keys[keyString] {
-            return UnsafePointer(Unmanaged.passUnretained(keyObj).toOpaque())
-        }
-        else {
-            let keyObj = NSObject()
-            keys[keyString] = keyObj
-            return UnsafePointer(Unmanaged.passUnretained(keyObj).toOpaque())
-        }
+struct OptionalIsNone: Error {}
+
+public protocol OptionalType {
+    associatedtype Wrapped
+    init(wrappedValue: Wrapped)
+    func toUnwrappedValue() throws -> Wrapped
+}
+
+extension Optional: OptionalType {
+    public init(wrappedValue: Wrapped) {
+        self = .some(wrappedValue)
     }
-    
-    func get<T: AnyObject>(name: String) -> T? {
-        let key = findKey(name, type: T.self)
-        return objc_getAssociatedObject(self, key) as? T
-    }
-    
-    func get<T: AnyObject>(name: String, @noescape orSet block: (Void) -> T) -> T {
-        if let existing: T = get(name) {
-            return existing
-        }
-        else {
-            let new = block()
-            set(name, value: new)
-            return new
+    public func toUnwrappedValue() throws -> Wrapped {
+        if let unwrapped = self {
+            return unwrapped
+        } else {
+            throw OptionalIsNone()
         }
     }
-    
-    func set<T: AnyObject>(name: String, value: T?) {
-        let key = findKey(name, type: T.self)
-        objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN)
+}
+
+extension ImplicitlyUnwrappedOptional: OptionalType {
+    public init(wrappedValue: Wrapped) {
+        self = .some(wrappedValue)
     }
-    
+    public func toUnwrappedValue() throws -> Wrapped {
+        switch self {
+        case .some(let unwrapped):
+            return unwrapped
+        case .none:
+            throw OptionalIsNone()
+        }
+    }
 }

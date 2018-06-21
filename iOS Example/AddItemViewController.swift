@@ -35,11 +35,11 @@ class AddItemViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneButton.b_onTap += viewModel.doneTapped
-        cancelButton.b_onTap += viewModel.cancelTapped
-        titleField.b_text <-> viewModel.item.title
+        doneButton.b_onTap.subscribe(viewModel.doneTapped)
+        cancelButton.b_onTap.subscribe(viewModel.cancelTapped)
+        titleField.b_text.bind(viewModel.item.title)
         
-        viewModel.finished += { [weak self] _, result in
+        viewModel.finished.subscribe { [weak self] _, result in
             switch result {
             case let .NewToDoItem(item):
                 DataManager.sharedManager.toDoItems.value.append(item)

@@ -20,37 +20,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+
+private var b_currentPage_key = 0
+private var b_numberOfPages_key = 0
+
+
 public extension UIPageControl {
     
-    var b_currentPage: BidirectionalBinding<Int> {
-        get {
-            return get("b_currentPage", orSet: {
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .ValueChanged)
-                }
-                
-                return BidirectionalBinding<Int>(
-                    getter: { [weak self] in self?.currentPage ?? 0 },
-                    setter: { [weak self] value in self?.currentPage = value },
-                    extraCleanup: cleanup
-                )
-            })
+    var b_currentPage: BidirectionalBindableProperty<UIPageControl, Int> {
+        return associatedObjectProperty(self, &b_currentPage_key) { _ in
+            return TargetActionBindableProperty(
+                control: self,
+                getter: { control in control.currentPage },
+                setter: { control, value in control.currentPage = value },
+                events: .valueChanged
+            )
         }
     }
-    
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_currentPage.pushChangeToObservable()
+
+    var b_numberOfPages: BindableProperty<UIPageControl, Int> {
+        return associatedObjectProperty(self, &b_numberOfPages_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.numberOfPages = value
+            }
+        }
     }
-    
-    
-    var b_numberOfPages: Binding<Int> {
-        return get("b_numberOfPages", orSet: {
-            return Binding<Int>(setter: { [weak self] value in
-                self?.numberOfPages = value
-            })
-        })
-    }
+
     
 }
 

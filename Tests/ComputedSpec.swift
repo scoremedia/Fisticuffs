@@ -57,6 +57,84 @@ class ComputedSpec: QuickSpec {
                 a.value = 42
                 expect(display.value) == "Sum: 84"
             }
+
+            context("coalescing updates") {
+                it("should coalesce updates") {
+                    var numberOfTimesComputed = 0
+
+                    let a = Observable(11)
+                    let b = Observable(42)
+
+                    let sum = Computed { a.value + b.value }
+                    let display: Computed<String> = Computed {
+                        numberOfTimesComputed += 1
+                        return "Sum: \(sum.value)"
+                    }
+
+                    a.value = 2
+                    b.value = 3
+                    expect(display.value).toEventually(equal("Sum: 5"))
+
+                    // once for init() & once for updating a/b
+                    expect(numberOfTimesComputed) == 2
+                }
+
+                it("should immediately recompute if `.value` is accessed & it is dirty") {
+                    let a = Observable(5)
+                    let result = Computed { a.value }
+                    a.value = 11
+                    expect(result.value) == 11
+                }
+
+                it("should avoid sending multiple updates when recomputed early due to accessing `value`") {
+                    let a = Observable(5)
+                    let result = Computed { a.value }
+
+                    var notificationCount = 0
+                    let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
+                    _ = result.subscribe(opts) { notificationCount += 1 }
+
+                    a.value = 11
+                    expect(result.value) == 11
+
+                    // let runloop finish so that coalesced update happens
+                    RunLoop.main.run(until: Date())
+
+                    expect(notificationCount) == 1
+                }
+
+                it("should not recurse infinitely if the value is accessed in the subscription block") {
+                    let a = Observable(5)
+                    let result = Computed { a.value }
+                    _ = result.subscribe { [weak result] in
+                        _ = result?.value // trigger "side effects" in getter
+                    }
+                    a.value = 11
+                    expect(result.value) == 11
+                    // this test will blow the stack here if it fails
+                }
+            }
+
+            it("should not collect dependencies for any Subscribables read in its subscriptions") {
+                let shouldNotDependOn = Observable(false)
+
+                let a = Observable(11)
+
+                let computed = Computed { a.value }
+                // attempt to introduce a (false) dependency on `shouldNotDependOn`
+                _ = computed.subscribe { _, _ in
+                    _ = shouldNotDependOn.value // trigger "side effects" in getter
+                }
+                a.value = 5 // trigger the subscription block
+
+                var fired = false
+                _ = computed.subscribe(SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)) { _, _ in fired = true }
+
+                // if a dependency was added, this'll cause `fired` to be set to `true`
+                shouldNotDependOn.value = true
+
+                expect(fired) == false
+            }
         }
     }
 }

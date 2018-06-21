@@ -1,6 +1,6 @@
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 theScore Inc.
+//  Copyright (c) 2016 theScore Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,27 +20,52 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
 
 struct DependencyTracker {
-    
-    private static var observableReads: [[AnySubscribable]] = []
-    
-    static func findDependencies(@noescape block: Void -> Void) -> [AnySubscribable] {
-        observableReads.append([])
-        
+
+    static func findDependencies(_ block: (Void) -> Void) -> [AnySubscribableBox] {
+        let stack = DependenciesCollectionStack.current
+
+        let collection = DependenciesCollection()
+        stack.items.append(collection)
+
         block()
-        
-        return observableReads.popLast()!
+
+        stack.items.removeLast()
+        return Array(collection.dependencies)
     }
     
-    static func didReadObservable(observable: AnySubscribable) {
-        if var top = observableReads.last {
-            if top.contains({ $0 === observable }) == false {
-                top.append(observable)
-                observableReads[observableReads.count - 1] = top
-            }
+    static func didReadObservable(_ subscribable: AnySubscribable) {
+        let boxed = AnySubscribableBox(subscribable: subscribable)
+        DependenciesCollectionStack.current.items.last?.dependencies.insert(boxed)
+    }
+    
+}
+
+private class DependenciesCollectionStack: NSObject {
+    fileprivate class ThreadDictionaryKey: NSObject, NSCopying {
+        @objc func copy(with zone: NSZone?) -> Any {
+            return self
         }
     }
-    
+    static let threadDictionaryKey = ThreadDictionaryKey()
+
+    static var current: DependenciesCollectionStack {
+        let thread = Thread.current
+        if let existing = thread.threadDictionary[threadDictionaryKey] as? DependenciesCollectionStack {
+            return existing
+        }
+        else {
+            let new = DependenciesCollectionStack()
+            thread.threadDictionary[threadDictionaryKey] = new
+            return new
+        }
+    }
+
+    var items: [DependenciesCollection] = []
+}
+
+// Optimization - so we don't end up creating a new Set<AnySubscribableBox> every time a dependency is read
+private class DependenciesCollection {
+    var dependencies: Set<AnySubscribableBox> = []
 }

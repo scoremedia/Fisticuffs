@@ -22,14 +22,14 @@
 
 import Foundation
 
-class DisposableBlock: NSObject, Disposable {
-    var block: (() -> Void)?
+open class DisposableBlock: NSObject, Disposable {
+    let block: (() -> Void)?
     
-    init(block: () -> Void) {
+    public init(block: @escaping () -> Void) {
         self.block = block
     }
     
-    internal func dispose() {
+    open func dispose() {
         block?()
     }
 }

@@ -23,8 +23,11 @@
 import Foundation
 
 
-public class DisposableBag {
+open class DisposableBag: Disposable {
     var disposables = [Disposable]()
+
+    public init() {
+    }
     
     deinit {
         for disposable in disposables {
@@ -32,8 +35,13 @@ public class DisposableBag {
         }
     }
     
-    public func add(disposable: Disposable) {
+    open func add(_ disposable: Disposable) {
         disposables.append(disposable)
+    }
+
+    open func dispose() {
+        disposables.forEach { $0.dispose() }
+        disposables = []
     }
 }
 
@@ -47,7 +55,7 @@ public extension Disposable {
     //  }
     //  .addTo(disposableBag)
     //
-    public func addTo(bag: DisposableBag) {
+    public func addTo(_ bag: DisposableBag) {
         bag.add(self)
     }
     

@@ -38,8 +38,8 @@ class DependencyTrackerSpec: QuickSpec {
             }
             
             expect(dependencies.count) == 2
-            expect(dependencies.contains { $0 === hello }) == true
-            expect(dependencies.contains { $0 === world }) == true
+            expect(dependencies.contains(AnySubscribableBox(subscribable: hello))) == true
+            expect(dependencies.contains(AnySubscribableBox(subscribable: world))) == true
         }
         
         it("should not return duplicate usages of the same Observable") {
@@ -52,7 +52,7 @@ class DependencyTrackerSpec: QuickSpec {
             }
             
             expect(dependencies.count) == 1
-            expect(dependencies.contains { $0 === test }) == true
+            expect(dependencies.contains(AnySubscribableBox(subscribable: test))) == true
         }
         
     }

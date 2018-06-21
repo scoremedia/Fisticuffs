@@ -22,27 +22,36 @@
 
 import Foundation
 
+private var b_text_key = 0
+private var b_delegate_key = 0
+
+
 public extension UISearchBar {
     
-    var b_text: BidirectionalBinding<String> {
-        get {
-            return get("b_text", orSet: {
-                let delegate: SearchBarDelegate = get("b_delegate", orSet: { SearchBarDelegate() })
-                self.delegate = delegate
-                
-                return BidirectionalBinding<String>(
-                    getter: { [weak self] in self?.text ?? "" },
-                    setter: { [weak self] value in self?.text = value }
-                )
-            })
+    var b_text: BidirectionalBindableProperty<UISearchBar, String?> {
+        return associatedObjectProperty(self, &b_text_key) { _ in
+            let delegate: SearchBarDelegate = associatedObjectProperty(self, &b_delegate_key) { _ in SearchBarDelegate() }
+            self.delegate = delegate
+
+            let bindableProperty = BidirectionalBindableProperty<UISearchBar, String?>(
+                control: self,
+                getter: { searchBar in searchBar.text },
+                setter: { searchBar, newValue in searchBar.text = newValue }
+            )
+            
+            delegate.bindableProperty = bindableProperty
+
+            return bindableProperty
         }
     }
 }
 
 private class SearchBarDelegate: NSObject, UISearchBarDelegate {
+
+    weak var bindableProperty: BidirectionalBindableProperty<UISearchBar, String?>?
     
-    @objc func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBar.b_text.pushChangeToObservable()
+    @objc func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        bindableProperty?.uiChangeEvent.fire()
     }
     
 }

@@ -21,24 +21,24 @@
 //  THE SOFTWARE.
 
 public enum ArrayChange<T> {
-    case Set(elements: [T])
-    case Insert(index: Int, newElements: [T])
-    case Remove(range: Range<Int>, removedElements: [T])
-    case Replace(range: Range<Int>, removedElements: [T], newElements: [T])
+    case set(elements: [T])
+    case insert(index: Int, newElements: [T])
+    case remove(range: CountableRange<Int>, removedElements: [T])
+    case replace(range: CountableRange<Int>, removedElements: [T], newElements: [T])
 }
 
 
-public extension Subscribable where ValueType: CollectionType, ValueType.Generator.Element : Equatable {
+public extension Subscribable where Value: Collection, Value.Iterator.Element : Equatable {
     
-    typealias ItemType = ValueType.Generator.Element
+    typealias ItemType = Value.Iterator.Element
     
-    func subscribeArray(options: SubscriptionOptions = SubscriptionOptions(), callback: ([ItemType], ArrayChange<ItemType>) -> Void) -> Disposable {
+    func subscribeArray(_ options: SubscriptionOptions = SubscriptionOptions(), callback: @escaping ([ItemType], ArrayChange<ItemType>) -> Void) -> Disposable {
         return subscribe(options) { oldValue, newValue in
             if let change = oldValue?.calculateChange(newValue) {
                 callback(Array(newValue), change)
             }
             else {
-                callback(Array(newValue), .Set(elements: Array(newValue)))
+                callback(Array(newValue), .set(elements: Array(newValue)))
             }
         }
     }
@@ -46,49 +46,49 @@ public extension Subscribable where ValueType: CollectionType, ValueType.Generat
 }
 
 
-extension CollectionType where Generator.Element: Equatable {
+extension Collection where Iterator.Element: Equatable {
     
-    func calculateChange(new: Self) -> ArrayChange<Self.Generator.Element> {
+    func calculateChange(_ new: Self) -> ArrayChange<Self.Iterator.Element> {
         let oldItems = Array(self)
         let newItems = Array(new)
         
         let commonAtStart = numberInCommon(Array(self), Array(new))
-        let commonAtEnd = numberInCommon(self.reverse(), new.reverse())
+        let commonAtEnd = numberInCommon(self.reversed(), new.reversed())
         
         switch (oldItems.count, newItems.count, commonAtStart, commonAtEnd) {
             
         case let (oldCount, newCount, commonStart, commonEnd)
             where oldCount == newCount && // same length?
                 oldCount == commonStart && oldCount == commonEnd: // all elements are same
-            return ArrayChange.Set(elements: newItems)
+            return ArrayChange.set(elements: newItems)
             
         case (_, _, 0, 0): // nothing in common
-            return ArrayChange.Set(elements: newItems)
+            return ArrayChange.set(elements: newItems)
             
         case let (oldCount, newCount, commonStart, commonEnd)
             where oldCount < newCount && // added items?
                 commonStart + commonEnd + (newCount - oldCount) == newCount:
-            return ArrayChange.Insert(index: commonStart, newElements: Array(newItems[commonStart..<(newCount - commonEnd)]))
+            return ArrayChange.insert(index: commonStart, newElements: Array(newItems[commonStart..<(newCount - commonEnd)]))
             
         case let (oldCount, newCount, commonStart, commonEnd)
             where oldCount > newCount &&  // removed items?
                 commonStart + commonEnd + (oldCount - newCount) == oldCount:
             let range = commonStart..<(oldCount - commonEnd)
-            return ArrayChange.Remove(range: range, removedElements: Array(oldItems[range]))
+            return ArrayChange.remove(range: range, removedElements: Array(oldItems[range]))
             
         case let (oldCount, newCount, commonStart, commonEnd):
             let rangeInOld = commonStart..<(oldCount - commonEnd)
             let rangeInNew = commonStart..<(newCount - commonEnd)
-            return ArrayChange.Replace(range: rangeInOld, removedElements: Array(oldItems[rangeInOld]), newElements: Array(newItems[rangeInNew]))
+            return ArrayChange.replace(range: rangeInOld, removedElements: Array(oldItems[rangeInOld]), newElements: Array(newItems[rangeInNew]))
         }
     }
     
-    private func numberInCommon(oldItems: [Self.Generator.Element], _ newItems: [Self.Generator.Element]) -> Int {
-        var newGenerator = oldItems.generate()
-        var oldGenerator = newItems.generate()
+    fileprivate func numberInCommon(_ oldItems: [Self.Iterator.Element], _ newItems: [Self.Iterator.Element]) -> Int {
+        var newGenerator = oldItems.makeIterator()
+        var oldGenerator = newItems.makeIterator()
         var count = 0
         
-        while let newItem = newGenerator.next(), oldItem = oldGenerator.next() where newItem == oldItem {
+        while let newItem = newGenerator.next(), let oldItem = oldGenerator.next() , newItem == oldItem {
             count += 1
         }
         

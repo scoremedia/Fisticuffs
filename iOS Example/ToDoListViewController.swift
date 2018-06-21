@@ -37,12 +37,12 @@ class ToDoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addButton.b_onTap += viewModel.tappedAddNewItem
+        addButton.b_onTap.subscribe(viewModel.tappedAddNewItem)
         
-        editButton.b_title <-- viewModel.editButtonTitle
-        editButton.b_onTap += viewModel.tappedEditButton
+        editButton.b_title.bind(viewModel.editButtonTitle)
+        editButton.b_onTap.subscribe(viewModel.tappedEditButton)
         
-        viewModel.promptToAddNewItem += showAddItemController
+        viewModel.promptToAddNewItem.subscribe(showAddItemController)
         
         tableView.b_configure(viewModel.items) { config in
 //TODO: Re-add this functionality
@@ -53,11 +53,11 @@ class ToDoListViewController: UIViewController {
             config.useCell(reuseIdentifier: "Cell") { item, cell in
                 (cell as! ToDoItemCell).bind(item)
             }
-            config.onSelect += { _, item in
+            config.onSelect.subscribe { _, item in
                 item.completed.value = !item.completed.value
             }
         }
-        tableView.b_editing <-- viewModel.editing
+        tableView.b_editing.bind(viewModel.editing)
     }
     
     

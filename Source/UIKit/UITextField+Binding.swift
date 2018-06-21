@@ -22,37 +22,35 @@
 
 import UIKit
 
+private var b_text_key = 0
+private var b_delegate_key = 0
+private var b_shouldBeginEditing_key = 0
+private var b_shouldEndEditing_key = 0
+private var b_shouldClear_key = 0
+private var b_shouldReturn_key = 0
+
 
 public extension UITextField {
     
-    var b_text: BidirectionalBinding<String> {
+    var b_text: BidirectionalBindableProperty<UITextField, String?> {
         get {
-            return get("b_text", orSet: {
-                addTarget(self, action: "b_valueChanged:", forControlEvents: .EditingChanged)
-                let cleanup = DisposableBlock { [weak self] in
-                    self?.removeTarget(self, action: "b_valueChanged:", forControlEvents: .EditingChanged)
-                }
-                
-                return BidirectionalBinding<String>(
-                    getter: { [weak self] in self?.text ?? "" },
-                    setter: { [weak self] value in self?.text = value },
-                    extraCleanup: cleanup
+            return associatedObjectProperty(self, &b_text_key) { _ in
+                return TargetActionBindableProperty(
+                    control: self,
+                    getter: { control in control.text },
+                    setter: { control, text in control.text = text },
+                    events: .editingChanged
                 )
-            })
+            }
         }
     }
-    
-    @objc private func b_valueChanged(sender: UITextField) {
-        b_text.pushChangeToObservable()
-    }
-    
-    
+
     var b_didBeginEditing: Event<UIEvent?> {
-        return b_controlEvent(.EditingDidBegin)
+        return b_controlEvent(.editingDidBegin)
     }
     
     var b_didEndEditing: Event<UIEvent?> {
-        return b_controlEvent([.EditingDidEnd, .EditingDidEndOnExit])
+        return b_controlEvent([.editingDidEnd, .editingDidEndOnExit])
     }
     
 }
@@ -60,49 +58,50 @@ public extension UITextField {
 
 public extension UITextField {
 
-    private var b_delegate: TextFieldDelegate {
-        return get("b_delegate", orSet: {
+    fileprivate var b_delegate: TextFieldDelegate {
+        return associatedObjectProperty(self, &b_delegate_key) { _ in
             let delegate = TextFieldDelegate()
             self.delegate = delegate
             return delegate
-        })
+        }
     }
-    
-    var b_shouldBeginEditing: Binding<Bool> {
-        return get("b_shouldBeginEditing", orSet: {
+
+    var b_shouldBeginEditing: BindableProperty<UITextField, Bool> {
+        return associatedObjectProperty(self, &b_shouldBeginEditing_key) { _ in
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldBeginEditing = value
             }
-        })
+        }
     }
-    
-    var b_shouldEndEditing: Binding<Bool> {
-        return get("b_shouldEndEditing", orSet: {
+
+    var b_shouldEndEditing: BindableProperty<UITextField, Bool> {
+        return associatedObjectProperty(self, &b_shouldEndEditing_key) { _ in
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldEndEditing = value
             }
-        })
+        }
     }
-    
-    var b_shouldClear: Binding<Bool> {
-        return get("b_shouldClear", orSet: {
+
+    var b_shouldClear: BindableProperty<UITextField, Bool> {
+        return associatedObjectProperty(self, &b_shouldClear_key) { _ in
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldClear = value
             }
-        })
+        }
     }
-    
-    var b_shouldReturn: Binding<Bool> {
-        return get("b_shouldReturn", orSet: {
+
+    var b_shouldReturn: BindableProperty<UITextField, Bool> {
+        return associatedObjectProperty(self, &b_shouldReturn_key) { _ in
             let delegate = b_delegate
-            return Binding { value in
+            return BindableProperty(self) { control, value in
                 delegate.shouldReturn = value
             }
-        })
+        }
     }
+
     
     var b_willClear: Event<Void> {
         return b_delegate.willClear
@@ -125,15 +124,15 @@ private class TextFieldDelegate: NSObject, UITextFieldDelegate {
     var shouldClear = true
     var shouldReturn = true
     
-    @objc func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    @objc func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return shouldBeginEditing
     }
     
-    @objc func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    @objc func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return shouldEndEditing
     }
     
-    @objc func textFieldShouldClear(textField: UITextField) -> Bool {
+    @objc func textFieldShouldClear(_ textField: UITextField) -> Bool {
         let retVal = shouldClear // copy to guard against `shouldClear` being changed in any event subscriptions
         if retVal {
             willClear.fire()
@@ -141,7 +140,7 @@ private class TextFieldDelegate: NSObject, UITextFieldDelegate {
         return retVal
     }
     
-    @objc func textFieldShouldReturn(textField: UITextField) -> Bool {
+    @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let retVal = shouldReturn // copy to guard against `shouldReturn` being changed in any event subscriptions
         if retVal {
             willReturn.fire()

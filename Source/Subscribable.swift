@@ -20,21 +20,37 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+
+open class Subscribable<Value> : AnySubscribable {
+    open var currentValue: Value? {
+        return nil
+    }
+
+    open let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
+
+    open func subscribe(_ block: @escaping (Value?, Value) -> Void) -> Disposable {
+        return subscribe(SubscriptionOptions(), block: block)
+    }
+
+    open func subscribe(_ options: SubscriptionOptions, block: @escaping (Value?, Value) -> Void) -> Disposable {
+        let currentValue = self.currentValue
+
+        let disposable = subscriptionCollection.add(when: options.when, callback: block)
+        if let value = currentValue , options.notifyOnSubscription {
+            block(value, value)
+        }
+        return disposable
+    }
 
 
-extension NSObject {
-    
-    func getObservableFor<T>(key: String) -> Observable<T>? {
-        return get(key)
+    //MARK: AnySubscribable
+    open func subscribe(_ options: SubscriptionOptions, block: @escaping () -> Void) -> Disposable {
+        return subscribe(options) { _, _ in
+            block()
+        }
     }
-    
-    func setObservableFor<T>(key: String, observable: Observable<T>?, setter: (value: T) -> Void) {
-        set(key, value: observable)
-        
-        let bag = DisposableBag()
-        observable?.subscribe { _, value in setter(value: value) } .addTo(bag)
-        set(key, value: bag)
+
+    open func subscribe(_ block: @escaping () -> Void) -> Disposable {
+        return subscribe(SubscriptionOptions(), block: block)
     }
-    
 }

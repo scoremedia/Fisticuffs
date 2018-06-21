@@ -58,7 +58,7 @@ class CollectionViewSampleController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.registerClass(CollectionViewSampleCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(CollectionViewSampleCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.allowsMultipleSelection = true
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -67,7 +67,7 @@ class CollectionViewSampleController: UIViewController {
         layout.minimumLineSpacing = spacing
 
         if #available(iOS 9, *) {
-            let reorderGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "handleReorderGestureRecognizer:")
+            let reorderGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollectionViewSampleController.handleReorderGestureRecognizer(_:)))
             collectionView.addGestureRecognizer(reorderGestureRecognizer)
         }
         
@@ -82,9 +82,9 @@ class CollectionViewSampleController: UIViewController {
             }
         }
         
-        clearButton.b_onTap += viewModel.clearSelection
+        _ = clearButton.b_onTap.subscribe(viewModel.clearSelection)
         
-        viewModel.sumDisplayString += { [navigationItem = navigationItem] _, displayString in
+        _ = viewModel.sumDisplayString.subscribe { [navigationItem = navigationItem] _, displayString in
             navigationItem.prompt = displayString
         }
     }
@@ -98,22 +98,22 @@ class CollectionViewSampleController: UIViewController {
     }
     
     @available(iOS 9, *)
-    func handleReorderGestureRecognizer(gestureRecognizer: UILongPressGestureRecognizer) {
+    func handleReorderGestureRecognizer(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
-        case .Began:
-            let touchLocation = gestureRecognizer.locationInView(collectionView)
-            if let indexPath = collectionView.indexPathForItemAtPoint(touchLocation) {
-                collectionView.beginInteractiveMovementForItemAtIndexPath(indexPath)
+        case .began:
+            let touchLocation = gestureRecognizer.location(in: collectionView)
+            if let indexPath = collectionView.indexPathForItem(at: touchLocation) {
+                collectionView.beginInteractiveMovementForItem(at: indexPath)
             }
             
-        case .Changed:
-            let touchLocation = gestureRecognizer.locationInView(collectionView)
+        case .changed:
+            let touchLocation = gestureRecognizer.location(in: collectionView)
             collectionView.updateInteractiveMovementTargetPosition(touchLocation)
             
-        case .Ended:
+        case .ended:
             collectionView.endInteractiveMovement()
             
-        case .Cancelled:
+        case .cancelled:
             collectionView.cancelInteractiveMovement()
             
         default:
@@ -149,20 +149,20 @@ class CollectionViewSampleCell: UICollectionViewCell {
         selectedBackgroundView?.backgroundColor = UIColor(red: 1.0, green: 0.867, blue: 0.0, alpha: 1.0)
         
         let centerX = NSLayoutConstraint(
-            item: label, attribute: .CenterX,
-            relatedBy: .Equal,
-            toItem: contentView, attribute: .CenterX,
+            item: label, attribute: .centerX,
+            relatedBy: .equal,
+            toItem: contentView, attribute: .centerX,
             multiplier: 1.0, constant: 0.0
         )
         
         let centerY = NSLayoutConstraint(
-            item: label, attribute: .CenterY,
-            relatedBy: .Equal,
-            toItem: contentView, attribute: .CenterY,
+            item: label, attribute: .centerY,
+            relatedBy: .equal,
+            toItem: contentView, attribute: .centerY,
             multiplier: 1.0, constant: 0.0
         )
         
-        NSLayoutConstraint.activateConstraints([centerX, centerY])
+        NSLayoutConstraint.activate([centerX, centerY])
     }
     
 }

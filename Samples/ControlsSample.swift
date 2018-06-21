@@ -69,17 +69,17 @@ class ControlsSampleViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resultsDisplay.b_backgroundColor <-- viewModel.color
-        resultsDisplay.b_alpha.bind(viewModel.alpha, transform: { value in CGFloat(value) })
-        resultsDisplay.b_hidden <-- viewModel.hidden
+        resultsDisplay.b_backgroundColor.bind(viewModel.color)
+        resultsDisplay.b_alpha.bind(viewModel.alpha, BindingHandlers.transform { value in CGFloat(value) })
+        resultsDisplay.b_hidden.bind(viewModel.hidden)
         
         
-        redSlider.b_value <-> viewModel.red
-        greenSlider.b_value <-> viewModel.green
-        blueSlider.b_value <-> viewModel.blue
+        redSlider.b_value.bind(viewModel.red)
+        greenSlider.b_value.bind(viewModel.green)
+        blueSlider.b_value.bind(viewModel.blue)
         
-        alphaSlider.b_value <-> viewModel.alpha
-        hiddenSwitch.b_on <-> viewModel.hidden
+        alphaSlider.b_value.bind(viewModel.alpha)
+        hiddenSwitch.b_on.bind(viewModel.hidden)
     }
     
 }

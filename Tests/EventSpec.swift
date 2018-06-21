@@ -33,7 +33,7 @@ class EventSpec: QuickSpec {
                 var receivedValue: Int? = nil
                 
                 let event = Event<Int>()
-                event.subscribe { _, new in receivedValue = new }
+                _ = event.subscribe { _, new in receivedValue = new }
                 
                 event.fire(11)
                 expect(receivedValue) == 11
@@ -43,7 +43,7 @@ class EventSpec: QuickSpec {
                 var eventFired = false
                 
                 let event = Event<Void>()
-                event.subscribe { eventFired = true }
+                _ = event.subscribe { eventFired = true }
                 
                 expect(eventFired) == false
             }

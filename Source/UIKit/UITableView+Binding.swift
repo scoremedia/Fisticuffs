@@ -22,29 +22,27 @@
 
 import UIKit
 
+private var dataSource_key = 0
+private var b_editing_key = 0
+
 public extension UITableView {
         
-    func b_configure<S: Subscribable where
-        S.ValueType: CollectionType,
-        S.ValueType.Index == Int,
-        S.ValueType.Generator.Element: Equatable>(items: S, @noescape block: (TableViewDataSource<S>) -> Void) {
+    func b_configure<Item: Equatable>(_ items: Subscribable<[Item]>, block: (TableViewDataSource<Item>) -> Void) {
             
             let dataSource = TableViewDataSource(subscribable: items, view: self)
             block(dataSource)
-            
-            set("dataSource", value: dataSource as AnyObject)
-            
+
+            setAssociatedObjectProperty(self, &dataSource_key, value: dataSource as AnyObject)
+
             self.delegate = dataSource
             self.dataSource = dataSource
             
     }
     
-    var b_editing: Binding<Bool> {
-        get {
-            return get("b_editing", orSet: {
-                return Binding<Bool>(setter: { [weak self] value -> Void in
-                    self?.editing = value
-                })
+    var b_editing: BindableProperty<UITableView, Bool> {
+        return associatedObjectProperty(self, &b_editing_key) { _ in
+            return BindableProperty(self, setter: { control, value -> Void in
+                control.isEditing = value
             })
         }
     }
