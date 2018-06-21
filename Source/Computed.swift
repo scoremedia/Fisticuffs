@@ -48,13 +48,13 @@ open class Computed<Value>: Subscribable<Value> {
     fileprivate var dirty: Bool = false
     fileprivate var pendingUpdate: Bool = false
     
-    let valueBlock: (Void) -> Value
+    let valueBlock: () -> Value
     var dependencies = [AnySubscribableBox: Disposable]()
     
     open override var currentValue: Value? { return value }
 
     //MARK: -
-    public init(block: @escaping (Void) -> Value) {
+    public init(block: @escaping () -> Value) {
         valueBlock = block
 
         var result: Value!
