@@ -35,11 +35,11 @@ class AddItemViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneButton.b_onTap.subscribe(viewModel.doneTapped)
-        cancelButton.b_onTap.subscribe(viewModel.cancelTapped)
+        _ = doneButton.b_onTap.subscribe(viewModel.doneTapped)
+        _ = cancelButton.b_onTap.subscribe(viewModel.cancelTapped)
         titleField.b_text.bind(viewModel.item.title)
         
-        viewModel.finished.subscribe { [weak self] _, result in
+        _ = viewModel.finished.subscribe { [weak self] _, result in
             switch result {
             case let .NewToDoItem(item):
                 DataManager.sharedManager.toDoItems.value.append(item)
@@ -49,12 +49,12 @@ class AddItemViewController: UITableViewController {
                 break
             }
             
-            self?.dismissViewControllerAnimated(true, completion: nil)
+            self?.dismiss(animated: true, completion: nil)
         }
     }
 
-    
-    override func viewDidAppear(animated: Bool) {
+
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         titleField.becomeFirstResponder()
     }

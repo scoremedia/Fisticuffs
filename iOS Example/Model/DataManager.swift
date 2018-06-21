@@ -26,8 +26,8 @@ import Fisticuffs
 class DataManager {
     
     static let defaultPath: String = {
-        let documentsDirectory: NSString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
-        return documentsDirectory.stringByAppendingPathComponent("todos.plist")
+        let documentsDirectory: NSString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        return documentsDirectory.appendingPathComponent("todos.plist")
     }()
     
     static let sharedManager = DataManager(filePath: defaultPath)
@@ -48,10 +48,10 @@ class DataManager {
             
             // We observe the results of DataManager.modelsToPlist so that we catch changes to both
             // the list of to do items & each property on them (as they are accessed in serialization)
-            serializedRepresentation = Computed { [items = self.toDoItems] in DataManager.modelsToPlist(items.value) }
+            serializedRepresentation = Computed { [items = self.toDoItems] in DataManager.modelsToPlist(toDos: items.value) }
             
-            let opts = SubscriptionOptions(notifyOnSubscription: false, when: .AfterChange)
-            serializedRepresentation!.subscribe(opts) { [weak self] in
+            let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
+            _ = serializedRepresentation!.subscribe(opts) { [weak self] in
                 self?.save(filePath: filePath)
             }
         }
@@ -61,16 +61,16 @@ class DataManager {
 //MARK: - Load/Save
 extension DataManager {
     
-    func load(filePath filePath: String) -> [ToDoItem] {
+    func load(filePath: String) -> [ToDoItem] {
         guard let plist = NSArray(contentsOfFile: filePath) else {
             return []
         }
-        return DataManager.plistToModels(plist)
+        return DataManager.plistToModels(plist: plist)
     }
     
-    func save(filePath filePath: String) {
-        let plist = DataManager.modelsToPlist(toDoItems.value)
-        plist.writeToFile(filePath, atomically: true)
+    func save(filePath: String) {
+        let plist = DataManager.modelsToPlist(toDos: toDoItems.value)
+        plist.write(toFile: filePath, atomically: true)
     }
     
 }
@@ -81,8 +81,8 @@ extension DataManager {
         do {
             let items = try (plist as [AnyObject]).map { object -> ToDoItem in
                 guard let dict = object as? NSDictionary,
-                    title = dict["title"] as? String,
-                    completed = dict["completed"] as? Bool else {
+                    let title = dict["title"] as? String,
+                    let completed = dict["completed"] as? Bool else {
                         throw NSError(domain: "DataManagerParseError", code: 0, userInfo: nil)
                 }
                 

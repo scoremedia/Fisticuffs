@@ -33,7 +33,7 @@ class ToDoListViewModel {
     let promptToAddNewItem = Event<Void>()
     
     func tappedAddNewItem() {
-        promptToAddNewItem.fire()
+        promptToAddNewItem.fire(())
     }
     
     //MARK: -
