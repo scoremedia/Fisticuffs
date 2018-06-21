@@ -1,5 +1,9 @@
 # Changelog
 
+
+## 0.0.5
+ - Adds Swift 4.1 Compatibility
+
 ## 0.0.2
 
 `UITableView` & `UICollectionView` binding improvements, including:

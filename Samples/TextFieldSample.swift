@@ -54,7 +54,7 @@ class TextFieldSampleViewModel {
             return nil
         }
 
-        return arc4random_uniform(UInt32(userName.value.characters.count)) % 2 == 0
+        return arc4random_uniform(UInt32(userName.value.count)) % 2 == 0
     }
     
     lazy var inputValid: Computed<Bool> = Computed { [weak self] in

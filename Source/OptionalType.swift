@@ -44,17 +44,3 @@ extension Optional: OptionalType {
         }
     }
 }
-
-extension ImplicitlyUnwrappedOptional: OptionalType {
-    public init(wrappedValue: Wrapped) {
-        self = .some(wrappedValue)
-    }
-    public func toUnwrappedValue() throws -> Wrapped {
-        switch self {
-        case .some(let unwrapped):
-            return unwrapped
-        case .none:
-            throw OptionalIsNone()
-        }
-    }
-}

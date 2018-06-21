@@ -23,7 +23,7 @@
 
 struct DependencyTracker {
 
-    static func findDependencies(_ block: (Void) -> Void) -> [AnySubscribableBox] {
+    static func findDependencies(_ block: () -> Void) -> [AnySubscribableBox] {
         let stack = DependenciesCollectionStack.current
 
         let collection = DependenciesCollection()

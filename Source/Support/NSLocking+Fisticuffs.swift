@@ -9,7 +9,7 @@
 import Foundation
 
 extension NSLocking {
-    func withLock<T>(_ block: (Void) -> T) -> T {
+    func withLock<T>(_ block: () -> T) -> T {
         lock()
         let result = block()
         unlock()

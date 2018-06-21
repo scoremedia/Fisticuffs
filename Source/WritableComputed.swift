@@ -41,7 +41,7 @@ open class WritableComputed<Value>: Observable<Value> {
     fileprivate var dirty: Bool = false
     fileprivate var pendingUpdate: Bool = false
 
-    let getter: (Void) -> Value
+    let getter: () -> Value
     let setter: (Value) -> Void
 
     var dependencies = [AnySubscribableBox: Disposable]()
@@ -49,7 +49,7 @@ open class WritableComputed<Value>: Observable<Value> {
     open override var currentValue: Value? { return value }
 
     //MARK: -
-    public init(getter: @escaping (Void) -> Value, setter: @escaping (Value) -> Void) {
+    public init(getter: @escaping () -> Value, setter: @escaping (Value) -> Void) {
         var result: Value!
         let dependencies = DependencyTracker.findDependencies {
             result = getter()
