@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.0.6
+ - Fixes an issue in the podspec that would prevent fisticufs from building under the new xcode build system.
 
 ## 0.0.5
  - Adds Swift 4.1 Compatibility
