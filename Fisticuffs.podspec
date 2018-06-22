@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Fisticuffs"
-  s.version          = "0.0.5"
+  s.version          = "0.0.6"
   s.summary          = "Fisticuffs is a data binding framework for Swift, inspired by Knockout."
 
   s.description      = <<-DESC
@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.swift_version = '4.1'
   s.requires_arc = true
 
-  s.source_files = 'Source/**/*'
+  s.source_files = 'Source/**/*.{m,swift}'
 end
