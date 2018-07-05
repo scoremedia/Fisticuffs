@@ -199,7 +199,7 @@ Requirements:
 2. Add `Fisticuffs` to your `Podfile`:
 
   ```
-  pod 'Fisticuffs', '0.0.5'
+  pod 'Fisticuffs', '0.0.6'
   ```
 
 3. Run `pod install`
@@ -214,7 +214,7 @@ Requirements:
 2. Add `Fisticuffs` to your `Cartfile`:
 
   ```
-  github "scoremedia/Fisticuffs" == 0.0.5
+  github "scoremedia/Fisticuffs" == 0.0.6
   ```
 
 3. Run `carthage update`
