@@ -45,11 +45,11 @@ public extension UITextField {
         }
     }
 
-    var b_didBeginEditing: Event<UIEvent?> {
+    var b_didBeginEditing:Fisticuffs.Event<UIEvent?> {
         return b_controlEvent(.editingDidBegin)
     }
     
-    var b_didEndEditing: Event<UIEvent?> {
+    var b_didEndEditing: Fisticuffs.Event<UIEvent?> {
         return b_controlEvent([.editingDidEnd, .editingDidEndOnExit])
     }
     
@@ -103,11 +103,11 @@ public extension UITextField {
     }
 
     
-    var b_willClear: Event<Void> {
+    var b_willClear: Fisticuffs.Event<Void> {
         return b_delegate.willClear
     }
     
-    var b_willReturn: Event<Void> {
+    var b_willReturn: Fisticuffs.Event<Void> {
         return b_delegate.willReturn
     }
 

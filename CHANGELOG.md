@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.7
+ - Scopes `Event<>` explicitly to `Fisticuffs.Event<>` in UIKit extensions. Fisticuffs declares `Event<>` which seems to conflict with some swiftification of `UIEvent` -> `UIControl.Event`
+
 ## 0.0.6
  - Fixes an issue in the podspec that would prevent Fisticuffs from building under the new xcode build system.
 

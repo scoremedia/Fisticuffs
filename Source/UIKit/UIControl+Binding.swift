@@ -41,10 +41,10 @@ public extension UIControl {
         }
     }
 
-    var b_onTap: Event<Void> {
+    var b_onTap: Fisticuffs.Event<Void> {
         return associatedObjectProperty(self, &b_onTap_key) { _ in
             self.addTarget(self, action: #selector(self.b_receivedOnTap(_:)), for: .touchUpInside)
-            return Event<Void>()
+            return Fisticuffs.Event<Void>()
         }
     }
 
@@ -63,7 +63,7 @@ public extension UIControl {
 
      - returns: The Event object
      */
-    func b_controlEvent(_ controlEvents: UIControlEvents) -> Event<UIEvent?> {
+    func b_controlEvent(_ controlEvents: UIControlEvents) -> Fisticuffs.Event<UIEvent?> {
         let trampolinesCollection = associatedObjectProperty(self, &trampolines_key) { _ in ControlEventTrampolineCollection() }
 
         if let trampoline = trampolinesCollection.trampolines[controlEvents.rawValue] {
