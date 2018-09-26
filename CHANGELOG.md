@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.8
+ - Adds Xcode 10 and Swift 4.2 compatibility
+
 ## 0.0.7
  - Scopes `Event<>` explicitly to `Fisticuffs.Event<>` in UIKit extensions. Fisticuffs declares `Event<>` which seems to conflict with some swiftification of `UIEvent` -> `UIControl.Event`
 
