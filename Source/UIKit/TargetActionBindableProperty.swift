@@ -13,7 +13,7 @@ class TargetActionBindableProperty<Control: UIControl, ValueType>: Bidirectional
 
     fileprivate let disposables = DisposableBag()
 
-    init(control: Control, getter: @escaping Getter, setter: @escaping Setter, events: UIControlEvents) {
+    init(control: Control, getter: @escaping Getter, setter: @escaping Setter, events: UIControl.Event) {
         super.init(control: control, getter: getter, setter: setter, extraCleanup: disposables)
         control.addTarget(self, action: #selector(TargetActionBindableProperty.controlEventFired), for: events)
         disposables.add(DisposableBlock { [weak self, weak control] in

@@ -94,7 +94,7 @@ open class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>, 
         return editable && (allowsDeletion || allowsMoving)
     }
     
-    open func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             delete(indexPath: indexPath)
         }
@@ -142,7 +142,7 @@ open class TableViewDataSource<Item: Equatable>: DataSource<Item, UITableView>, 
         return proposedDestinationIndexPath
     }
     
-    open func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    open func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return editable && allowsDeletion ? .delete : .none
     }
     

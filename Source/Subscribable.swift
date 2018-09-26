@@ -26,7 +26,7 @@ open class Subscribable<Value> : AnySubscribable {
         return nil
     }
 
-    open let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
+    public let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
 
     open func subscribe(_ block: @escaping (Value?, Value) -> Void) -> Disposable {
         return subscribe(SubscriptionOptions(), block: block)

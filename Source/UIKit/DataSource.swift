@@ -123,8 +123,8 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
 
     
     open var deselectOnSelection = true
-    open let onSelect = Event<Item>()
-    open let onDeselect = Event<Item>()
+    public let onSelect = Event<Item>()
+    public let onDeselect = Event<Item>()
     
     open var editable: Bool { return observable != nil }
     

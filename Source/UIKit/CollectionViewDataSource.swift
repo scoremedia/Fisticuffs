@@ -43,7 +43,7 @@ extension UICollectionView: DataSourceView {
     }
     
     public func select(indexPath: IndexPath) {
-        selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition())
+        selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition())
     }
     
     public func deselect(indexPath: IndexPath) {
