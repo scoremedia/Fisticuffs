@@ -27,7 +27,7 @@ private var b_accessoryType_key = 0
 
 public extension UITableViewCell {
     
-    var b_accessoryType: BindableProperty<UITableViewCell, UITableViewCellAccessoryType> {
+    var b_accessoryType: BindableProperty<UITableViewCell, UITableViewCell.AccessoryType> {
         get {
             return associatedObjectProperty(self, &b_accessoryType_key) { _ in
                 return BindableProperty(self) { control, value in

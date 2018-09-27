@@ -11,8 +11,8 @@ import Foundation
 /// Default implementation of LoadImageManagerType
 /// Allows for some basic customization via the `URLSession` and `errorLogger` properties.
 open class LoadImageManager: LoadImageManagerType {
-    open static let errorDomain: String = "LoadImageManager"
-    open static let failedToParseErrorCode: Int = 1
+    public static let errorDomain: String = "LoadImageManager"
+    public static let failedToParseErrorCode: Int = 1
 
     /// NSURLSession used to load images. Can be replaced with a different NSURLSession
     open var URLSession: URLSession = Foundation.URLSession.shared

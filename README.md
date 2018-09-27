@@ -189,7 +189,7 @@ Similar bindings exist for `UICollectionView`
 
 Requirements:
 
-- Xcode 9 / Swift 4.1
+- Xcode 10 / Swift 4.2
 - iOS 8+
 
 ### CocoaPods
@@ -199,7 +199,7 @@ Requirements:
 2. Add `Fisticuffs` to your `Podfile`:
 
   ```
-  pod 'Fisticuffs', '0.0.7'
+  pod 'Fisticuffs', '0.0.8'
   ```
 
 3. Run `pod install`
@@ -214,7 +214,7 @@ Requirements:
 2. Add `Fisticuffs` to your `Cartfile`:
 
   ```
-  github "scoremedia/Fisticuffs" == 0.0.7
+  github "scoremedia/Fisticuffs" == 0.0.8
   ```
 
 3. Run `carthage update`

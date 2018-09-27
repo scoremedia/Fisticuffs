@@ -92,7 +92,7 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
             control.selectedSegmentIndex = index
         }
         else {
-            control.selectedSegmentIndex = UISegmentedControlNoSegment
+            control.selectedSegmentIndex = UISegmentedControl.noSegment
         }
     }
     
@@ -105,7 +105,7 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
             }
         }
         else {
-            control.selectedSegmentIndex = UISegmentedControlNoSegment
+            control.selectedSegmentIndex = UISegmentedControl.noSegment
         }
     }
     

@@ -11,7 +11,7 @@ import UIKit
 
 open class LoadImageBindingHandlerConfig {
     /// Default LoadImageManager to use for future BindingHandlers.loadImage()'s
-    open static var manager: LoadImageManagerType = LoadImageManager()
+    public static var manager: LoadImageManagerType = LoadImageManager()
 }
 
 class LoadImageBindingHandler<Control: AnyObject> : BindingHandler<Control, URL?, UIImage?> {

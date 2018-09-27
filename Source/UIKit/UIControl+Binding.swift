@@ -63,7 +63,7 @@ public extension UIControl {
 
      - returns: The Event object
      */
-    func b_controlEvent(_ controlEvents: UIControlEvents) -> Fisticuffs.Event<UIEvent?> {
+    func b_controlEvent(_ controlEvents: UIControl.Event) -> Fisticuffs.Event<UIEvent?> {
         let trampolinesCollection = associatedObjectProperty(self, &trampolines_key) { _ in ControlEventTrampolineCollection() }
 
         if let trampoline = trampolinesCollection.trampolines[controlEvents.rawValue] {
