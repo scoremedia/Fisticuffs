@@ -33,8 +33,7 @@ internal struct AnySubscribableBox: Equatable, Hashable {
     let subscribable: AnySubscribable
 
     var hashValue: Int {
-        // TODO: Fix this
-        return 0
+        return ObjectIdentifier(subscribable).hashValue
     }
 }
 

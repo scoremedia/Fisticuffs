@@ -76,6 +76,7 @@
 		6ACC32BE1C73C5CD00B241EA /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC32BD1C73C5CD00B241EA /* OptionalType.swift */; };
 		6ACC32CF1C73D18300B241EA /* OptionalTypeBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC32CE1C73D18300B241EA /* OptionalTypeBindingHandler.swift */; };
 		6AD65A2C1CDB850C00319A44 /* ComputedBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD65A2B1CDB850C00319A44 /* ComputedBindingHandler.swift */; };
+		6AD8FC8021220FFE00973D7B /* AnySubscribableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD8FC7F21220FFE00973D7B /* AnySubscribableSpec.swift */; };
 		6ADF7BD21D2AE91100E9A8F2 /* NSLocking+Fisticuffs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADF7BD11D2AE91100E9A8F2 /* NSLocking+Fisticuffs.swift */; };
 		6AEADE5B1C6E674C008DFDBA /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */; };
 		6AEADE5D1C6E6F5C008DFDBA /* BindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE5C1C6E6F5C008DFDBA /* BindingHandler.swift */; };
@@ -329,6 +330,7 @@
 		6ACC32BD1C73C5CD00B241EA /* OptionalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalType.swift; sourceTree = "<group>"; };
 		6ACC32CE1C73D18300B241EA /* OptionalTypeBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalTypeBindingHandler.swift; sourceTree = "<group>"; };
 		6AD65A2B1CDB850C00319A44 /* ComputedBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputedBindingHandler.swift; sourceTree = "<group>"; };
+		6AD8FC7F21220FFE00973D7B /* AnySubscribableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySubscribableSpec.swift; sourceTree = "<group>"; };
 		6ADF7BD11D2AE91100E9A8F2 /* NSLocking+Fisticuffs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLocking+Fisticuffs.swift"; sourceTree = "<group>"; };
 		6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjects.swift; sourceTree = "<group>"; };
 		6AEADE5C1C6E6F5C008DFDBA /* BindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandler.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */,
 				6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */,
 				6A218AA61C8DE7FC000F0799 /* WritableComputedSpec.swift */,
+				6AD8FC7F21220FFE00973D7B /* AnySubscribableSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -926,6 +929,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A09EF511BFB878F005C2B81 /* DependencyTrackerSpec.swift in Sources */,
+				6AD8FC8021220FFE00973D7B /* AnySubscribableSpec.swift in Sources */,
 				6A09EF531BFB878F005C2B81 /* EventSpec.swift in Sources */,
 				6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */,
 				6A218AA81C8DE88D000F0799 /* WritableComputedSpec.swift in Sources */,
