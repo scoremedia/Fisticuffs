@@ -33,7 +33,7 @@ internal struct AnySubscribableBox: Equatable, Hashable {
     let subscribable: AnySubscribable
 
     var hashValue: Int {
-        return unsafeBitCast(subscribable as AnyObject, to: OpaquePointer.self).hashValue
+        return ObjectIdentifier(subscribable).hashValue
     }
 }
 
