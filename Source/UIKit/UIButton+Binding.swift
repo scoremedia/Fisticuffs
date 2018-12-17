@@ -26,7 +26,7 @@ private var b_attributedTitle_key = 0
 private var b_title_key = 0
 private var b_image_key = 0
 private var b_backgroundImage_key = 0
-
+private var b_titleColor_key = 0
 
 public extension UIButton {
 
@@ -62,5 +62,11 @@ public extension UIButton {
         }
     }
 
-
+    var b_titleColor: BindableProperty<UIButton, UIColor?> {
+        return associatedObjectProperty(self, &b_titleColor_key) { _ in
+            return BindableProperty(self) { control, value in
+                control.setTitleColor(value, for: UIControl.State())
+            }
+        }
+    }
 }
