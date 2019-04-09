@@ -28,6 +28,8 @@ open class Subscribable<Value> : AnySubscribable {
 
     public let subscriptionCollection: SubscriptionCollection<Value> = SubscriptionCollection()
 
+    public init() {}
+    
     open func subscribe(_ block: @escaping (Value?, Value) -> Void) -> Disposable {
         return subscribe(SubscriptionOptions(), block: block)
     }
