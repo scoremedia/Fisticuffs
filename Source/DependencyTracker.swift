@@ -21,7 +21,7 @@
 //  THE SOFTWARE.
 
 
-struct DependencyTracker {
+public struct DependencyTracker {
 
     static func findDependencies(_ block: () -> Void) -> [AnySubscribableBox] {
         let stack = DependenciesCollectionStack.current
@@ -35,7 +35,7 @@ struct DependencyTracker {
         return Array(collection.dependencies)
     }
     
-    static func didReadObservable(_ subscribable: AnySubscribable) {
+    public static func didReadObservable(_ subscribable: AnySubscribable) {
         let boxed = AnySubscribableBox(subscribable: subscribable)
         DependenciesCollectionStack.current.items.last?.dependencies.insert(boxed)
     }

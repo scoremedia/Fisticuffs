@@ -34,7 +34,7 @@ open class SubscriptionCollection<T> {
         }
     }
     
-    func notify(time: NotifyWhen, old: T?, new: T) {
+    public func notify(time: NotifyWhen, old: T?, new: T) {
         lock.withLock {
             for s in subscriptions where s.when == time {
                 s.callback(old, new)
