@@ -25,14 +25,14 @@ open class ComputedBindingHandler<Control: AnyObject, InDataValue, OutDataValue,
 
         super.init()
 
-        self.computed = Computed { [weak self] in
+        self.computed = Computed(block: { [weak self] in
             if let inValue = self?.inValue.value {
                 return transform(inValue)
             }
             else {
                 return nil
             }
-        }
+        })
     }
 
     deinit {

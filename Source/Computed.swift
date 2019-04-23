@@ -22,11 +22,11 @@
 
 import Foundation
 
-
-open class Computed<Value>: Subscribable<Value> {
+@propertyDelegate
+public class Computed<Value>: Subscribable<Value> {
     
     //MARK: -
-    open fileprivate(set) var value: Value {
+    public fileprivate(set) var value: Value {
         get {
             if dirty {
                 updateValue()
@@ -43,18 +43,41 @@ open class Computed<Value>: Subscribable<Value> {
             subscriptionCollection.notify(time: .afterChange, old: oldValue, new: newValue)
         }
     }
-    fileprivate var storage: Value
+    fileprivate var storage: Value!
 
     fileprivate var dirty: Bool = false
     fileprivate var pendingUpdate: Bool = false
     
-    let valueBlock: () -> Value
+    var valueBlock: (() -> Value)!
     var dependencies = [AnySubscribableBox: Disposable]()
     
     open override var currentValue: Value? { return value }
 
     //MARK: -
+    override public init() {
+        super.init()
+    }
+
+    public func `is`<T: AnyObject>(_ this: T, block: @escaping (T) -> Value) {
+        let initialValue = block(this)
+
+        let weakCapturingBlock: () -> Value = { [weak this] in
+            if let this = this {
+                return block(this)
+            }
+            else {
+                return initialValue
+            }
+        }
+        setup(block: weakCapturingBlock)
+    }
+
     public init(block: @escaping () -> Value) {
+        super.init()
+        setup(block: block)
+    }
+
+    private func setup(block: @escaping () -> Value) {
         valueBlock = block
 
         var result: Value!
@@ -62,8 +85,6 @@ open class Computed<Value>: Subscribable<Value> {
             result = block()
         }
         storage = result
-
-        super.init()
 
         subscribeToDependencies(dependencies)
     }

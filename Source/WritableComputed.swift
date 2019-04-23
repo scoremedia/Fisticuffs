@@ -21,100 +21,100 @@
 //  THE SOFTWARE.
 
 
-open class WritableComputed<Value>: Observable<Value> {
-    //MARK: -
-    open override var value: Value {
-        get {
-            if dirty {
-                updateValue()
-            }
-
-            DependencyTracker.didReadObservable(self)
-            return storage
-        }
-        set(newValue) {
-            setter(newValue)
-        }
-    }
-    fileprivate var storage: Value
-
-    fileprivate var dirty: Bool = false
-    fileprivate var pendingUpdate: Bool = false
-
-    let getter: () -> Value
-    let setter: (Value) -> Void
-
-    var dependencies = [AnySubscribableBox: Disposable]()
-
-    open override var currentValue: Value? { return value }
-
-    //MARK: -
-    public init(getter: @escaping () -> Value, setter: @escaping (Value) -> Void) {
-        var result: Value!
-        let dependencies = DependencyTracker.findDependencies {
-            result = getter()
-        }
-        storage = result
-
-        self.getter = getter
-        self.setter = setter
-        super.init(storage)
-
-        subscribeToDependencies(dependencies)
-    }
-
-    deinit {
-        for (_, disposable) in dependencies {
-            disposable.dispose()
-        }
-    }
-
-    func setValue(_ newValue: Value) {
-        let oldValue = storage
-
-        subscriptionCollection.notify(time: .beforeChange, old: oldValue, new: newValue)
-        storage = newValue
-        subscriptionCollection.notify(time: .afterChange, old: oldValue, new: newValue)
-    }
-
-    func setNeedsUpdate() {
-        if dirty == false {
-            dirty = true
-            subscriptionCollection.notify(time: .valueIsDirty, old: storage, new: storage)
-            if pendingUpdate == false {
-                pendingUpdate = true
-                DispatchQueue.main.async {
-                    self.pendingUpdate = false
-                    if self.dirty {
-                        self.updateValue()
-                    }
-                }
-            }
-        }
-    }
-
-    func updateValue() {
-        var result: Value!
-        let dependencies = DependencyTracker.findDependencies {
-            result = getter()
-        }
-        dirty = false
-        setValue(result)
-
-        subscribeToDependencies(dependencies)
-    }
-
-    func subscribeToDependencies(_ deps: [AnySubscribableBox]) {
-        for dependency in deps where dependency.subscribable !== self {
-            if dependencies[dependency] == nil {
-                var options = SubscriptionOptions()
-                options.when = .valueIsDirty
-                options.notifyOnSubscription = false
-                let disposable = dependency.subscribable.subscribe(options) { [weak self] in
-                    self?.setNeedsUpdate()
-                }
-                self.dependencies[dependency] = disposable
-            }
-        }
-    }
-}
+//open class WritableComputed<Value>: Observable<Value> {
+//    //MARK: -
+//    open override var value: Value {
+//        get {
+//            if dirty {
+//                updateValue()
+//            }
+//
+//            DependencyTracker.didReadObservable(self)
+//            return storage
+//        }
+//        set(newValue) {
+//            setter(newValue)
+//        }
+//    }
+//    fileprivate var storage: Value
+//
+//    fileprivate var dirty: Bool = false
+//    fileprivate var pendingUpdate: Bool = false
+//
+//    let getter: () -> Value
+//    let setter: (Value) -> Void
+//
+//    var dependencies = [AnySubscribableBox: Disposable]()
+//
+//    open override var currentValue: Value? { return value }
+//
+//    //MARK: -
+//    public init(getter: @escaping () -> Value, setter: @escaping (Value) -> Void) {
+//        var result: Value!
+//        let dependencies = DependencyTracker.findDependencies {
+//            result = getter()
+//        }
+//        storage = result
+//
+//        self.getter = getter
+//        self.setter = setter
+//        super.init(storage)
+//
+//        subscribeToDependencies(dependencies)
+//    }
+//
+//    deinit {
+//        for (_, disposable) in dependencies {
+//            disposable.dispose()
+//        }
+//    }
+//
+//    func setValue(_ newValue: Value) {
+//        let oldValue = storage
+//
+//        subscriptionCollection.notify(time: .beforeChange, old: oldValue, new: newValue)
+//        storage = newValue
+//        subscriptionCollection.notify(time: .afterChange, old: oldValue, new: newValue)
+//    }
+//
+//    func setNeedsUpdate() {
+//        if dirty == false {
+//            dirty = true
+//            subscriptionCollection.notify(time: .valueIsDirty, old: storage, new: storage)
+//            if pendingUpdate == false {
+//                pendingUpdate = true
+//                DispatchQueue.main.async {
+//                    self.pendingUpdate = false
+//                    if self.dirty {
+//                        self.updateValue()
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    func updateValue() {
+//        var result: Value!
+//        let dependencies = DependencyTracker.findDependencies {
+//            result = getter()
+//        }
+//        dirty = false
+//        setValue(result)
+//
+//        subscribeToDependencies(dependencies)
+//    }
+//
+//    func subscribeToDependencies(_ deps: [AnySubscribableBox]) {
+//        for dependency in deps where dependency.subscribable !== self {
+//            if dependencies[dependency] == nil {
+//                var options = SubscriptionOptions()
+//                options.when = .valueIsDirty
+//                options.notifyOnSubscription = false
+//                let disposable = dependency.subscribable.subscribe(options) { [weak self] in
+//                    self?.setNeedsUpdate()
+//                }
+//                self.dependencies[dependency] = disposable
+//            }
+//        }
+//    }
+//}

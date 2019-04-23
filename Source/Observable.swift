@@ -22,7 +22,8 @@
 
 import Foundation
 
-open class Observable<Value> : Subscribable<Value> {
+@propertyDelegate
+public class Observable<Value> : Subscribable<Value> {
     
     //MARK: - Value property
     
@@ -50,4 +51,7 @@ open class Observable<Value> : Subscribable<Value> {
         storage = initial
     }
 
+    public init(initialValue: Value) {
+        storage = initialValue
+    }
 }

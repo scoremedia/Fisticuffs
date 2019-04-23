@@ -46,6 +46,12 @@
 		6A1DB75D1BFFBD96003817D9 /* Fisticuffs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6A218A961C8DE672000F0799 /* WritableComputed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A218A951C8DE672000F0799 /* WritableComputed.swift */; };
 		6A218AA81C8DE88D000F0799 /* WritableComputedSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A218AA61C8DE7FC000F0799 /* WritableComputedSpec.swift */; };
+		6A2198EF226EAF750018700B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2198EE226EAF750018700B /* AppDelegate.swift */; };
+		6A2198F1226EAF750018700B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2198F0226EAF750018700B /* ViewController.swift */; };
+		6A2198F3226EAF770018700B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A2198F2226EAF770018700B /* Assets.xcassets */; };
+		6A2198F6226EAF770018700B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A2198F4226EAF770018700B /* Main.storyboard */; };
+		6A2198FD226EAF8B0018700B /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */; };
+		6A219900226EC1C60018700B /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEADE5A1C6E674C008DFDBA /* AssociatedObjects.swift */; };
 		6A385FD91C246A0800DCB5AD /* DataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */; };
 		6A57F0481CA4258A000114A2 /* AnySubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A57F0471CA4258A000114A2 /* AnySubscribable.swift */; };
 		6A6B3BD81BFD33CF00B825DB /* TableViewSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */; };
@@ -194,6 +200,13 @@
 			remoteGlobalIDString = 6A09EEE91BFB80E6005C2B81;
 			remoteInfo = Fisticuffs;
 		};
+		6A2198FE226EAF8F0018700B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A09EEE11BFB80E6005C2B81 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A09EEE91BFB80E6005C2B81;
+			remoteInfo = Fisticuffs;
+		};
 		FECA446120DC4C5E0064C1C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6A09F0281BFB8941005C2B81 /* Quick.xcodeproj */;
@@ -292,6 +305,13 @@
 		6A1DB75A1BFE7DCB003817D9 /* TextFieldSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldSample.swift; sourceTree = "<group>"; };
 		6A218A951C8DE672000F0799 /* WritableComputed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritableComputed.swift; sourceTree = "<group>"; };
 		6A218AA61C8DE7FC000F0799 /* WritableComputedSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritableComputedSpec.swift; sourceTree = "<group>"; };
+		6A2198EC226EAF750018700B /* FisticuffsPropertyDelegatesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FisticuffsPropertyDelegatesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A2198EE226EAF750018700B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6A2198F0226EAF750018700B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6A2198F2226EAF770018700B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6A2198F5226EAF770018700B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6A2198F7226EAF770018700B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A2198F8226EAF770018700B /* FisticuffsPropertyDelegatesDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FisticuffsPropertyDelegatesDemo.entitlements; sourceTree = "<group>"; };
 		6A385FC81C246A0300DCB5AD /* DataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceSpec.swift; sourceTree = "<group>"; };
 		6A57F0471CA4258A000114A2 /* AnySubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnySubscribable.swift; sourceTree = "<group>"; };
 		6A6B3BD71BFD33CF00B825DB /* TableViewSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSampleController.swift; sourceTree = "<group>"; };
@@ -348,6 +368,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A2198E9226EAF750018700B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A2198FD226EAF8B0018700B /* Fisticuffs.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -357,7 +385,9 @@
 				6A09EF041BFB816D005C2B81 /* Source */,
 				6A09EF421BFB878F005C2B81 /* Tests */,
 				6A09F1871BFB8C50005C2B81 /* Samples */,
+				6A2198ED226EAF750018700B /* FisticuffsPropertyDelegatesDemo */,
 				6A09EEEB1BFB80E6005C2B81 /* Products */,
+				6A2198FC226EAF8B0018700B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -367,6 +397,7 @@
 				6A09EEEA1BFB80E6005C2B81 /* Fisticuffs.framework */,
 				6A09EEF41BFB80E6005C2B81 /* FisticuffsTests.xctest */,
 				6A09F1861BFB8C50005C2B81 /* Samples.app */,
+				6A2198EC226EAF750018700B /* FisticuffsPropertyDelegatesDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -538,6 +569,26 @@
 			path = Samples;
 			sourceTree = "<group>";
 		};
+		6A2198ED226EAF750018700B /* FisticuffsPropertyDelegatesDemo */ = {
+			isa = PBXGroup;
+			children = (
+				6A2198EE226EAF750018700B /* AppDelegate.swift */,
+				6A2198F0226EAF750018700B /* ViewController.swift */,
+				6A2198F2226EAF770018700B /* Assets.xcassets */,
+				6A2198F4226EAF770018700B /* Main.storyboard */,
+				6A2198F7226EAF770018700B /* Info.plist */,
+				6A2198F8226EAF770018700B /* FisticuffsPropertyDelegatesDemo.entitlements */,
+			);
+			path = FisticuffsPropertyDelegatesDemo;
+			sourceTree = "<group>";
+		};
+		6A2198FC226EAF8B0018700B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6ADF7BC11D2AE90600E9A8F2 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,13 +678,31 @@
 			productReference = 6A09F1861BFB8C50005C2B81 /* Samples.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6A2198EB226EAF750018700B /* FisticuffsPropertyDelegatesDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A2198F9226EAF770018700B /* Build configuration list for PBXNativeTarget "FisticuffsPropertyDelegatesDemo" */;
+			buildPhases = (
+				6A2198E8226EAF750018700B /* Sources */,
+				6A2198E9226EAF750018700B /* Frameworks */,
+				6A2198EA226EAF750018700B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A2198FF226EAF8F0018700B /* PBXTargetDependency */,
+			);
+			name = FisticuffsPropertyDelegatesDemo;
+			productName = FisticuffsPropertyDelegatesDemo;
+			productReference = 6A2198EC226EAF750018700B /* FisticuffsPropertyDelegatesDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		6A09EEE11BFB80E6005C2B81 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = theScore;
 				TargetAttributes = {
@@ -649,6 +718,10 @@
 					6A09F1851BFB8C50005C2B81 = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0800;
+					};
+					6A2198EB226EAF750018700B = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -678,6 +751,7 @@
 				6A09EEE91BFB80E6005C2B81 /* Fisticuffs */,
 				6A09EEF31BFB80E6005C2B81 /* FisticuffsTests */,
 				6A09F1851BFB8C50005C2B81 /* Samples */,
+				6A2198EB226EAF750018700B /* FisticuffsPropertyDelegatesDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -836,6 +910,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A2198EA226EAF750018700B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A2198F3226EAF770018700B /* Assets.xcassets in Resources */,
+				6A2198F6226EAF770018700B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -869,6 +952,7 @@
 				6A09EF2A1BFB816D005C2B81 /* DisposableBlock.swift in Sources */,
 				6A09EF251BFB816D005C2B81 /* BindableProperty.swift in Sources */,
 				6ACC32BE1C73C5CD00B241EA /* OptionalType.swift in Sources */,
+				6A219900226EC1C60018700B /* AssociatedObjects.swift in Sources */,
 				6ACC32CF1C73D18300B241EA /* OptionalTypeBindingHandler.swift in Sources */,
 				6A57F0481CA4258A000114A2 /* AnySubscribable.swift in Sources */,
 			);
@@ -909,6 +993,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A2198E8226EAF750018700B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A2198F1226EAF750018700B /* ViewController.swift in Sources */,
+				6A2198EF226EAF750018700B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -927,6 +1020,11 @@
 			target = 6A09EEE91BFB80E6005C2B81 /* Fisticuffs */;
 			targetProxy = 6A1DB75E1BFFBD96003817D9 /* PBXContainerItemProxy */;
 		};
+		6A2198FF226EAF8F0018700B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A09EEE91BFB80E6005C2B81 /* Fisticuffs */;
+			targetProxy = 6A2198FE226EAF8F0018700B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -944,6 +1042,14 @@
 				6A09F1921BFB8C50005C2B81 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6A2198F4226EAF770018700B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A2198F5226EAF770018700B /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1140,6 +1246,75 @@
 			};
 			name = Release;
 		};
+		6A2198FA226EAF770018700B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = FisticuffsPropertyDelegatesDemo/FisticuffsPropertyDelegatesDemo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FisticuffsPropertyDelegatesDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.FisticuffsPropertyDelegatesDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		6A2198FB226EAF770018700B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = FisticuffsPropertyDelegatesDemo/FisticuffsPropertyDelegatesDemo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FisticuffsPropertyDelegatesDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.FisticuffsPropertyDelegatesDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1175,6 +1350,15 @@
 			buildConfigurations = (
 				6A09F1951BFB8C50005C2B81 /* Debug */,
 				6A09F1961BFB8C50005C2B81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A2198F9226EAF770018700B /* Build configuration list for PBXNativeTarget "FisticuffsPropertyDelegatesDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A2198FA226EAF770018700B /* Debug */,
+				6A2198FB226EAF770018700B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
