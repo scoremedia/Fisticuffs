@@ -88,6 +88,7 @@
 		6AF784EA1D19BC2F00D57380 /* LoadImageManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF784E91D19BC2F00D57380 /* LoadImageManagerType.swift */; };
 		6AFC0AE11C738C1300294F65 /* TargetActionBindableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */; };
 		6AFC0AF41C73B17200294F65 /* BindingHandlersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */; };
+		71A7E0052316DDE8007A91DD /* NSLayoutConstraint+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7E0042316DDE8007A91DD /* NSLayoutConstraint+Binding.swift */; };
 		89272118223AAC7300FBE0FF /* ComposedBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89272117223AAC7300FBE0FF /* ComposedBindingHandler.swift */; };
 		8D6B81F01CF603E0005083F3 /* UIAlertAction+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */; };
 		A88FD65F1E0AD62900113717 /* ThrottleBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88FD65E1E0AD62900113717 /* ThrottleBindingHandler.swift */; };
@@ -343,6 +344,7 @@
 		6AF784E91D19BC2F00D57380 /* LoadImageManagerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageManagerType.swift; sourceTree = "<group>"; };
 		6AFC0AE01C738C1300294F65 /* TargetActionBindableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionBindableProperty.swift; sourceTree = "<group>"; };
 		6AFC0AF21C73B07A00294F65 /* BindingHandlersSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingHandlersSpec.swift; sourceTree = "<group>"; };
+		71A7E0042316DDE8007A91DD /* NSLayoutConstraint+Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Binding.swift"; sourceTree = "<group>"; };
 		89272117223AAC7300FBE0FF /* ComposedBindingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposedBindingHandler.swift; sourceTree = "<group>"; };
 		8D6B81EF1CF603E0005083F3 /* UIAlertAction+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Binding.swift"; sourceTree = "<group>"; };
 		A88FD65E1E0AD62900113717 /* ThrottleBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrottleBindingHandler.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				6A06EDE91BFCD9AA00231806 /* CollectionViewDataSource.swift */,
 				6A06EDEB1BFCE49A00231806 /* TableViewDataSource.swift */,
 				6AF784E41D19BBD800D57380 /* ImageLoading */,
+				71A7E0042316DDE8007A91DD /* NSLayoutConstraint+Binding.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -872,6 +876,7 @@
 			files = (
 				6A09EF3B1BFB816D005C2B81 /* UISegmentedControl+Binding.swift in Sources */,
 				6AD65A2C1CDB850C00319A44 /* ComputedBindingHandler.swift in Sources */,
+				71A7E0052316DDE8007A91DD /* NSLayoutConstraint+Binding.swift in Sources */,
 				6ADF7BD21D2AE91100E9A8F2 /* NSLocking+Fisticuffs.swift in Sources */,
 				6A09EF2B1BFB816D005C2B81 /* Event.swift in Sources */,
 				6A09EF3A1BFB816D005C2B81 /* UISearchBar+Binding.swift in Sources */,
