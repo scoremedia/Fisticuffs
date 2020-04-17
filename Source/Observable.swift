@@ -22,8 +22,20 @@
 
 import Foundation
 
+@propertyWrapper
 open class Observable<Value> : Subscribable<Value> {
-    
+
+    // MARK: - Property Wrapper
+
+    open var wrappedValue: Value {
+        get { value }
+        set { value = newValue }
+    }
+
+    open var projectedValue: Observable<Value> {
+        self
+    }
+
     //MARK: - Value property
     
     open var value: Value {
