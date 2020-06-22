@@ -149,14 +149,14 @@ class CollectionViewSampleCell: UICollectionViewCell {
         selectedBackgroundView?.backgroundColor = UIColor(red: 1.0, green: 0.867, blue: 0.0, alpha: 1.0)
         
         let centerX = NSLayoutConstraint(
-            item: label, attribute: .centerX,
+            item: label!, attribute: .centerX,
             relatedBy: .equal,
             toItem: contentView, attribute: .centerX,
             multiplier: 1.0, constant: 0.0
         )
         
         let centerY = NSLayoutConstraint(
-            item: label, attribute: .centerY,
+            item: label!, attribute: .centerY,
             relatedBy: .equal,
             toItem: contentView, attribute: .centerY,
             multiplier: 1.0, constant: 0.0

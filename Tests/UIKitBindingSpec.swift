@@ -297,7 +297,7 @@ class UIKitBindingSpec: QuickSpec {
             
             it("should keep its selection in sync with the specified `selection` observable") {
                 selection.value = 2
-                expect(segmentedControl.selectedSegmentIndex) == items.value.index(of: selection.value)
+                expect(segmentedControl.selectedSegmentIndex) == items.value.firstIndex(of: selection.value)
                 
                 // Simulate the user switching selection
                 segmentedControl.selectedSegmentIndex = 0

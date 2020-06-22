@@ -44,7 +44,7 @@ open class SubscriptionCollection<T> {
     
     fileprivate func remove(subscription: Subscription<T>) {
         lock.withLock {
-            if let index = subscriptions.index(of: subscription) {
+            if let index = subscriptions.firstIndex(of: subscription) {
                 subscriptions.remove(at: index)
             }
         }
