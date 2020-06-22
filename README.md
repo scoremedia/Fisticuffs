@@ -189,7 +189,7 @@ Similar bindings exist for `UICollectionView`
 
 Requirements:
 
-- Xcode 10 / Swift 4.2
+- Xcode 11 / Swift 5.0
 - iOS 8+
 
 ### CocoaPods
