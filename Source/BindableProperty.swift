@@ -41,11 +41,11 @@ open class BindableProperty<Control: AnyObject, ValueType> {
 
 
 public extension BindableProperty {
-    public func bind(_ subscribable: Subscribable<ValueType>) {
+    func bind(_ subscribable: Subscribable<ValueType>) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
+    func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -57,11 +57,11 @@ public extension BindableProperty {
 }
 
 public extension BindableProperty where ValueType: OptionalType {
-    public func bind(_ subscribable: Subscribable<ValueType.Wrapped>) {
+    func bind(_ subscribable: Subscribable<ValueType.Wrapped>) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    public func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+    func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -77,12 +77,12 @@ public extension BindableProperty where ValueType: OptionalType {
 
 public extension BindableProperty {
     @available(*, deprecated, message: "Use BindableProperty(subscribable, BindingHandlers.transform(...)) instead")
-    public func bind<OtherType>(_ subscribable: Subscribable<OtherType>, transform: @escaping (OtherType) -> ValueType) {
+    func bind<OtherType>(_ subscribable: Subscribable<OtherType>, transform: @escaping (OtherType) -> ValueType) {
         bind(subscribable, BindingHandlers.transform(transform))
     }
 
     @available(*, deprecated, message: "Use a Computed in place of the `block`")
-    public func bind(_ block: @escaping () -> ValueType) {
+    func bind(_ block: @escaping () -> ValueType) {
         currentBinding?.dispose()
         currentBinding = nil
 

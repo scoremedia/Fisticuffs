@@ -55,7 +55,7 @@ public extension Disposable {
     //  }
     //  .addTo(disposableBag)
     //
-    public func addTo(_ bag: DisposableBag) {
+    func addTo(_ bag: DisposableBag) {
         bag.add(self)
     }
     

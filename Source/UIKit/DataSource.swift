@@ -247,7 +247,7 @@ extension DataSource {
         
         let expectedSelections: Set<IndexPath> = {
             let expected = selectedItems.map { item -> IndexPath? in
-                items.index(of: item).map { index in
+                items.firstIndex(of: item).map { index in
                     IndexPath(item: index, section: 0)
                 }
             }
@@ -327,7 +327,7 @@ extension DataSource {
 
         self.ignoreSelectionChanges = true
         do {
-            if let index = selections?.value.index(of: item) {
+            if let index = selections?.value.firstIndex(of: item) {
                 selections?.value.remove(at: index)
             }
             if selection?.value == item {

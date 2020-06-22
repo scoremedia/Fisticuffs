@@ -32,8 +32,8 @@ public protocol AnySubscribable: class {
 internal struct AnySubscribableBox: Equatable, Hashable {
     let subscribable: AnySubscribable
 
-    var hashValue: Int {
-        return ObjectIdentifier(subscribable).hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(subscribable))
     }
 }
 

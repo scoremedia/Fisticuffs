@@ -88,7 +88,7 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
             }
         }
         
-        if let index = newValue.index(of: selection.value) {
+        if let index = newValue.firstIndex(of: selection.value) {
             control.selectedSegmentIndex = index
         }
         else {
@@ -99,7 +99,7 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
     func selectionChanged(_ newValue: Item) {
         guard let control = control else { return }
         
-        if let index = itemValues.index(of: newValue) {
+        if let index = itemValues.firstIndex(of: newValue) {
             if index != control.selectedSegmentIndex {
                 control.selectedSegmentIndex = index
             }
