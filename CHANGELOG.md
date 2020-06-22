@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.11
+ - Fixes Podspec swift version to 5.0
+
+## 0.0.10
+ - Adds Xcode 11 and swift 5.0 compatibility
+
+## 0.0.9
+ - Adds property wrapper support to `Observable` 
+
 ## 0.0.8
  - Adds Xcode 10 and Swift 4.2 compatibility
 
