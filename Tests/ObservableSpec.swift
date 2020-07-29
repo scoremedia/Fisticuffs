@@ -36,6 +36,14 @@ class ObservableSpec: QuickSpec {
             observable.value = "test 2"
             expect(observable.value) == "test 2"
         }
+
+        it("should initialize with wrapped value") {
+            let observable = Observable(wrappedValue: "test")
+            expect(observable.value) == "test"
+
+            observable.value = "test 2"
+            expect(observable.value) == "test 2"
+        }
         
         it("should notify observers when its value changes") {
             let observable = Observable(5)
