@@ -37,7 +37,7 @@ open class Observable<Value> : Subscribable<Value> {
     }
 
     //MARK: - Value property
-    
+
     open var value: Value {
         set(newValue) {
             let old = storage
@@ -54,12 +54,16 @@ open class Observable<Value> : Subscribable<Value> {
     }
 
     open override var currentValue: Value? { return value }
-    
+
     fileprivate var storage: Value
 
     //MARK: - Init
+
     public init(_ initial: Value) {
         storage = initial
     }
 
+    convenience public init(wrappedValue: Value) {
+        self.init(wrappedValue)
+    }
 }
