@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F66388C25C624D800473132 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66388B25C624D800473132 /* Quick */; };
+		4F66389025C624EC00473132 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66388F25C624EC00473132 /* Nimble */; };
 		6A06ED8D1BFB912500231806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06ED8C1BFB912500231806 /* AppDelegate.swift */; };
 		6A06ED8F1BFB912500231806 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06ED8E1BFB912500231806 /* ToDoListViewController.swift */; };
 		6A06ED921BFB912500231806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A06ED901BFB912500231806 /* Main.storyboard */; };
@@ -18,8 +20,6 @@
 		6A06EDBA1BFBACA200231806 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDB91BFBACA200231806 /* ToDoItem.swift */; };
 		6A06EDBC1BFBB69B00231806 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDBB1BFBB69B00231806 /* DataManager.swift */; };
 		6A06EDBE1BFBB87600231806 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */; };
-		6A06EDCF1BFBBF8C00231806 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDCD1BFBBF8C00231806 /* Nimble.framework */; };
-		6A06EDD01BFBBF8C00231806 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A06EDCE1BFBBF8C00231806 /* Quick.framework */; };
 		6A06EDD51BFBC03000231806 /* AddItemViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */; };
 		6A1DB7621BFFC0D2003817D9 /* Fisticuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1DB7611BFFC0D2003817D9 /* Fisticuffs.framework */; };
 		6A1DB7631BFFC0D2003817D9 /* Fisticuffs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1DB7611BFFC0D2003817D9 /* Fisticuffs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -65,8 +65,6 @@
 		6A06EDBD1BFBB87600231806 /* ToDoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
 		6A06EDC31BFBBF1F00231806 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A06EDC71BFBBF1F00231806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6A06EDCD1BFBBF8C00231806 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Tests/Vendor/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
-		6A06EDCE1BFBBF8C00231806 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Tests/Vendor/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		6A06EDD31BFBBFD900231806 /* AddItemViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewModelSpec.swift; sourceTree = "<group>"; };
 		6A1DB7611BFFC0D2003817D9 /* Fisticuffs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Fisticuffs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -84,8 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A06EDCF1BFBBF8C00231806 /* Nimble.framework in Frameworks */,
-				6A06EDD01BFBBF8C00231806 /* Quick.framework in Frameworks */,
+				4F66388C25C624D800473132 /* Quick in Frameworks */,
+				4F66389025C624EC00473132 /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,8 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				6A1DB7611BFFC0D2003817D9 /* Fisticuffs.framework */,
-				6A06EDCD1BFBBF8C00231806 /* Nimble.framework */,
-				6A06EDCE1BFBBF8C00231806 /* Quick.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -201,6 +197,10 @@
 				6A06EDC91BFBBF1F00231806 /* PBXTargetDependency */,
 			);
 			name = Tests;
+			packageProductDependencies = (
+				4F66388B25C624D800473132 /* Quick */,
+				4F66388F25C624EC00473132 /* Nimble */,
+			);
 			productName = Tests;
 			productReference = 6A06EDC31BFBBF1F00231806 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -233,6 +233,10 @@
 				Base,
 			);
 			mainGroup = 6A06ED801BFB912500231806;
+			packageReferences = (
+				4F66388A25C624D800473132 /* XCRemoteSwiftPackageReference "Quick" */,
+				4F66388E25C624EC00473132 /* XCRemoteSwiftPackageReference "Nimble" */,
+			);
 			productRefGroup = 6A06ED8A1BFB912500231806 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -363,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -411,7 +415,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -424,7 +428,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.Fisticuffs.iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -436,7 +444,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.Fisticuffs.iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -453,8 +465,12 @@
 					"$(PROJECT_DIR)/Tests/Vendor/Quick/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				INFOPLIST_FILE = "iOS Example/Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.Fisticuffs.iOS-Example.Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -472,8 +488,12 @@
 					"$(PROJECT_DIR)/Tests/Vendor/Quick/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				INFOPLIST_FILE = "iOS Example/Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thescore.Fisticuffs.iOS-Example.Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -512,6 +532,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4F66388A25C624D800473132 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		4F66388E25C624EC00473132 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F66388B25C624D800473132 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F66388A25C624D800473132 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		4F66388F25C624EC00473132 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F66388E25C624EC00473132 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6A06ED811BFB912500231806 /* Project object */;
 }

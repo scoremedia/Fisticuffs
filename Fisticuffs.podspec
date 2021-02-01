@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Fisticuffs"
-  s.version          = "0.0.12"
+  s.version          = "0.0.13"
   s.summary          = "Fisticuffs is a data binding framework for Swift, inspired by Knockout."
 
   s.description      = <<-DESC
@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
   s.author           = { "Darren Clark" => "darren.clark@thescore.com" }
   s.source           = { :git => "https://github.com/scoremedia/Fisticuffs.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
-  s.swift_version = '5.0'
+  s.platform     = :ios, '9.0'
+  s.swift_version = '5.3'
   s.requires_arc = true
 
-  s.source_files = 'Source/**/*.{m,swift}'
+  s.source_files = 'Sources/**/*.{m,swift}'
 end
