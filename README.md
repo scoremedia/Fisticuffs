@@ -207,6 +207,22 @@ Requirements:
 
 *NOTE: There may be breaking changes before 1.0, so it is suggested to pin it to a specific version*
 
+### Swift Package Manager
+
+#### Adding to your app
+
+To add  `Fisticuffs` to your app using Swift Package Manager, use [Apple's guide](https://developer.apple.com/documentation/swift_packages/adding_package_dependencies_to_your_app) with url `https://github.com/scoremedia/Fisticuffs.git`. 
+
+#### Adding to your package
+
+To add  `Fisticuffs` dependency to your swift package, add the following to your  `Package.swift` file.
+
+```
+dependencies: [
+    .package(url: "https://github.com/scoremedia/Fisticuffs.git", .upToNextMajor(from: "0.0.13"))
+]
+```
+
 ### Carthage
 
 1. If you haven't already, install Carthage & setup your project for use with it.  See [here](https://github.com/Carthage/Carthage).
