@@ -26,9 +26,9 @@ open class SubscriptionCollection<T> {
     fileprivate var subscriptions = [Subscription<T>]()
     fileprivate let lock = NSRecursiveLock()
     
-    func add(when: NotifyWhen, callback: @escaping (T?, T) -> Void) -> Disposable {
+    func add(when: NotifyWhen, recieveOn: Scheduler, callback: @escaping (T?, T) -> Void) -> Disposable {
         lock.withLock {
-            let subscription = Subscription(callback: callback, when: when, subscriptionCollection: self)
+            let subscription = Subscription(callback: callback, when: when, receiveOn: recieveOn, subscriptionCollection: self)
             subscriptions.append(subscription)
             return subscription
         }
@@ -37,7 +37,9 @@ open class SubscriptionCollection<T> {
     public func notify(time: NotifyWhen, old: T?, new: T) {
         lock.withLock {
             for s in subscriptions where s.when == time {
-                s.callback(old, new)
+                s.scheduler.schedule {
+                    s.callback(old, new)
+                }
             }
         }
     }
@@ -54,15 +56,17 @@ open class SubscriptionCollection<T> {
 private class Subscription<T> : Disposable, Equatable {
     let callback: (T?, T) -> Void
     let when: NotifyWhen
-    
+    let scheduler: Scheduler
+
     weak var subscriptionCollection: SubscriptionCollection<T>?
-    
-    init(callback: @escaping (T?, T) -> Void, when: NotifyWhen, subscriptionCollection: SubscriptionCollection<T>) {
+
+    init(callback: @escaping (T?, T) -> Void, when: NotifyWhen, receiveOn: Scheduler, subscriptionCollection: SubscriptionCollection<T>) {
         self.callback = callback
         self.when = when
         self.subscriptionCollection = subscriptionCollection
+        self.scheduler = receiveOn
     }
-    
+
     func dispose() {
         subscriptionCollection?.remove(subscription: self)
     }

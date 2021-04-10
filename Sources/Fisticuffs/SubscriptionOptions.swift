@@ -32,12 +32,19 @@ public enum NotifyWhen {
 public struct SubscriptionOptions {
     public var notifyOnSubscription = true
     public var when = NotifyWhen.afterChange
-    
+    public let scheduler: Scheduler
+
     public init() {
+        self.scheduler = DefaultScheduler()
     }
-    
-    public init(notifyOnSubscription: Bool, when: NotifyWhen) {
+
+    public init(recieveOn: Scheduler) {
+        self.scheduler = recieveOn
+    }
+
+    public init(notifyOnSubscription: Bool, when: NotifyWhen, recieveOn: Scheduler = DefaultScheduler()) {
         self.notifyOnSubscription = notifyOnSubscription
         self.when = when
+        self.scheduler = recieveOn
     }
 }
