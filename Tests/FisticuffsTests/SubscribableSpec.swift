@@ -21,11 +21,47 @@
 //  THE SOFTWARE.
 
 import Foundation
+import Quick
+import Nimble
+@testable import Fisticuffs
 
-extension DispatchQueue: Scheduler {
-    public func schedule(_ action: @escaping () -> Void) {
-        async {
-            action()
+class SubscribableSpec: QuickSpec {
+    override func spec() {
+        describe("Subscribable") {
+            var subject: FauxSubscribable<Int>!
+
+            it("should perform callbacks using the given Scheduler") {
+                let scheduler = FauxScheduler()
+                let subscriptionOptions = SubscriptionOptions(receiveOn: scheduler)
+
+                subject = FauxSubscribable()
+
+                var disposable: Disposable?
+
+                defer {
+                    disposable?.dispose()
+                }
+
+                waitUntil { done in
+                    disposable = subject.subscribe(subscriptionOptions) {
+                        done()
+                    }
+                    subject.subscriptionCollection.notify(time: .afterChange, old: nil, new: 1)
+                }
+
+                expect(scheduler.scheduleCalled).to(beTrue())
+            }
         }
+    }
+}
+
+private class FauxSubscribable<Value>: Subscribable<Value> { }
+
+private class FauxScheduler: Scheduler {
+    private(set) var scheduleCalled = false
+
+    func schedule(_ action: @escaping () -> Void) {
+        scheduleCalled = true
+        action()
     }
 }

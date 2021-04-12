@@ -38,13 +38,13 @@ public struct SubscriptionOptions {
         self.scheduler = DefaultScheduler()
     }
 
-    public init(recieveOn: Scheduler) {
-        self.scheduler = recieveOn
+    public init(receiveOn: Scheduler) {
+        self.scheduler = receiveOn
     }
 
-    public init(notifyOnSubscription: Bool, when: NotifyWhen, recieveOn: Scheduler = DefaultScheduler()) {
+    public init(notifyOnSubscription: Bool, when: NotifyWhen, receiveOn: Scheduler = DefaultScheduler()) {
         self.notifyOnSubscription = notifyOnSubscription
         self.when = when
-        self.scheduler = recieveOn
+        self.scheduler = receiveOn
     }
 }

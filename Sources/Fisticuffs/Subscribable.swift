@@ -37,7 +37,7 @@ open class Subscribable<Value> : AnySubscribable {
     open func subscribe(_ options: SubscriptionOptions, block: @escaping (Value?, Value) -> Void) -> Disposable {
         let currentValue = self.currentValue
 
-        let disposable = subscriptionCollection.add(when: options.when, recieveOn: options.scheduler, callback: block)
+        let disposable = subscriptionCollection.add(when: options.when, receiveOn: options.scheduler, callback: block)
         if let value = currentValue, options.notifyOnSubscription {
             options.scheduler.schedule {
                 block(value, value)

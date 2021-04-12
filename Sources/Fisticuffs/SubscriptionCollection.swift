@@ -26,9 +26,9 @@ open class SubscriptionCollection<T> {
     fileprivate var subscriptions = [Subscription<T>]()
     fileprivate let lock = NSRecursiveLock()
     
-    func add(when: NotifyWhen, recieveOn: Scheduler, callback: @escaping (T?, T) -> Void) -> Disposable {
+    func add(when: NotifyWhen, receiveOn: Scheduler, callback: @escaping (T?, T) -> Void) -> Disposable {
         lock.withLock {
-            let subscription = Subscription(callback: callback, when: when, receiveOn: recieveOn, subscriptionCollection: self)
+            let subscription = Subscription(callback: callback, when: when, receiveOn: receiveOn, subscriptionCollection: self)
             subscriptions.append(subscription)
             return subscription
         }
@@ -36,9 +36,9 @@ open class SubscriptionCollection<T> {
     
     public func notify(time: NotifyWhen, old: T?, new: T) {
         lock.withLock {
-            for s in subscriptions where s.when == time {
-                s.scheduler.schedule {
-                    s.callback(old, new)
+            for subscription in subscriptions where subscription.when == time {
+                subscription.scheduler.schedule {
+                    subscription.callback(old, new)
                 }
             }
         }

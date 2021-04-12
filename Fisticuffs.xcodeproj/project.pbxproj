@@ -100,6 +100,8 @@
 		C689E1B7262260B300B66BDD /* OperationQueue+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */; };
 		C689E1BB262260BB00B66BDD /* DefaultScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1BA262260BB00B66BDD /* DefaultScheduler.swift */; };
 		C689E1BF262260C400B66BDD /* RunLoop+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */; };
+		C6D3A4CE2624F0E00090790A /* SchedulersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */; };
+		C6D3A4D22624F5B60090790A /* SubscribableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +237,8 @@
 		C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+Scheduler.swift"; sourceTree = "<group>"; };
 		C689E1BA262260BB00B66BDD /* DefaultScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultScheduler.swift; sourceTree = "<group>"; };
 		C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RunLoop+Scheduler.swift"; sourceTree = "<group>"; };
+		C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersSpec.swift; sourceTree = "<group>"; };
+		C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribableSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,6 +389,8 @@
 				4F66384F25C5C66000473132 /* AnySubscribableSpec.swift */,
 				4F66385025C5C66000473132 /* Info.plist */,
 				4F66385125C5C66000473132 /* ComputedSpec.swift */,
+				C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */,
+				C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */,
 			);
 			path = FisticuffsTests;
 			sourceTree = "<group>";
@@ -671,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6D3A4D22624F5B60090790A /* SubscribableSpec.swift in Sources */,
 				4F66385825C5C66000473132 /* DependencyTrackerSpec.swift in Sources */,
 				4F66385225C5C66000473132 /* ObservableSpec.swift in Sources */,
 				4F66385F25C5C66100473132 /* AnySubscribableSpec.swift in Sources */,
@@ -683,6 +690,7 @@
 				4F66385525C5C66000473132 /* UIKitBindingSpec.swift in Sources */,
 				4F66385625C5C66000473132 /* ObservableArraySpec.swift in Sources */,
 				4F66385325C5C66000473132 /* DisposableBagSpec.swift in Sources */,
+				C6D3A4CE2624F0E00090790A /* SchedulersSpec.swift in Sources */,
 				4F66385425C5C66000473132 /* MemoryManagementSpec.swift in Sources */,
 				4F66385925C5C66000473132 /* EventSpec.swift in Sources */,
 				4F66385C25C5C66100473132 /* BidirectionalBindingSpec.swift in Sources */,
