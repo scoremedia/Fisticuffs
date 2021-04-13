@@ -23,7 +23,7 @@
 import Foundation
 
 /// This is the default `Scheduler` which performs work on the current thread
-public final class DefaultScheduler: Scheduler {
+public struct DefaultScheduler: Scheduler {
     public init() {}
 
     public func schedule(_ action: @escaping () -> Void) {
