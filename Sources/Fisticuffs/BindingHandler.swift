@@ -44,7 +44,8 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
         self.control = control
         self.propertySetter = propertySetter
 
-        subscribable.subscribe { [weak self] oldValue, newValue in
+        let subscriptionOptions = SubscriptionOptions(receiveOn: MainThreadScheduler())
+        subscribable.subscribe(subscriptionOptions) { [weak self] oldValue, newValue in
             if self?.accessingUnderlyingProperty == true {
                 return
             }
@@ -61,7 +62,8 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
     func setup(_ propertyGetter: @escaping PropertyGetter, changeEvent: Event<Void>) -> Subscribable<DataValue> {
         self.propertyGetter = propertyGetter
 
-        changeEvent.subscribe { [weak self] _, _ in
+        let subscriptionOptions = SubscriptionOptions(receiveOn: MainThreadScheduler())
+        changeEvent.subscribe(subscriptionOptions) { [weak self] _, _ in
             if self?.accessingUnderlyingProperty == true {
                 return
             }

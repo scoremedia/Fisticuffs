@@ -102,6 +102,7 @@
 		C689E1BF262260C400B66BDD /* RunLoop+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */; };
 		C6D3A4CE2624F0E00090790A /* SchedulersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */; };
 		C6D3A4D22624F5B60090790A /* SubscribableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */; };
+		C6D3A4EE2626519E0090790A /* MainThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4ED2626519E0090790A /* MainThreadScheduler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +240,7 @@
 		C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RunLoop+Scheduler.swift"; sourceTree = "<group>"; };
 		C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersSpec.swift; sourceTree = "<group>"; };
 		C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribableSpec.swift; sourceTree = "<group>"; };
+		C6D3A4ED2626519E0090790A /* MainThreadScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThreadScheduler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,6 +447,7 @@
 			children = (
 				C689E1AE2622606100B66BDD /* Scheduler.swift */,
 				C689E1BA262260BB00B66BDD /* DefaultScheduler.swift */,
+				C6D3A4ED2626519E0090790A /* MainThreadScheduler.swift */,
 				C689E1B22622609500B66BDD /* DispatchQueue+Scheduler.swift */,
 				C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */,
 				C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */,
@@ -655,6 +658,7 @@
 				4F66380D25C5C5FD00473132 /* UIImageView+Binding.swift in Sources */,
 				4F66380E25C5C5FD00473132 /* UIBarButtonItem+Binding.swift in Sources */,
 				4F66382E25C5C5FD00473132 /* DefaultBindingHandler.swift in Sources */,
+				C6D3A4EE2626519E0090790A /* MainThreadScheduler.swift in Sources */,
 				4F66383225C5C5FD00473132 /* OptionalType.swift in Sources */,
 				4F66382125C5C5FD00473132 /* UISearchBar+Binding.swift in Sources */,
 				4F66380225C5C5FD00473132 /* SubscriptionOptions.swift in Sources */,

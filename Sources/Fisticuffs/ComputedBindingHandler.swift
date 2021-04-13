@@ -43,7 +43,7 @@ open class ComputedBindingHandler<Control: AnyObject, InDataValue, OutDataValue,
         subscription?.dispose()
 
         // so we get oldValue/newValue information, we'll notifyOnSubscription = false, then set it to the new value after
-        let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
+        let opts = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange, receiveOn: MainThreadScheduler())
         subscription = computed.subscribe(opts) { [weak self, weak control] oldValue, newValue in
             if let bindingHandler = self?.bindingHandler, let control = control, let oldValue = oldValue, let newValue = newValue {
                 bindingHandler.set(control: control, oldValue: oldValue, value: newValue, propertySetter: propertySetter)
