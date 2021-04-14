@@ -33,10 +33,10 @@ class SchedulersSpec: QuickSpec {
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
-                let scheduler = DispatchQueue.main
+                let subject = DispatchQueue.main
 
                 backgroundThread.async {
-                    scheduler.schedule {
+                    subject.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
@@ -52,10 +52,10 @@ class SchedulersSpec: QuickSpec {
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
-                let scheduler = RunLoop.main
+                let subject = RunLoop.main
 
                 backgroundThread.async {
-                    scheduler.schedule {
+                    subject.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
@@ -71,16 +71,60 @@ class SchedulersSpec: QuickSpec {
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
-                let scheduler = OperationQueue.main
+                let subject = OperationQueue.main
 
                 backgroundThread.async {
-                    scheduler.schedule {
+                    subject.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
                 }
 
                 self.wait(for: [expectation], timeout: 5)
+            }
+        }
+
+        describe("MainThreadScheduler") {
+            var subject: MainThreadScheduler!
+
+            beforeEach {
+                subject = MainThreadScheduler()
+            }
+
+            it("should perform action on main thread") {
+                let expectation = self.expectation(description: "wait")
+
+                let backgroundThread = DispatchQueue(label: "background thread")
+
+                backgroundThread.async {
+                    subject.schedule {
+                        expect(Thread.isMainThread).to(beTrue())
+                        expectation.fulfill()
+                    }
+                }
+
+                self.wait(for: [expectation], timeout: 5)
+            }
+
+            it("should perform action immediately if current thread is main") {
+                let expectation = self.expectation(description: "scheduler")
+                let expectation2 = self.expectation(description: "main")
+
+                var numbers = [Int]()
+
+                DispatchQueue.main.async {
+                    subject.schedule {
+                        numbers.append(1)
+                        expectation.fulfill()
+                    }
+
+                    numbers.append(2)
+                    expectation2.fulfill()
+                }
+
+                self.wait(for: [expectation, expectation2], timeout: 5)
+                
+                expect(numbers) == [1,2]
             }
         }
     }
