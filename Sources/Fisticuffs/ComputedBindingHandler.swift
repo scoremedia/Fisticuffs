@@ -39,6 +39,7 @@ open class ComputedBindingHandler<Control: AnyObject, InDataValue, OutDataValue,
         subscription?.dispose()
     }
 
+    /// The callbacks for the computed value will be passed on the main thread
     open override func set(control: Control, oldValue: InDataValue?, value: InDataValue, propertySetter: @escaping PropertySetter) {
         subscription?.dispose()
 

@@ -37,31 +37,58 @@ open class BindableProperty<Control: AnyObject, ValueType> {
     }
 }
 
-
-
-
 public extension BindableProperty {
-    func bind(_ subscribable: Subscribable<ValueType>) {
-        bind(subscribable, DefaultBindingHandler())
+    /// Bind property to subscribable
+    ///
+    /// - Parameters:
+    ///   - subscribable: The `Subscribable`
+    ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    func bind(_ subscribable: Subscribable<ValueType>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
+        bind(subscribable, DefaultBindingHandler(), receiveOn: scheduler)
     }
 
-    func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType>) {
+    /// Bind property to subscribable
+    ///
+    /// - Parameters:
+    ///   - subscribable: The `Subscribable`
+    ///   - bindingHandler: The custom `BindingHandler`
+    ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    func bind<Data>(
+        _ subscribable: Subscribable<Data>,
+        _ bindingHandler: BindingHandler<Control, Data, ValueType>,
+        receiveOn scheduler: Scheduler = MainThreadScheduler()
+    ) {
         currentBinding?.dispose()
         currentBinding = nil
 
         guard let control = control else { return }
 
-        bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
+        bindingHandler.setup(control, propertySetter: setter, subscribable: subscribable, receiveOn: scheduler)
         currentBinding = bindingHandler
     }
 }
 
 public extension BindableProperty where ValueType: OptionalType {
-    func bind(_ subscribable: Subscribable<ValueType.Wrapped>) {
+    /// Bind property to subscribable
+    ///
+    /// - Parameters:
+    ///   - subscribable: The `Subscribable`
+    ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    func bind(_ subscribable: Subscribable<ValueType.Wrapped>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
         bind(subscribable, DefaultBindingHandler())
     }
 
-    func bind<Data>(_ subscribable: Subscribable<Data>, _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>) {
+    /// Bind property to subscribable
+    ///
+    /// - Parameters:
+    ///   - subscribable: The `Subscribable`
+    ///   - bindingHandler: The custom `BindingHandler`
+    ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    func bind<Data>(
+        _ subscribable: Subscribable<Data>,
+        _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>,
+        receiveOn scheduler: Scheduler = MainThreadScheduler()
+    ) {
         currentBinding?.dispose()
         currentBinding = nil
 
@@ -69,7 +96,7 @@ public extension BindableProperty where ValueType: OptionalType {
 
         let outerBindingHandler = OptionalTypeBindingHandler<Control, Data, ValueType>(innerHandler: bindingHandler)
 
-        outerBindingHandler.setup(control, propertySetter: setter, subscribable: subscribable)
+        outerBindingHandler.setup(control, propertySetter: setter, subscribable: subscribable, receiveOn: scheduler)
 
         currentBinding = outerBindingHandler
     }

@@ -40,11 +40,16 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
     public init() { // so we can be subclassed outside of Fisticuffs
     }
 
-    func setup(_ control: Control, propertySetter: @escaping PropertySetter, subscribable: Subscribable<DataValue>) {
+    func setup(
+        _ control: Control,
+        propertySetter: @escaping PropertySetter,
+        subscribable: Subscribable<DataValue>,
+        receiveOn scheduler: Scheduler = MainThreadScheduler()
+    ) {
         self.control = control
         self.propertySetter = propertySetter
 
-        let subscriptionOptions = SubscriptionOptions(receiveOn: MainThreadScheduler())
+        let subscriptionOptions = SubscriptionOptions(receiveOn: scheduler)
         subscribable.subscribe(subscriptionOptions) { [weak self] oldValue, newValue in
             if self?.accessingUnderlyingProperty == true {
                 return
@@ -59,10 +64,15 @@ open class BindingHandler<Control: AnyObject, DataValue, PropertyValue>: Disposa
         .addTo(disposableBag)
     }
 
-    func setup(_ propertyGetter: @escaping PropertyGetter, changeEvent: Event<Void>) -> Subscribable<DataValue> {
+    func setup(
+        _ propertyGetter: @escaping PropertyGetter,
+        changeEvent: Event<Void>,
+        receiveOn scheduler: Scheduler = MainThreadScheduler()
+    ) -> Subscribable<DataValue> {
+
         self.propertyGetter = propertyGetter
 
-        let subscriptionOptions = SubscriptionOptions(receiveOn: MainThreadScheduler())
+        let subscriptionOptions = SubscriptionOptions(receiveOn: scheduler)
         changeEvent.subscribe(subscriptionOptions) { [weak self] _, _ in
             if self?.accessingUnderlyingProperty == true {
                 return
