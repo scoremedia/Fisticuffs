@@ -75,12 +75,12 @@ public extension BidirectionalBindableProperty {
     ///
     /// - Parameters:
     ///   - observable: The `Observable`
-    ///   - bindingHandler: The custom `BindingHandler`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    ///   - bindingHandler: The custom `BindingHandler`
     func bind<Data>(
         _ observable: Observable<Data>,
-        _ bindingHandler: BindingHandler<Control, Data, ValueType>,
-        receiveOn scheduler: Scheduler = MainThreadScheduler()
+        receiveOn scheduler: Scheduler = MainThreadScheduler(),
+        _ bindingHandler: BindingHandler<Control, Data, ValueType>
     ) {
         currentBinding?.dispose()
         currentBinding = nil
@@ -114,12 +114,12 @@ public extension BidirectionalBindableProperty {
     ///
     /// - Parameters:
     ///   - subscribable: The `Subscribable`
-    ///   - bindingHandler: The custom `BindingHandler`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    ///   - bindingHandler: The custom `BindingHandler`
     func bind<Data>(
         _ subscribable: Subscribable<Data>,
-        _ bindingHandler: BindingHandler<Control, Data, ValueType>,
-        receiveOn scheduler: Scheduler = MainThreadScheduler()
+        receiveOn scheduler: Scheduler = MainThreadScheduler(),
+        _ bindingHandler: BindingHandler<Control, Data, ValueType>
     ) {
         currentBinding?.dispose()
         currentBinding = nil
@@ -141,19 +141,19 @@ public extension BidirectionalBindableProperty where ValueType: OptionalType {
     ///   - observable: The `Observable`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
     func bind(_ observable: Observable<ValueType.Wrapped>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
-        bind(observable, DefaultBindingHandler())
+        bind(observable, receiveOn: scheduler, DefaultBindingHandler())
     }
 
     /// Bind property to subscribable
     ///
     /// - Parameters:
     ///   - observable: The `Observable`
-    ///   - bindingHandler: The custom `BindingHandler`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    ///   - bindingHandler: The custom `BindingHandler`
     func bind<Data>(
         _ observable: Observable<Data>,
-        _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>,
-        receiveOn scheduler: Scheduler = MainThreadScheduler()
+        receiveOn scheduler: Scheduler = MainThreadScheduler(),
+        _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>
     ) {
         currentBinding?.dispose()
         currentBinding = nil
@@ -188,12 +188,12 @@ public extension BidirectionalBindableProperty where ValueType: OptionalType {
     ///
     /// - Parameters:
     ///   - subscribable: The `Subscribable`
-    ///   - bindingHandler: The custom `BindingHandler`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
+    ///   - bindingHandler: The custom `BindingHandler`
     func bind<Data>(
         _ subscribable: Subscribable<Data>,
-        _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>,
-        receiveOn scheduler: Scheduler = MainThreadScheduler()
+        receiveOn scheduler: Scheduler = MainThreadScheduler(),
+        _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>
     ) {
         currentBinding?.dispose()
         currentBinding = nil
