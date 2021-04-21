@@ -1,6 +1,6 @@
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 theScore Inc.
+//  Copyright (c) 2021 theScore Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,19 @@
 
 import Foundation
 
-public enum NotifyWhen {
-    case beforeChange
-    case afterChange
+/// This is the default `Scheduler` which performs work on the main thread.
+/// It will immediately execute if the current thread is main otherwise dispatches to it
+public struct MainThreadScheduler: Scheduler {
+    public init() {}
 
-    case valueIsDirty
-}
-
-public struct SubscriptionOptions {
-    public var notifyOnSubscription = true
-    public var when = NotifyWhen.afterChange
-    public let scheduler: Scheduler
-
-    public init() {
-        self.scheduler = DefaultScheduler()
-    }
-
-    public init(receiveOn: Scheduler) {
-        self.scheduler = receiveOn
-    }
-
-    public init(notifyOnSubscription: Bool, when: NotifyWhen, receiveOn: Scheduler = DefaultScheduler()) {
-        self.notifyOnSubscription = notifyOnSubscription
-        self.when = when
-        self.scheduler = receiveOn
+    public func schedule(_ action: @escaping () -> Void) {
+        if Thread.isMainThread {
+            action()
+        }
+        else {
+            DispatchQueue.main.async {
+                action()
+            }
+        }
     }
 }

@@ -49,6 +49,26 @@ class BindablePropertySpec: QuickSpec {
                 
                 expect(backingVariable) == "Hello"
             }
+
+            it("should call its setter on the main thread") {
+                var callingThreads = [Thread]()
+
+                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in
+                    callingThreads.append(Thread.current)
+                }
+
+                let observable = Observable("")
+                binding.bind(observable)
+
+                let backgroundQueue = DispatchQueue(label: "background")
+
+                backgroundQueue.async {
+                    observable.value = "Test"
+                }
+
+                expect(callingThreads.count).toEventually(equal(2))
+                expect { callingThreads.allSatisfy { $0.isMainThread } }.to(beTrue())
+            }
         }
     }
 }

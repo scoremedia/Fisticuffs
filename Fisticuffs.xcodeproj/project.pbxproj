@@ -95,6 +95,14 @@
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
 		6A6B3BF21BFE32F700B825DB /* ControlsSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */; };
 		6A6E14C41C751925003F4EC6 /* ImageViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */; };
+		C689E1AF2622606100B66BDD /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1AE2622606100B66BDD /* Scheduler.swift */; };
+		C689E1B32622609500B66BDD /* DispatchQueue+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1B22622609500B66BDD /* DispatchQueue+Scheduler.swift */; };
+		C689E1B7262260B300B66BDD /* OperationQueue+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */; };
+		C689E1BB262260BB00B66BDD /* DefaultScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1BA262260BB00B66BDD /* DefaultScheduler.swift */; };
+		C689E1BF262260C400B66BDD /* RunLoop+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */; };
+		C6D3A4CE2624F0E00090790A /* SchedulersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */; };
+		C6D3A4D22624F5B60090790A /* SubscribableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */; };
+		C6D3A4EE2626519E0090790A /* MainThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3A4ED2626519E0090790A /* MainThreadScheduler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +233,14 @@
 		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
 		6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsSample.swift; sourceTree = "<group>"; };
 		6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewSample.swift; sourceTree = "<group>"; };
+		C689E1AE2622606100B66BDD /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		C689E1B22622609500B66BDD /* DispatchQueue+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Scheduler.swift"; sourceTree = "<group>"; };
+		C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+Scheduler.swift"; sourceTree = "<group>"; };
+		C689E1BA262260BB00B66BDD /* DefaultScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultScheduler.swift; sourceTree = "<group>"; };
+		C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RunLoop+Scheduler.swift"; sourceTree = "<group>"; };
+		C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersSpec.swift; sourceTree = "<group>"; };
+		C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribableSpec.swift; sourceTree = "<group>"; };
+		C6D3A4ED2626519E0090790A /* MainThreadScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThreadScheduler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +278,7 @@
 				4F6637C125C5C5FD00473132 /* SubscriptionCollection.swift */,
 				4F6637C225C5C5FD00473132 /* BidirectionalBindableProperty.swift */,
 				4F6637C325C5C5FD00473132 /* SubscriptionOptions.swift */,
+				C689E1C2262260CB00B66BDD /* Scheduler */,
 				4F6637C425C5C5FD00473132 /* Subscribable+Array.swift */,
 				4F6637C525C5C5FD00473132 /* DisposableBag.swift */,
 				4F6637C625C5C5FD00473132 /* BindingHandlers.swift */,
@@ -374,6 +391,8 @@
 				4F66384F25C5C66000473132 /* AnySubscribableSpec.swift */,
 				4F66385025C5C66000473132 /* Info.plist */,
 				4F66385125C5C66000473132 /* ComputedSpec.swift */,
+				C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */,
+				C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */,
 			);
 			path = FisticuffsTests;
 			sourceTree = "<group>";
@@ -421,6 +440,19 @@
 				6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */,
 			);
 			path = Samples;
+			sourceTree = "<group>";
+		};
+		C689E1C2262260CB00B66BDD /* Scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				C689E1AE2622606100B66BDD /* Scheduler.swift */,
+				C689E1BA262260BB00B66BDD /* DefaultScheduler.swift */,
+				C6D3A4ED2626519E0090790A /* MainThreadScheduler.swift */,
+				C689E1B22622609500B66BDD /* DispatchQueue+Scheduler.swift */,
+				C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */,
+				C689E1BE262260C400B66BDD /* RunLoop+Scheduler.swift */,
+			);
+			path = Scheduler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,9 +611,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F66383825C5C5FD00473132 /* BindingHandler.swift in Sources */,
+				C689E1BF262260C400B66BDD /* RunLoop+Scheduler.swift in Sources */,
 				4F66383425C5C5FD00473132 /* Observable.swift in Sources */,
 				4F66383625C5C5FD00473132 /* DependencyTracker.swift in Sources */,
 				4F66380725C5C5FD00473132 /* Event.swift in Sources */,
+				C689E1AF2622606100B66BDD /* Scheduler.swift in Sources */,
 				4F66381E25C5C5FD00473132 /* UISlider+Binding.swift in Sources */,
 				4F66383525C5C5FD00473132 /* DisposableBlock.swift in Sources */,
 				4F66382D25C5C5FD00473132 /* ComposedBindingHandler.swift in Sources */,
@@ -596,12 +630,14 @@
 				4F66380825C5C5FD00473132 /* UIRefreshControl+Binding.swift in Sources */,
 				4F66380025C5C5FD00473132 /* SubscriptionCollection.swift in Sources */,
 				4F66383725C5C5FD00473132 /* OptionalTypeBindingHandler.swift in Sources */,
+				C689E1B32622609500B66BDD /* DispatchQueue+Scheduler.swift in Sources */,
 				4F66381625C5C5FD00473132 /* AssociatedObjects.swift in Sources */,
 				4F66380A25C5C5FD00473132 /* UIAlertAction+Binding.swift in Sources */,
 				4F66381A25C5C5FD00473132 /* LoadImageBindingHandler.swift in Sources */,
 				4F66382325C5C5FD00473132 /* TargetActionBindableProperty.swift in Sources */,
 				4F66381125C5C5FD00473132 /* UISegmentedControl+Binding.swift in Sources */,
 				4F66381B25C5C5FD00473132 /* LoadImageManager.swift in Sources */,
+				C689E1B7262260B300B66BDD /* OperationQueue+Scheduler.swift in Sources */,
 				4F66383325C5C5FD00473132 /* Fisticuffs.swift in Sources */,
 				4F66382B25C5C5FD00473132 /* Operators.swift in Sources */,
 				4F66382025C5C5FD00473132 /* NSLayoutConstraint+Binding.swift in Sources */,
@@ -622,10 +658,12 @@
 				4F66380D25C5C5FD00473132 /* UIImageView+Binding.swift in Sources */,
 				4F66380E25C5C5FD00473132 /* UIBarButtonItem+Binding.swift in Sources */,
 				4F66382E25C5C5FD00473132 /* DefaultBindingHandler.swift in Sources */,
+				C6D3A4EE2626519E0090790A /* MainThreadScheduler.swift in Sources */,
 				4F66383225C5C5FD00473132 /* OptionalType.swift in Sources */,
 				4F66382125C5C5FD00473132 /* UISearchBar+Binding.swift in Sources */,
 				4F66380225C5C5FD00473132 /* SubscriptionOptions.swift in Sources */,
 				4F66382C25C5C5FD00473132 /* Subscribable.swift in Sources */,
+				C689E1BB262260BB00B66BDD /* DefaultScheduler.swift in Sources */,
 				4F66380B25C5C5FD00473132 /* UIView+Binding.swift in Sources */,
 				4F66381F25C5C5FD00473132 /* UIBarItem+Binding.swift in Sources */,
 				4F66381325C5C5FD00473132 /* UIDatePicker+Binding.swift in Sources */,
@@ -643,6 +681,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6D3A4D22624F5B60090790A /* SubscribableSpec.swift in Sources */,
 				4F66385825C5C66000473132 /* DependencyTrackerSpec.swift in Sources */,
 				4F66385225C5C66000473132 /* ObservableSpec.swift in Sources */,
 				4F66385F25C5C66100473132 /* AnySubscribableSpec.swift in Sources */,
@@ -655,6 +694,7 @@
 				4F66385525C5C66000473132 /* UIKitBindingSpec.swift in Sources */,
 				4F66385625C5C66000473132 /* ObservableArraySpec.swift in Sources */,
 				4F66385325C5C66000473132 /* DisposableBagSpec.swift in Sources */,
+				C6D3A4CE2624F0E00090790A /* SchedulersSpec.swift in Sources */,
 				4F66385425C5C66000473132 /* MemoryManagementSpec.swift in Sources */,
 				4F66385925C5C66000473132 /* EventSpec.swift in Sources */,
 				4F66385C25C5C66100473132 /* BidirectionalBindingSpec.swift in Sources */,
