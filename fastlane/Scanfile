@@ -1,0 +1,6 @@
+workspace("Fisticuffs.xcworkspace")
+scheme("Fisticuffs")
+device("iPhone 12")
+
+skip_build(true)
+result_bundle(true)

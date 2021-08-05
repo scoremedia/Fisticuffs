@@ -12,8 +12,8 @@ let package = Package(
             targets: ["Fisticuffs"]),
     ],
     dependencies: [
-        .package(name: "Quick", url: "https://github.com/Quick/Quick.git", from: Version(3, 0, 0)),
-        .package(name: "Nimble", url: "https://github.com/Quick/Nimble.git", from: Version(9, 0, 0)),
+        .package(name: "Quick", url: "https://github.com/Quick/Quick.git", from: Version(4, 0, 0)),
+        .package(name: "Nimble", url: "https://github.com/Quick/Nimble.git", from: Version(9, 2, 0)),
     ],
     targets: [
         .target(

@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Gems
+        run: bundle install
+
+      - name: Build
+        run: bundle exec fastlane build_for_testing
+      
+      - name: Test
+        run: bundle exec fastlane test_without_building
+      
+      - name: Archive xcresult
+        working-directory: ./fastlane/test_output
+        run: |
+          if [ ! -z "$(find . -maxdepth 1 -name '*.xcresult' -print -quit)" ]; then
+            tar -czf xcresult.tar.gz *.xcresult
+          fi
+      
+      - name: Upload Test XCResult
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult
+          path: ./fastlane/test_output/xcresult.tar.gz
+          retention-days: 1

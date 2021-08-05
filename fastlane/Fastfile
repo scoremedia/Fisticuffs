@@ -1,0 +1,23 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Runs tests"
+  lane :tests do
+    build_for_testing
+    test_without_building
+  end
+
+  desc "Build for testing"
+  lane :build_for_testing do
+    scan(
+      build_for_testing: true
+    )
+  end
+
+  desc "Test without building"
+  lane :test_without_building do
+    scan(
+      test_without_building: true
+    )
+  end
+end

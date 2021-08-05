@@ -22,7 +22,7 @@
 
 import UIKit
 
-public protocol DataSourceView: class {
+public protocol DataSourceView: AnyObject {
     associatedtype CellView
     
     func reloadData()

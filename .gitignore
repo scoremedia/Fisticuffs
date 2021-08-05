@@ -2,6 +2,7 @@
 .DS_Store
 
 # Xcode
+.build/
 build/
 *.pbxuser
 !default.pbxuser
@@ -31,3 +32,6 @@ Carthage
 # `pod install` in .travis.yml
 #
 Pods/
+
+fastlane/test_output
+fastlane/report.xml
