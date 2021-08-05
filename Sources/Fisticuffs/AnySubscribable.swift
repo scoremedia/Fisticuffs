@@ -21,7 +21,7 @@
 //  THE SOFTWARE.
 
 
-public protocol AnySubscribable: class {
+public protocol AnySubscribable: AnyObject {
     func subscribe(_ options: SubscriptionOptions, block: @escaping () -> Void) -> Disposable
     func subscribe(_ block: @escaping () -> Void) -> Disposable
 }
