@@ -16,7 +16,7 @@ jobs:
       id: get-version
       working-directory: Sources
       run: |
-        version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version          = .*")"
+        version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version[ ]*.= .*")"
         current_version="$(grep -o "\".*\"" <<<$version_row)"
         current_version="${current_version%?}" # remove last character
         current_version="${current_version#?}" # Remove first character

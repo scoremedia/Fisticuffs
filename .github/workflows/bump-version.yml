@@ -34,7 +34,7 @@ jobs:
         name: Update version
         working-directory: Sources
         run: |
-          version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version          = .*")"
+          version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version[ ]*.= .*")"
           current_version="$(grep -o "\".*\"" <<<$version_row)"
           current_version="${current_version%?}" # remove last character
           current_version="${current_version#?}" # Remove first character
@@ -86,7 +86,7 @@ jobs:
       - name: Update podspecs
         run: |
           new_version=${{ steps.update-version.outputs.new_version }}
-          find . -type f -name "*.podspec" -print0 | xargs -0 sed -i '' "s/s.version          = .*/s.version          = \"$new_version\"/g"
+          find . -type f -name "*.podspec" -print0 | xargs -0 sed -i '' "s/s.version[ ]*.= .*/s.version          = \"$new_version\"/g"
 
       - name: Update changelog
         uses: scoremedia/changelog-generator@v1.3.2
