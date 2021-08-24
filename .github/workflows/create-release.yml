@@ -1,0 +1,62 @@
+name: Create Release
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  create-release:
+    runs-on: macos-latest
+    if: ${{ github.event.pull_request.merged == true && github.head_ref == 'create-release' }}
+
+    steps:
+    - uses: actions/checkout@v2    
+    
+    - name: Get version
+      id: get-version
+      working-directory: Sources
+      run: |
+        version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version          = .*")"
+        current_version="$(grep -o "\".*\"" <<<$version_row)"
+        current_version="${current_version%?}" # remove last character
+        current_version="${current_version#?}" # Remove first character
+
+        echo "Current app version is $current_version"
+        echo "::set-output name=current_version::$current_version"
+        
+    - name: Update tag
+      uses: scoremedia/update-tag@v1
+      with:
+        tag_name: "${{ steps.get-version.outputs.current_version }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Changelog
+      id: changelog
+      uses: scoremedia/changelog-generator@v1.0.3
+    
+    - name: Set changelog environment
+      run: |
+        changelog=$(echo "${{ steps.changelog.outputs.changelog }}" | base64 --decode)
+
+        echo 'CHANGELOG_VALUE<<EOF' >> $GITHUB_ENV
+        echo "$changelog" >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: "${{ steps.get-version.outputs.current_version }}"
+        release_name: ${{ steps.get-version.outputs.current_version }}
+        body: |
+          ${{ env.CHANGELOG_VALUE }}
+        draft: false
+        prerelease: false
+
+    - name: Publish Pods
+      run: |
+        sudo gem install cocoapods
+        pod trunk push Fisticuffs.podspec

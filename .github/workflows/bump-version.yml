@@ -1,0 +1,106 @@
+name: Bump Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      isMajor:
+        description: 'Major Update'
+        required: true
+        default: 'false'
+      isMinor:
+        description: 'Minor Update'
+        required: true
+        default: 'false'
+      newVersion: 
+        description: 'New Version'
+        required: false
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check Acccess
+        uses: scoremedia/action-repository-permission@v1
+        with:
+          required-permission: admin
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - id: update-version
+        name: Update version
+        working-directory: Sources
+        run: |
+          version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version          = .*")"
+          current_version="$(grep -o "\".*\"" <<<$version_row)"
+          current_version="${current_version%?}" # remove last character
+          current_version="${current_version#?}" # Remove first character
+
+          if [ ! -z "${{ github.event.inputs.newVersion }}" ]; then
+            new_version=${{ github.event.inputs.newVersion }}
+            
+            #convert the new version into the SemVer format
+            new_version="$(echo $new_version | awk 'BEGIN { FS="." } { print $1+0 "." $2+0 "." $3+0 }')"
+
+            if [ $new_version == $current_version ]; then
+              echo "The new version cannot be the same as the current version $current_version"
+              exit 1
+            fi
+
+            major="$(echo $current_version | awk 'BEGIN { FS="." } { print $1 }')"
+            minor="$(echo $current_version | awk 'BEGIN { FS="." } { print $2 }')"
+            patch="$(echo $current_version | awk 'BEGIN { FS="." } { print $3 }')"
+
+            new_major="$(echo $new_version | awk 'BEGIN { FS="." } { print $1 }')"
+            new_minor="$(echo $new_version | awk 'BEGIN { FS="." } { print $2 }')"
+            new_patch="$(echo $new_version | awk 'BEGIN { FS="." } { print $3 }')"
+            
+            if [ $new_major -lt $major ]; then
+              echo "The new version $new_version cannot be less than the current version $current_version"
+              exit 1
+            elif [ $new_major -eq $major ]; then
+              if [ $new_minor -lt $minor ]; then
+                echo "The new version $new_version cannot be less than the current version $current_version"
+                exit 1
+              elif [ $new_minor -eq $minor ]; then
+                if [ $new_patch -lt $patch ]; then
+                  echo "The new version $new_version cannot be less than the current version $current_version"
+                  exit 1
+                fi
+              fi
+            fi
+          elif [ ${{ github.event.inputs.isMajor }} == 'true' ]; then
+            new_version="$(echo $current_version | awk 'BEGIN { FS="." } { print $1+1 ".0" ".0" }')"
+          elif [ ${{ github.event.inputs.isMinor }} == 'true' ]; then
+            new_version="$(echo $current_version | awk 'BEGIN { FS="." } { print $1 "." $2+1 ".0" }')"
+          else
+            new_version="$(echo $current_version | awk 'BEGIN { FS="." } { print $1 "." $2 "." $3+1 }')"
+          fi
+
+          echo "New app version is $new_version"
+          echo "::set-output name=new_version::$new_version"
+
+      - name: Update podspecs
+        run: |
+          new_version=${{ steps.update-version.outputs.new_version }}
+          find . -type f -name "*.podspec" -print0 | xargs -0 sed -i '' "s/s.version          = .*/s.version          = \"$new_version\"/g"
+
+      - name: Update changelog
+        uses: scoremedia/changelog-generator@v1.3.2
+        with:
+          nextTag: "${{ steps.update-version.outputs.new_version }}"
+          outputFile: "./CHANGELOG.md"
+
+      - name: Create PR
+        id: create-pr
+        uses: scorebet/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: create-release
+          base: master
+          commit-message: "Bump version number to ${{ steps.update-version.outputs.new_version }}"
+          title: "Bump version to ${{ steps.update-version.outputs.new_version }}"
+          body: ":crown: *Bump version number to ${{ steps.update-version.outputs.new_version }}*"
