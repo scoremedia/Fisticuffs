@@ -21,6 +21,11 @@ jobs:
       - name: Install Gems
         run: bundle install
 
+      - name: Verify cocoapods
+        run: |
+          sudo gem install cocoapods
+          pod lib lint
+
       - name: Build
         run: bundle exec fastlane build_for_testing
       
