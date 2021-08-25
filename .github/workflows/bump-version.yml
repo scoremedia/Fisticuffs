@@ -32,7 +32,6 @@ jobs:
 
       - id: update-version
         name: Update version
-        working-directory: Sources
         run: |
           version_row="$(find . -type f -name "*.podspec" -print0 | xargs -0 grep -o "s.version[ ]*.= .*")"
           current_version="$(grep -o "\".*\"" <<<$version_row)"
