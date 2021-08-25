@@ -1,13 +1,14 @@
 name: Create Release
 
 on:
-  pull_request:
-    types: [closed]
+  # pull_request:
+  #   types: [closed]
+  push:
 
 jobs:
   create-release:
     runs-on: macos-latest
-    if: ${{ github.event.pull_request.merged == true && github.head_ref == 'create-release' }}
+    # if: ${{ github.event.pull_request.merged == true && github.head_ref == 'create-release' }}
 
     steps:
     - uses: actions/checkout@v2    
@@ -42,18 +43,18 @@ jobs:
         echo "$changelog" >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: "${{ steps.get-version.outputs.current_version }}"
-        release_name: ${{ steps.get-version.outputs.current_version }}
-        body: |
-          ${{ env.CHANGELOG_VALUE }}
-        draft: false
-        prerelease: false
+    # - name: Create Release
+    #   id: create_release
+    #   uses: actions/create-release@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: "${{ steps.get-version.outputs.current_version }}"
+    #     release_name: ${{ steps.get-version.outputs.current_version }}
+    #     body: |
+    #       ${{ env.CHANGELOG_VALUE }}
+    #     draft: false
+    #     prerelease: false
 
     - name: Publish Pods
       env:
