@@ -1,3 +1,9 @@
+
+# 0.0.16
+------
+
+- [#33](https://github.com/scoremedia/Fisticuffs/pull/33): Fix the working directory by [tahirmt](https://github.com/tahirmt)
+- [#32](https://github.com/scoremedia/Fisticuffs/pull/32): Add cocoapods publish and bump version / create release actions by [tahirmt](https://github.com/tahirmt)
 # Changelog
 
 ## 0.0.11
