@@ -80,7 +80,7 @@ jobs:
           fi
 
           echo "New app version is $new_version"
-          echo "::set-output name=new_version::$new_version"
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Update podspecs
         run: |

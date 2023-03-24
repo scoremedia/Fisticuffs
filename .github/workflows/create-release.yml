@@ -21,7 +21,7 @@ jobs:
         current_version="${current_version#?}" # Remove first character
 
         echo "Current app version is $current_version"
-        echo "::set-output name=current_version::$current_version"
+        echo "current_version=$current_version" >> $GITHUB_OUTPUT
         
     - name: Update tag
       uses: scoremedia/update-tag@v1
