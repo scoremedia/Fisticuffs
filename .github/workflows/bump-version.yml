@@ -11,14 +11,14 @@ on:
         description: 'Minor Update'
         required: true
         default: 'false'
-      newVersion: 
+      newVersion:
         description: 'New Version'
         required: false
 
 jobs:
   bump-version:
     runs-on: macos-latest
-    
+
     steps:
       - name: Check Acccess
         uses: scoremedia/action-repository-permission@v1
@@ -40,7 +40,7 @@ jobs:
 
           if [ ! -z "${{ github.event.inputs.newVersion }}" ]; then
             new_version=${{ github.event.inputs.newVersion }}
-            
+
             #convert the new version into the SemVer format
             new_version="$(echo $new_version | awk 'BEGIN { FS="." } { print $1+0 "." $2+0 "." $3+0 }')"
 
@@ -56,7 +56,7 @@ jobs:
             new_major="$(echo $new_version | awk 'BEGIN { FS="." } { print $1 }')"
             new_minor="$(echo $new_version | awk 'BEGIN { FS="." } { print $2 }')"
             new_patch="$(echo $new_version | awk 'BEGIN { FS="." } { print $3 }')"
-            
+
             if [ $new_major -lt $major ]; then
               echo "The new version $new_version cannot be less than the current version $current_version"
               exit 1
@@ -95,7 +95,7 @@ jobs:
 
       - name: Create PR
         id: create-pr
-        uses: scorebet/create-pull-request@v3
+        uses: scorebet/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: create-release
