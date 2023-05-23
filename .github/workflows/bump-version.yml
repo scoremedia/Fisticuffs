@@ -21,7 +21,7 @@ jobs:
     
     steps:
       - name: Check Acccess
-        uses: scoremedia/action-repository-permission@v1
+        uses: scoremedia/action-repository-permission@v2
         with:
           required-permission: admin
 
