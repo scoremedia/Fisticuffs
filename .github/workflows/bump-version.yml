@@ -23,7 +23,7 @@ jobs:
       - name: Check Acccess
         uses: scoremedia/action-repository-permission@v2
         with:
-          required-permission: admin
+          required-permission: write
 
       - name: Checkout
         uses: actions/checkout@v2
