@@ -1,4 +1,15 @@
 
+# 0.0.17
+------
+
+- [#43](https://github.com/scoremedia/Fisticuffs/pull/43): Change the bump version action permissions by [tahirmt](https://github.com/tahirmt)
+- [#42](https://github.com/scoremedia/Fisticuffs/pull/42): Make any subscribable type conform to hashable by [tahirmt](https://github.com/tahirmt)
+- [#41](https://github.com/scoremedia/Fisticuffs/pull/41): IPFM-427: Update action repository permission by [tahirmt](https://github.com/tahirmt)
+- [#40](https://github.com/scoremedia/Fisticuffs/pull/40): IPFM-534: Update create pull request by [tahirmt](https://github.com/tahirmt)
+- [#39](https://github.com/scoremedia/Fisticuffs/pull/39): Github Action deprecations; minimum iOS deployment update by [rayray](https://github.com/rayray)
+- [#38](https://github.com/scoremedia/Fisticuffs/pull/38): Bump jmespath from 1.4.0 to 1.6.1 by [dependabot[bot]](https://github.com/apps/dependabot)
+- [#37](https://github.com/scoremedia/Fisticuffs/pull/37): Add pods token by [tahirmt](https://github.com/tahirmt)
+
 # 0.0.16
 ------
 
