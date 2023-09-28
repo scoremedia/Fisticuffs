@@ -29,7 +29,7 @@ import Nimble
 @available(*, deprecated) // bizarre way to silence "deprecated" warnings
 class OperatorsSpec: QuickSpec {
     override func spec() {
-        var observable: Observable<Int>!
+        var currentValueSubscribable: CurrentValueSubscribable<Int>!
         var anySubscribable: AnySubscribable!
         
         var underlyingValue: Int!
@@ -37,8 +37,8 @@ class OperatorsSpec: QuickSpec {
         var bidirectionalBinding: BidirectionalBindableProperty<OperatorsSpec, Int>!
         
         beforeEach {
-            observable = Observable(11)
-            anySubscribable = observable
+            currentValueSubscribable = CurrentValueSubscribable(11)
+            anySubscribable = currentValueSubscribable
             
             underlyingValue = 0
             binding = BindableProperty<OperatorsSpec, Int>(self) { _, value in underlyingValue = value }
@@ -48,7 +48,7 @@ class OperatorsSpec: QuickSpec {
         describe("+=") {
             it("should be used for subscribing to Subscribables") {
                 var receivedValue = 0
-                observable += { _, new in receivedValue = new }
+                currentValueSubscribable += { _, new in receivedValue = new }
                 expect(receivedValue) == 11
             }
             
@@ -61,80 +61,80 @@ class OperatorsSpec: QuickSpec {
         
         describe("<--") {
             it("should support binding Bindings to Subscribables") {
-                binding <-- observable
+                binding <-- currentValueSubscribable
                 expect(underlyingValue) == 11
             }
             
             it("should support binding Bindings to blocks (anonymous Computed)") {
-                binding <-- { observable.value }
+                binding <-- { currentValueSubscribable.value }
                 expect(underlyingValue) == 11
             }
             
-            it("should supprt binding BidirectionalBindings to Observables") {
-                bidirectionalBinding <-- observable
+            it("should supprt binding BidirectionalBindings to CurrentValueSubscribables") {
+                bidirectionalBinding <-- currentValueSubscribable
                 expect(underlyingValue) == 11
             }
             
             it("should support binding BidirectionalBindings to blocks (anonymous Computed)") {
-                bidirectionalBinding <-- { observable.value }
+                bidirectionalBinding <-- { currentValueSubscribable.value }
                 expect(underlyingValue) == 11
             }
             
-            it("should NOT setup a two-way binding between BidirectionalBindings and Observables") {
-                bidirectionalBinding <-- observable
+            it("should NOT setup a two-way binding between BidirectionalBindings and CurrentValueSubscribables") {
+                bidirectionalBinding <-- currentValueSubscribable
                 expect(underlyingValue) == 11
                 
                 underlyingValue = 5
-                bidirectionalBinding.pushChangeToObservable()
+                bidirectionalBinding.pushChangeToCurrentValueSubscribable()
                 
                 // since its a one way binding, should still be 11
-                expect(observable.value) == 11
+                expect(currentValueSubscribable.value) == 11
             }
         }
         
         describe("-->") {
             it("should support binding Bindings to Subscribables") {
-                observable --> binding
+                currentValueSubscribable --> binding
                 expect(underlyingValue) == 11
             }
             
             it("should support binding Bindings to blocks (anonymous Computed)") {
-                { observable.value } --> binding
+                { currentValueSubscribable.value } --> binding
                 expect(underlyingValue) == 11
             }
             
-            it("should supprt binding BidirectionalBindings to Observables") {
-                observable --> bidirectionalBinding
+            it("should supprt binding BidirectionalBindings to CurrentValueSubscribables") {
+                currentValueSubscribable --> bidirectionalBinding
                 expect(underlyingValue) == 11
             }
             
             it("should support binding BidirectionalBindings to blocks (anonymous Computed)") {
-                { observable.value } --> bidirectionalBinding
+                { currentValueSubscribable.value } --> bidirectionalBinding
                 expect(underlyingValue) == 11
             }
             
-            it("should NOT setup a two-way binding between BidirectionalBindings and Observables") {
-                observable --> bidirectionalBinding
+            it("should NOT setup a two-way binding between BidirectionalBindings and CurrentValueSubscribables") {
+                currentValueSubscribable --> bidirectionalBinding
                 expect(underlyingValue) == 11
                 
                 underlyingValue = 5
-                bidirectionalBinding.pushChangeToObservable()
+                bidirectionalBinding.pushChangeToCurrentValueSubscribable()
                 
                 // since its a one way binding, should still be 11
-                expect(observable.value) == 11
+                expect(currentValueSubscribable.value) == 11
             }
         }
         
         describe("<->") {
-            it("should support two-way binding between BidirectionalBindings and Observables") {
-                bidirectionalBinding <-> observable
+            it("should support two-way binding between BidirectionalBindings and CurrentValueSubscribables") {
+                bidirectionalBinding <-> currentValueSubscribable
                 expect(underlyingValue) == 11
                 
                 underlyingValue = 5
-                bidirectionalBinding.pushChangeToObservable()
+                bidirectionalBinding.pushChangeToCurrentValueSubscribable()
                 
                 // since its a one way binding, should still be 11
-                expect(observable.value) == 5
+                expect(currentValueSubscribable.value) == 5
             }
         }
     }

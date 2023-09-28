@@ -26,11 +26,11 @@ import Nimble
 @testable import Fisticuffs
 
 
-class ObservableArraySpec: QuickSpec {
+class CurrentValueSubscribableArraySpec: QuickSpec {
     override func spec() {
         
         it("should behave like an array") {
-            let array = Observable(["Hello", "World"])
+            let array = CurrentValueSubscribable(["Hello", "World"])
             expect(array.value.count) == 2
             expect(array.value[0]) == "Hello"
             expect(array.value[1]) == "World"
@@ -48,7 +48,7 @@ class ObservableArraySpec: QuickSpec {
         }
         
         it("should notify subscribers when its value changes") {
-            let array = Observable([1, 2, 3])
+            let array = CurrentValueSubscribable([1, 2, 3])
             
             var receivedValue = false
             
@@ -68,7 +68,7 @@ class ObservableArraySpec: QuickSpec {
         }
         
         it("should notify subscribers with the specifics of each change") {
-            let array = Observable([1, 2, 3])
+            let array = CurrentValueSubscribable([1, 2, 3])
             
             var receivedInitial = false
             var receivedInsert = false
@@ -115,7 +115,7 @@ class ObservableArraySpec: QuickSpec {
         }
         
         it("should notify subscribers when the underlying value is set") {
-            let array = Observable([1, 2, 3])
+            let array = CurrentValueSubscribable([1, 2, 3])
             
             var receivedSet = false
             
@@ -139,7 +139,7 @@ class ObservableArraySpec: QuickSpec {
         }
         
         it("should notify subscribers when elements are replaced via subscript") {
-            let array = Observable([1, 2, 3])
+            let array = CurrentValueSubscribable([1, 2, 3])
             
             var receivedReplace = false
             

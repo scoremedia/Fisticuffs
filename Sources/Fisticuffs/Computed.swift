@@ -32,7 +32,7 @@ open class Computed<Value>: Subscribable<Value> {
                 updateValue()
             }
 
-            DependencyTracker.didReadObservable(self)
+            DependencyTracker.didReadSubscribable(self)
             return storage
         }
         set(newValue) {

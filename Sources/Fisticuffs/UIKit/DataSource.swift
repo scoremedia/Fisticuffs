@@ -43,7 +43,7 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     
     // Underlying data
     fileprivate let subscribable: Subscribable<[Item]>
-    fileprivate let observable: Observable<[Item]>?
+    fileprivate let currentValueSubscribable: CurrentValueSubscribable<[Item]>?
     fileprivate var subscribableSubscription: Disposable?
     
     fileprivate var suppressChangeUpdates = false
@@ -56,7 +56,7 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     fileprivate var selectionSubscription: Disposable?
 
     /// All selected items
-    open var selections: Observable<[Item]>? {
+    open var selections: CurrentValueSubscribable<[Item]>? {
         didSet {
             selectionsSubscription?.dispose()
             selectionsSubscription = selections?.subscribe { [weak self] _, newValue in
@@ -83,7 +83,7 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
 
     /// The selected item.  If multiple items are allowed/selected, it is undefined which one
     /// will show up in here.  Setting it will clear out `selections`
-    open var selection: Observable<Item?>? {
+    open var selection: CurrentValueSubscribable<Item?>? {
         didSet {
             selectionSubscription?.dispose()
             selectionSubscription = selection?.subscribe { [weak self] _, newValue in
@@ -126,12 +126,12 @@ open class DataSource<Item: Equatable, View: DataSourceView> : NSObject {
     public let onSelect = Event<Item>()
     public let onDeselect = Event<Item>()
     
-    open var editable: Bool { return observable != nil }
+    open var editable: Bool { return currentValueSubscribable != nil }
     
     public init(subscribable: Subscribable<[Item]>, view: View) {
         self.view = view
         self.subscribable = subscribable
-        self.observable = subscribable as? Observable<[Item]>
+        self.currentValueSubscribable = subscribable as? CurrentValueSubscribable<[Item]>
         super.init()
         subscribableSubscription = subscribable.subscribe { [weak self] old, new in
             self?.underlyingDataChanged(new)
@@ -348,17 +348,17 @@ extension DataSource {
 
 extension DataSource {
     
-    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, block: (_ data: Observable<[Item]>) -> Void) {
+    func modifyUnderlyingData(suppressChangeUpdates suppress: Bool, block: (_ data: CurrentValueSubscribable<[Item]>) -> Void) {
         suppressChangeUpdates = suppress
         defer { suppressChangeUpdates = false }
         
         assert(editable, "Underlying data must be editable")
-        guard let observable = observable else {
-            assertionFailure("Must have an observable to modify")
+        guard let currentValueSubscribable = currentValueSubscribable else {
+            assertionFailure("Must have a currentValueSubscribable to modify")
             return
         }
         
-        block(observable)
+        block(currentValueSubscribable)
     }
     
     public func move(source: IndexPath, destination: IndexPath) {

@@ -34,7 +34,7 @@ class DisposableBagSpec: QuickSpec {
             // should remain false if DisposableBag disposes of the subscription below
             var receivedValue = false
             
-            let observable = Observable("test")
+            let currentValueSubscribable = CurrentValueSubscribable("test")
             
             autoreleasepool {
                 let bag = DisposableBag()
@@ -42,7 +42,7 @@ class DisposableBagSpec: QuickSpec {
                 var options = SubscriptionOptions()
                 options.notifyOnSubscription = false
                 
-                observable.subscribe(options) {
+                currentValueSubscribable.subscribe(options) {
                     receivedValue = true
                 }
                 .addTo(bag)
@@ -51,7 +51,7 @@ class DisposableBagSpec: QuickSpec {
             // if DisposableBag worked, our subscription setting receivedValue=true should be gone
             // by now
             
-            observable.value = "test completed"
+            currentValueSubscribable.value = "test completed"
             
             expect(receivedValue) == false
         }

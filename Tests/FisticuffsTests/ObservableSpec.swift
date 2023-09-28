@@ -26,59 +26,59 @@ import Nimble
 @testable import Fisticuffs
 
 
-class ObservableSpec: QuickSpec {
+class CurrentValueSubscribableSpec: QuickSpec {
     override func spec() {
         
         it("should store values") {
-            let observable = Observable("test")
-            expect(observable.value) == "test"
+            let currentValueSubscribable = CurrentValueSubscribable("test")
+            expect(currentValueSubscribable.value) == "test"
             
-            observable.value = "test 2"
-            expect(observable.value) == "test 2"
+            currentValueSubscribable.value = "test 2"
+            expect(currentValueSubscribable.value) == "test 2"
         }
 
         it("should initialize with wrapped value") {
-            let observable = Observable(wrappedValue: "test")
-            expect(observable.value) == "test"
+            let currentValueSubscribable = CurrentValueSubscribable(wrappedValue: "test")
+            expect(currentValueSubscribable.value) == "test"
 
-            observable.value = "test 2"
-            expect(observable.value) == "test 2"
+            currentValueSubscribable.value = "test 2"
+            expect(currentValueSubscribable.value) == "test 2"
         }
         
         it("should notify observers when its value changes") {
-            let observable = Observable(5)
+            let currentValueSubscribable = CurrentValueSubscribable(5)
             var receivedValue = 0
             
-            let disposable = observable.subscribe { _, newValue in receivedValue = newValue }
+            let disposable = currentValueSubscribable.subscribe { _, newValue in receivedValue = newValue }
             defer {
                 disposable.dispose()
             }
             
-            observable.value = 11
+            currentValueSubscribable.value = 11
             expect(receivedValue) == 11
         }
         
         it("should remove observers via the returned Disposable") {
-            let observable = Observable(true)
+            let currentValueSubscribable = CurrentValueSubscribable(true)
             var receivedValue = true
             
-            let disposable = observable.subscribe { _, newValue in receivedValue = newValue }
+            let disposable = currentValueSubscribable.subscribe { _, newValue in receivedValue = newValue }
             disposable.dispose()
             
-            observable.value = false
+            currentValueSubscribable.value = false
             
             // value won't have changed if the .dispose() call worked
             expect(receivedValue) == true
         }
         
         it("should obey the notifyOnSubscription option") {
-            let observable = Observable(11)
+            let currentValueSubscribable = CurrentValueSubscribable(11)
             
             do {
                 var receivedValue = false
                 
                 // default is notifyOnSubscription = true, so we should receive a value
-                observable.subscribe {
+                currentValueSubscribable.subscribe {
                     receivedValue = true
                 }.dispose()
                 
@@ -91,7 +91,7 @@ class ObservableSpec: QuickSpec {
                 var dontNotifyOnSubscription = SubscriptionOptions()
                 dontNotifyOnSubscription.notifyOnSubscription = false
                 
-                observable.subscribe(dontNotifyOnSubscription) {
+                currentValueSubscribable.subscribe(dontNotifyOnSubscription) {
                     receivedValue = true
                 }.dispose()
                 
@@ -106,15 +106,15 @@ class ObservableSpec: QuickSpec {
             
             var receivedBeforeChange = false
             
-            let observable = Observable(3.14)
+            let currentValueSubscribable = CurrentValueSubscribable(3.14)
             
-            let disposable = observable.subscribe(options) { _, newValue in
-                if observable.value != newValue {
+            let disposable = currentValueSubscribable.subscribe(options) { _, newValue in
+                if currentValueSubscribable.value != newValue {
                     receivedBeforeChange = true
                 }
             }
             
-            observable.value = 11.0
+            currentValueSubscribable.value = 11.0
             disposable.dispose()
             
             expect(receivedBeforeChange) == true

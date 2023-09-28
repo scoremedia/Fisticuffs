@@ -54,7 +54,7 @@ open class BidirectionalBindableProperty<Control: AnyObject, ValueType> {
 extension BidirectionalBindableProperty {
     // Should be called when something results in the underlying value being changed
     // (ie., when a user types in a UITextField)
-    public func pushChangeToObservable() {
+    public func pushChangeToCurrentValueSubscribable() {
         uiChangeEvent.fire(())
     }
 }
@@ -62,23 +62,23 @@ extension BidirectionalBindableProperty {
 //MARK: - Binding
 public extension BidirectionalBindableProperty {
     //MARK: Two way binding
-    /// Bind property to observable
+    /// Bind property to currentValueSubscribable
     ///
     /// - Parameters:
-    ///   - observable: The `Observable`
+    ///   - currentValueSubscribable: The `CurrentValueSubscribable`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
-    func bind(_ observable: Observable<ValueType>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
-        bind(observable, DefaultBindingHandler())
+    func bind(_ currentValueSubscribable: CurrentValueSubscribable<ValueType>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
+        bind(currentValueSubscribable, DefaultBindingHandler())
     }
 
     /// Bind property to subscribable
     ///
     /// - Parameters:
-    ///   - observable: The `Observable`
+    ///   - currentValueSubscribable: The `CurrentValueSubscribable`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
     ///   - bindingHandler: The custom `BindingHandler`
     func bind<Data>(
-        _ observable: Observable<Data>,
+        _ currentValueSubscribable: CurrentValueSubscribable<Data>,
         receiveOn scheduler: Scheduler = MainThreadScheduler(),
         _ bindingHandler: BindingHandler<Control, Data, ValueType>
     ) {
@@ -89,11 +89,11 @@ public extension BidirectionalBindableProperty {
 
         let disposables = DisposableBag()
 
-        bindingHandler.setup(control, propertySetter: setter, subscribable: observable, receiveOn: scheduler)
+        bindingHandler.setup(control, propertySetter: setter, subscribable: currentValueSubscribable, receiveOn: scheduler)
         disposables.add(bindingHandler)
 
-        bindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak observable] _, data in
-            observable?.value = data
+        bindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak currentValueSubscribable] _, data in
+            currentValueSubscribable?.value = data
         }.addTo(disposables)
 
         currentBinding = disposables
@@ -138,20 +138,20 @@ public extension BidirectionalBindableProperty where ValueType: OptionalType {
     /// Bind property to subscribable
     ///
     /// - Parameters:
-    ///   - observable: The `Observable`
+    ///   - currentValueSubscribable: The `CurrentValueSubscribable`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
-    func bind(_ observable: Observable<ValueType.Wrapped>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
-        bind(observable, receiveOn: scheduler, DefaultBindingHandler())
+    func bind(_ currentValueSubscribable: CurrentValueSubscribable<ValueType.Wrapped>, receiveOn scheduler: Scheduler = MainThreadScheduler()) {
+        bind(currentValueSubscribable, receiveOn: scheduler, DefaultBindingHandler())
     }
 
     /// Bind property to subscribable
     ///
     /// - Parameters:
-    ///   - observable: The `Observable`
+    ///   - currentValueSubscribable: The `CurrentValueSubscribable`
     ///   - receiveOn: The `Scheduler` for the call back. Defaults to `MainThreadScheduler`
     ///   - bindingHandler: The custom `BindingHandler`
     func bind<Data>(
-        _ observable: Observable<Data>,
+        _ currentValueSubscribable: CurrentValueSubscribable<Data>,
         receiveOn scheduler: Scheduler = MainThreadScheduler(),
         _ bindingHandler: BindingHandler<Control, Data, ValueType.Wrapped>
     ) {
@@ -163,11 +163,11 @@ public extension BidirectionalBindableProperty where ValueType: OptionalType {
         let disposables = DisposableBag()
 
         let outerBindingHandler = OptionalTypeBindingHandler<Control, Data, ValueType>(innerHandler: bindingHandler)
-        outerBindingHandler.setup(control, propertySetter: setter, subscribable: observable, receiveOn: scheduler)
+        outerBindingHandler.setup(control, propertySetter: setter, subscribable: currentValueSubscribable, receiveOn: scheduler)
         disposables.add(outerBindingHandler)
 
-        outerBindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak observable] _, data in
-            observable?.value = data
+        outerBindingHandler.setup(getter, changeEvent: uiChangeEvent).subscribe { [weak currentValueSubscribable] _, data in
+            currentValueSubscribable?.value = data
         }.addTo(disposables)
 
         currentBinding = disposables

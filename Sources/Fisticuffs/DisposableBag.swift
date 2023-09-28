@@ -50,7 +50,7 @@ public extension Disposable {
     
     // Convenience method to allow for patterns like:
     //
-    //  observable.subscribe { value in
+    //  currentValueSubscribable.subscribe { value in
     //      // ... do something here ...
     //  }
     //  .addTo(disposableBag)

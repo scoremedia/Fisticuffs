@@ -24,8 +24,8 @@ import Fisticuffs
 
 class ToDoItem: ViewModel {
     
-    let title = Observable("")
-    let completed = Observable(false)
+    let title = CurrentValueSubscribable("")
+    let completed = CurrentValueSubscribable(false)
     
 }
 

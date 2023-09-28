@@ -41,33 +41,33 @@ class BidirectionalBindingSpec: QuickSpec {
             }
             
             it("should call its setter when the observed value changes") {
-                let observable = Observable("")
-                binding.bind(observable)
+                let currentValueSubscribable = CurrentValueSubscribable("")
+                binding.bind(currentValueSubscribable)
                 
-                observable.value = "Test"
+                currentValueSubscribable.value = "Test"
                 expect(backingVariable) == "Test"
             }
             
             it("should immediately call its setter when bound to a new subscribable") {
-                let observable = Observable("Hello")
-                binding.bind(observable)
+                let currentValueSubscribable = CurrentValueSubscribable("Hello")
+                binding.bind(currentValueSubscribable)
                 
                 expect(backingVariable) == "Hello"
             }
             
-            it("should update the bound Observable when its value changes") {
-                let observable = Observable("")
-                binding.bind(observable)
+            it("should update the bound CurrentValueSubscribable when its value changes") {
+                let currentValueSubscribable = CurrentValueSubscribable("")
+                binding.bind(currentValueSubscribable)
                 
                 backingVariable = "Hello world"
-                binding.pushChangeToObservable()
+                binding.pushChangeToCurrentValueSubscribable()
                 
-                expect(observable.value) == "Hello world"
+                expect(currentValueSubscribable.value) == "Hello world"
             }
             
             it("should support one way binding to Computed") {
-                let observable = Observable(11)
-                let computed = Computed { "\(observable.value)" }
+                let currentValueSubscribable = CurrentValueSubscribable(11)
+                let computed = Computed { "\(currentValueSubscribable.value)" }
                 
                 binding.bind(computed)
                 expect(backingVariable) == "11"
@@ -90,20 +90,20 @@ class BidirectionalBindingSpec: QuickSpec {
             }
 
             it("should prevent value overwrites if a BindingHandler produces different values for its get & set") {
-                let observable = Observable(0)
-                binding.bind(observable, BindingHandlers.transform({ "\($0)" }, reverse: { (Int($0) ?? 0) * 2 }))
+                let currentValueSubscribable = CurrentValueSubscribable(0)
+                binding.bind(currentValueSubscribable, BindingHandlers.transform({ "\($0)" }, reverse: { (Int($0) ?? 0) * 2 }))
 
-                observable.value = 5
+                currentValueSubscribable.value = 5
 
-                expect(observable.value) == 5
+                expect(currentValueSubscribable.value) == 5
                 expect(backingVariable) == "5"
 
                 backingVariable = "20"
-                binding.pushChangeToObservable()
+                binding.pushChangeToCurrentValueSubscribable()
 
-                // Updating the observable (`pushChangeToObservable()`) shouldn't modify `backingVariable` (prevents potential infinite loops)
+                // Updating the currentValueSubscribable (`pushChangeToCurrentValueSubscribable()`) shouldn't modify `backingVariable` (prevents potential infinite loops)
                 expect(backingVariable) == "20"
-                expect(observable.value) == 40
+                expect(currentValueSubscribable.value) == 40
             }
         }
     }
@@ -125,14 +125,14 @@ class BidirectionalBindingDeprecatedSpec: QuickSpec {
             }
 
             it("should support one way binding with a transform") {
-                let observable = Observable(11)
-                binding.bind(observable, transform: { "\($0)" })
+                let currentValueSubscribable = CurrentValueSubscribable(11)
+                binding.bind(currentValueSubscribable, transform: { "\($0)" })
                 expect(backingVariable) == "11"
             }
             
             it("should support one way binding to a block") {
-                let observable = Observable(10)
-                binding.bind { "\(observable.value + 1)" }
+                let currentValueSubscribable = CurrentValueSubscribable(10)
+                binding.bind { "\(currentValueSubscribable.value + 1)" }
                 expect(backingVariable) == "11"
             }
         }

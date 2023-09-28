@@ -33,7 +33,7 @@ class DataManager {
     static let sharedManager = DataManager(filePath: defaultPath)
     
     
-    let toDoItems = Observable<[ToDoItem]>([])
+    let toDoItems = CurrentValueSubscribable<[ToDoItem]>([])
     
     var serializedRepresentation: Computed<NSArray>? = nil
     

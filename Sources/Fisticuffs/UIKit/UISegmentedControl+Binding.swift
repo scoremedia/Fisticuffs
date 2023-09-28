@@ -32,7 +32,7 @@ public enum SegmentDisplay {
 
 public extension UISegmentedControl {
     
-    func b_configure<Item: Equatable>(_ items: Subscribable<[Item]>, selection: Observable<Item>, display: @escaping (Item) -> SegmentDisplay) {
+    func b_configure<Item: Equatable>(_ items: Subscribable<[Item]>, selection: CurrentValueSubscribable<Item>, display: @escaping (Item) -> SegmentDisplay) {
         let manager = SegmentControlManager<Item>(control: self, items: items, display: display, selection: selection)
         setAssociatedObjectProperty(self, &manager_key, value: manager as AnyObject)
     }
@@ -43,11 +43,11 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
     let items: Subscribable<[Item]>
     var itemValues: [Item] = []
     let display: (Item) -> SegmentDisplay
-    let selection: Observable<Item>
+    let selection: CurrentValueSubscribable<Item>
     
     let disposableBag = DisposableBag()
     
-    init(control: UISegmentedControl, items: Subscribable<[Item]>, display: @escaping (Item) -> SegmentDisplay, selection: Observable<Item>) {
+    init(control: UISegmentedControl, items: Subscribable<[Item]>, display: @escaping (Item) -> SegmentDisplay, selection: CurrentValueSubscribable<Item>) {
         self.control = control
         self.items = items
         self.display = display

@@ -28,8 +28,8 @@ class LoginViewController: UIViewController {
   @IBOutlet var passwordField: UITextField!
   @IBOutlet var loginButton: UIButton!
   
-  let username = Observable("")
-  let password = Observable("")
+  let username = CurrentValueSubscribable("")
+  let password = CurrentValueSubscribable("")
   
   lazy var inputIsValid: Computed<Bool> = Computed { [weak self] in
     let user = self?.username.value
@@ -57,27 +57,27 @@ class LoginViewController: UIViewController {
 
 ## Core Concepts
 
-### Observable
+### CurrentValueSubscribable
 
-The `Observable` class is one of the basic building blocks of Fisticuffs.  It stores a value and notifies any subscribers when it changes:
+The `CurrentValueSubscribable` class is one of the basic building blocks of Fisticuffs.  It stores a value and notifies any subscribers when it changes:
 
 ```swift
-let observable = Observable<String>("")
+let currentValueSubscribable = CurrentValueSubscribable<String>("")
 
-observable.subscribe { oldValue, newValue in
+currentValueSubscribable.subscribe { oldValue, newValue in
   print(newValue)
 }
 
-observable.value = "Hello, world"
+currentValueSubscribable.value = "Hello, world"
 // prints "Hello, world"
 ```
 
 ### Computed
 
-`Computed` is the read-only sibling of `Observable`.  It uses a closure to compute its value.  Additionally, it automatically updates its value when any of its `Observable` (and `Computed`) dependencies change.  For example:
+`Computed` is the read-only sibling of `CurrentValueSubscribable`.  It uses a closure to compute its value.  Additionally, it automatically updates its value when any of its `CurrentValueSubscribable` (and `Computed`) dependencies change.  For example:
 
 ```swift
-let name = Observable<String>("")
+let name = CurrentValueSubscribable<String>("")
 let greeting: Computed<String> = Computed {
   return "Hello, " + name.value
 }
@@ -92,7 +92,7 @@ name.value = "world"
 
 ### Event
 
-Finally, the `Event` class provides support for broadcasting events to its subscribers.  It shares a similar interface to `Observable` & `Computed`:
+Finally, the `Event` class provides support for broadcasting events to its subscribers.  It shares a similar interface to `CurrentValueSubscribable` & `Computed`:
 
 ```swift
 let event = Event<String>()
@@ -107,7 +107,7 @@ event.fire("Hello, world")
 
 ### Subscribable
 
-As a side note, `Observable`, `Computed`, and `Event` all inherit from `Subscribable` to provide a common interface to subscribing to changes/events.
+As a side note, `CurrentValueSubscribable`, `Computed`, and `Event` all inherit from `Subscribable` to provide a common interface to subscribing to changes/events.
 
 ### BindingHandlers
 
@@ -139,11 +139,11 @@ UIKit                | Fisticuffs
 `UISwitch`.`on`      | `UISwitch`.`b_on`      
 *etc...*
 
-To bind a `Subscribable` (ie: `Observable`, `Computed`, etc...) to these, the `bind()` method can be used.
+To bind a `Subscribable` (ie: `CurrentValueSubscribable`, `Computed`, etc...) to these, the `bind()` method can be used.
 
 ```swift
 let messageLabel: UILabel = ...
-let message = Observable("")
+let message = CurrentValueSubscribable("")
 messageLabel.b_text.bind(message)
 ```
 
@@ -165,7 +165,7 @@ Fisticuffs provides support for easily binding data to UITableViews / UICollecti
 
 ```swift
 let tableView: UITableView = ...
-let days = Observable(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
+let days = CurrentValueSubscribable(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
 
 tableView.registerClass(UITableViewCell.self forCellReuseIdentifier: "Cell")
 tableView.b_configure(days) { config in

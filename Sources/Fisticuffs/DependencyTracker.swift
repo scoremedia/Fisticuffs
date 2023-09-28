@@ -36,7 +36,7 @@ public struct DependencyTracker {
         return Array(collection.dependencies)
     }
     
-    public static func didReadObservable(_ subscribable: AnySubscribable) {
+    public static func didReadSubscribable(_ subscribable: AnySubscribable) {
         let boxed = AnySubscribableBox(subscribable: subscribable)
         DependenciesCollectionStack.current.items.last?.dependencies.insert(boxed)
     }

@@ -30,16 +30,16 @@ class ComputedSpec: QuickSpec {
     override func spec() {
         describe("Computed") {
             it("should derive its value from the provided block") {
-                let a = Observable(11)
-                let b = Observable(42)
+                let a = CurrentValueSubscribable(11)
+                let b = CurrentValueSubscribable(42)
                 
                 let sum = Computed { a.value + b.value }
                 expect(sum.value) == 53
             }
             
             it("should update its value when any dependencies change") {
-                let a = Observable(11)
-                let b = Observable(42)
+                let a = CurrentValueSubscribable(11)
+                let b = CurrentValueSubscribable(42)
                 
                 let sum = Computed { a.value + b.value }
                 
@@ -47,9 +47,9 @@ class ComputedSpec: QuickSpec {
                 expect(sum.value) == 84
             }
             
-            it("should allow for Observable and Computed dependencies") {
-                let a = Observable(11)
-                let b = Observable(42)
+            it("should allow for CurrentValueSubscribable and Computed dependencies") {
+                let a = CurrentValueSubscribable(11)
+                let b = CurrentValueSubscribable(42)
                 
                 let sum = Computed { a.value + b.value }
                 let display = Computed { "Sum: \(sum.value)" }
@@ -62,8 +62,8 @@ class ComputedSpec: QuickSpec {
                 it("should coalesce updates") {
                     var numberOfTimesComputed = 0
 
-                    let a = Observable(11)
-                    let b = Observable(42)
+                    let a = CurrentValueSubscribable(11)
+                    let b = CurrentValueSubscribable(42)
 
                     let sum = Computed { a.value + b.value }
                     let display: Computed<String> = Computed {
@@ -80,14 +80,14 @@ class ComputedSpec: QuickSpec {
                 }
 
                 it("should immediately recompute if `.value` is accessed & it is dirty") {
-                    let a = Observable(5)
+                    let a = CurrentValueSubscribable(5)
                     let result = Computed { a.value }
                     a.value = 11
                     expect(result.value) == 11
                 }
 
                 it("should avoid sending multiple updates when recomputed early due to accessing `value`") {
-                    let a = Observable(5)
+                    let a = CurrentValueSubscribable(5)
                     let result = Computed { a.value }
 
                     var notificationCount = 0
@@ -104,7 +104,7 @@ class ComputedSpec: QuickSpec {
                 }
 
                 it("should not recurse infinitely if the value is accessed in the subscription block") {
-                    let a = Observable(5)
+                    let a = CurrentValueSubscribable(5)
                     let result = Computed { a.value }
                     _ = result.subscribe { [weak result] in
                         _ = result?.value // trigger "side effects" in getter
@@ -116,9 +116,9 @@ class ComputedSpec: QuickSpec {
             }
 
             it("should not collect dependencies for any Subscribables read in its subscriptions") {
-                let shouldNotDependOn = Observable(false)
+                let shouldNotDependOn = CurrentValueSubscribable(false)
 
-                let a = Observable(11)
+                let a = CurrentValueSubscribable(11)
 
                 let computed = Computed { a.value }
                 // attempt to introduce a (false) dependency on `shouldNotDependOn`

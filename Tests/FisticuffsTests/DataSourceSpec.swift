@@ -28,20 +28,20 @@ import Nimble
 
 class DataSourceSpec: QuickSpec {
     override func spec() {
-        var observable: Observable<[Int]>!
-        var selections: Observable<[Int]>!
-        var selection: Observable<Int?>!
-        var disabled: Observable<[Int]>!
+        var currentValueSubscribable: CurrentValueSubscribable<[Int]>!
+        var selections: CurrentValueSubscribable<[Int]>!
+        var selection: CurrentValueSubscribable<Int?>!
+        var disabled: CurrentValueSubscribable<[Int]>!
         var view: FauxDataSourceView!
         var dataSource: DataSource<Int, FauxDataSourceView>!
 
         beforeEach {
-            observable = Observable([1, 2, 3, 4, 5])
-            selections = Observable([])
-            selection = Observable(nil)
-            disabled = Observable([])
+            currentValueSubscribable = CurrentValueSubscribable([1, 2, 3, 4, 5])
+            selections = CurrentValueSubscribable([])
+            selection = CurrentValueSubscribable(nil)
+            disabled = CurrentValueSubscribable([])
             view = FauxDataSourceView()
-            dataSource = DataSource(subscribable: observable, view: view)
+            dataSource = DataSource(subscribable: currentValueSubscribable, view: view)
             dataSource.selections = selections
             dataSource.selection = selection
             dataSource.disableSelectionFor(disabled)
@@ -148,13 +148,13 @@ class DataSourceSpec: QuickSpec {
             it("should support moving items") {
                 dataSource.move(source: IndexPath(item: 2, section: 0), destination: IndexPath(item: 0, section: 0))
                 expect(dataSource.itemAtIndexPath(IndexPath(item: 0, section: 0))) == 3
-                expect(observable.value) == [3, 1, 2, 4, 5]
+                expect(currentValueSubscribable.value) == [3, 1, 2, 4, 5]
             }
             
             it("should support deleting items") {
                 dataSource.delete(indexPath: IndexPath(item: 0, section: 0))
                 expect(dataSource.itemAtIndexPath(IndexPath(item: 0, section: 0))) == 2
-                expect(observable.value) == [2, 3, 4, 5]
+                expect(currentValueSubscribable.value) == [2, 3, 4, 5]
             }
         }
     }

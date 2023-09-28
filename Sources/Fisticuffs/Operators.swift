@@ -75,12 +75,12 @@ public func --><Control: AnyObject, T>(lhs: @escaping () -> T, rhs: Bidirectiona
 //MARK: - Two way binding
 
 @available(*, deprecated, message: "Use BindableProperty.bind(...) instead")
-public func <-><Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: Observable<T>) {
+public func <-><Control: AnyObject, T>(lhs: BidirectionalBindableProperty<Control, T>, rhs: CurrentValueSubscribable<T>) {
     lhs.bind(rhs)
 }
 
 @available(*, deprecated, message: "Use BindableProperty.bind(...) instead")
-public func <-><Control: AnyObject, T>(lhs: Observable<T>, rhs: BidirectionalBindableProperty<Control, T>) {
+public func <-><Control: AnyObject, T>(lhs: CurrentValueSubscribable<T>, rhs: BidirectionalBindableProperty<Control, T>) {
     rhs.bind(lhs)
 }
 

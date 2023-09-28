@@ -33,10 +33,10 @@ class BindablePropertySpec: QuickSpec {
                 var backingVariable = ""
                 let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
                 
-                let observable = Observable("")
-                binding.bind(observable)
+                let currentValueSubscribable = CurrentValueSubscribable("")
+                binding.bind(currentValueSubscribable)
                 
-                observable.value = "Test"
+                currentValueSubscribable.value = "Test"
                 expect(backingVariable) == "Test"
             }
             
@@ -44,8 +44,8 @@ class BindablePropertySpec: QuickSpec {
                 var backingVariable = ""
                 let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
                 
-                let observable = Observable("Hello")
-                binding.bind(observable)
+                let currentValueSubscribable = CurrentValueSubscribable("Hello")
+                binding.bind(currentValueSubscribable)
                 
                 expect(backingVariable) == "Hello"
             }
@@ -57,13 +57,13 @@ class BindablePropertySpec: QuickSpec {
                     callingThreads.append(Thread.current)
                 }
 
-                let observable = Observable("")
-                binding.bind(observable)
+                let currentValueSubscribable = CurrentValueSubscribable("")
+                binding.bind(currentValueSubscribable)
 
                 let backgroundQueue = DispatchQueue(label: "background")
 
                 backgroundQueue.async {
-                    observable.value = "Test"
+                    currentValueSubscribable.value = "Test"
                 }
 
                 expect(callingThreads.count).toEventually(equal(2))
@@ -80,8 +80,8 @@ class BindablePropertyDeprecatedSpec: QuickSpec {
             var backingVariable = ""
             let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(self) { _, value in backingVariable = value }
             
-            let observable = Observable(11)
-            binding.bind(observable, transform: { intValue in "\(intValue)" })
+            let currentValueSubscribable = CurrentValueSubscribable(11)
+            binding.bind(currentValueSubscribable, transform: { intValue in "\(intValue)" })
             
             expect(backingVariable) == "11"
         }
@@ -90,7 +90,7 @@ class BindablePropertyDeprecatedSpec: QuickSpec {
             var backingVariable = ""
             let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(self) { _, value in backingVariable = value }
             
-            let name = Observable("")
+            let name = CurrentValueSubscribable("")
             binding.bind { "Hello, \(name.value)!" }
             name.value = "world"
 

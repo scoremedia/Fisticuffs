@@ -22,7 +22,7 @@
 
 
 // Protocol representing Optionals (and ImplicitlyUnwrappedOptionals) so that we can 
-// support concepts like binding a Observable<String> to a BindableProperty<String?>
+// support concepts like binding a CurrentValueSubscribable<String> to a BindableProperty<String?>
 
 struct OptionalIsNone: Error {}
 

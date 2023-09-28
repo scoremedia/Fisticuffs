@@ -30,26 +30,26 @@ class AnySubscribableSpec: QuickSpec {
     override func spec() {
         describe("AnySubscribableBox") {
             it("should use the identity of the boxed AnySubscribable for Equatable") {
-                let observable: Observable<String> = Observable("test")
+                let currentValueSubscribable: CurrentValueSubscribable<String> = CurrentValueSubscribable("test")
                 let computed: Computed<Int> = Computed { return 11 }
 
-                let observableBoxed1 = AnySubscribableBox(subscribable: observable)
-                let observableBoxed2 = AnySubscribableBox(subscribable: observable)
+                let currentValueSubscribableBoxed1 = AnySubscribableBox(subscribable: currentValueSubscribable)
+                let currentValueSubscribableBoxed2 = AnySubscribableBox(subscribable: currentValueSubscribable)
                 let computedBoxed1 = AnySubscribableBox(subscribable: computed)
                 let computedBoxed2 = AnySubscribableBox(subscribable: computed)
 
-                expect(observableBoxed1) == observableBoxed2
+                expect(currentValueSubscribableBoxed1) == currentValueSubscribableBoxed2
                 expect(computedBoxed1) == computedBoxed2
 
-                expect(observableBoxed1) != computedBoxed2
+                expect(currentValueSubscribableBoxed1) != computedBoxed2
             }
 
             it("should implement Hashable") {
-                let observable: Observable<String> = Observable("test")
-                let observableBoxed1 = AnySubscribableBox(subscribable: observable)
-                let observableBoxed2 = AnySubscribableBox(subscribable: observable)
+                let currentValueSubscribable: CurrentValueSubscribable<String> = CurrentValueSubscribable("test")
+                let currentValueSubscribableBoxed1 = AnySubscribableBox(subscribable: currentValueSubscribable)
+                let currentValueSubscribableBoxed2 = AnySubscribableBox(subscribable: currentValueSubscribable)
 
-                expect(observableBoxed1.hashValue) == observableBoxed2.hashValue
+                expect(currentValueSubscribableBoxed1.hashValue) == currentValueSubscribableBoxed2.hashValue
             }
         }
     }

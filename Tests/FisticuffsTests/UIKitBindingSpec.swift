@@ -31,7 +31,7 @@ class UIKitBindingSpec: QuickSpec {
         
         describe("UILabel") {
             it("should support binding it's text value") {
-                let name = Observable("")
+                let name = CurrentValueSubscribable("")
                 
                 let label = UILabel()
                 label.b_text.bind(name)
@@ -43,7 +43,7 @@ class UIKitBindingSpec: QuickSpec {
         
         describe("UIControl") {
             it("should support binding it's enabled value") {
-                let enabled = Observable(false)
+                let enabled = CurrentValueSubscribable(false)
                 
                 let control = UIControl()
                 control.b_enabled.bind(enabled)
@@ -82,7 +82,7 @@ class UIKitBindingSpec: QuickSpec {
                 
                 let initial = Date()
                 
-                let value = Observable(initial)
+                let value = CurrentValueSubscribable(initial)
                 let datePicker = UIDatePicker()
                 datePicker.b_date.bind(value)
                 
@@ -108,7 +108,7 @@ class UIKitBindingSpec: QuickSpec {
         describe("UITextField") {
             it("should support 2 way binding on its text value") {
                 
-                let value = Observable("Hello")
+                let value = CurrentValueSubscribable("Hello")
                 let textField = UITextField()
                 textField.b_text.bind(value)
                 
@@ -144,7 +144,7 @@ class UIKitBindingSpec: QuickSpec {
             }
             
             it("should support binding it's title") {
-                let title = Observable("Hello")
+                let title = CurrentValueSubscribable("Hello")
                 barButtonItem.b_title.bind(title)
                 expect(barButtonItem.title) == "Hello"
                 
@@ -155,7 +155,7 @@ class UIKitBindingSpec: QuickSpec {
         
         describe("UIPageControl") {
             it("should support binding numberOfPages") {
-                let numberOfPages = Observable(5)
+                let numberOfPages = CurrentValueSubscribable(5)
                 let pageControl = UIPageControl()
                 
                 pageControl.b_numberOfPages.bind(numberOfPages)
@@ -169,7 +169,7 @@ class UIKitBindingSpec: QuickSpec {
                 let pageControl = UIPageControl()
                 pageControl.numberOfPages = 11
                 
-                let currentPage = Observable(2)
+                let currentPage = CurrentValueSubscribable(2)
                 pageControl.b_currentPage.bind(currentPage)
                 
                 expect(pageControl.currentPage) == 2
@@ -189,7 +189,7 @@ class UIKitBindingSpec: QuickSpec {
         
         describe("UITableViewCell") {
             it("should support binding it's accessoryType value") {
-                let accessoryType = Observable(UITableViewCell.AccessoryType.none)
+                let accessoryType = CurrentValueSubscribable(UITableViewCell.AccessoryType.none)
                 
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.b_accessoryType.bind(accessoryType)
@@ -203,7 +203,7 @@ class UIKitBindingSpec: QuickSpec {
         describe("UISearchBar") {
             it("should support 2 way binding on its text value") {
                 
-                let value = Observable("Hello")
+                let value = CurrentValueSubscribable("Hello")
                 let searchBar = UISearchBar()
                 searchBar.b_text.bind(value)
                 
@@ -227,7 +227,7 @@ class UIKitBindingSpec: QuickSpec {
         describe("UISwitch") {
             it("should support 2 way binding on its 'on' value") {
                 
-                let on = Observable(false)
+                let on = CurrentValueSubscribable(false)
                 let toggle = UISwitch()
                 toggle.b_on.bind(on)
                 
@@ -251,7 +251,7 @@ class UIKitBindingSpec: QuickSpec {
         describe("UISlider") {
             it("should support 2 way binding on its 'value' value") {
                 
-                let value = Observable(Float(0.0))
+                let value = CurrentValueSubscribable(Float(0.0))
                 let slider = UISlider()
                 slider.minimumValue = 0.0
                 slider.maximumValue = 1.0
@@ -276,8 +276,8 @@ class UIKitBindingSpec: QuickSpec {
         }
         
         describe("UISegmentedControl") {
-            let items = Observable([1, 2, 3])
-            let selection = Observable(1)
+            let items = CurrentValueSubscribable([1, 2, 3])
+            let selection = CurrentValueSubscribable(1)
             
             let segmentedControl = UISegmentedControl()
             segmentedControl.b_configure(items, selection: selection, display: { segmentValue in
@@ -295,7 +295,7 @@ class UIKitBindingSpec: QuickSpec {
                 expect(segments) == ["1", "2", "3", "4"]
             }
             
-            it("should keep its selection in sync with the specified `selection` observable") {
+            it("should keep its selection in sync with the specified `selection` currentValueSubscribable") {
                 selection.value = 2
                 expect(segmentedControl.selectedSegmentIndex) == items.value.firstIndex(of: selection.value)
                 
@@ -309,7 +309,7 @@ class UIKitBindingSpec: QuickSpec {
 
         describe("UIAlertAction") {
             it("should support binding its enabled value") {
-                let enabled = Observable(false)
+                let enabled = CurrentValueSubscribable(false)
 
                 let action = UIAlertAction(title: "Test", style: .default, handler: nil)
                 action.b_enabled.bind(enabled)
@@ -322,7 +322,7 @@ class UIKitBindingSpec: QuickSpec {
 
         describe("UICollectionView") {
             it("should not crash when adding/deleting items before the collection view has appeared on screen") {
-                let items = Observable<[Int]>([1, 2, 3])
+                let items = CurrentValueSubscribable<[Int]>([1, 2, 3])
 
                 let reuseIdentifier = "Cell"
 
