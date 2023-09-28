@@ -30,7 +30,7 @@ class WritableComputedSpec: QuickSpec {
     override func spec() {
         describe("WritableComputed") {
             it("should call its setter when a value is set") {
-                let name = Observable("John")
+                let name = CurrentValueSubscribable("John")
                 let greeting = WritableComputed(
                     getter: { "Hello, " + name.value },
                     setter: { value in
@@ -51,8 +51,8 @@ class WritableComputedSpec: QuickSpec {
             }
 
             it("should derive its value from the provided block, regardless of what it is set to") {
-                let a = Observable(11)
-                let b = Observable(42)
+                let a = CurrentValueSubscribable(11)
+                let b = CurrentValueSubscribable(42)
                 
                 let sum = WritableComputed(
                     getter: { a.value + b.value },
@@ -64,8 +64,8 @@ class WritableComputedSpec: QuickSpec {
             }
             
             it("should update its value when any dependencies change") {
-                let a = Observable(11)
-                let b = Observable(42)
+                let a = CurrentValueSubscribable(11)
+                let b = CurrentValueSubscribable(42)
                 
                 let sum = WritableComputed(
                     getter: { a.value + b.value },
@@ -80,8 +80,8 @@ class WritableComputedSpec: QuickSpec {
                 it("should coalesce updates") {
                     var numberOfTimesComputed = 0
 
-                    let a = Observable(11)
-                    let b = Observable(42)
+                    let a = CurrentValueSubscribable(11)
+                    let b = CurrentValueSubscribable(42)
 
                     let sum: WritableComputed<Int> = WritableComputed(
                         getter: {
@@ -101,7 +101,7 @@ class WritableComputedSpec: QuickSpec {
                 }
 
                 it("should immediately recompute if `.value` is accessed & it is dirty") {
-                    let a = Observable(5)
+                    let a = CurrentValueSubscribable(5)
                     let result = WritableComputed(
                         getter: { a.value },
                         setter: { _ in }
@@ -112,7 +112,7 @@ class WritableComputedSpec: QuickSpec {
                 }
 
                 it("should avoid sending multiple updates when recomputed early due to accessing `value`") {
-                    let a = Observable(5)
+                    let a = CurrentValueSubscribable(5)
                     let result = WritableComputed(
                         getter: { a.value },
                         setter: { _ in }
@@ -132,7 +132,7 @@ class WritableComputedSpec: QuickSpec {
                 }
 
                 it("should not recurse infinitely if the value is accessed in the subscription block") {
-                    let a = Observable(5)
+                    let a = CurrentValueSubscribable(5)
                     let result = WritableComputed(
                         getter: { a.value },
                         setter: { _ in }
@@ -148,9 +148,9 @@ class WritableComputedSpec: QuickSpec {
             }
 
             it("should not collect dependencies for any Subscribables read in its subscriptions") {
-                let shouldNotDependOn = Observable(false)
+                let shouldNotDependOn = CurrentValueSubscribable(false)
 
-                let a = Observable(11)
+                let a = CurrentValueSubscribable(11)
 
                 let computed = WritableComputed(getter: { a.value }, setter: { _ in })
                 // attempt to introduce a (false) dependency on `shouldNotDependOn`

@@ -25,7 +25,7 @@
  - Adds Xcode 11 and swift 5.0 compatibility
 
 ## 0.0.9
- - Adds property wrapper support to `Observable` 
+ - Adds property wrapper support to `CurrentValueSubscribable` 
 
 ## 0.0.8
  - Adds Xcode 10 and Swift 4.2 compatibility

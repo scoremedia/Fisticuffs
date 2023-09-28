@@ -14,7 +14,7 @@ open class ComputedBindingHandler<Control: AnyObject, InDataValue, OutDataValue,
     let bindingHandler: BindingHandler<Control, OutDataValue, PropertyValue>
     let transform: (InDataValue) -> OutDataValue
 
-    let inValue: Observable<InDataValue?> = Observable(nil)
+    let inValue: CurrentValueSubscribable<InDataValue?> = CurrentValueSubscribable(nil)
     var computed: Computed<OutDataValue?>!
 
     var subscription: Disposable? = nil

@@ -29,9 +29,9 @@ import Nimble
 class DependencyTrackerSpec: QuickSpec {
     override func spec() {
         
-        it("should collect all Observable's accessed inside the passed in block") {
-            let hello = Observable("Hello")
-            let world = Observable("world")
+        it("should collect all CurrentValueSubscribable's accessed inside the passed in block") {
+            let hello = CurrentValueSubscribable("Hello")
+            let world = CurrentValueSubscribable("world")
             
             let dependencies = DependencyTracker.findDependencies {
                 let _ = "\(hello.value), \(world.value)"
@@ -42,8 +42,8 @@ class DependencyTrackerSpec: QuickSpec {
             expect(dependencies.contains(AnySubscribableBox(subscribable: world))) == true
         }
         
-        it("should not return duplicate usages of the same Observable") {
-            let test = Observable("test")
+        it("should not return duplicate usages of the same CurrentValueSubscribable") {
+            let test = CurrentValueSubscribable("test")
             
             let dependencies = DependencyTracker.findDependencies {
                 let _ = "\(test.value)ing"

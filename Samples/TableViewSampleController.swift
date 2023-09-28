@@ -24,9 +24,9 @@ import UIKit
 import Fisticuffs
 
 class TableViewSampleViewModel {
-    let items = Observable([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    let items = CurrentValueSubscribable([1, 2, 3, 4, 5, 6, 7, 8, 9])
     
-    let editing = Observable(false)
+    let editing = CurrentValueSubscribable(false)
     lazy var editingButtonTitle: Computed<String> = Computed { [editing = self.editing] in
         editing.value ? "Done" : "Edit"
     }

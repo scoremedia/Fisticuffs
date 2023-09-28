@@ -24,8 +24,8 @@ import UIKit
 import Fisticuffs
 
 class CollectionViewSampleViewModel {
-    let items = Observable(Array(1...100))
-    let selections = Observable<[Int]>([])
+    let items = CurrentValueSubscribable(Array(1...100))
+    let selections = CurrentValueSubscribable<[Int]>([])
     
     lazy var sum: Computed<Int> = Computed { [selections = self.selections] in
         selections.value.reduce(0) { total, value in total + value }

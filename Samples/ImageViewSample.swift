@@ -13,8 +13,8 @@ import Fisticuffs
 
 class ImageViewSampleViewModel {
 
-    let textInput: Observable<String> = Observable("http://placehold.it/350x150/ff0000/ffffff")
-    let imageUrl: Observable<URL?> = Observable(nil)
+    let textInput: CurrentValueSubscribable<String> = CurrentValueSubscribable("http://placehold.it/350x150/ff0000/ffffff")
+    let imageUrl: CurrentValueSubscribable<URL?> = CurrentValueSubscribable(nil)
 
     func loadImage() {
         imageUrl.value = URL(string: textInput.value)

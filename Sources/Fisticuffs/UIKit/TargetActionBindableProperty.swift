@@ -22,7 +22,7 @@ class TargetActionBindableProperty<Control: UIControl, ValueType>: Bidirectional
     }
 
     @objc func controlEventFired() {
-        self.pushChangeToObservable()
+        self.pushChangeToCurrentValueSubscribable()
     }
 
 }

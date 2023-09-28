@@ -27,83 +27,83 @@ class BindingHandlersSpec: QuickSpec {
 
         describe("TransformBindingHandler") {
             it("should support transforming values to the desired property type") {
-                let observable = Observable(0)
-                property.bind(observable, BindingHandlers.transform { input in "\(input)" })
-                observable.value = 11
+                let currentValueSubscribable = CurrentValueSubscribable(0)
+                property.bind(currentValueSubscribable, BindingHandlers.transform { input in "\(input)" })
+                currentValueSubscribable.value = 11
                 expect(backingVariable) == "11"
             }
 
             it("should support transforming the property type back to the data type") {
-                let observable = Observable(0)
-                property.bind(observable, BindingHandlers.transform({ input in "\(input)" }, reverse: { str in Int(str) ?? 0 }))
+                let currentValueSubscribable = CurrentValueSubscribable(0)
+                property.bind(currentValueSubscribable, BindingHandlers.transform({ input in "\(input)" }, reverse: { str in Int(str) ?? 0 }))
 
                 backingVariable = "42"
-                property.pushChangeToObservable()
+                property.pushChangeToCurrentValueSubscribable()
 
-                expect(observable.value) == 42
+                expect(currentValueSubscribable.value) == 42
             }
         }
 
         describe("ThrottleBindingHandler") {
-            it("should push changes to the observable after a delay") {
-                let observable = Observable("")
+            it("should push changes to the currentValueSubscribable after a delay") {
+                let currentValueSubscribable = CurrentValueSubscribable("")
 
-                property.bind(observable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
+                property.bind(currentValueSubscribable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
 
                 backingVariable = "1"
-                property.pushChangeToObservable()
+                property.pushChangeToCurrentValueSubscribable()
 
-                expect(observable.value) == ""
-                expect(observable.value).toEventually(equal("1"), timeout: .seconds(1))
+                expect(currentValueSubscribable.value) == ""
+                expect(currentValueSubscribable.value).toEventually(equal("1"), timeout: .seconds(1))
             }
 
-            it("should push the most recent value to the observable after a delay") {
-                let observable = Observable("")
+            it("should push the most recent value to the currentValueSubscribable after a delay") {
+                let currentValueSubscribable = CurrentValueSubscribable("")
 
-                property.bind(observable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
+                property.bind(currentValueSubscribable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
 
-                var numberOfTimesObservableIsNotified = 0
+                var numberOfTimesCurrentValueSubscribableIsNotified = 0
                 var publishedValues = [String]()
 
                 let options = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
 
-                _ = observable.subscribe(options) { _, newValue in
-                    numberOfTimesObservableIsNotified += 1
+                _ = currentValueSubscribable.subscribe(options) { _, newValue in
+                    numberOfTimesCurrentValueSubscribableIsNotified += 1
                     publishedValues.append(newValue)
                 }
 
                 for i in 1...10 {
                     backingVariable = "\(i)"
-                    property.pushChangeToObservable()
+                    property.pushChangeToCurrentValueSubscribable()
                 }
 
-                expect(numberOfTimesObservableIsNotified).toEventually(equal(1), timeout: .seconds(2))
+                expect(numberOfTimesCurrentValueSubscribableIsNotified).toEventually(equal(1), timeout: .seconds(2))
                 expect(publishedValues).toEventually(equal(["10"]), timeout: .seconds(2))
             }
 
-            it("should push a value to the observable exactly once") {
-                let observable = Observable("")
-                var numberOfTimesObservableIsNotified = 0
+            it("should push a value to the currentValueSubscribable exactly once") {
+                let currentValueSubscribable = CurrentValueSubscribable("")
+                var numberOfTimesCurrentValueSubscribableIsNotified = 0
 
                 let options = SubscriptionOptions(notifyOnSubscription: false, when: .afterChange)
 
-                _ = observable.subscribe(options) { _, newValue in
-                    numberOfTimesObservableIsNotified += 1
+                _ = currentValueSubscribable.subscribe(options) { _, newValue in
+                    numberOfTimesCurrentValueSubscribableIsNotified += 1
                 }
 
-                property.bind(observable, BindingHandlers.throttle(delayBy: .milliseconds(100)))
+                property.bind(currentValueSubscribable, BindingHandlers.throttle(delayBy: .milliseconds(100)))
                 backingVariable = "test"
-                property.pushChangeToObservable()
+                property.pushChangeToCurrentValueSubscribable()
 
                 waitUntil(timeout: .seconds(1)) { done in
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500), execute: done)
                 }
 
-                expect(numberOfTimesObservableIsNotified) == 1
+                expect(numberOfTimesCurrentValueSubscribableIsNotified) == 1
             }
 
             it("should transform the value") {
-                let observable: Observable<Int?> = Observable(nil)
+                let currentValueSubscribable: CurrentValueSubscribable<Int?> = CurrentValueSubscribable(nil)
                 let toIntBindingHandler: BindingHandler<BindingHandlersSpec, Int?, String> = BindingHandlers.transform(
                     { data in
                         if let data = data { return String(data) }
@@ -112,34 +112,34 @@ class BindingHandlersSpec: QuickSpec {
                     reverse: { Int($0) }
                 )
 
-                property.bind(observable, ThrottleBindingHandler(delayBy: .milliseconds(500), bindingHandler: toIntBindingHandler))
+                property.bind(currentValueSubscribable, ThrottleBindingHandler(delayBy: .milliseconds(500), bindingHandler: toIntBindingHandler))
 
                 backingVariable = "50"
-                property.pushChangeToObservable()
+                property.pushChangeToCurrentValueSubscribable()
 
-                expect(observable.value).toEventually(equal(Optional.some(50)), timeout: .seconds(1))
+                expect(currentValueSubscribable.value).toEventually(equal(Optional.some(50)), timeout: .seconds(1))
             }
 
-            it("should update control value immediately when observable value changes") {
-                let observable = Observable("")
+            it("should update control value immediately when currentValueSubscribable value changes") {
+                let currentValueSubscribable = CurrentValueSubscribable("")
 
-                property.bind(observable, BindingHandlers.throttle(delayBy: .seconds(1)))
-                observable.value = "test"
+                property.bind(currentValueSubscribable, BindingHandlers.throttle(delayBy: .seconds(1)))
+                currentValueSubscribable.value = "test"
 
-                expect(backingVariable) == observable.value
+                expect(backingVariable) == currentValueSubscribable.value
             }
 
             it("should support computed subscribable") {
-                let observable = Observable("")
+                let currentValueSubscribable = CurrentValueSubscribable("")
 
                 let computed: Computed<String> = Computed {
-                    observable.value.uppercased()
+                    currentValueSubscribable.value.uppercased()
                 }
 
-                property.bind(observable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
+                property.bind(currentValueSubscribable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
 
                 backingVariable = "hello"
-                property.pushChangeToObservable()
+                property.pushChangeToCurrentValueSubscribable()
 
                 expect(computed.value).toEventually(equal(backingVariable.uppercased()), timeout: .seconds(1))
             }
@@ -153,15 +153,15 @@ class BindingHandlersSpec: QuickSpec {
                     setter: { (_, value) in optionalBackingVariable = value}
                 )
 
-                let observable = Observable("")
+                let currentValueSubscribable = CurrentValueSubscribable("")
 
-                optionalProperty.bind(observable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
+                optionalProperty.bind(currentValueSubscribable, BindingHandlers.throttle(delayBy: .milliseconds(500)))
 
                 optionalBackingVariable = "test"
-                optionalProperty.pushChangeToObservable()
+                optionalProperty.pushChangeToCurrentValueSubscribable()
 
-                expect(observable.value) == ""
-                expect(observable.value).toEventually(equal(optionalBackingVariable), timeout: .seconds(1))
+                expect(currentValueSubscribable.value) == ""
+                expect(currentValueSubscribable.value).toEventually(equal(optionalBackingVariable), timeout: .seconds(1))
             }
         }
     }

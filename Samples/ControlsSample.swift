@@ -28,9 +28,9 @@ class ControlsViewModel {
     
     //MARK: Colors
     
-    let red = Observable<Float>(0.1)
-    let green = Observable<Float>(0.8)
-    let blue = Observable<Float>(0.5)
+    let red = CurrentValueSubscribable<Float>(0.1)
+    let green = CurrentValueSubscribable<Float>(0.8)
+    let blue = CurrentValueSubscribable<Float>(0.5)
     
     lazy var color: Computed<UIColor> = Computed { [red = self.red, green = self.green, blue = self.blue] in
         return UIColor(
@@ -43,8 +43,8 @@ class ControlsViewModel {
     
     //MARK: Visibility
     
-    let alpha = Observable<Float>(1.0)
-    let hidden = Observable<Bool>(false)
+    let alpha = CurrentValueSubscribable<Float>(1.0)
+    let hidden = CurrentValueSubscribable<Bool>(false)
     
 }
 

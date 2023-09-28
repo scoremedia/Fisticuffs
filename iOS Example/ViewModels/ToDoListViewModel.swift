@@ -27,7 +27,7 @@ class ToDoListViewModel {
     
     private let dataManager: DataManager
     
-    let items: Observable<[ToDoItem]>
+    let items: CurrentValueSubscribable<[ToDoItem]>
     
     //MARK: -
     let promptToAddNewItem = Event<Void>()
@@ -37,7 +37,7 @@ class ToDoListViewModel {
     }
     
     //MARK: -
-    let editing = Observable(false)
+    let editing = CurrentValueSubscribable(false)
     lazy var editButtonTitle: Computed<String> = Computed { [editing = self.editing] in
         editing.value ? "Done" : "Edit"
     }

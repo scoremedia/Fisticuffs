@@ -22,7 +22,7 @@
 
 import Foundation
 
-open class WritableComputed<Value>: Observable<Value> {
+open class WritableComputed<Value>: CurrentValueSubscribable<Value> {
     //MARK: -
     open override var value: Value {
         get {
@@ -30,7 +30,7 @@ open class WritableComputed<Value>: Observable<Value> {
                 updateValue()
             }
 
-            DependencyTracker.didReadObservable(self)
+            DependencyTracker.didReadSubscribable(self)
             return storage
         }
         set(newValue) {

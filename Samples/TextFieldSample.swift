@@ -25,10 +25,10 @@ import Fisticuffs
 
 class TextFieldSampleViewModel {
     
-    let firstName = Observable("")
-    let lastName = Observable("")
-    let email = Observable("")
-    let userName = Observable("")
+    let firstName = CurrentValueSubscribable("")
+    let lastName = CurrentValueSubscribable("")
+    let email = CurrentValueSubscribable("")
+    let userName = CurrentValueSubscribable("")
     
     // Input valid?  (nil signifies no input/indeterminate)
     

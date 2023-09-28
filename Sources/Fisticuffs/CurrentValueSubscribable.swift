@@ -23,7 +23,7 @@
 import Foundation
 
 @propertyWrapper
-open class Observable<Value> : Subscribable<Value> {
+open class CurrentValueSubscribable<Value> : Subscribable<Value> {
 
     // MARK: - Property Wrapper
 
@@ -32,7 +32,7 @@ open class Observable<Value> : Subscribable<Value> {
         set { value = newValue }
     }
 
-    open var projectedValue: Observable<Value> {
+    open var projectedValue: CurrentValueSubscribable<Value> {
         self
     }
 
@@ -40,7 +40,7 @@ open class Observable<Value> : Subscribable<Value> {
 
     open var value: Value {
         get {
-            DependencyTracker.didReadObservable(self)
+            DependencyTracker.didReadSubscribable(self)
             return storage
         }
         set(newValue) {

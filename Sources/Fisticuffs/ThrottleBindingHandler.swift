@@ -9,13 +9,13 @@
 import Foundation
 
 /**
- A binding handler that delays notifying the observable of changes in the
+ A binding handler that delays notifying the currentValueSubscribable of changes in the
  control it's bound to until a timeout expires. Once the timeout expires, this
- binding handler notifies the observable. The value that's passed to the observable
+ binding handler notifies the currentValueSubscribable. The value that's passed to the currentValueSubscribable
  is the value the control has at the time of the notification.
  
  The delay is applied when a change in the value is propagated from the control to
- the observable only.
+ the currentValueSubscribable only.
  */
 open class ThrottleBindingHandler<Control: AnyObject, InDataValue, PropertyValue>: BindingHandler<Control, InDataValue, PropertyValue> {
 

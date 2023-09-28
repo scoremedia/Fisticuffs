@@ -29,19 +29,19 @@ import Nimble
 class MemoryManagementSpec: QuickSpec {
     override func spec() {
         
-        describe("Observable") {
+        describe("CurrentValueSubscribable") {
             it("should not be referenced strongly by its subscriptions") {
-                weak var weakObservable: Observable<String>?
+                weak var weakCurrentValueSubscribable: CurrentValueSubscribable<String>?
                 
                 autoreleasepool {
-                    let observable: Observable<String>? = Observable("test")
-                    weakObservable = observable
-                    _ = observable?.subscribe { }
+                    let currentValueSubscribable: CurrentValueSubscribable<String>? = CurrentValueSubscribable("test")
+                    weakCurrentValueSubscribable = currentValueSubscribable
+                    _ = currentValueSubscribable?.subscribe { }
                     
-                    // observable should dealloc here
+                    // currentValueSubscribable should dealloc here
                 }
                 
-                expect(weakObservable).to(beNil())
+                expect(weakCurrentValueSubscribable).to(beNil())
             }
         }
         
@@ -63,19 +63,19 @@ class MemoryManagementSpec: QuickSpec {
         
         describe("UIKit") {
             it("should dispose of any subscriptions on dealloc") {
-                weak var weakObservable: Observable<String>?
+                weak var weakCurrentValueSubscribable: CurrentValueSubscribable<String>?
                 
                 autoreleasepool {
-                    let observable = Observable("testing memory management")
-                    weakObservable = observable
+                    let currentValueSubscribable = CurrentValueSubscribable("testing memory management")
+                    weakCurrentValueSubscribable = currentValueSubscribable
                     
                     let textField = UITextField()
-                    textField.b_text.bind(observable)
+                    textField.b_text.bind(currentValueSubscribable)
                 }
                 
-                // if textField properly disposed of it's subscriptions, the object weakObservable
+                // if textField properly disposed of it's subscriptions, the object weakCurrentValueSubscribable
                 // is pointing at will have been dealloc'd
-                expect(weakObservable).to(beNil())
+                expect(weakCurrentValueSubscribable).to(beNil())
             }
             
             it("should release any actions on dealloc") {

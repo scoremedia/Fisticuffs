@@ -33,7 +33,7 @@ class DataManager {
     static let sharedManager = DataManager(filePath: defaultPath)
     
     
-    let toDoItems = Observable<[ToDoItem]>([])
+    let toDoItems = CurrentValueSubscribable<[ToDoItem]>([])
     
     var serializedRepresentation: Computed<NSArray>? = nil
     
@@ -100,11 +100,11 @@ extension DataManager {
     }
     
     static func modelsToPlist(toDos: [ToDoItem]) -> NSArray {
-        return toDos.map { toDo in
-            return [
+        toDos.map { toDo in
+            [
                 "title": toDo.title.value,
                 "completed": toDo.completed.value
-            ] as [String: AnyObject]
+            ] as [String : Any]
         } as NSArray
     }
 }
