@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,18 +59,15 @@
 		4F66383125C5C5FD00473132 /* Fisticuffs.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6637F525C5C5FD00473132 /* Fisticuffs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F66383225C5C5FD00473132 /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637F625C5C5FD00473132 /* OptionalType.swift */; };
 		4F66383325C5C5FD00473132 /* Fisticuffs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637F725C5C5FD00473132 /* Fisticuffs.swift */; };
-		4F66383425C5C5FD00473132 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637F825C5C5FD00473132 /* Observable.swift */; };
 		4F66383525C5C5FD00473132 /* DisposableBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637F925C5C5FD00473132 /* DisposableBlock.swift */; };
 		4F66383625C5C5FD00473132 /* DependencyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637FA25C5C5FD00473132 /* DependencyTracker.swift */; };
 		4F66383725C5C5FD00473132 /* OptionalTypeBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637FB25C5C5FD00473132 /* OptionalTypeBindingHandler.swift */; };
 		4F66383825C5C5FD00473132 /* BindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637FC25C5C5FD00473132 /* BindingHandler.swift */; };
 		4F66383925C5C5FD00473132 /* TransformBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637FD25C5C5FD00473132 /* TransformBindingHandler.swift */; };
 		4F66383B25C5C5FD00473132 /* ComputedBindingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6637FF25C5C5FD00473132 /* ComputedBindingHandler.swift */; };
-		4F66385225C5C66000473132 /* ObservableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384225C5C66000473132 /* ObservableSpec.swift */; };
 		4F66385325C5C66000473132 /* DisposableBagSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384325C5C66000473132 /* DisposableBagSpec.swift */; };
 		4F66385425C5C66000473132 /* MemoryManagementSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384425C5C66000473132 /* MemoryManagementSpec.swift */; };
 		4F66385525C5C66000473132 /* UIKitBindingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384525C5C66000473132 /* UIKitBindingSpec.swift */; };
-		4F66385625C5C66000473132 /* ObservableArraySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384625C5C66000473132 /* ObservableArraySpec.swift */; };
 		4F66385725C5C66000473132 /* WritableComputedSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384725C5C66000473132 /* WritableComputedSpec.swift */; };
 		4F66385825C5C66000473132 /* DependencyTrackerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384825C5C66000473132 /* DependencyTrackerSpec.swift */; };
 		4F66385925C5C66000473132 /* EventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66384925C5C66000473132 /* EventSpec.swift */; };
@@ -95,6 +92,9 @@
 		6A6B3BDB1BFE1D4A00B825DB /* CollectionViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */; };
 		6A6B3BF21BFE32F700B825DB /* ControlsSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */; };
 		6A6E14C41C751925003F4EC6 /* ImageViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */; };
+		A45F9F432AC5E80E00D9338D /* CurrentValueSubscribableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45F9F412AC5E80E00D9338D /* CurrentValueSubscribableSpec.swift */; };
+		A45F9F442AC5E80E00D9338D /* CurrentValueSubscribableArraySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45F9F422AC5E80E00D9338D /* CurrentValueSubscribableArraySpec.swift */; };
+		A45F9F462AC5E84300D9338D /* CurrentValueSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45F9F452AC5E84300D9338D /* CurrentValueSubscribable.swift */; };
 		C689E1AF2622606100B66BDD /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1AE2622606100B66BDD /* Scheduler.swift */; };
 		C689E1B32622609500B66BDD /* DispatchQueue+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1B22622609500B66BDD /* DispatchQueue+Scheduler.swift */; };
 		C689E1B7262260B300B66BDD /* OperationQueue+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */; };
@@ -196,7 +196,6 @@
 		4F6637F525C5C5FD00473132 /* Fisticuffs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fisticuffs.h; sourceTree = "<group>"; };
 		4F6637F625C5C5FD00473132 /* OptionalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalType.swift; sourceTree = "<group>"; };
 		4F6637F725C5C5FD00473132 /* Fisticuffs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fisticuffs.swift; sourceTree = "<group>"; };
-		4F6637F825C5C5FD00473132 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		4F6637F925C5C5FD00473132 /* DisposableBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisposableBlock.swift; sourceTree = "<group>"; };
 		4F6637FA25C5C5FD00473132 /* DependencyTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTracker.swift; sourceTree = "<group>"; };
 		4F6637FB25C5C5FD00473132 /* OptionalTypeBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalTypeBindingHandler.swift; sourceTree = "<group>"; };
@@ -204,11 +203,9 @@
 		4F6637FD25C5C5FD00473132 /* TransformBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformBindingHandler.swift; sourceTree = "<group>"; };
 		4F6637FE25C5C5FD00473132 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F6637FF25C5C5FD00473132 /* ComputedBindingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputedBindingHandler.swift; sourceTree = "<group>"; };
-		4F66384225C5C66000473132 /* ObservableSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableSpec.swift; sourceTree = "<group>"; };
 		4F66384325C5C66000473132 /* DisposableBagSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisposableBagSpec.swift; sourceTree = "<group>"; };
 		4F66384425C5C66000473132 /* MemoryManagementSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryManagementSpec.swift; sourceTree = "<group>"; };
 		4F66384525C5C66000473132 /* UIKitBindingSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitBindingSpec.swift; sourceTree = "<group>"; };
-		4F66384625C5C66000473132 /* ObservableArraySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableArraySpec.swift; sourceTree = "<group>"; };
 		4F66384725C5C66000473132 /* WritableComputedSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritableComputedSpec.swift; sourceTree = "<group>"; };
 		4F66384825C5C66000473132 /* DependencyTrackerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTrackerSpec.swift; sourceTree = "<group>"; };
 		4F66384925C5C66000473132 /* EventSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSpec.swift; sourceTree = "<group>"; };
@@ -233,6 +230,9 @@
 		6A6B3BDA1BFE1D4A00B825DB /* CollectionViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewSample.swift; sourceTree = "<group>"; };
 		6A6B3BF11BFE32F700B825DB /* ControlsSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsSample.swift; sourceTree = "<group>"; };
 		6A6E14C31C751925003F4EC6 /* ImageViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewSample.swift; sourceTree = "<group>"; };
+		A45F9F412AC5E80E00D9338D /* CurrentValueSubscribableSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentValueSubscribableSpec.swift; sourceTree = "<group>"; };
+		A45F9F422AC5E80E00D9338D /* CurrentValueSubscribableArraySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentValueSubscribableArraySpec.swift; sourceTree = "<group>"; };
+		A45F9F452AC5E84300D9338D /* CurrentValueSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentValueSubscribable.swift; sourceTree = "<group>"; };
 		C689E1AE2622606100B66BDD /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		C689E1B22622609500B66BDD /* DispatchQueue+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Scheduler.swift"; sourceTree = "<group>"; };
 		C689E1B6262260B300B66BDD /* OperationQueue+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+Scheduler.swift"; sourceTree = "<group>"; };
@@ -275,38 +275,38 @@
 		4F6637C025C5C5FD00473132 /* Fisticuffs */ = {
 			isa = PBXGroup;
 			children = (
-				4F6637C125C5C5FD00473132 /* SubscriptionCollection.swift */,
-				4F6637C225C5C5FD00473132 /* BidirectionalBindableProperty.swift */,
-				4F6637C325C5C5FD00473132 /* SubscriptionOptions.swift */,
-				C689E1C2262260CB00B66BDD /* Scheduler */,
-				4F6637C425C5C5FD00473132 /* Subscribable+Array.swift */,
-				4F6637C525C5C5FD00473132 /* DisposableBag.swift */,
-				4F6637C625C5C5FD00473132 /* BindingHandlers.swift */,
-				4F6637C725C5C5FD00473132 /* WritableComputed.swift */,
-				4F6637C825C5C5FD00473132 /* Event.swift */,
-				4F6637C925C5C5FD00473132 /* UIKit */,
 				4F6637E825C5C5FD00473132 /* AnySubscribable.swift */,
-				4F6637E925C5C5FD00473132 /* ThrottleBindingHandler.swift */,
+				4F6637C225C5C5FD00473132 /* BidirectionalBindableProperty.swift */,
 				4F6637EA25C5C5FD00473132 /* BindableProperty.swift */,
-				4F6637EB25C5C5FD00473132 /* ViewModel.swift */,
-				4F6637EC25C5C5FD00473132 /* Computed.swift */,
-				4F6637ED25C5C5FD00473132 /* Disposable.swift */,
-				4F6637EE25C5C5FD00473132 /* Operators.swift */,
-				4F6637EF25C5C5FD00473132 /* Subscribable.swift */,
-				4F6637F025C5C5FD00473132 /* ComposedBindingHandler.swift */,
-				4F6637F125C5C5FD00473132 /* DefaultBindingHandler.swift */,
-				4F6637F225C5C5FD00473132 /* Support */,
-				4F6637F525C5C5FD00473132 /* Fisticuffs.h */,
-				4F6637F625C5C5FD00473132 /* OptionalType.swift */,
-				4F6637F725C5C5FD00473132 /* Fisticuffs.swift */,
-				4F6637F825C5C5FD00473132 /* Observable.swift */,
-				4F6637F925C5C5FD00473132 /* DisposableBlock.swift */,
-				4F6637FA25C5C5FD00473132 /* DependencyTracker.swift */,
-				4F6637FB25C5C5FD00473132 /* OptionalTypeBindingHandler.swift */,
 				4F6637FC25C5C5FD00473132 /* BindingHandler.swift */,
-				4F6637FD25C5C5FD00473132 /* TransformBindingHandler.swift */,
-				4F6637FE25C5C5FD00473132 /* Info.plist */,
+				4F6637C625C5C5FD00473132 /* BindingHandlers.swift */,
+				4F6637F025C5C5FD00473132 /* ComposedBindingHandler.swift */,
+				4F6637EC25C5C5FD00473132 /* Computed.swift */,
 				4F6637FF25C5C5FD00473132 /* ComputedBindingHandler.swift */,
+				A45F9F452AC5E84300D9338D /* CurrentValueSubscribable.swift */,
+				4F6637F125C5C5FD00473132 /* DefaultBindingHandler.swift */,
+				4F6637FA25C5C5FD00473132 /* DependencyTracker.swift */,
+				4F6637ED25C5C5FD00473132 /* Disposable.swift */,
+				4F6637C525C5C5FD00473132 /* DisposableBag.swift */,
+				4F6637F925C5C5FD00473132 /* DisposableBlock.swift */,
+				4F6637C825C5C5FD00473132 /* Event.swift */,
+				4F6637F525C5C5FD00473132 /* Fisticuffs.h */,
+				4F6637F725C5C5FD00473132 /* Fisticuffs.swift */,
+				4F6637FE25C5C5FD00473132 /* Info.plist */,
+				4F6637EE25C5C5FD00473132 /* Operators.swift */,
+				4F6637F625C5C5FD00473132 /* OptionalType.swift */,
+				4F6637FB25C5C5FD00473132 /* OptionalTypeBindingHandler.swift */,
+				C689E1C2262260CB00B66BDD /* Scheduler */,
+				4F6637EF25C5C5FD00473132 /* Subscribable.swift */,
+				4F6637C425C5C5FD00473132 /* Subscribable+Array.swift */,
+				4F6637C125C5C5FD00473132 /* SubscriptionCollection.swift */,
+				4F6637C325C5C5FD00473132 /* SubscriptionOptions.swift */,
+				4F6637F225C5C5FD00473132 /* Support */,
+				4F6637E925C5C5FD00473132 /* ThrottleBindingHandler.swift */,
+				4F6637FD25C5C5FD00473132 /* TransformBindingHandler.swift */,
+				4F6637C925C5C5FD00473132 /* UIKit */,
+				4F6637EB25C5C5FD00473132 /* ViewModel.swift */,
+				4F6637C725C5C5FD00473132 /* WritableComputed.swift */,
 			);
 			path = Fisticuffs;
 			sourceTree = "<group>";
@@ -375,24 +375,24 @@
 		4F66384125C5C66000473132 /* FisticuffsTests */ = {
 			isa = PBXGroup;
 			children = (
-				4F66384225C5C66000473132 /* ObservableSpec.swift */,
-				4F66384325C5C66000473132 /* DisposableBagSpec.swift */,
-				4F66384425C5C66000473132 /* MemoryManagementSpec.swift */,
-				4F66384525C5C66000473132 /* UIKitBindingSpec.swift */,
-				4F66384625C5C66000473132 /* ObservableArraySpec.swift */,
-				4F66384725C5C66000473132 /* WritableComputedSpec.swift */,
-				4F66384825C5C66000473132 /* DependencyTrackerSpec.swift */,
-				4F66384925C5C66000473132 /* EventSpec.swift */,
-				4F66384A25C5C66000473132 /* DataSourceSpec.swift */,
-				4F66384B25C5C66000473132 /* BindingSpec.swift */,
-				4F66384C25C5C66000473132 /* BidirectionalBindingSpec.swift */,
-				4F66384D25C5C66000473132 /* OperatorsSpec.swift */,
-				4F66384E25C5C66000473132 /* BindingHandlersSpec.swift */,
 				4F66384F25C5C66000473132 /* AnySubscribableSpec.swift */,
-				4F66385025C5C66000473132 /* Info.plist */,
+				4F66384C25C5C66000473132 /* BidirectionalBindingSpec.swift */,
+				4F66384E25C5C66000473132 /* BindingHandlersSpec.swift */,
+				4F66384B25C5C66000473132 /* BindingSpec.swift */,
 				4F66385125C5C66000473132 /* ComputedSpec.swift */,
+				A45F9F422AC5E80E00D9338D /* CurrentValueSubscribableArraySpec.swift */,
+				A45F9F412AC5E80E00D9338D /* CurrentValueSubscribableSpec.swift */,
+				4F66384A25C5C66000473132 /* DataSourceSpec.swift */,
+				4F66384825C5C66000473132 /* DependencyTrackerSpec.swift */,
+				4F66384325C5C66000473132 /* DisposableBagSpec.swift */,
+				4F66384925C5C66000473132 /* EventSpec.swift */,
+				4F66385025C5C66000473132 /* Info.plist */,
+				4F66384425C5C66000473132 /* MemoryManagementSpec.swift */,
+				4F66384D25C5C66000473132 /* OperatorsSpec.swift */,
 				C6D3A4CD2624F0E00090790A /* SchedulersSpec.swift */,
 				C6D3A4D12624F5B60090790A /* SubscribableSpec.swift */,
+				4F66384525C5C66000473132 /* UIKitBindingSpec.swift */,
+				4F66384725C5C66000473132 /* WritableComputedSpec.swift */,
 			);
 			path = FisticuffsTests;
 			sourceTree = "<group>";
@@ -535,8 +535,9 @@
 		6A09EEE11BFB80E6005C2B81 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = theScore;
 				TargetAttributes = {
 					6A09EEE91BFB80E6005C2B81 = {
@@ -612,7 +613,6 @@
 			files = (
 				4F66383825C5C5FD00473132 /* BindingHandler.swift in Sources */,
 				C689E1BF262260C400B66BDD /* RunLoop+Scheduler.swift in Sources */,
-				4F66383425C5C5FD00473132 /* Observable.swift in Sources */,
 				4F66383625C5C5FD00473132 /* DependencyTracker.swift in Sources */,
 				4F66380725C5C5FD00473132 /* Event.swift in Sources */,
 				C689E1AF2622606100B66BDD /* Scheduler.swift in Sources */,
@@ -653,6 +653,7 @@
 				4F66381D25C5C5FD00473132 /* DataSource.swift in Sources */,
 				4F66380C25C5C5FD00473132 /* CollectionViewDataSource.swift in Sources */,
 				4F66380325C5C5FD00473132 /* Subscribable+Array.swift in Sources */,
+				A45F9F462AC5E84300D9338D /* CurrentValueSubscribable.swift in Sources */,
 				4F66382225C5C5FD00473132 /* UIControl+Binding.swift in Sources */,
 				4F66382925C5C5FD00473132 /* Computed.swift in Sources */,
 				4F66380D25C5C5FD00473132 /* UIImageView+Binding.swift in Sources */,
@@ -683,19 +684,19 @@
 			files = (
 				C6D3A4D22624F5B60090790A /* SubscribableSpec.swift in Sources */,
 				4F66385825C5C66000473132 /* DependencyTrackerSpec.swift in Sources */,
-				4F66385225C5C66000473132 /* ObservableSpec.swift in Sources */,
 				4F66385F25C5C66100473132 /* AnySubscribableSpec.swift in Sources */,
 				4F66385E25C5C66100473132 /* BindingHandlersSpec.swift in Sources */,
 				4F66385725C5C66000473132 /* WritableComputedSpec.swift in Sources */,
+				A45F9F442AC5E80E00D9338D /* CurrentValueSubscribableArraySpec.swift in Sources */,
 				4F66386125C5C66100473132 /* ComputedSpec.swift in Sources */,
 				4F66385A25C5C66000473132 /* DataSourceSpec.swift in Sources */,
 				4F66385D25C5C66100473132 /* OperatorsSpec.swift in Sources */,
 				4F66385B25C5C66100473132 /* BindingSpec.swift in Sources */,
 				4F66385525C5C66000473132 /* UIKitBindingSpec.swift in Sources */,
-				4F66385625C5C66000473132 /* ObservableArraySpec.swift in Sources */,
 				4F66385325C5C66000473132 /* DisposableBagSpec.swift in Sources */,
 				C6D3A4CE2624F0E00090790A /* SchedulersSpec.swift in Sources */,
 				4F66385425C5C66000473132 /* MemoryManagementSpec.swift in Sources */,
+				A45F9F432AC5E80E00D9338D /* CurrentValueSubscribableSpec.swift in Sources */,
 				4F66385925C5C66000473132 /* EventSpec.swift in Sources */,
 				4F66385C25C5C66100473132 /* BidirectionalBindingSpec.swift in Sources */,
 			);
@@ -776,6 +777,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -835,6 +837,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -869,20 +872,23 @@
 		6A09EEFF1BFB80E6005C2B81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = Sources/Fisticuffs/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu99 gnu++11";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -893,20 +899,23 @@
 		6A09EF001BFB80E6005C2B81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = Sources/Fisticuffs/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu99 gnu++11";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thescore.Fisticuffs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -957,7 +966,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Samples/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -975,7 +984,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Samples/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
