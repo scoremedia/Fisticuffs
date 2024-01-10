@@ -44,7 +44,7 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
     var itemValues: [Item] = []
     let display: (Item) -> SegmentDisplay
     let selection: CurrentValueSubscribable<Item>
-    
+    let actionID: UIAction.Identifier
     let disposableBag = DisposableBag()
     
     init(control: UISegmentedControl, items: Subscribable<[Item]>, display: @escaping (Item) -> SegmentDisplay, selection: CurrentValueSubscribable<Item>) {
@@ -52,6 +52,8 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
         self.items = items
         self.display = display
         self.selection = selection
+        let actionID = UIAction.Identifier(UUID().uuidString)
+        self.actionID = actionID
         super.init()
         
         items.subscribe { [weak self] _, value in
@@ -64,11 +66,14 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
         }
         .addTo(disposableBag)
         
-        control.addTarget(self, action: #selector(SegmentControlManager.userChangedSelection(_:)), for: .valueChanged)
+        control.addAction(.init(identifier: actionID, handler: { [weak self] _ in
+            guard let self else { return }
+            selection.value = itemValues[control.selectedSegmentIndex]
+        }), for: .valueChanged)
     }
-    
+
     deinit {
-        control?.removeTarget(self, action: #selector(SegmentControlManager.userChangedSelection(_:)), for: .valueChanged)
+        control?.removeAction(identifiedBy: actionID, for: .valueChanged)
     }
     
     func itemsChanged(_ newValue: [Item]) {
@@ -108,11 +113,4 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
             control.selectedSegmentIndex = UISegmentedControl.noSegment
         }
     }
-    
-    @IBAction func userChangedSelection(_ sender: AnyObject) {
-        guard let control = control else { return }
-        
-        selection.value = itemValues[control.selectedSegmentIndex]
-    }
-    
 }

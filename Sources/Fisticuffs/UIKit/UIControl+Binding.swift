@@ -41,15 +41,13 @@ public extension UIControl {
 
     var b_onTap: Fisticuffs.Event<Void> {
         associatedObjectProperty(self, &b_onTap_key) { _ in
-            self.addTarget(self, action: #selector(self.b_receivedOnTap(_:)), for: .touchUpInside)
+            addAction(.init(handler: { [weak self] _ in
+                guard let self else { return }
+                self.b_onTap.fire(())
+            }), for: .touchUpInside)
             return Fisticuffs.Event<Void>()
         }
     }
-
-    @objc fileprivate func b_receivedOnTap(_ sender: AnyObject) {
-        b_onTap.fire(())
-    }
-
 }
 
 public extension UIControl {
@@ -68,7 +66,11 @@ public extension UIControl {
             return trampoline.event
         } else {
             let trampoline = ControlEventTrampoline()
-            addTarget(trampoline, action: #selector(ControlEventTrampoline.receivedEvent(_:uiEvent:)), for: controlEvents)
+            addAction(.init(handler: { [weak self] _ in
+                guard let self else { return }
+                // cannot get `UIEvent` from a UIAction
+                trampoline.event.fire(nil)
+            }), for: controlEvents)
             trampolinesCollection.trampolines[controlEvents.rawValue] = trampoline
             return trampoline.event
         }
@@ -83,9 +85,5 @@ private class ControlEventTrampolineCollection: NSObject {
 
 private class ControlEventTrampoline: NSObject {
     let event = Event<UIEvent?>()
-
-    @objc func receivedEvent(_ sender: AnyObject?, uiEvent: UIEvent?) {
-        event.fire(uiEvent)
-    }
 }
 
