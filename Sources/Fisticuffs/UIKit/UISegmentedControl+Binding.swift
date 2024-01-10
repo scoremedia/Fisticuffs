@@ -68,7 +68,7 @@ private class SegmentControlManager<Item: Equatable> : NSObject {
         
         control.addAction(.init(identifier: actionID, handler: { [weak self] _ in
             guard let self else { return }
-            selection.value = itemValues[control.selectedSegmentIndex]
+            selection.value = self.itemValues[control.selectedSegmentIndex]
         }), for: .valueChanged)
     }
 

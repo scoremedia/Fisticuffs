@@ -66,8 +66,7 @@ public extension UIControl {
             return trampoline.event
         } else {
             let trampoline = ControlEventTrampoline()
-            addAction(.init(handler: { [weak self] _ in
-                guard let self else { return }
+            addAction(.init(handler: { _ in
                 // cannot get `UIEvent` from a UIAction
                 trampoline.event.fire(nil)
             }), for: controlEvents)
