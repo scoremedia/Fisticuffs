@@ -28,6 +28,10 @@ extension Subscribable: Equatable where Value: Hashable {
 
 extension Subscribable: Hashable where Value: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(currentValue)
+        // The hash does not include `currentValue` because for Subscribable
+        // values they will likely change during the lifecycle of an object
+        // and the hash value is not maintained constant. This can lead to unexpected
+        // behavior where a stable hash value is expected. e.g using the object as
+        // a key for a dictionary.
     }
 }
