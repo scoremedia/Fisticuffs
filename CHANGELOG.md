@@ -1,4 +1,9 @@
 
+# 0.1.2
+------
+
+- [#48](https://github.com/scoremedia/Fisticuffs/pull/48): Remove subscribable value from hash by [tahirmt](https://github.com/tahirmt)
+
 
 # 0.0.17
 ------
