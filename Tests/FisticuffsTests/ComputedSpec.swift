@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class ComputedSpec: QuickSpec {
+final class ComputedSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+        
         describe("Computed") {
             it("should derive its value from the provided block") {
                 let a = CurrentValueSubscribable(11)

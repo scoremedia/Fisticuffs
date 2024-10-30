@@ -25,8 +25,10 @@ import Quick
 import Nimble
 @testable import Fisticuffs
 
-class SchedulersSpec: QuickSpec {
+final class SchedulersSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+        
         @TestState var subject: SchedulersSpec!
 
         beforeEach {

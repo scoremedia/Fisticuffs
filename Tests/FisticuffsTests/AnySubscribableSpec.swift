@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class AnySubscribableSpec: QuickSpec {
+final class AnySubscribableSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+        
         describe("AnySubscribableBox") {
             it("should use the identity of the boxed AnySubscribable for Equatable") {
                 let currentValueSubscribable: CurrentValueSubscribable<String> = CurrentValueSubscribable("test")

@@ -26,9 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class CurrentValueSubscribableArraySpec: QuickSpec {
+final class CurrentValueSubscribableArraySpec: QuickSpec {
     override class func spec() {
-        
+        super.spec()
+
         it("should behave like an array") {
             let array = CurrentValueSubscribable(["Hello", "World"])
             expect(array.value.count) == 2

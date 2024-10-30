@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class BidirectionalBindingSpec: QuickSpec {
+final class BidirectionalBindingSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+
         describe("BidirectionalBindableProperty") {
             @TestState var subject: BidirectionalBindingSpec!
             var backingVariable = ""
@@ -112,8 +114,10 @@ class BidirectionalBindingSpec: QuickSpec {
 }
 
 @available(*, deprecated)
-class BidirectionalBindingDeprecatedSpec: QuickSpec {
+final class BidirectionalBindingDeprecatedSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+
         describe("BidirectionalBindableProperty") {
             @TestState var subject: BidirectionalBindingDeprecatedSpec!
             var backingVariable = ""

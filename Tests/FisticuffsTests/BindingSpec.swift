@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class BindablePropertySpec: QuickSpec {
+final class BindablePropertySpec: QuickSpec {
     override class func spec() {
+        super.spec()
+
         @TestState var subject: BindablePropertySpec!
 
         beforeEach {
@@ -80,8 +82,10 @@ class BindablePropertySpec: QuickSpec {
 }
 
 @available(*, deprecated)
-class BindablePropertyDeprecatedSpec: QuickSpec {
+final class BindablePropertyDeprecatedSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+        
         @TestState var subject: BindablePropertyDeprecatedSpec!
 
         beforeEach {

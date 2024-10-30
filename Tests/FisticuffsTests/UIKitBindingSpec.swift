@@ -26,9 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class UIKitBindingSpec: QuickSpec {
+final class UIKitBindingSpec: QuickSpec {
     override class func spec() {
-        
+        super.spec()
+
         describe("UILabel") {
             it("should support binding it's text value") {
                 let name = CurrentValueSubscribable("")

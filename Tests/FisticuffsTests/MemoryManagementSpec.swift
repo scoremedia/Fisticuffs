@@ -26,9 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class MemoryManagementSpec: QuickSpec {
+final class MemoryManagementSpec: QuickSpec {
     override class func spec() {
-        
+        super.spec()
+
         describe("CurrentValueSubscribable") {
             it("should not be referenced strongly by its subscriptions") {
                 weak var weakCurrentValueSubscribable: CurrentValueSubscribable<String>?

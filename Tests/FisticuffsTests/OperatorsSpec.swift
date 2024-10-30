@@ -27,8 +27,10 @@ import Nimble
 
 
 @available(*, deprecated) // bizarre way to silence "deprecated" warnings
-class OperatorsSpec: QuickSpec {
+final class OperatorsSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+        
         @TestState var subject: OperatorsSpec!
         var currentValueSubscribable: CurrentValueSubscribable<Int>!
         var anySubscribable: AnySubscribable!

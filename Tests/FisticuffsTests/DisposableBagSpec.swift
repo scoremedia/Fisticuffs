@@ -26,9 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class DisposableBagSpec: QuickSpec {
+final class DisposableBagSpec: QuickSpec {
     override class func spec() {
-        
+        super.spec()
+
         it("should dispose of its disposables on dealloc") {
             
             // should remain false if DisposableBag disposes of the subscription below

@@ -12,8 +12,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class BindingHandlersSpec: QuickSpec {
+final class BindingHandlersSpec: QuickSpec {
     override class func spec() {
+        super.spec()
+        
         @TestState var subject: BindingHandlersSpec!
         var backingVariable = ""
         var property: BidirectionalBindableProperty<BindingHandlersSpec, String>!

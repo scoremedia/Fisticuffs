@@ -26,9 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class DependencyTrackerSpec: QuickSpec {
+final class DependencyTrackerSpec: QuickSpec {
     override class func spec() {
-        
+        super.spec()
+
         it("should collect all CurrentValueSubscribable's accessed inside the passed in block") {
             let hello = CurrentValueSubscribable("Hello")
             let world = CurrentValueSubscribable("world")
