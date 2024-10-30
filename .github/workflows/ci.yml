@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Gems
         run: bundle install
@@ -40,7 +40,7 @@ jobs:
           fi
       
       - name: Upload Test XCResult
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: xcresult
           path: ./fastlane/test_output/xcresult.tar.gz
