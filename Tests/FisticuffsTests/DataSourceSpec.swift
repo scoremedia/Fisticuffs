@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class DataSourceSpec: QuickSpec {
-    override func spec() {
+final class DataSourceSpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+        
         var currentValueSubscribable: CurrentValueSubscribable<[Int]>!
         var selections: CurrentValueSubscribable<[Int]>!
         var selection: CurrentValueSubscribable<Int?>!

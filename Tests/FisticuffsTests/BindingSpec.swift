@@ -26,13 +26,21 @@ import Nimble
 @testable import Fisticuffs
 
 
-class BindablePropertySpec: QuickSpec {
-    override func spec() {
+final class BindablePropertySpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+
+        @TestState var subject: BindablePropertySpec!
+
+        beforeEach {
+            subject = BindablePropertySpec()
+        }
+
         describe("BindableProperty") {
             it("should call its setter when the observed value changes") {
                 var backingVariable = ""
-                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
-                
+                let binding = BindableProperty<BindablePropertySpec, String>(subject) { _, value in backingVariable = value }
+
                 let currentValueSubscribable = CurrentValueSubscribable("")
                 binding.bind(currentValueSubscribable)
                 
@@ -42,8 +50,8 @@ class BindablePropertySpec: QuickSpec {
             
             it("should immediately call its setter when bound to a new subscribable") {
                 var backingVariable = ""
-                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in backingVariable = value }
-                
+                let binding = BindableProperty<BindablePropertySpec, String>(subject) { _, value in backingVariable = value }
+
                 let currentValueSubscribable = CurrentValueSubscribable("Hello")
                 binding.bind(currentValueSubscribable)
                 
@@ -53,7 +61,7 @@ class BindablePropertySpec: QuickSpec {
             it("should call its setter on the main thread") {
                 var callingThreads = [Thread]()
 
-                let binding = BindableProperty<BindablePropertySpec, String>(self) { _, value in
+                let binding = BindableProperty<BindablePropertySpec, String>(subject) { _, value in
                     callingThreads.append(Thread.current)
                 }
 
@@ -74,12 +82,20 @@ class BindablePropertySpec: QuickSpec {
 }
 
 @available(*, deprecated)
-class BindablePropertyDeprecatedSpec: QuickSpec {
-    override func spec() {
+final class BindablePropertyDeprecatedSpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+        
+        @TestState var subject: BindablePropertyDeprecatedSpec!
+
+        beforeEach {
+            subject = BindablePropertyDeprecatedSpec()
+        }
+
         it("should support a custom value transform") {
             var backingVariable = ""
-            let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(self) { _, value in backingVariable = value }
-            
+            let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(subject) { _, value in backingVariable = value }
+
             let currentValueSubscribable = CurrentValueSubscribable(11)
             binding.bind(currentValueSubscribable, transform: { intValue in "\(intValue)" })
             
@@ -88,8 +104,8 @@ class BindablePropertyDeprecatedSpec: QuickSpec {
         
         it("should support binding to a block (\"anonymous Computed\")") {
             var backingVariable = ""
-            let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(self) { _, value in backingVariable = value }
-            
+            let binding = BindableProperty<BindablePropertyDeprecatedSpec, String>(subject) { _, value in backingVariable = value }
+
             let name = CurrentValueSubscribable("")
             binding.bind { "Hello, \(name.value)!" }
             name.value = "world"

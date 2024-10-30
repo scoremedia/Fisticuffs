@@ -26,9 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class CurrentValueSubscribableSpec: QuickSpec {
-    override func spec() {
-        
+final class CurrentValueSubscribableSpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+
         it("should store values") {
             let currentValueSubscribable = CurrentValueSubscribable("test")
             expect(currentValueSubscribable.value) == "test"

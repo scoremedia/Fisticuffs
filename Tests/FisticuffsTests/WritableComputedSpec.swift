@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class WritableComputedSpec: QuickSpec {
-    override func spec() {
+final class WritableComputedSpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+        
         describe("WritableComputed") {
             it("should call its setter when a value is set") {
                 let name = CurrentValueSubscribable("John")

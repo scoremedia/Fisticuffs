@@ -25,8 +25,10 @@ import Quick
 import Nimble
 @testable import Fisticuffs
 
-class SubscribableSpec: QuickSpec {
-    override func spec() {
+final class SubscribableSpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+        
         describe("Subscribable") {
             var subject: FauxSubscribable<Int>!
 

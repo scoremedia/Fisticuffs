@@ -26,8 +26,10 @@ import Nimble
 @testable import Fisticuffs
 
 
-class EventSpec: QuickSpec {
-    override func spec() {
+final class EventSpec: QuickSpec {
+    override class func spec() {
+        super.spec()
+        
         describe("Event") {
             it("should notify subscribers when fired") {
                 var receivedValue: Int? = nil
