@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   s.author           = { "Darren Clark" => "darren.clark@thescore.com" }
   s.source           = { :git => "https://github.com/scoremedia/Fisticuffs.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '14.0'
-  s.swift_version = '5.3'
+  s.platform     = :ios, '15.0'
+  s.swift_version = '5.9'
   s.requires_arc = true
 
   s.source_files = 'Sources/**/*.{m,swift}'

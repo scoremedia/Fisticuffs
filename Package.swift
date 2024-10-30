@@ -1,19 +1,19 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "Fisticuffs",
-    platforms: [.iOS(.v14)],
+    platforms: [.iOS(.v15)],
     products: [
         .library(
             name: "Fisticuffs",
             targets: ["Fisticuffs"]),
     ],
     dependencies: [
-        .package(name: "Quick", url: "https://github.com/Quick/Quick.git", from: Version(4, 0, 0)),
-        .package(name: "Nimble", url: "https://github.com/Quick/Nimble.git", from: Version(9, 2, 0)),
+        .package(url: "https://github.com/Quick/Quick.git", from: "7.3.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "13.0.0"),
     ],
     targets: [
         .target(
