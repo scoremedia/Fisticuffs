@@ -27,7 +27,7 @@ import Nimble
 
 
 class MemoryManagementSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         
         describe("CurrentValueSubscribable") {
             it("should not be referenced strongly by its subscriptions") {

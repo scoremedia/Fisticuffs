@@ -27,7 +27,7 @@ import Nimble
 
 
 class AnySubscribableSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("AnySubscribableBox") {
             it("should use the identity of the boxed AnySubscribable for Equatable") {
                 let currentValueSubscribable: CurrentValueSubscribable<String> = CurrentValueSubscribable("test")

@@ -27,7 +27,7 @@ import Nimble
 
 
 class CurrentValueSubscribableArraySpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         
         it("should behave like an array") {
             let array = CurrentValueSubscribable(["Hello", "World"])

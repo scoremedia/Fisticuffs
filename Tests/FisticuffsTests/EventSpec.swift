@@ -27,7 +27,7 @@ import Nimble
 
 
 class EventSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("Event") {
             it("should notify subscribers when fired") {
                 var receivedValue: Int? = nil

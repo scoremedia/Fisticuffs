@@ -26,94 +26,100 @@ import Nimble
 @testable import Fisticuffs
 
 class SchedulersSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
+        @TestState var subject: SchedulersSpec!
+
+        beforeEach {
+            subject = SchedulersSpec()
+        }
+
         describe("DispatchQueue Scheduler") {
             it("should perform action in the given queue") {
-                let expectation = self.expectation(description: "wait")
+                let expectation = subject.expectation(description: "wait")
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
-                let subject = DispatchQueue.main
+                let queue = DispatchQueue.main
 
                 backgroundThread.async {
-                    subject.schedule {
+                    queue.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
                 }
 
-                self.wait(for: [expectation], timeout: 5)
+                subject.wait(for: [expectation], timeout: 5)
             }
         }
 
         describe("RunLoop Scheduler") {
             it("should perform action") {
-                let expectation = self.expectation(description: "wait")
+                let expectation = subject.expectation(description: "wait")
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
-                let subject = RunLoop.main
+                let queue = RunLoop.main
 
                 backgroundThread.async {
-                    subject.schedule {
+                    queue.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
                 }
 
-                self.wait(for: [expectation], timeout: 5)
+                subject.wait(for: [expectation], timeout: 5)
             }
         }
 
         describe("OperationQueue Scheduler") {
             it("should perform action") {
-                let expectation = self.expectation(description: "wait")
+                let expectation = subject.expectation(description: "wait")
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
-                let subject = OperationQueue.main
+                let queue = OperationQueue.main
 
                 backgroundThread.async {
-                    subject.schedule {
+                    queue.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
                 }
 
-                self.wait(for: [expectation], timeout: 5)
+                subject.wait(for: [expectation], timeout: 5)
             }
         }
 
         describe("MainThreadScheduler") {
-            var subject: MainThreadScheduler!
+            var scheduler: MainThreadScheduler!
 
             beforeEach {
-                subject = MainThreadScheduler()
+                scheduler = MainThreadScheduler()
             }
 
             it("should perform action on main thread") {
-                let expectation = self.expectation(description: "wait")
+                let expectation = subject.expectation(description: "wait")
 
                 let backgroundThread = DispatchQueue(label: "background thread")
 
                 backgroundThread.async {
-                    subject.schedule {
+                    scheduler.schedule {
                         expect(Thread.isMainThread).to(beTrue())
                         expectation.fulfill()
                     }
                 }
 
-                self.wait(for: [expectation], timeout: 5)
+                subject.wait(for: [expectation], timeout: 5)
             }
 
             it("should perform action immediately if current thread is main") {
-                let expectation = self.expectation(description: "scheduler")
-                let expectation2 = self.expectation(description: "main")
+                let expectation = subject.expectation(description: "scheduler")
+                let expectation2 = subject.expectation(description: "main")
 
                 var numbers = [Int]()
 
                 DispatchQueue.main.async {
-                    subject.schedule {
+                    scheduler.schedule {
                         numbers.append(1)
                         expectation.fulfill()
                     }
@@ -122,8 +128,8 @@ class SchedulersSpec: QuickSpec {
                     expectation2.fulfill()
                 }
 
-                self.wait(for: [expectation, expectation2], timeout: 5)
-                
+                subject.wait(for: [expectation, expectation2], timeout: 5)
+
                 expect(numbers) == [1,2]
             }
         }

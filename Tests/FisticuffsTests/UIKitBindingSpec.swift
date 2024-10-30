@@ -27,7 +27,7 @@ import Nimble
 
 
 class UIKitBindingSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         
         describe("UILabel") {
             it("should support binding it's text value") {

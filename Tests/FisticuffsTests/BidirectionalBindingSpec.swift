@@ -27,14 +27,16 @@ import Nimble
 
 
 class BidirectionalBindingSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("BidirectionalBindableProperty") {
+            @TestState var subject: BidirectionalBindingSpec!
             var backingVariable = ""
             var binding: BidirectionalBindableProperty<BidirectionalBindingSpec, String>!
             
             beforeEach {
+                subject = BidirectionalBindingSpec()
                 binding = BidirectionalBindableProperty(
-                    control: self,
+                    control: subject,
                     getter: { _ in backingVariable },
                     setter: { _, value in backingVariable = value }
                 )
@@ -79,7 +81,7 @@ class BidirectionalBindingSpec: QuickSpec {
                 
                 autoreleasepool {
                     let _ = BidirectionalBindableProperty<BidirectionalBindingSpec, Void>(
-                        control: self,
+                        control: subject,
                         getter: { _ in },
                         setter: { _, _ in },
                         extraCleanup: DisposableBlock { disposed = true }
@@ -111,14 +113,16 @@ class BidirectionalBindingSpec: QuickSpec {
 
 @available(*, deprecated)
 class BidirectionalBindingDeprecatedSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("BidirectionalBindableProperty") {
+            @TestState var subject: BidirectionalBindingDeprecatedSpec!
             var backingVariable = ""
             var binding: BidirectionalBindableProperty<BidirectionalBindingDeprecatedSpec, String>!
 
             beforeEach {
+                subject = BidirectionalBindingDeprecatedSpec()
                 binding = BidirectionalBindableProperty(
-                    control: self,
+                    control: subject,
                     getter: { _ in backingVariable },
                     setter: { _, value in backingVariable = value }
                 )

@@ -27,7 +27,7 @@ import Nimble
 
 
 class ComputedSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("Computed") {
             it("should derive its value from the provided block") {
                 let a = CurrentValueSubscribable(11)

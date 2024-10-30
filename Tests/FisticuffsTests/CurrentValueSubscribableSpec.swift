@@ -27,7 +27,7 @@ import Nimble
 
 
 class CurrentValueSubscribableSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         
         it("should store values") {
             let currentValueSubscribable = CurrentValueSubscribable("test")

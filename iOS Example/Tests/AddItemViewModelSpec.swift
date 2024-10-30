@@ -28,7 +28,7 @@ import Fisticuffs
 
 class AddItemViewModelSpec: QuickSpec {
     
-    override func spec() {
+    override class func spec() {
         describe("AddItemViewModel") {
             var viewModel = AddItemViewModel()
             var finishedResult: AddItemResult?

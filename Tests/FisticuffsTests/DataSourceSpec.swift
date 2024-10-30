@@ -27,7 +27,7 @@ import Nimble
 
 
 class DataSourceSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         var currentValueSubscribable: CurrentValueSubscribable<[Int]>!
         var selections: CurrentValueSubscribable<[Int]>!
         var selection: CurrentValueSubscribable<Int?>!

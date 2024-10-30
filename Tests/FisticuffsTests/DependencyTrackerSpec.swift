@@ -27,7 +27,7 @@ import Nimble
 
 
 class DependencyTrackerSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         
         it("should collect all CurrentValueSubscribable's accessed inside the passed in block") {
             let hello = CurrentValueSubscribable("Hello")

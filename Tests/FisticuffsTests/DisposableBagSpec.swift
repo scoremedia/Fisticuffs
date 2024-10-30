@@ -27,7 +27,7 @@ import Nimble
 
 
 class DisposableBagSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         
         it("should dispose of its disposables on dealloc") {
             

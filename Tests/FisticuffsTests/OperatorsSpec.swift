@@ -28,7 +28,8 @@ import Nimble
 
 @available(*, deprecated) // bizarre way to silence "deprecated" warnings
 class OperatorsSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
+        @TestState var subject: OperatorsSpec!
         var currentValueSubscribable: CurrentValueSubscribable<Int>!
         var anySubscribable: AnySubscribable!
         
@@ -37,12 +38,13 @@ class OperatorsSpec: QuickSpec {
         var bidirectionalBinding: BidirectionalBindableProperty<OperatorsSpec, Int>!
         
         beforeEach {
+            subject = OperatorsSpec()
             currentValueSubscribable = CurrentValueSubscribable(11)
             anySubscribable = currentValueSubscribable
             
             underlyingValue = 0
-            binding = BindableProperty<OperatorsSpec, Int>(self) { _, value in underlyingValue = value }
-            bidirectionalBinding = BidirectionalBindableProperty<OperatorsSpec, Int>(control: self, getter: { _ in underlyingValue }, setter: { _, value in underlyingValue = value })
+            binding = BindableProperty<OperatorsSpec, Int>(subject) { _, value in underlyingValue = value }
+            bidirectionalBinding = BidirectionalBindableProperty<OperatorsSpec, Int>(control: subject, getter: { _ in underlyingValue }, setter: { _, value in underlyingValue = value })
         }
         
         describe("+=") {

@@ -27,7 +27,7 @@ import Nimble
 
 
 class WritableComputedSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("WritableComputed") {
             it("should call its setter when a value is set") {
                 let name = CurrentValueSubscribable("John")
