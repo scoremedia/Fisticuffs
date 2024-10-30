@@ -1,4 +1,9 @@
 
+# 0.2.0
+------
+
+- [#52](https://github.com/scoremedia/Fisticuffs/pull/52): IPFM-2791: Modernize podspec and Package with iOS 15 as base. by [kf-score](https://github.com/kf-score)
+
 # 0.1.2
 ------
 
