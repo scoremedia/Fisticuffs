@@ -1,7 +1,7 @@
 default_platform(:ios)
 
 before_all do
-  xcode_select("/Applications/Xcode-16.0.0.app/Contents/Developer")
+  xcode_select("/Applications/Xcode_16.app")
 end
 
 platform :ios do
