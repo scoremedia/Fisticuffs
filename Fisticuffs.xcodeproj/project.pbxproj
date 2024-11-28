@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -556,7 +556,6 @@
 				};
 			};
 			buildConfigurationList = 6A09EEE41BFB80E6005C2B81 /* Build configuration list for PBXProject "Fisticuffs" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -568,6 +567,7 @@
 				4F66386625C5C6A000473132 /* XCRemoteSwiftPackageReference "Quick" */,
 				4F66386B25C5C6BE00473132 /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 6A09EEEB1BFB80E6005C2B81 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -808,7 +808,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -861,7 +861,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
