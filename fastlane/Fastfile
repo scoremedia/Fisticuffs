@@ -1,5 +1,9 @@
 default_platform(:ios)
 
+before_all do
+  xcode_select("/Applications/Xcode_16.app")
+end
+
 platform :ios do
   desc "Runs tests"
   lane :tests do
