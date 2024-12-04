@@ -1,4 +1,10 @@
 
+# 0.3.0
+------
+
+- [#54](https://github.com/scoremedia/Fisticuffs/pull/54): IPFM-2913: Drop ios 15 support by [dailydmello](https://github.com/dailydmello)
+- [#51](https://github.com/scoremedia/Fisticuffs/pull/51): Bump rexml from 3.2.5 to 3.3.3 by [dependabot[bot]](https://github.com/apps/dependabot)
+
 # 0.2.0
 ------
 
